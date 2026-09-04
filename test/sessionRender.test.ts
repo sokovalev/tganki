@@ -127,16 +127,18 @@ describe("answer screen", () => {
     expect(screen.text).toContain("Она не хотела идти.");
   });
 
-  it("labels the four ratings with their FSRS intervals", () => {
-    const labels = buttons(renderCard(ru, answered).keyboard).map((b) => b.text);
-    expect(labels.slice(0, 4)).toEqual([
-      "Снова · <1м",
-      "Трудно · 5м",
-      "Хорошо · 10м",
-      "Легко · 4д",
-    ]);
-    const english = buttons(renderCard(en, answered).keyboard).map((b) => b.text);
-    expect(english.slice(0, 4)).toEqual(["Again · <1m", "Hard · 5m", "Good · 10m", "Easy · 4d"]);
+  it("keeps rating buttons short and puts the FSRS intervals into the text", () => {
+    const screen = renderCard(ru, answered);
+    const labels = buttons(screen.keyboard).map((b) => b.text);
+    expect(labels.slice(0, 4)).toEqual(["Снова", "Трудно", "Хорошо", "Легко"]);
+    expect(screen.text).toContain("Снова <1м · Трудно 5м · Хорошо 10м · Легко 4д");
+    const english = renderCard(en, answered);
+    expect(
+      buttons(english.keyboard)
+        .map((b) => b.text)
+        .slice(0, 4),
+    ).toEqual(["Again", "Hard", "Good", "Easy"]);
+    expect(english.text).toContain("Again <1m · Hard 5m · Good 10m · Easy 4d");
   });
 
   it("encodes position and rating in the callback data", () => {

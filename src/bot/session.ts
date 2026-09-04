@@ -70,21 +70,25 @@ export function renderCard(t: Translate, view: SessionView): Screen {
     return { text, keyboard };
   }
 
+  // Interval previews live in the text, not in the button labels: four
+  // buttons in one row get truncated on phones ("Again · …").
+  const previews = view.previews
+    ? RATINGS.map(
+        (rating) => `${ratingLabel(t, rating)} ${formatInterval(t, view.previews![rating])}`,
+      )
+    : [];
   const text = [
     ...header(t, view),
     SEPARATOR,
     ...questionLines(view),
     SEPARATOR,
     ...answerLines(view),
+    ...(previews.length > 0 ? ["", italic(esc(previews.join(" · ")))] : []),
   ].join("\n");
 
   const keyboard = new InlineKeyboard();
   for (const rating of RATINGS) {
-    const interval = view.previews?.[rating];
-    const label = interval
-      ? `${ratingLabel(t, rating)} · ${formatInterval(t, interval)}`
-      : ratingLabel(t, rating);
-    keyboard.text(label, cb(NS.rate, String(pos), rating));
+    keyboard.text(ratingLabel(t, rating), cb(NS.rate, String(pos), rating));
   }
   keyboard.row();
   if (view.canUndo) keyboard.text(t("btn-undo"), cb(NS.session, "undo"));
