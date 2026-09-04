@@ -257,15 +257,17 @@ UserDeck  — подписка пользователя на деку + личн
 
 ### 7.1. Стек (решение)
 
-- **Python 3.12 + aiogram 3** — лучшая экосистема для Telegram-ботов, middleware, FSM, webhook из коробки. Альтернатива на TypeScript — grammY + ts-fsrs, тоже отличная; выбираем Python из-за py-fsrs и fsrs-optimizer (он на Python).
-- **PostgreSQL** — все данные. **Redis** — состояние диалога (FSM), rate-limit, кэш очереди сессии.
-- **FSRS**: `fsrs` (py-fsrs).
-- **Планировщик** напоминаний: `arq` или `APScheduler` поверх Redis; крон каждую минуту — кому пора.
-- **LLM**: одна модель для генерации карточек, вызовы через один модуль с кэшем в Postgres (`generated_content`). Провайдер выносится в конфиг.
-- **TTS**: облачный TTS с нейроголосами, результат — OGG/Opus для голосовых сообщений.
-- **Mini App**: React + Vite, статика на том же домене; авторизация через проверку `initData` (HMAC от bot token).
-- **Деплой**: Railway (сервис + Postgres + Redis), webhook, один регион. Docker.
-- Миграции: Alembic. Тесты: pytest, алгоритм и очередь сессии покрываем в первую очередь.
+- **Node 22 + TypeScript (strict, ESM) + pnpm.**
+- **grammY** — самый зрелый TS-фреймворк для Telegram: типизированный Bot API, middleware, `@grammyjs/i18n` для локализации, webhook-адаптеры.
+- **ts-fsrs** — официальный TS-порт FSRS от open-spaced-repetition; персональная оптимизация весов (этап 3) — через отдельный Python-воркер с fsrs-optimizer, он на ядро не влияет.
+- **PostgreSQL + Drizzle ORM** (postgres.js, миграции drizzle-kit). Без Redis в MVP: состояние сессии и очередь напоминаний живут в Postgres, один процесс. Redis добавим, когда упрёмся.
+- **Hono** — HTTP-слой: webhook Telegram, healthcheck, позже статика и API Mini App.
+- **Планировщик** напоминаний: крон внутри процесса (раз в минуту выбирает пользователей, у кого наступило время), отправка через очередь с троттлингом.
+- **LLM** для генерации карточек — Anthropic Claude через официальный SDK, вызовы через один модуль с кэшем в Postgres (`generated_cache`). Провайдер выносится в конфиг.
+- **TTS**: облачный TTS с нейроголосами, результат — OGG/Opus для голосовых сообщений (этап 2).
+- **Mini App** (этап 2): React + Vite, статика на том же домене через Hono; авторизация через проверку `initData` (HMAC от bot token).
+- **Деплой**: Railway (сервис + Postgres), Dockerfile, webhook на публичный домен Railway. Миграции применяются на старте контейнера.
+- Тесты: vitest — алгоритм, очередь сессии и парсеры покрываем в первую очередь. Линт/формат: Biome.
 
 ### 7.2. Схема данных (первое приближение)
 
