@@ -1,0 +1,340 @@
+{
+  "slug": "ka-ru-alphabet",
+  "title": "Грузинский алфавит",
+  "description": "33 буквы мхедрули: названия, звуки и пример на каждую. Начни отсюда, если не читаешь по-грузински.",
+  "lang_from": "ka",
+  "lang_to": "ru",
+  "level": "A0",
+  "notes": [
+    {
+      "front": "ა",
+      "back": "ани — а",
+      "transcription": "ɑ",
+      "example": "არა",
+      "example_tr": "нет",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ბ",
+      "back": "бани — б",
+      "transcription": "b",
+      "example": "ბავშვი",
+      "example_tr": "ребёнок",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "გ",
+      "back": "гани — г",
+      "transcription": "ɡ",
+      "example": "გული",
+      "example_tr": "сердце",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "დ",
+      "back": "дони — д",
+      "transcription": "d",
+      "example": "დედა",
+      "example_tr": "мама",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ე",
+      "back": "эни — э",
+      "transcription": "ɛ",
+      "example": "ერთი",
+      "example_tr": "один",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ვ",
+      "back": "вини — в",
+      "transcription": "v",
+      "example": "ვაშლი",
+      "example_tr": "яблоко",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ზ",
+      "back": "зени — з",
+      "transcription": "z",
+      "example": "ზღვა",
+      "example_tr": "море",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "თ",
+      "back": "тани — т (с придыханием)",
+      "transcription": "tʰ",
+      "example": "თვალი",
+      "example_tr": "глаз",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ი",
+      "back": "ини — и",
+      "transcription": "i",
+      "example": "იქ",
+      "example_tr": "там",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "კ",
+      "back": "кʼани — к (абруптивная, без придыхания)",
+      "transcription": "kʼ",
+      "example": "კაცი",
+      "example_tr": "мужчина",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ლ",
+      "back": "ласи — л",
+      "transcription": "l",
+      "example": "ლამაზი",
+      "example_tr": "красивый",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "მ",
+      "back": "мани — м",
+      "transcription": "m",
+      "example": "მამა",
+      "example_tr": "папа",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ნ",
+      "back": "нари — н",
+      "transcription": "n",
+      "example": "ნახვამდის",
+      "example_tr": "до свидания",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ო",
+      "back": "они — о",
+      "transcription": "ɔ",
+      "example": "ორი",
+      "example_tr": "два",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "პ",
+      "back": "пʼари — п (абруптивная, без придыхания)",
+      "transcription": "pʼ",
+      "example": "პური",
+      "example_tr": "хлеб",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ჟ",
+      "back": "жани — ж",
+      "transcription": "ʒ",
+      "example": "ჟურნალი",
+      "example_tr": "журнал",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "რ",
+      "back": "рае — р",
+      "transcription": "r",
+      "example": "რა",
+      "example_tr": "что",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ს",
+      "back": "сани — с",
+      "transcription": "s",
+      "example": "სახლი",
+      "example_tr": "дом",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ტ",
+      "back": "тʼари — т (абруптивная, без придыхания)",
+      "transcription": "tʼ",
+      "example": "ტელეფონი",
+      "example_tr": "телефон",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "უ",
+      "back": "уни — у",
+      "transcription": "u",
+      "example": "უნდა",
+      "example_tr": "надо, нужно",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ფ",
+      "back": "пари — п (с придыханием)",
+      "transcription": "pʰ",
+      "example": "ფული",
+      "example_tr": "деньги",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ქ",
+      "back": "кани — к (с придыханием)",
+      "transcription": "kʰ",
+      "example": "ქალი",
+      "example_tr": "женщина",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ღ",
+      "back": "гхани — гортанное г (как украинское «г»)",
+      "transcription": "ɣ",
+      "example": "ღვინო",
+      "example_tr": "вино",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ყ",
+      "back": "кʼари — глубокое к из горла (абруптивная)",
+      "transcription": "qʼ",
+      "example": "ყავა",
+      "example_tr": "кофе",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "შ",
+      "back": "шини — ш",
+      "transcription": "ʃ",
+      "example": "შენ",
+      "example_tr": "ты",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ჩ",
+      "back": "чини — ч (с придыханием)",
+      "transcription": "t͡ʃʰ",
+      "example": "ჩაი",
+      "example_tr": "чай",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ც",
+      "back": "цани — ц (с придыханием)",
+      "transcription": "t͡sʰ",
+      "example": "ცა",
+      "example_tr": "небо",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ძ",
+      "back": "дзили — дз",
+      "transcription": "d͡z",
+      "example": "ძაღლი",
+      "example_tr": "собака",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "წ",
+      "back": "цʼили — ц (абруптивная, без придыхания)",
+      "transcription": "t͡sʼ",
+      "example": "წყალი",
+      "example_tr": "вода",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ჭ",
+      "back": "чʼари — ч (абруптивная, без придыхания)",
+      "transcription": "t͡ʃʼ",
+      "example": "ჭიქა",
+      "example_tr": "стакан",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ხ",
+      "back": "хани — х",
+      "transcription": "x",
+      "example": "ხელი",
+      "example_tr": "рука",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ჯ",
+      "back": "джани — дж",
+      "transcription": "d͡ʒ",
+      "example": "ჯერ",
+      "example_tr": "пока, ещё",
+      "tags": [
+        "letter"
+      ]
+    },
+    {
+      "front": "ჰ",
+      "back": "хае — х (лёгкое, с придыханием)",
+      "transcription": "h",
+      "example": "ჰაერი",
+      "example_tr": "воздух",
+      "tags": [
+        "letter"
+      ]
+    }
+  ]
+}
