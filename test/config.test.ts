@@ -27,6 +27,28 @@ describe("loadConfig", () => {
     expect(config.ANTHROPIC_API_KEY).toBeUndefined();
   });
 
+  it("defaults the new bot switches", () => {
+    const config = loadConfig(base);
+    expect(config.PRO_ENABLED).toBe(false);
+    expect(config.ADMIN_TG_IDS).toEqual([]);
+    expect(config.WEBHOOK_SECRET).toBeUndefined();
+  });
+
+  it("reads PRO_ENABLED as a loose boolean", () => {
+    for (const value of ["true", "TRUE", "1", "yes", "on"]) {
+      expect(loadConfig({ ...base, PRO_ENABLED: value }).PRO_ENABLED).toBe(true);
+    }
+    for (const value of ["false", "0", "no", "", "nonsense"]) {
+      expect(loadConfig({ ...base, PRO_ENABLED: value }).PRO_ENABLED).toBe(false);
+    }
+  });
+
+  it("parses the admin id list and drops blanks", () => {
+    expect(loadConfig({ ...base, ADMIN_TG_IDS: "123, 456 ,,abc," }).ADMIN_TG_IDS).toEqual([
+      123, 456,
+    ]);
+  });
+
   it("reports every missing or invalid variable", () => {
     expect(() => loadConfig({ PORT: "not-a-port" })).toThrow(/DATABASE_URL/);
     expect(() => loadConfig({ ...base, PUBLIC_URL: "nope" })).toThrow(/absolute URL/);

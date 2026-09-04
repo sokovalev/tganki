@@ -63,7 +63,7 @@ export function createSessionsRepo(db: Database) {
 
     async save(
       id: number,
-      patch: Partial<Pick<Session, "queue" | "position" | "messageId" | "stats">>,
+      patch: Partial<Pick<Session, "queue" | "position" | "messageId" | "messageSentAt" | "stats">>,
     ): Promise<void> {
       await db.update(sessions).set(patch).where(eq(sessions.id, id));
     },

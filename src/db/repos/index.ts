@@ -1,9 +1,12 @@
 import type { Database } from "../index.js";
 import { createCardsRepo } from "./cards.js";
 import { createDecksRepo } from "./decks.js";
+import { createEventsRepo } from "./events.js";
+import { createNoteReportsRepo } from "./noteReports.js";
 import { createNotesRepo } from "./notes.js";
 import { createReviewLogsRepo } from "./reviewLogs.js";
 import { createSessionsRepo } from "./sessions.js";
+import { createStatsRepo } from "./stats.js";
 import { createUsersRepo } from "./users.js";
 
 export function createRepos(db: Database) {
@@ -14,6 +17,9 @@ export function createRepos(db: Database) {
     cards: createCardsRepo(db),
     sessions: createSessionsRepo(db),
     reviewLogs: createReviewLogsRepo(db),
+    noteReports: createNoteReportsRepo(db),
+    events: createEventsRepo(db),
+    stats: createStatsRepo(db),
   };
 }
 
@@ -21,7 +27,10 @@ export type Repos = ReturnType<typeof createRepos>;
 
 export * from "./cards.js";
 export * from "./decks.js";
+export * from "./events.js";
+export * from "./noteReports.js";
 export * from "./notes.js";
 export * from "./reviewLogs.js";
 export * from "./sessions.js";
+export * from "./stats.js";
 export * from "./users.js";

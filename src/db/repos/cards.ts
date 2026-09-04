@@ -1,8 +1,8 @@
-import { and, asc, eq, gte, lte, ne, sql } from "drizzle-orm";
+import { and, asc, eq, gte, inArray, isNull, lte, ne, or, sql } from "drizzle-orm";
 import type { DueCard, NewCandidate, QueueRepo } from "../../core/queue.js";
 import type { ApplyResult, CardState } from "../../core/scheduler.js";
 import type { Database } from "../index.js";
-import { type Card, type CardMode, cards, decks, notes, reviewLogs } from "../schema.js";
+import { type Card, type CardMode, cards, decks, notes, reviewLogs, userDecks } from "../schema.js";
 
 export interface ReviewCard {
   card: Card;
@@ -16,7 +16,13 @@ export interface ReviewCard {
     audioFileId: string | null;
     imageFileId: string | null;
   };
-  deck: { id: number; title: string; langFrom: string; langTo: string };
+  deck: {
+    id: number;
+    title: string;
+    langFrom: string;
+    langTo: string;
+    ownerId: number | null;
+  };
 }
 
 export function toCardState(card: Card): CardState {
@@ -32,6 +38,20 @@ export function toCardState(card: Card): CardState {
     scheduledDays: card.scheduledDays,
     learningSteps: card.learningSteps,
   };
+}
+
+/** Cards that are ready to be reviewed right now. */
+function dueConditions(input: { userId: number; deckId: number | null; now: Date }) {
+  const conditions = [
+    eq(cards.userId, input.userId),
+    eq(cards.suspended, false),
+    // State.New cards are handed out by the new-card path, not as reviews.
+    ne(cards.state, 0),
+    lte(cards.due, input.now),
+    or(isNull(cards.buriedUntil), lte(cards.buriedUntil, input.now))!,
+  ];
+  if (input.deckId !== null) conditions.push(eq(notes.deckId, input.deckId));
+  return conditions;
 }
 
 export function createCardsRepo(db: Database) {
@@ -61,6 +81,7 @@ export function createCardsRepo(db: Database) {
             title: decks.title,
             langFrom: decks.langFrom,
             langTo: decks.langTo,
+            ownerId: decks.ownerId,
           },
         })
         .from(cards)
@@ -77,22 +98,72 @@ export function createCardsRepo(db: Database) {
       now: Date;
       limit: number;
     }): Promise<DueCard[]> {
-      const conditions = [
-        eq(cards.userId, input.userId),
-        eq(cards.suspended, false),
-        // State.New cards are handed out by the new-card path, not as reviews.
-        ne(cards.state, 0),
-        lte(cards.due, input.now),
-      ];
       const query = db
         .select({ cardId: cards.id, due: cards.due })
         .from(cards)
-        .innerJoin(notes, eq(notes.id, cards.noteId));
-      if (input.deckId !== null) conditions.push(eq(notes.deckId, input.deckId));
+        .innerJoin(notes, eq(notes.id, cards.noteId))
+        // Only decks the user is still subscribed to; unsubscribing keeps progress
+        // but takes the cards out of the queues (SPEC §5.1).
+        .innerJoin(
+          userDecks,
+          and(eq(userDecks.deckId, notes.deckId), eq(userDecks.userId, cards.userId)),
+        );
       return query
-        .where(and(...conditions))
+        .where(and(...dueConditions(input)))
         .orderBy(asc(cards.due), asc(cards.id))
         .limit(input.limit);
+    },
+
+    /** Same predicate as `listDueCards`, without the cap — for menu/deck counters. */
+    async countDue(input: { userId: number; deckId: number | null; now: Date }): Promise<number> {
+      const [row] = await db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(cards)
+        .innerJoin(notes, eq(notes.id, cards.noteId))
+        .innerJoin(
+          userDecks,
+          and(eq(userDecks.deckId, notes.deckId), eq(userDecks.userId, cards.userId)),
+        )
+        .where(and(...dueConditions(input)));
+      return row?.count ?? 0;
+    },
+
+    /** Earliest upcoming card and how many share that learning day. */
+    async nextDue(input: {
+      userId: number;
+      deckId: number | null;
+      now: Date;
+    }): Promise<{ at: Date; count: number } | null> {
+      const conditions = [
+        eq(cards.userId, input.userId),
+        eq(cards.suspended, false),
+        ne(cards.state, 0),
+        gte(cards.due, input.now),
+      ];
+      if (input.deckId !== null) conditions.push(eq(notes.deckId, input.deckId));
+      const [row] = await db
+        .select({ due: cards.due })
+        .from(cards)
+        .innerJoin(notes, eq(notes.id, cards.noteId))
+        .innerJoin(
+          userDecks,
+          and(eq(userDecks.deckId, notes.deckId), eq(userDecks.userId, cards.userId)),
+        )
+        .where(and(...conditions))
+        .orderBy(asc(cards.due))
+        .limit(1);
+      if (!row) return null;
+      const until = new Date(row.due.getTime() + 24 * 60 * 60 * 1000);
+      const [counted] = await db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(cards)
+        .innerJoin(notes, eq(notes.id, cards.noteId))
+        .innerJoin(
+          userDecks,
+          and(eq(userDecks.deckId, notes.deckId), eq(userDecks.userId, cards.userId)),
+        )
+        .where(and(...conditions, lte(cards.due, until)));
+      return { at: row.due, count: counted?.count ?? 1 };
     },
 
     async listNewCandidates(input: {
@@ -101,20 +172,43 @@ export function createCardsRepo(db: Database) {
       limit: number;
     }): Promise<NewCandidate[]> {
       const deckFilter = input.deckId === null ? sql`` : sql` and ud.deck_id = ${input.deckId}`;
+      // `rn` numbers the candidates inside each deck, so ordering by it first
+      // deals the new cards round-robin and one deck cannot eat the whole
+      // daily allowance (SPEC §3.1).
       const rows = (await db.execute(sql`
-        select n.id::int as note_id,
-               n.deck_id::int as deck_id,
-               m.mode::text as mode,
-               n.position::int as position,
-               c.id::int as card_id
-        from user_decks ud
-        cross join lateral unnest(ud.modes) as m(mode)
-        join notes n on n.deck_id = ud.deck_id
-        left join cards c
-          on c.note_id = n.id and c.user_id = ud.user_id and c.mode = m.mode
-        where ud.user_id = ${input.userId}
-          and (c.id is null or (c.state = 0 and c.suspended = false))${deckFilter}
-        order by ud.added_at, n.deck_id, n.position, n.id, m.mode
+        select note_id, deck_id, mode, position, card_id
+        from (
+          select n.id::int as note_id,
+                 n.deck_id::int as deck_id,
+                 m.mode::text as mode,
+                 n.position::int as position,
+                 c.id::int as card_id,
+                 ud.added_at as added_at,
+                 row_number() over (
+                   partition by ud.deck_id order by n.position, n.id, m.mode
+                 ) as rn
+          from user_decks ud
+          cross join lateral unnest(ud.modes) as m(mode)
+          join notes n on n.deck_id = ud.deck_id
+          left join cards c
+            on c.note_id = n.id and c.user_id = ud.user_id and c.mode = m.mode
+          where ud.user_id = ${input.userId}
+            and (c.id is null or (c.state = 0 and c.suspended = false))
+            and (c.id is null or c.buried_until is null or c.buried_until <= now())
+            -- A reverse card only becomes available a day after the forward one
+            -- was first shown, so both never land in the same session.
+            and (
+              m.mode <> 'recall'
+              or not ('recognition' = any(ud.modes))
+              or exists (
+                select 1 from cards rc
+                where rc.note_id = n.id and rc.user_id = ud.user_id
+                  and rc.mode = 'recognition' and rc.last_review is not null
+                  and rc.last_review <= now() - interval '1 day'
+              )
+            )${deckFilter}
+        ) candidates
+        order by rn, added_at, deck_id, position, note_id, mode
         limit ${input.limit}
       `)) as unknown as Array<{
         note_id: number;
@@ -192,6 +286,34 @@ export function createCardsRepo(db: Database) {
 
     async setSuspended(cardId: number, suspended: boolean): Promise<void> {
       await db.update(cards).set({ suspended }).where(eq(cards.id, cardId));
+    },
+
+    /** Takes the card out of every queue until `until` ("отложить до завтра"). */
+    async setBuried(cardId: number, until: Date | null): Promise<void> {
+      await db.update(cards).set({ buriedUntil: until }).where(eq(cards.id, cardId));
+    },
+
+    /** Cards of this user that turned into leeches (SPEC §3.4). */
+    async listLeeches(input: {
+      userId: number;
+      cardIds: number[];
+      threshold: number;
+    }): Promise<Array<{ cardId: number; lapses: number; front: string }>> {
+      if (input.cardIds.length === 0) return [];
+      return db
+        .select({ cardId: cards.id, lapses: cards.lapses, front: notes.front })
+        .from(cards)
+        .innerJoin(notes, eq(notes.id, cards.noteId))
+        .where(
+          and(
+            eq(cards.userId, input.userId),
+            eq(cards.suspended, false),
+            gte(cards.lapses, input.threshold),
+            inArray(cards.id, input.cardIds),
+          ),
+        )
+        .orderBy(asc(cards.id))
+        .limit(1);
     },
   };
 

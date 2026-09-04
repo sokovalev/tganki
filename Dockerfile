@@ -28,6 +28,7 @@ COPY --from=build /app/dist ./dist
 COPY package.json ./
 COPY drizzle ./drizzle
 COPY data ./data
+COPY locales ./locales
 EXPOSE 3000
 # Apply migrations, then start the HTTP server.
-CMD ["sh", "-c", "node dist/db/migrate.js && exec node dist/main.js"]
+CMD ["sh", "-c", "node dist/db/migrate.js && node dist/seed/decks.js && exec node dist/main.js"]

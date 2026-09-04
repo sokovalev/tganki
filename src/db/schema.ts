@@ -24,6 +24,18 @@ export const sessionStatus = pgEnum("session_status", ["active", "finished", "ab
 
 const createdAt = timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
+/** Free-form draft attached to `users.pending_input` (and to `/start deck_x` deep links). */
+export type PendingPayload = {
+  /** Draft note waiting for its translation. */
+  front?: string;
+  /** Deck the draft goes into; null = the user's default personal deck. */
+  deckId?: number | null;
+  /** Deck slug/public id from a `/start deck_<x>` link, subscribed once onboarding ends. */
+  deckRef?: string;
+  /** Deck whose new-per-day is being typed. */
+  settingDeckId?: number;
+};
+
 export const users = pgTable(
   "users",
   {
@@ -41,9 +53,24 @@ export const users = pgTable(
     streakLastDay: date("streak_last_day"),
     /** Learning day on which the weekly streak freeze was last spent. */
     streakFreezeDay: date("streak_freeze_day"),
+    /** Longest streak ever reached, for the stats screen. */
+    streakBest: integer("streak_best").notNull().default(0),
     langFrom: text("lang_from"),
     langTo: text("lang_to"),
     onboardingStep: text("onboarding_step"),
+    /** Set when the user blocked the bot; reminders are skipped until they write again. */
+    blockedAt: timestamp("blocked_at", { withTimezone: true }),
+    /** Learning day of the last reminder we sent, "YYYY-MM-DD". */
+    lastRemindedDay: date("last_reminded_day"),
+    /** Render FSRS interval hints under the rating buttons. */
+    showIntervals: boolean("show_intervals").notNull().default(true),
+    /** The only FSRS knob exposed to users (Pro). */
+    desiredRetention: real("desired_retention").notNull().default(0.9),
+    /** What free-text input the bot is waiting for, e.g. "deck_title" or "tz_time". */
+    pendingInput: text("pending_input"),
+    pendingInputExpiresAt: timestamp("pending_input_expires_at", { withTimezone: true }),
+    /** Draft payload attached to the pending input / to a deep link. */
+    pendingPayload: jsonb("pending_payload").$type<PendingPayload>(),
     createdAt,
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -66,9 +93,15 @@ export const decks = pgTable(
     /** CEFR-ish level label, e.g. "A1". */
     level: text("level"),
     isPublic: boolean("is_public").notNull().default(false),
+    /** Short random id used in `t.me/<bot>?start=deck_<publicId>`; builtin decks share by slug. */
+    publicId: text("public_id"),
     createdAt,
   },
-  (t) => [uniqueIndex("decks_slug_key").on(t.slug), index("decks_owner_id_idx").on(t.ownerId)],
+  (t) => [
+    uniqueIndex("decks_slug_key").on(t.slug),
+    uniqueIndex("decks_public_id_key").on(t.publicId),
+    index("decks_owner_id_idx").on(t.ownerId),
+  ],
 );
 
 export const notes = pgTable(
@@ -120,6 +153,8 @@ export const cards = pgTable(
     /** Index into the FSRS (re)learning steps. */
     learningSteps: integer("learning_steps").notNull().default(0),
     suspended: boolean("suspended").notNull().default(false),
+    /** Set by "bury": the card is skipped by the queue builder until this instant. */
+    buriedUntil: timestamp("buried_until", { withTimezone: true }),
     createdAt,
   },
   (t) => [
@@ -180,7 +215,8 @@ export const userDecks = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.deckId] })],
 );
 
-export type QueueItem = { cardId: number; isNew: boolean };
+/** `skipped` counts how many times the card was pushed back without a rating. */
+export type QueueItem = { cardId: number; isNew: boolean; skipped?: number };
 
 export type SessionStats = {
   reviewed: number;
@@ -203,6 +239,8 @@ export const sessions = pgTable(
     chatId: bigint("chat_id", { mode: "number" }).notNull(),
     /** The single message the session is rendered into. */
     messageId: bigint("message_id", { mode: "number" }),
+    /** When the session message was (re)sent — Telegram refuses to edit past 48 h. */
+    messageSentAt: timestamp("message_sent_at", { withTimezone: true }),
     status: sessionStatus("status").notNull().default("active"),
     queue: jsonb("queue").$type<QueueItem[]>().notNull(),
     position: integer("position").notNull().default(0),
@@ -242,6 +280,37 @@ export const payments = pgTable(
   ],
 );
 
+/** User-reported problems with a builtin note; reviewed by hand via /admin. */
+export const noteReports = pgTable(
+  "note_reports",
+  {
+    id: serial("id").primaryKey(),
+    noteId: integer("note_id")
+      .notNull()
+      .references(() => notes.id, { onDelete: "cascade" }),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    reason: text("reason"),
+    resolvedAt: timestamp("resolved_at", { withTimezone: true }),
+    createdAt,
+  },
+  (t) => [index("note_reports_note_id_idx").on(t.noteId)],
+);
+
+/** Append-only product analytics (SPEC §12). */
+export const events = pgTable(
+  "events",
+  {
+    id: bigserial("id", { mode: "number" }).primaryKey(),
+    userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    props: jsonb("props").$type<Record<string, unknown>>(),
+    at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("events_name_at_idx").on(t.name, t.at)],
+);
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type Deck = typeof decks.$inferSelect;
@@ -255,4 +324,7 @@ export type NewReviewLog = typeof reviewLogs.$inferInsert;
 export type UserDeck = typeof userDecks.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 export type Payment = typeof payments.$inferSelect;
+export type NoteReport = typeof noteReports.$inferSelect;
+export type Event = typeof events.$inferSelect;
 export type CardMode = (typeof cardMode.enumValues)[number];
+export type DeckKind = (typeof deckKind.enumValues)[number];

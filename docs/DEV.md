@@ -29,8 +29,10 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `DATABASE_URL` | да | — | строка подключения к Postgres |
 | `BOT_TOKEN` | да | — | токен бота от @BotFather |
 | `PORT` | нет | `3000` | порт HTTP-сервера |
-| `PUBLIC_URL` | нет | — | публичный https-origin, понадобится для вебхука Telegram |
-| `ANTHROPIC_API_KEY` | нет | — | ключ для AI-генерации карточек (пока не используется) |
+| `PUBLIC_URL` | нет | — | публичный https-origin. Задан → бот работает через вебхук, пуст → long polling |
+| `WEBHOOK_SECRET` | нет | — | секрет в пути вебхука и в заголовке `X-Telegram-Bot-Api-Secret-Token` |
+| `ADMIN_TG_IDS` | нет | — | Telegram-id через запятую, кому доступна `/admin` |
+| `PRO_ENABLED` | нет | `false` | включает лимиты бесплатного плана (`true`/`1`/`yes`/`on`) |
 | `NODE_ENV` | нет | `development` | `development` включает pretty-логи |
 | `LOG_LEVEL` | нет | `info` | уровень pino |
 
@@ -48,6 +50,42 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `pnpm lint` / `pnpm format` | Biome: проверка / автоисправление |
 | `pnpm test` | vitest |
 
+## Запуск бота локально
+
+1. Заведите **отдельного тестового бота** в @BotFather (`/newbot`), скопируйте токен в `BOT_TOKEN`.
+2. Оставьте `PUBLIC_URL` пустым — тогда бот поднимается на long polling и никакой публичный
+   адрес не нужен. `pnpm dev` сам вызовет `deleteWebhook` и начнёт опрашивать Telegram.
+3. `pnpm migrate && pnpm seed`, затем `pnpm dev` — и пишите боту в личку `/start`.
+4. Свой Telegram-id (узнать можно у @userinfobot) добавьте в `ADMIN_TG_IDS`, чтобы работала `/admin`.
+
+### Вебхук против long polling
+
+| | Когда | Что происходит на старте |
+|---|---|---|
+| long polling | `PUBLIC_URL` пуст (локальная разработка) | `deleteWebhook`, затем `bot.start()` |
+| вебхук | `PUBLIC_URL` задан (прод) | `setWebhook` на `<PUBLIC_URL>/telegram/<WEBHOOK_SECRET>` c `secret_token`, `drop_pending_updates: false` |
+
+Хендлер вебхука монтируется в тот же Hono-app, что и `/health`
+(`webhookCallback(bot, "hono")`), поэтому отдельный процесс не нужен.
+`setWebhook` идемпотентен и вызывается при каждом старте.
+
+Напоминания крутит `startReminderCron` — `setInterval` раз в минуту, тики не накладываются
+друг на друга, при ошибке тик логируется и цикл продолжается.
+
+## Локализация
+
+Строки лежат в `locales/<locale>.ftl` (Fluent, плагин `@grammyjs/i18n`), русский — основной.
+Добавить язык = добавить файл и код в `SUPPORTED_LOCALES` (`src/i18n/index.ts`).
+
+Одно ограничение Fluent, о которое легко споткнуться: **термы не принимают переменные**
+(`{ -days(n: $n) }` не парсится, и `@fluent/bundle` молча выкидывает такое сообщение).
+Поэтому плюрализация написана инлайн, селектом прямо в сообщении. Тест
+`test/i18n.test.ts` проверяет, что каждое объявленное сообщение действительно попало
+в бандл, что наборы ключей в ru и en совпадают и что все ключи из кода существуют.
+
+Список языков обучения — статическая таблица `src/i18n/languages.ts` (код, флаг, эндоним,
+названия ru/en, синонимы). LLM для этого не нужен.
+
 ## Структура
 
 ```
@@ -56,7 +94,10 @@ src/
   logger.ts          pino
   app.ts             Hono: /health, сюда же встанет вебхук Telegram
   main.ts            точка входа
-  bot/index.ts       createBot(token) — пока без хендлеров
+  bot/               слой Telegram (см. ниже)
+  i18n/              Fluent-обёртка и таблица языков
+  services/          оркестрация поверх репозиториев (сессия, /add, лимиты, напоминания)
+  reminders/         крон напоминаний и отправка
   core/
     scheduler.ts     обёртка над ts-fsrs: превью интервалов, применение оценки
     queue.ts         очередь сессии: просроченные → новые, лимиты, re-queue
@@ -70,7 +111,24 @@ src/
   seed/decks.ts      загрузка встроенных дек из JSON
 drizzle/             SQL-миграции (коммитятся в репозиторий)
 data/decks/*.json    исходники встроенных дек
-test/                unit-тесты ядра (без БД, на in-memory фейках)
+locales/*.ftl        строки интерфейса
+test/                unit-тесты (без БД, на in-memory фейках)
+```
+
+Слой бота разложен по фичам, хендлеры тонкие, вся работа с БД — в `src/services`:
+
+```
+bot/
+  index.ts           createBot({config, db, logger}) → {bot, start, stop, runReminders}
+  context.ts         BotContext (grammY + i18n + ctx.user) и BotDeps
+  middleware/user.ts загрузка/создание пользователя, выбор локали
+  callbacks.ts       кодирование и разбор callback data (≤ 64 байт, `ns:action:args`)
+  keyboards.ts       общие клавиатуры и таблица неймспейсов
+  ui.ts              answer/show/send, распознавание ошибок Telegram
+  format.ts          HTML-экранирование, интервалы, проценты
+  time.ts            «сколько у тебя сейчас времени» → фиксированное смещение
+  onboarding.ts menu.ts session.ts add.ts decks.ts stats.ts settings.ts admin.ts misc.ts
+  router.ts          обычный текст: ожидаемый ввод важнее «добавить слово»
 ```
 
 ## Миграции
@@ -117,9 +175,14 @@ git add drizzle src/db/schema.ts
 
 ## Тесты
 
-`pnpm test` — только чистая логика (scheduler, queue, streak, undo, парсер дек, конфиг).
-Доступ к БД спрятан за интерфейсами (`QueueRepo`, `UndoRepo`), в тестах используются
-in-memory фейки, поэтому Postgres для `pnpm test` не нужен.
+`pnpm test` — только чистая логика: ядро (scheduler, queue, streak, undo), парсер дек,
+конфиг, разбор callback data, рендер экранов сессии и меню на обоих языках, сервис сессии
+(оценка → возврат в очередь → итог → продолжение, отмена, двойной пропуск = «до завтра»,
+двойной тап игнорируется), `/add` (обычный путь, дубликаты, пакетная вставка, лимиты),
+выбор пользователей для напоминаний и крон с фейковыми таймерами.
+
+Доступ к БД спрятан за интерфейсами (`QueueRepo`, `UndoRepo`, `SessionPort`, `AddPort`,
+`ReminderPort`), в тестах используются in-memory фейки — Postgres для `pnpm test` не нужен.
 
 ## Деплой
 
