@@ -7,6 +7,7 @@ import {
   type QueueRepo,
   type QueueState,
   requeueCurrent,
+  settle,
 } from "../core/queue.js";
 import {
   type ApplyResult,
@@ -336,6 +337,13 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       now: Date,
       stage: SessionStage = "question",
     ): Promise<SessionView | null> {
+      // On resume a learning card may have become due, or another card may
+      // now be preferable; persist the reorder so callbacks see the same queue.
+      const settled = settle({ items: session.queue, position: session.position }, now);
+      if (settled.items !== session.queue) {
+        await port.saveSession(session.id, { queue: settled.items, position: settled.position });
+        return viewAt({ ...session, queue: settled.items }, user, now, stage);
+      }
       return viewAt(session, user, now, stage);
     },
 
@@ -366,9 +374,12 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       stats[statsKey(rating)] += 1;
 
       const short = result.card.due.getTime() - now.getTime() < SHORT_INTERVAL_MS;
-      const next = short
-        ? requeueCurrent({ items: session.queue, position })
-        : advance({ items: session.queue, position });
+      const next = settle(
+        short
+          ? requeueCurrent({ items: session.queue, position }, result.card.due.getTime())
+          : advance({ items: session.queue, position }),
+        now,
+      );
 
       await port.saveSession(session.id, {
         queue: next.items,
@@ -417,7 +428,8 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       if (position !== session.position) return { kind: "stale" };
       const item = session.queue[position];
       if (!item) return { kind: "stale" };
-      const { state: next, buried } = skipCurrent({ items: session.queue, position });
+      const { state: skippedState, buried } = skipCurrent({ items: session.queue, position });
+      const next = settle(skippedState, now);
       if (buried) await port.setBuried(item.cardId, endOfLearningDay(now, user.tz));
       await port.saveSession(session.id, { queue: next.items, position: next.position });
       const updated: Session = { ...session, queue: next.items, position: next.position };

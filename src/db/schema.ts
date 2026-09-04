@@ -215,8 +215,19 @@ export const userDecks = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.deckId] })],
 );
 
-/** `skipped` counts how many times the card was pushed back without a rating. */
-export type QueueItem = { cardId: number; isNew: boolean; skipped?: number };
+/**
+ * `skipped` counts how many times the card was pushed back without a rating.
+ * `notBefore` (epoch ms) is set on a re-queued learning card: it is due for its
+ * next learning step at that time. `requeues` caps how often a card can come
+ * back within one session.
+ */
+export type QueueItem = {
+  cardId: number;
+  isNew: boolean;
+  skipped?: number;
+  notBefore?: number;
+  requeues?: number;
+};
 
 export type SessionStats = {
   reviewed: number;

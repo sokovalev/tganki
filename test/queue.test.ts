@@ -6,8 +6,10 @@ import {
   isFinished,
   type NewCandidate,
   type QueueRepo,
+  type QueueState,
   remaining,
   requeueCurrent,
+  settle,
 } from "../src/core/queue.js";
 import type { CardMode } from "../src/db/schema.js";
 
@@ -147,21 +149,57 @@ describe("queue navigation", () => {
     expect(state.position).toBe(items.length);
   });
 
-  it("re-queues the current card N cards later and marks it as not new", () => {
-    const state = requeueCurrent({ items, position: 0 }, 2);
+  it("re-queues the current card at the end, due at its learning step", () => {
+    const state = requeueCurrent({ items, position: 0 }, 1_000);
     expect(state.position).toBe(1);
-    expect(state.items.map((i) => i.cardId)).toEqual([1, 2, 3, 1, 4, 5]);
-    expect(state.items[3]).toEqual({ cardId: 1, isNew: false });
+    expect(state.items.map((i) => i.cardId)).toEqual([1, 2, 3, 4, 5, 1]);
+    expect(state.items[5]).toEqual({ cardId: 1, isNew: false, notBefore: 1_000, requeues: 1 });
   });
 
-  it("appends to the end when fewer than N cards are left", () => {
-    const state = requeueCurrent({ items, position: 3 }, 3);
-    expect(state.items.map((i) => i.cardId)).toEqual([1, 2, 3, 4, 5, 4]);
-    expect(state.position).toBe(4);
+  it("stops re-queuing after MAX_REQUEUES rounds", () => {
+    let state: QueueState = { items: [{ cardId: 1, isNew: true }], position: 0 };
+    for (let round = 0; round < 5; round++) {
+      state = requeueCurrent(state, 1_000);
+      state = { items: state.items, position: state.items.length - 1 };
+    }
+    // 1 original + 3 re-queued copies, the 4th and 5th rounds add nothing.
+    expect(state.items).toHaveLength(4);
+  });
+
+  it("settle pulls an eligible card forward while a learning card waits", () => {
+    const now = new Date(10_000);
+    const state = settle(
+      {
+        items: [
+          { cardId: 9, isNew: false, notBefore: 20_000, requeues: 1 },
+          { cardId: 2, isNew: false },
+          { cardId: 3, isNew: true },
+        ],
+        position: 0,
+      },
+      now,
+    );
+    expect(state.items.map((i) => i.cardId)).toEqual([2, 9, 3]);
+    expect(state.position).toBe(0);
+  });
+
+  it("settle shows a learning card early when nothing else is left", () => {
+    const now = new Date(10_000);
+    const items = [
+      { cardId: 9, isNew: false, notBefore: 20_000, requeues: 1 },
+      { cardId: 8, isNew: false, notBefore: 30_000, requeues: 1 },
+    ];
+    const state = settle({ items, position: 0 }, now);
+    expect(state.items).toBe(items);
+  });
+
+  it("settle is a no-op when the current card is already due", () => {
+    const state = { items: [{ cardId: 9, isNew: false, notBefore: 5_000 }], position: 0 };
+    expect(settle(state, new Date(10_000))).toBe(state);
   });
 
   it("is a no-op on an exhausted queue", () => {
     const exhausted = { items, position: items.length };
-    expect(requeueCurrent(exhausted)).toBe(exhausted);
+    expect(requeueCurrent(exhausted, 1_000)).toBe(exhausted);
   });
 });

@@ -2,8 +2,8 @@ import type { CardMode, QueueItem } from "../db/schema.js";
 
 export type { QueueItem };
 
-/** How many unanswered cards to keep in front of a re-queued learning card. */
-export const DEFAULT_REQUEUE_GAP = 3;
+/** How many times one card may come back within a single session. */
+export const MAX_REQUEUES = 3;
 export const DEFAULT_MAX_REVIEWS = 20;
 
 export interface DueCard {
@@ -121,16 +121,37 @@ export function advance(state: QueueState): QueueState {
 }
 
 /**
- * Puts the current card back into the session `gap` cards later (or at the end
- * when fewer than `gap` cards are left) and moves on. Used when a card is rated
- * Again/Hard and is still in a learning state.
+ * Puts the current card back at the end of the session, due for its next
+ * learning step at `notBefore`, and moves on. Used when a rating yields a
+ * short (learning-step) interval. A card comes back at most `MAX_REQUEUES`
+ * times per session; after that it waits for the next session.
  */
-export function requeueCurrent(state: QueueState, gap = DEFAULT_REQUEUE_GAP): QueueState {
+export function requeueCurrent(state: QueueState, notBefore: number): QueueState {
   const current = currentItem(state);
   if (!current) return state;
+  const requeues = (current.requeues ?? 0) + 1;
   const items = state.items.slice();
-  const insertAt = Math.min(state.position + 1 + gap, items.length);
   // The card is no longer new once it has been answered once.
-  items.splice(insertAt, 0, { cardId: current.cardId, isNew: false });
+  if (requeues <= MAX_REQUEUES)
+    items.push({ cardId: current.cardId, isNew: false, notBefore, requeues });
   return { items, position: state.position + 1 };
+}
+
+/**
+ * Makes sure the card at `position` may be shown now. A re-queued learning
+ * card waits until its step is due; if another card is eligible it is pulled
+ * forward instead. When nothing else is left the learning card is shown early
+ * (Anki's "learn ahead").
+ */
+export function settle(state: QueueState, now: Date): QueueState {
+  const current = currentItem(state);
+  if (!current || (current.notBefore ?? 0) <= now.getTime()) return state;
+  const next = state.items.findIndex(
+    (item, i) => i > state.position && (item.notBefore ?? 0) <= now.getTime(),
+  );
+  if (next < 0) return state;
+  const items = state.items.slice();
+  const [picked] = items.splice(next, 1);
+  items.splice(state.position, 0, picked as QueueItem);
+  return { items, position: state.position };
 }
