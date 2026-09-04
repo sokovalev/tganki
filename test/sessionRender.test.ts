@@ -131,14 +131,14 @@ describe("answer screen", () => {
     const screen = renderCard(ru, answered);
     const labels = buttons(screen.keyboard).map((b) => b.text);
     expect(labels.slice(0, 4)).toEqual(["Снова", "Трудно", "Хорошо", "Легко"]);
-    expect(screen.text).toContain("Снова <1м · Трудно 5м · Хорошо 10м · Легко 4д");
+    expect(screen.text).toContain("Снова &lt;1м · Трудно 5м · Хорошо 10м · Легко 4д");
     const english = renderCard(en, answered);
     expect(
       buttons(english.keyboard)
         .map((b) => b.text)
         .slice(0, 4),
     ).toEqual(["Again", "Hard", "Good", "Easy"]);
-    expect(english.text).toContain("Again <1m · Hard 5m · Good 10m · Easy 4d");
+    expect(english.text).toContain("Again &lt;1m · Hard 5m · Good 10m · Easy 4d");
   });
 
   it("encodes position and rating in the callback data", () => {
