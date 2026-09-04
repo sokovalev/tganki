@@ -1,0 +1,2990 @@
+{
+  "slug": "de-ru-top-500-a1",
+  "title": "German Top 500 · A1",
+  "description": "Частотные немецкие слова уровня A1 с переводом на русский.",
+  "lang_from": "de",
+  "lang_to": "ru",
+  "level": "A1",
+  "notes": [
+    {
+      "front": "ich",
+      "back": "я",
+      "transcription": "ɪç",
+      "example": "Ich heiße Anna.",
+      "example_tr": "Меня зовут Анна.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "du",
+      "back": "ты",
+      "transcription": "duː",
+      "example": "Wie heißt du?",
+      "example_tr": "Как тебя зовут?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "er",
+      "back": "он",
+      "transcription": "eːɐ̯",
+      "example": "Er ist mein Bruder.",
+      "example_tr": "Он мой брат.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "sie",
+      "back": "она; они",
+      "transcription": "ziː",
+      "example": "Sie wohnt in Berlin.",
+      "example_tr": "Она живёт в Берлине.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "es",
+      "back": "оно",
+      "transcription": "ɛs",
+      "example": "Es ist kalt heute.",
+      "example_tr": "Сегодня холодно.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "wir",
+      "back": "мы",
+      "transcription": "viːɐ̯",
+      "example": "Wir wohnen in München.",
+      "example_tr": "Мы живём в Мюнхене.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "ihr",
+      "back": "вы (мн.ч.)",
+      "transcription": "iːɐ̯",
+      "example": "Wo wohnt ihr?",
+      "example_tr": "Где вы живёте?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "Sie",
+      "back": "Вы (вежл.)",
+      "transcription": "ziː",
+      "example": "Woher kommen Sie?",
+      "example_tr": "Откуда Вы?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "mein",
+      "back": "мой",
+      "transcription": "maɪn",
+      "example": "Das ist mein Buch.",
+      "example_tr": "Это моя книга.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "dein",
+      "back": "твой",
+      "transcription": "daɪn",
+      "example": "Wie ist dein Name?",
+      "example_tr": "Как твоё имя?",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "ihre",
+      "back": "её; их",
+      "transcription": "ˈiːʁə",
+      "example": "Das ist ihre Tasche.",
+      "example_tr": "Это её сумка.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "unser",
+      "back": "наш",
+      "transcription": "ˈʊnzɐ",
+      "example": "Unser Lehrer ist nett.",
+      "example_tr": "Наш учитель добрый.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "wer",
+      "back": "кто",
+      "transcription": "veːɐ̯",
+      "example": "Wer ist das?",
+      "example_tr": "Кто это?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "was",
+      "back": "что",
+      "transcription": "vas",
+      "example": "Was ist das?",
+      "example_tr": "Что это?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "wo",
+      "back": "где",
+      "transcription": "voː",
+      "example": "Wo ist der Bahnhof?",
+      "example_tr": "Где вокзал?",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "wann",
+      "back": "когда",
+      "transcription": "van",
+      "example": "Wann kommst du?",
+      "example_tr": "Когда ты придёшь?",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "warum",
+      "back": "почему",
+      "transcription": "vaˈʁʊm",
+      "example": "Warum bist du traurig?",
+      "example_tr": "Почему ты грустишь?",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "wie",
+      "back": "как",
+      "transcription": "viː",
+      "example": "Wie geht es dir?",
+      "example_tr": "Как у тебя дела?",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "welcher",
+      "back": "который, какой",
+      "transcription": "ˈvɛlçɐ",
+      "example": "Welcher Tag ist heute?",
+      "example_tr": "Какой сегодня день?",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "hallo",
+      "back": "привет",
+      "transcription": "haˈloː",
+      "example": "Hallo, wie geht's?",
+      "example_tr": "Привет, как дела?",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "guten Morgen",
+      "back": "доброе утро",
+      "transcription": "ˈɡuːtn̩ ˈmɔʁɡn̩",
+      "example": "Guten Morgen! Hast du gut geschlafen?",
+      "example_tr": "Доброе утро! Ты хорошо спал?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "guten Tag",
+      "back": "добрый день",
+      "transcription": "ˈɡuːtn̩ taːk",
+      "example": "Guten Tag, wie kann ich helfen?",
+      "example_tr": "Добрый день, чем могу помочь?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "guten Abend",
+      "back": "добрый вечер",
+      "transcription": "ˈɡuːtn̩ ˈaːbn̩t",
+      "example": "Guten Abend, kommen Sie herein.",
+      "example_tr": "Добрый вечер, проходите.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "gute Nacht",
+      "back": "спокойной ночи",
+      "transcription": "ˈɡuːtə naxt",
+      "example": "Gute Nacht, schlaf gut!",
+      "example_tr": "Спокойной ночи, сладких снов!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "auf Wiedersehen",
+      "back": "до свидания",
+      "transcription": "aʊf ˈviːdɐzeːən",
+      "example": "Auf Wiedersehen, bis morgen!",
+      "example_tr": "До свидания, до завтра!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "tschüss",
+      "back": "пока",
+      "transcription": "tʃʏs",
+      "example": "Tschüss, bis bald!",
+      "example_tr": "Пока, до скорого!",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "bitte",
+      "back": "пожалуйста",
+      "transcription": "ˈbɪtə",
+      "example": "Ein Kaffee, bitte.",
+      "example_tr": "Кофе, пожалуйста.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "danke",
+      "back": "спасибо",
+      "transcription": "ˈdaŋkə",
+      "example": "Danke für deine Hilfe.",
+      "example_tr": "Спасибо за помощь.",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "entschuldigung",
+      "back": "извините",
+      "transcription": "ɛntˈʃʊldɪɡʊŋ",
+      "example": "Entschuldigung, wo ist der Bahnhof?",
+      "example_tr": "Извините, где вокзал?",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "ja",
+      "back": "да",
+      "transcription": "jaː",
+      "example": "Ja, das stimmt.",
+      "example_tr": "Да, это верно.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "nein",
+      "back": "нет",
+      "transcription": "naɪn",
+      "example": "Nein, danke.",
+      "example_tr": "Нет, спасибо.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "eins",
+      "back": "один",
+      "transcription": "aɪns",
+      "example": "Ich habe eine Schwester.",
+      "example_tr": "У меня одна сестра.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "zwei",
+      "back": "два",
+      "transcription": "tsvaɪ",
+      "example": "Ich habe zwei Katzen.",
+      "example_tr": "У меня две кошки.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "drei",
+      "back": "три",
+      "transcription": "dʁaɪ",
+      "example": "Hier sind drei Bücher.",
+      "example_tr": "Здесь три книги.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "vier",
+      "back": "четыре",
+      "transcription": "fiːɐ̯",
+      "example": "Sie hat vier Kinder.",
+      "example_tr": "У неё четверо детей.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "fünf",
+      "back": "пять",
+      "transcription": "fʏnf",
+      "example": "Es ist fünf Uhr.",
+      "example_tr": "Сейчас пять часов.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "sechs",
+      "back": "шесть",
+      "transcription": "zɛks",
+      "example": "Wir brauchen sechs Stühle.",
+      "example_tr": "Нам нужно шесть стульев.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "sieben",
+      "back": "семь",
+      "transcription": "ˈziːbn̩",
+      "example": "Die Woche hat sieben Tage.",
+      "example_tr": "В неделе семь дней.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "acht",
+      "back": "восемь",
+      "transcription": "axt",
+      "example": "Der Laden öffnet um acht.",
+      "example_tr": "Магазин открывается в восемь.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "neun",
+      "back": "девять",
+      "transcription": "nɔʏn",
+      "example": "Ich gehe um neun ins Bett.",
+      "example_tr": "Я ложусь спать в девять.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "zehn",
+      "back": "десять",
+      "transcription": "tseːn",
+      "example": "Ich habe zehn Finger.",
+      "example_tr": "У меня десять пальцев.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "zwanzig",
+      "back": "двадцать",
+      "transcription": "ˈtsvantsɪç",
+      "example": "Sie ist zwanzig Jahre alt.",
+      "example_tr": "Ей двадцать лет.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "dreißig",
+      "back": "тридцать",
+      "transcription": "ˈdʁaɪsɪç",
+      "example": "Der Bus kommt in dreißig Minuten.",
+      "example_tr": "Автобус придёт через тридцать минут.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "hundert",
+      "back": "сто",
+      "transcription": "ˈhʊndɐt",
+      "example": "Das Buch hat hundert Seiten.",
+      "example_tr": "В книге сто страниц.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "erste",
+      "back": "первый",
+      "transcription": "ˈeːɐ̯stə",
+      "example": "Das ist mein erster Arbeitstag.",
+      "example_tr": "Это мой первый рабочий день.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "zweite",
+      "back": "второй",
+      "transcription": "ˈtsvaɪtə",
+      "example": "Er kam als Zweiter an.",
+      "example_tr": "Он пришёл вторым.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "die Familie",
+      "back": "семья",
+      "transcription": "diː faˈmiːli̯ə",
+      "example": "Ich liebe meine Familie.",
+      "example_tr": "Я люблю свою семью.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Mutter",
+      "back": "мать",
+      "transcription": "diː ˈmʊtɐ",
+      "example": "Meine Mutter ist Lehrerin.",
+      "example_tr": "Моя мама учительница.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Vater",
+      "back": "отец",
+      "transcription": "deːɐ̯ ˈfaːtɐ",
+      "example": "Mein Vater arbeitet viel.",
+      "example_tr": "Мой отец много работает.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Schwester",
+      "back": "сестра",
+      "transcription": "diː ˈʃvɛstɐ",
+      "example": "Ich habe eine Schwester.",
+      "example_tr": "У меня есть сестра.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Bruder",
+      "back": "брат",
+      "transcription": "deːɐ̯ ˈbʁuːdɐ",
+      "example": "Mein Bruder ist älter als ich.",
+      "example_tr": "Мой брат старше меня.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Sohn",
+      "back": "сын",
+      "transcription": "deːɐ̯ zoːn",
+      "example": "Ihr Sohn ist fünf Jahre alt.",
+      "example_tr": "Их сыну пять лет.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Tochter",
+      "back": "дочь",
+      "transcription": "diː ˈtɔxtɐ",
+      "example": "Ihre Tochter geht zur Schule.",
+      "example_tr": "Её дочь ходит в школу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Eltern",
+      "back": "родители",
+      "transcription": "diː ˈɛltɐn",
+      "example": "Meine Eltern wohnen hier.",
+      "example_tr": "Мои родители живут здесь.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Kind",
+      "back": "ребёнок",
+      "transcription": "das kɪnt",
+      "example": "Das Kind spielt im Garten.",
+      "example_tr": "Ребёнок играет в саду.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Freund",
+      "back": "друг",
+      "transcription": "deːɐ̯ fʁɔʏnt",
+      "example": "Er ist mein bester Freund.",
+      "example_tr": "Он мой лучший друг.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Freundin",
+      "back": "подруга",
+      "transcription": "diː ˈfʁɔʏndɪn",
+      "example": "Sie ist meine Freundin.",
+      "example_tr": "Она моя подруга.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "sein",
+      "back": "быть",
+      "transcription": "zaɪn",
+      "example": "Ich bin müde.",
+      "example_tr": "Я устал.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "haben",
+      "back": "иметь",
+      "transcription": "ˈhaːbn̩",
+      "example": "Ich habe ein neues Handy.",
+      "example_tr": "У меня новый телефон.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "machen",
+      "back": "делать",
+      "transcription": "ˈmaxn̩",
+      "example": "Was machst du heute?",
+      "example_tr": "Что ты делаешь сегодня?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "gehen",
+      "back": "идти",
+      "transcription": "ˈɡeːən",
+      "example": "Wir gehen ins Kino.",
+      "example_tr": "Мы идём в кино.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "kommen",
+      "back": "приходить",
+      "transcription": "ˈkɔmən",
+      "example": "Komm bitte her.",
+      "example_tr": "Подойди, пожалуйста.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "sehen",
+      "back": "видеть",
+      "transcription": "ˈzeːən",
+      "example": "Ich sehe dich.",
+      "example_tr": "Я тебя вижу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "wissen",
+      "back": "знать",
+      "transcription": "ˈvɪsn̩",
+      "example": "Ich weiß es nicht.",
+      "example_tr": "Я этого не знаю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "sagen",
+      "back": "говорить, сказать",
+      "transcription": "ˈzaːɡn̩",
+      "example": "Was sagst du?",
+      "example_tr": "Что ты говоришь?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "sprechen",
+      "back": "говорить",
+      "transcription": "ˈʃpʁɛçn̩",
+      "example": "Sprichst du Deutsch?",
+      "example_tr": "Ты говоришь по-немецки?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "wollen",
+      "back": "хотеть",
+      "transcription": "ˈvɔlən",
+      "example": "Ich will einen Kaffee.",
+      "example_tr": "Я хочу кофе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "können",
+      "back": "мочь, уметь",
+      "transcription": "ˈkœnən",
+      "example": "Ich kann schwimmen.",
+      "example_tr": "Я умею плавать.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "müssen",
+      "back": "быть должным",
+      "transcription": "ˈmʏsn̩",
+      "example": "Ich muss jetzt gehen.",
+      "example_tr": "Мне нужно идти.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "dürfen",
+      "back": "иметь право, мочь",
+      "transcription": "ˈdʏʁfn̩",
+      "example": "Darf ich reinkommen?",
+      "example_tr": "Можно войти?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "mögen",
+      "back": "любить, нравиться",
+      "transcription": "ˈmøːɡn̩",
+      "example": "Ich mag Musik.",
+      "example_tr": "Мне нравится музыка.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "finden",
+      "back": "находить, считать",
+      "transcription": "ˈfɪndn̩",
+      "example": "Ich finde das interessant.",
+      "example_tr": "Я нахожу это интересным.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "geben",
+      "back": "давать",
+      "transcription": "ˈɡeːbn̩",
+      "example": "Gib mir bitte das Buch.",
+      "example_tr": "Дай мне, пожалуйста, книгу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "nehmen",
+      "back": "брать",
+      "transcription": "ˈneːmən",
+      "example": "Nimm meinen Stift.",
+      "example_tr": "Возьми мою ручку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "brauchen",
+      "back": "нуждаться",
+      "transcription": "ˈbʁaʊxn̩",
+      "example": "Ich brauche Hilfe.",
+      "example_tr": "Мне нужна помощь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "bleiben",
+      "back": "оставаться",
+      "transcription": "ˈblaɪbn̩",
+      "example": "Bleib hier bei mir.",
+      "example_tr": "Останься здесь со мной.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "arbeiten",
+      "back": "работать",
+      "transcription": "ˈaʁbaɪtn̩",
+      "example": "Ich arbeite im Büro.",
+      "example_tr": "Я работаю в офисе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "lernen",
+      "back": "учиться, изучать",
+      "transcription": "ˈlɛʁnən",
+      "example": "Ich lerne Deutsch.",
+      "example_tr": "Я учу немецкий.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "verstehen",
+      "back": "понимать",
+      "transcription": "fɛɐ̯ˈʃteːən",
+      "example": "Ich verstehe dich nicht.",
+      "example_tr": "Я тебя не понимаю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "essen",
+      "back": "есть, кушать",
+      "transcription": "ˈɛsn̩",
+      "example": "Wir essen um sieben Uhr.",
+      "example_tr": "Мы едим в семь часов.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "trinken",
+      "back": "пить",
+      "transcription": "ˈtʁɪŋkn̩",
+      "example": "Ich trinke gern Tee.",
+      "example_tr": "Я люблю пить чай.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "schlafen",
+      "back": "спать",
+      "transcription": "ˈʃlaːfn̩",
+      "example": "Das Baby schläft.",
+      "example_tr": "Малыш спит.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "spielen",
+      "back": "играть",
+      "transcription": "ˈʃpiːlən",
+      "example": "Die Kinder spielen im Park.",
+      "example_tr": "Дети играют в парке.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "kaufen",
+      "back": "покупать",
+      "transcription": "ˈkaʊfn̩",
+      "example": "Ich möchte ein Buch kaufen.",
+      "example_tr": "Я хочу купить книгу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "kosten",
+      "back": "стоить",
+      "transcription": "ˈkɔstn̩",
+      "example": "Wie viel kostet das?",
+      "example_tr": "Сколько это стоит?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "wohnen",
+      "back": "жить (проживать)",
+      "transcription": "ˈvoːnən",
+      "example": "Wo wohnst du?",
+      "example_tr": "Где ты живёшь?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "leben",
+      "back": "жить",
+      "transcription": "ˈleːbn̩",
+      "example": "Wir leben in Deutschland.",
+      "example_tr": "Мы живём в Германии.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "lieben",
+      "back": "любить",
+      "transcription": "ˈliːbn̩",
+      "example": "Ich liebe meine Familie.",
+      "example_tr": "Я люблю свою семью.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "heißen",
+      "back": "зваться",
+      "transcription": "ˈhaɪsn̩",
+      "example": "Wie heißt du?",
+      "example_tr": "Как тебя зовут?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fahren",
+      "back": "ехать",
+      "transcription": "ˈfaːʁən",
+      "example": "Wir fahren nach Berlin.",
+      "example_tr": "Мы едем в Берлин.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fliegen",
+      "back": "летать",
+      "transcription": "ˈfliːɡn̩",
+      "example": "Wir fliegen morgen.",
+      "example_tr": "Мы летим завтра.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "laufen",
+      "back": "бежать, идти пешком",
+      "transcription": "ˈlaʊfn̩",
+      "example": "Ich laufe jeden Morgen.",
+      "example_tr": "Я бегаю каждое утро.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "stehen",
+      "back": "стоять",
+      "transcription": "ˈʃteːən",
+      "example": "Er steht an der Tür.",
+      "example_tr": "Он стоит у двери.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "sitzen",
+      "back": "сидеть",
+      "transcription": "ˈzɪtsn̩",
+      "example": "Setz dich bitte.",
+      "example_tr": "Пожалуйста, садись.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "liegen",
+      "back": "лежать",
+      "transcription": "ˈliːɡn̩",
+      "example": "Das Buch liegt auf dem Tisch.",
+      "example_tr": "Книга лежит на столе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "öffnen",
+      "back": "открывать",
+      "transcription": "ˈœfnən",
+      "example": "Bitte öffne das Fenster.",
+      "example_tr": "Пожалуйста, открой окно.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "schließen",
+      "back": "закрывать",
+      "transcription": "ˈʃliːsn̩",
+      "example": "Bitte schließe die Tür.",
+      "example_tr": "Пожалуйста, закрой дверь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "beginnen",
+      "back": "начинать",
+      "transcription": "bəˈɡɪnən",
+      "example": "Der Unterricht beginnt um neun.",
+      "example_tr": "Урок начинается в девять.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "hören",
+      "back": "слушать, слышать",
+      "transcription": "ˈhøːʁən",
+      "example": "Ich höre Musik.",
+      "example_tr": "Я слушаю музыку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "lesen",
+      "back": "читать",
+      "transcription": "ˈleːzn̩",
+      "example": "Ich lese gern Bücher.",
+      "example_tr": "Я люблю читать книги.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "schreiben",
+      "back": "писать",
+      "transcription": "ˈʃʁaɪbn̩",
+      "example": "Sie schreibt einen Brief.",
+      "example_tr": "Она пишет письмо.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "zeigen",
+      "back": "показывать",
+      "transcription": "ˈtsaɪɡn̩",
+      "example": "Zeig mir dein Zimmer.",
+      "example_tr": "Покажи мне свою комнату.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "kennen",
+      "back": "знать (кого-то)",
+      "transcription": "ˈkɛnən",
+      "example": "Ich kenne deinen Bruder.",
+      "example_tr": "Я знаю твоего брата.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "denken",
+      "back": "думать",
+      "transcription": "ˈdɛŋkn̩",
+      "example": "Ich denke oft an dich.",
+      "example_tr": "Я часто о тебе думаю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "glauben",
+      "back": "верить, полагать",
+      "transcription": "ˈɡlaʊbn̩",
+      "example": "Ich glaube dir.",
+      "example_tr": "Я тебе верю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "warten",
+      "back": "ждать",
+      "transcription": "ˈvaʁtn̩",
+      "example": "Warte bitte auf mich.",
+      "example_tr": "Подожди меня, пожалуйста.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "helfen",
+      "back": "помогать",
+      "transcription": "ˈhɛlfn̩",
+      "example": "Kannst du mir helfen?",
+      "example_tr": "Можешь мне помочь?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fragen",
+      "back": "спрашивать",
+      "transcription": "ˈfʁaːɡn̩",
+      "example": "Darf ich dich etwas fragen?",
+      "example_tr": "Можно тебя кое-что спросить?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "antworten",
+      "back": "отвечать",
+      "transcription": "ˈantvɔʁtn̩",
+      "example": "Bitte antworte mir.",
+      "example_tr": "Пожалуйста, ответь мне.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "kochen",
+      "back": "готовить (еду)",
+      "transcription": "ˈkɔxn̩",
+      "example": "Mein Vater kocht das Abendessen.",
+      "example_tr": "Мой отец готовит ужин.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "waschen",
+      "back": "мыть",
+      "transcription": "ˈvaʃn̩",
+      "example": "Wasch dir die Hände.",
+      "example_tr": "Помой руки.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "putzen",
+      "back": "убирать, чистить",
+      "transcription": "ˈpʊtsn̩",
+      "example": "Ich putze mein Zimmer.",
+      "example_tr": "Я убираю свою комнату.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "bezahlen",
+      "back": "платить",
+      "transcription": "bəˈtsaːlən",
+      "example": "Ich bezahle mit Karte.",
+      "example_tr": "Я плачу картой.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "tragen",
+      "back": "носить (одежду), нести",
+      "transcription": "ˈtʁaːɡn̩",
+      "example": "Sie trägt ein blaues Kleid.",
+      "example_tr": "Она носит синее платье.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "besuchen",
+      "back": "посещать",
+      "transcription": "bəˈzuːxn̩",
+      "example": "Wir besuchen unsere Großmutter.",
+      "example_tr": "Мы навещаем нашу бабушку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "reisen",
+      "back": "путешествовать",
+      "transcription": "ˈʁaɪzn̩",
+      "example": "Ich reise gern.",
+      "example_tr": "Я люблю путешествовать.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "treffen",
+      "back": "встречать(ся)",
+      "transcription": "ˈtʁɛfn̩",
+      "example": "Wir treffen uns um sechs.",
+      "example_tr": "Мы встречаемся в шесть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "lachen",
+      "back": "смеяться",
+      "transcription": "ˈlaxn̩",
+      "example": "Die Kinder lachen viel.",
+      "example_tr": "Дети много смеются.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "weinen",
+      "back": "плакать",
+      "transcription": "ˈvaɪnən",
+      "example": "Das Baby weint.",
+      "example_tr": "Малыш плачет.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "singen",
+      "back": "петь",
+      "transcription": "ˈzɪŋən",
+      "example": "Sie singt sehr gut.",
+      "example_tr": "Она очень хорошо поёт.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "tanzen",
+      "back": "танцевать",
+      "transcription": "ˈtantsn̩",
+      "example": "Wir tanzen auf der Party.",
+      "example_tr": "Мы танцуем на вечеринке.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "die Zeit",
+      "back": "время",
+      "transcription": "diː tsaɪt",
+      "example": "Ich habe keine Zeit.",
+      "example_tr": "У меня нет времени.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Tag",
+      "back": "день",
+      "transcription": "deːɐ̯ taːk",
+      "example": "Schönen Tag noch!",
+      "example_tr": "Хорошего дня!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Woche",
+      "back": "неделя",
+      "transcription": "diː ˈvɔxə",
+      "example": "Bis nächste Woche!",
+      "example_tr": "До следующей недели!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Monat",
+      "back": "месяц",
+      "transcription": "deːɐ̯ ˈmoːnat",
+      "example": "Dieser Monat ist sehr voll.",
+      "example_tr": "Этот месяц очень занятой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Jahr",
+      "back": "год",
+      "transcription": "das jaːɐ̯",
+      "example": "Frohes neues Jahr!",
+      "example_tr": "С Новым годом!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "heute",
+      "back": "сегодня",
+      "transcription": "ˈhɔʏtə",
+      "example": "Heute ist Montag.",
+      "example_tr": "Сегодня понедельник.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "morgen",
+      "back": "завтра",
+      "transcription": "ˈmɔʁɡn̩",
+      "example": "Bis morgen!",
+      "example_tr": "До завтра!",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "gestern",
+      "back": "вчера",
+      "transcription": "ˈɡɛstɐn",
+      "example": "Ich habe sie gestern gesehen.",
+      "example_tr": "Я видел её вчера.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "der Morgen",
+      "back": "утро",
+      "transcription": "deːɐ̯ ˈmɔʁɡn̩",
+      "example": "Am Morgen trinke ich Kaffee.",
+      "example_tr": "Утром я пью кофе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Abend",
+      "back": "вечер",
+      "transcription": "deːɐ̯ ˈaːbn̩t",
+      "example": "Am Abend lese ich gern.",
+      "example_tr": "По вечерам я люблю читать.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Nacht",
+      "back": "ночь",
+      "transcription": "diː naxt",
+      "example": "Gute Nacht!",
+      "example_tr": "Спокойной ночи!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Minute",
+      "back": "минута",
+      "transcription": "diː miˈnuːtə",
+      "example": "Warte eine Minute.",
+      "example_tr": "Подожди минутку.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Stunde",
+      "back": "час",
+      "transcription": "diː ˈʃtʊndə",
+      "example": "Der Unterricht dauert eine Stunde.",
+      "example_tr": "Урок длится один час.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Uhr",
+      "back": "часы; час",
+      "transcription": "diː uːɐ̯",
+      "example": "Es ist fünf Uhr.",
+      "example_tr": "Сейчас пять часов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Montag",
+      "back": "понедельник",
+      "transcription": "ˈmoːntaːk",
+      "example": "Am Montag habe ich Unterricht.",
+      "example_tr": "По понедельникам у меня занятия.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Dienstag",
+      "back": "вторник",
+      "transcription": "ˈdiːnstaːk",
+      "example": "Wir treffen uns am Dienstag.",
+      "example_tr": "Мы встречаемся во вторник.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Mittwoch",
+      "back": "среда",
+      "transcription": "ˈmɪtvɔx",
+      "example": "Heute ist Mittwoch.",
+      "example_tr": "Сегодня среда.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Donnerstag",
+      "back": "четверг",
+      "transcription": "ˈdɔnɐstaːk",
+      "example": "Der Laden ist am Donnerstag geschlossen.",
+      "example_tr": "Магазин закрыт по четвергам.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Freitag",
+      "back": "пятница",
+      "transcription": "ˈfʁaɪtaːk",
+      "example": "Ich liebe Freitage.",
+      "example_tr": "Я люблю пятницы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Samstag",
+      "back": "суббота",
+      "transcription": "ˈzamstaːk",
+      "example": "Am Samstag ruhen wir uns aus.",
+      "example_tr": "По субботам мы отдыхаем.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "Sonntag",
+      "back": "воскресенье",
+      "transcription": "ˈzɔntaːk",
+      "example": "Sonntags besuchen wir die Familie.",
+      "example_tr": "По воскресеньям мы навещаем родных.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Essen",
+      "back": "еда",
+      "transcription": "das ˈɛsn̩",
+      "example": "Das Essen ist lecker.",
+      "example_tr": "Еда вкусная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Wasser",
+      "back": "вода",
+      "transcription": "das ˈvasɐ",
+      "example": "Kann ich Wasser haben?",
+      "example_tr": "Можно мне воды?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Kaffee",
+      "back": "кофе",
+      "transcription": "deːɐ̯ ˈkafeː",
+      "example": "Ich trinke jeden Morgen Kaffee.",
+      "example_tr": "Я пью кофе каждое утро.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Tee",
+      "back": "чай",
+      "transcription": "deːɐ̯ teː",
+      "example": "Möchtest du Tee?",
+      "example_tr": "Хочешь чаю?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Milch",
+      "back": "молоко",
+      "transcription": "diː mɪlç",
+      "example": "Das Baby trinkt Milch.",
+      "example_tr": "Малыш пьёт молоко.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Brot",
+      "back": "хлеб",
+      "transcription": "das bʁoːt",
+      "example": "Wir kaufen frisches Brot.",
+      "example_tr": "Мы покупаем свежий хлеб.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Ei",
+      "back": "яйцо",
+      "transcription": "das aɪ",
+      "example": "Ich esse ein Ei zum Frühstück.",
+      "example_tr": "Я ем яйцо на завтрак.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Fleisch",
+      "back": "мясо",
+      "transcription": "das flaɪʃ",
+      "example": "Sie isst kein Fleisch.",
+      "example_tr": "Она не ест мясо.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Fisch",
+      "back": "рыба",
+      "transcription": "deːɐ̯ fɪʃ",
+      "example": "Wir hatten Fisch zum Abendessen.",
+      "example_tr": "У нас была рыба на ужин.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Obst",
+      "back": "фрукты",
+      "transcription": "das oːpst",
+      "example": "Iss mehr Obst.",
+      "example_tr": "Ешь больше фруктов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Gemüse",
+      "back": "овощи",
+      "transcription": "das ɡəˈmyːzə",
+      "example": "Ich mag frisches Gemüse.",
+      "example_tr": "Я люблю свежие овощи.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Apfel",
+      "back": "яблоко",
+      "transcription": "deːɐ̯ ˈapfl̩",
+      "example": "Ich esse jeden Tag einen Apfel.",
+      "example_tr": "Я ем яблоко каждый день.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Frühstück",
+      "back": "завтрак",
+      "transcription": "das ˈfʁyːʃtʏk",
+      "example": "Wir frühstücken um acht.",
+      "example_tr": "Мы завтракаем в восемь.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Mittagessen",
+      "back": "обед",
+      "transcription": "das ˈmɪtaːkˌɛsn̩",
+      "example": "Lass uns zusammen zu Mittag essen.",
+      "example_tr": "Давай пообедаем вместе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Abendessen",
+      "back": "ужин",
+      "transcription": "das ˈaːbn̩tˌɛsn̩",
+      "example": "Das Abendessen ist fertig.",
+      "example_tr": "Ужин готов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Zucker",
+      "back": "сахар",
+      "transcription": "deːɐ̯ ˈtsʊkɐ",
+      "example": "Nimmst du Zucker in den Tee?",
+      "example_tr": "Ты кладёшь сахар в чай?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Haus",
+      "back": "дом",
+      "transcription": "das haʊs",
+      "example": "Das ist mein Haus.",
+      "example_tr": "Это мой дом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Wohnung",
+      "back": "квартира",
+      "transcription": "diː ˈvoːnʊŋ",
+      "example": "Wir haben eine kleine Wohnung.",
+      "example_tr": "У нас маленькая квартира.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Schule",
+      "back": "школа",
+      "transcription": "diː ˈʃuːlə",
+      "example": "Meine Kinder gehen zur Schule.",
+      "example_tr": "Мои дети ходят в школу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Zimmer",
+      "back": "комната",
+      "transcription": "das ˈtsɪmɐ",
+      "example": "Mein Zimmer ist klein.",
+      "example_tr": "Моя комната маленькая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Tür",
+      "back": "дверь",
+      "transcription": "diː tyːɐ̯",
+      "example": "Bitte schließ die Tür.",
+      "example_tr": "Пожалуйста, закрой дверь.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Fenster",
+      "back": "окно",
+      "transcription": "das ˈfɛnstɐ",
+      "example": "Öffne das Fenster, bitte.",
+      "example_tr": "Открой окно, пожалуйста.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Tisch",
+      "back": "стол",
+      "transcription": "deːɐ̯ tɪʃ",
+      "example": "Die Schlüssel sind auf dem Tisch.",
+      "example_tr": "Ключи на столе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Stuhl",
+      "back": "стул",
+      "transcription": "deːɐ̯ ʃtuːl",
+      "example": "Setz dich auf diesen Stuhl.",
+      "example_tr": "Сядь на этот стул.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Bett",
+      "back": "кровать",
+      "transcription": "das bɛt",
+      "example": "Die Katze schläft auf dem Bett.",
+      "example_tr": "Кошка спит на кровати.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Küche",
+      "back": "кухня",
+      "transcription": "diː ˈkʏçə",
+      "example": "Mama ist in der Küche.",
+      "example_tr": "Мама на кухне.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Stadt",
+      "back": "город",
+      "transcription": "diː ʃtat",
+      "example": "Ich wohne in einer großen Stadt.",
+      "example_tr": "Я живу в большом городе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Land",
+      "back": "страна",
+      "transcription": "das lant",
+      "example": "Aus welchem Land kommst du?",
+      "example_tr": "Из какой ты страны?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Straße",
+      "back": "улица",
+      "transcription": "diː ˈʃtʁaːsə",
+      "example": "Ich wohne in dieser Straße.",
+      "example_tr": "Я живу на этой улице.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Laden",
+      "back": "магазин",
+      "transcription": "deːɐ̯ ˈlaːdn̩",
+      "example": "Der Laden ist bis neun geöffnet.",
+      "example_tr": "Магазин открыт до девяти.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Markt",
+      "back": "рынок",
+      "transcription": "deːɐ̯ maʁkt",
+      "example": "Wir kaufen Gemüse auf dem Markt.",
+      "example_tr": "Мы покупаем овощи на рынке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Bahnhof",
+      "back": "вокзал",
+      "transcription": "deːɐ̯ ˈbaːnhoːf",
+      "example": "Der Bahnhof ist in der Nähe.",
+      "example_tr": "Вокзал недалеко.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Flughafen",
+      "back": "аэропорт",
+      "transcription": "deːɐ̯ ˈfluːkhaːfn̩",
+      "example": "Er ist am Flughafen.",
+      "example_tr": "Он в аэропорту.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Hotel",
+      "back": "отель",
+      "transcription": "das hoˈtɛl",
+      "example": "Wir wohnen in einem schönen Hotel.",
+      "example_tr": "Мы остановились в хорошем отеле.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Krankenhaus",
+      "back": "больница",
+      "transcription": "das ˈkʁaŋkn̩haʊs",
+      "example": "Meine Mutter arbeitet im Krankenhaus.",
+      "example_tr": "Моя мама работает в больнице.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Park",
+      "back": "парк",
+      "transcription": "deːɐ̯ paʁk",
+      "example": "Gehen wir im Park spazieren.",
+      "example_tr": "Давай погуляем в парке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Bank",
+      "back": "банк",
+      "transcription": "diː baŋk",
+      "example": "Die Bank ist heute geschlossen.",
+      "example_tr": "Банк сегодня закрыт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Büro",
+      "back": "офис",
+      "transcription": "das byˈʁoː",
+      "example": "Sie arbeitet in einem Büro.",
+      "example_tr": "Она работает в офисе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Mann",
+      "back": "мужчина",
+      "transcription": "deːɐ̯ man",
+      "example": "Der Mann ist mein Lehrer.",
+      "example_tr": "Этот мужчина мой учитель.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Frau",
+      "back": "женщина",
+      "transcription": "diː fʁaʊ",
+      "example": "Die Frau liest ein Buch.",
+      "example_tr": "Женщина читает книгу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Leute",
+      "back": "люди",
+      "transcription": "diː ˈlɔʏtə",
+      "example": "Hier sind viele Leute.",
+      "example_tr": "Здесь много людей.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Junge",
+      "back": "мальчик",
+      "transcription": "deːɐ̯ ˈjʊŋə",
+      "example": "Der Junge spielt Fußball.",
+      "example_tr": "Мальчик играет в футбол.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Mädchen",
+      "back": "девочка",
+      "transcription": "das ˈmɛːtçən",
+      "example": "Das Mädchen ist meine Nachbarin.",
+      "example_tr": "Девочка моя соседка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Lehrer",
+      "back": "учитель",
+      "transcription": "deːɐ̯ ˈleːʁɐ",
+      "example": "Unser Lehrer ist sehr nett.",
+      "example_tr": "Наш учитель очень добрый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Student",
+      "back": "студент",
+      "transcription": "deːɐ̯ ʃtuˈdɛnt",
+      "example": "Ich bin Student.",
+      "example_tr": "Я студент.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Arzt",
+      "back": "врач",
+      "transcription": "deːɐ̯ aːɐ̯tst",
+      "example": "Ich muss zum Arzt gehen.",
+      "example_tr": "Мне нужно к врачу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Name",
+      "back": "имя",
+      "transcription": "deːɐ̯ ˈnaːmə",
+      "example": "Wie ist dein Name?",
+      "example_tr": "Как твоё имя?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Arbeit",
+      "back": "работа",
+      "transcription": "diː ˈaʁbaɪt",
+      "example": "Sie hat eine gute Arbeit.",
+      "example_tr": "У неё хорошая работа.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "gut",
+      "back": "хороший",
+      "transcription": "ɡuːt",
+      "example": "Das ist ein guter Film.",
+      "example_tr": "Это хороший фильм.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schlecht",
+      "back": "плохой",
+      "transcription": "ʃlɛçt",
+      "example": "Das Wetter ist heute schlecht.",
+      "example_tr": "Сегодня плохая погода.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "groß",
+      "back": "большой",
+      "transcription": "ɡʁoːs",
+      "example": "Sie wohnen in einem großen Haus.",
+      "example_tr": "Они живут в большом доме.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "klein",
+      "back": "маленький",
+      "transcription": "klaɪn",
+      "example": "Ich habe einen kleinen Hund.",
+      "example_tr": "У меня маленькая собака.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "neu",
+      "back": "новый",
+      "transcription": "nɔʏ",
+      "example": "Ich habe ein neues Handy gekauft.",
+      "example_tr": "Я купил новый телефон.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "alt",
+      "back": "старый",
+      "transcription": "alt",
+      "example": "Das ist ein altes Gebäude.",
+      "example_tr": "Это старое здание.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "jung",
+      "back": "молодой",
+      "transcription": "jʊŋ",
+      "example": "Sie ist sehr jung.",
+      "example_tr": "Она очень молодая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "glücklich",
+      "back": "счастливый",
+      "transcription": "ˈɡlʏklɪç",
+      "example": "Ich bin heute glücklich.",
+      "example_tr": "Сегодня я счастлив.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "traurig",
+      "back": "грустный",
+      "transcription": "ˈtʁaʊʁɪç",
+      "example": "Warum bist du traurig?",
+      "example_tr": "Почему ты грустишь?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "heiß",
+      "back": "горячий, жаркий",
+      "transcription": "haɪs",
+      "example": "Die Suppe ist sehr heiß.",
+      "example_tr": "Суп очень горячий.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "kalt",
+      "back": "холодный",
+      "transcription": "kalt",
+      "example": "Es ist kalt draußen.",
+      "example_tr": "На улице холодно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "warm",
+      "back": "тёплый",
+      "transcription": "vaʁm",
+      "example": "Das Wasser ist warm.",
+      "example_tr": "Вода тёплая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "leicht",
+      "back": "лёгкий (простой/по весу)",
+      "transcription": "laɪçt",
+      "example": "Diese Aufgabe ist leicht.",
+      "example_tr": "Это задание лёгкое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schwer",
+      "back": "трудный, тяжёлый",
+      "transcription": "ʃveːɐ̯",
+      "example": "Diese Frage ist schwer.",
+      "example_tr": "Этот вопрос трудный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "lang",
+      "back": "длинный",
+      "transcription": "laŋ",
+      "example": "Es war ein langer Tag.",
+      "example_tr": "Это был долгий день.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "kurz",
+      "back": "короткий",
+      "transcription": "kʊʁts",
+      "example": "Sie hat kurze Haare.",
+      "example_tr": "У неё короткие волосы.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "hoch",
+      "back": "высокий",
+      "transcription": "hoːx",
+      "example": "Der Berg ist sehr hoch.",
+      "example_tr": "Гора очень высокая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schnell",
+      "back": "быстрый",
+      "transcription": "ʃnɛl",
+      "example": "Er läuft sehr schnell.",
+      "example_tr": "Он очень быстро бегает.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "langsam",
+      "back": "медленный",
+      "transcription": "ˈlaŋzaːm",
+      "example": "Das Internet ist heute langsam.",
+      "example_tr": "Сегодня медленный интернет.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schön",
+      "back": "красивый",
+      "transcription": "ʃøːn",
+      "example": "Was für ein schöner Garten!",
+      "example_tr": "Какой красивый сад!",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "nett",
+      "back": "милый, приятный",
+      "transcription": "nɛt",
+      "example": "Sie ist eine nette Frau.",
+      "example_tr": "Она приятная женщина.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "sauber",
+      "back": "чистый",
+      "transcription": "ˈzaʊbɐ",
+      "example": "Die Küche ist sauber.",
+      "example_tr": "Кухня чистая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schmutzig",
+      "back": "грязный",
+      "transcription": "ˈʃmʊtsɪç",
+      "example": "Meine Schuhe sind schmutzig.",
+      "example_tr": "Мои туфли грязные.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "teuer",
+      "back": "дорогой",
+      "transcription": "ˈtɔʏɐ",
+      "example": "Diese Tasche ist teuer.",
+      "example_tr": "Эта сумка дорогая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "billig",
+      "back": "дешёвый",
+      "transcription": "ˈbɪlɪç",
+      "example": "Die Tickets sind billig.",
+      "example_tr": "Билеты дешёвые.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "stark",
+      "back": "сильный",
+      "transcription": "ʃtaʁk",
+      "example": "Er ist sehr stark.",
+      "example_tr": "Он очень сильный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "müde",
+      "back": "уставший",
+      "transcription": "ˈmyːdə",
+      "example": "Ich bin nach der Arbeit müde.",
+      "example_tr": "Я устал после работы.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "hungrig",
+      "back": "голодный",
+      "transcription": "ˈhʊŋʁɪç",
+      "example": "Bist du hungrig?",
+      "example_tr": "Ты голоден?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "durstig",
+      "back": "испытывающий жажду",
+      "transcription": "ˈdʊʁstɪç",
+      "example": "Ich bin durstig.",
+      "example_tr": "Я хочу пить.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "wichtig",
+      "back": "важный",
+      "transcription": "ˈvɪçtɪç",
+      "example": "Das ist sehr wichtig.",
+      "example_tr": "Это очень важно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "interessant",
+      "back": "интересный",
+      "transcription": "ɪntəʁɛˈsant",
+      "example": "Dieses Buch ist interessant.",
+      "example_tr": "Эта книга интересная.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "richtig",
+      "back": "правильный",
+      "transcription": "ˈʁɪçtɪç",
+      "example": "Das ist die richtige Antwort.",
+      "example_tr": "Это правильный ответ.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "falsch",
+      "back": "неправильный",
+      "transcription": "falʃ",
+      "example": "Das ist die falsche Nummer.",
+      "example_tr": "Это неправильный номер.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "frei",
+      "back": "свободный",
+      "transcription": "fʁaɪ",
+      "example": "Bist du heute Abend frei?",
+      "example_tr": "Ты свободен сегодня вечером?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "voll",
+      "back": "полный",
+      "transcription": "fɔl",
+      "example": "Der Bus ist voll.",
+      "example_tr": "Автобус полный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "sehr",
+      "back": "очень",
+      "transcription": "zeːɐ̯",
+      "example": "Es ist heute sehr heiß.",
+      "example_tr": "Сегодня очень жарко.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "immer",
+      "back": "всегда",
+      "transcription": "ˈɪmɐ",
+      "example": "Sie lächelt immer.",
+      "example_tr": "Она всегда улыбается.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "nie",
+      "back": "никогда",
+      "transcription": "niː",
+      "example": "Ich esse nie Fleisch.",
+      "example_tr": "Я никогда не ем мясо.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "manchmal",
+      "back": "иногда",
+      "transcription": "ˈmançmaːl",
+      "example": "Manchmal gehe ich zu Fuß zur Arbeit.",
+      "example_tr": "Иногда я хожу на работу пешком.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "oft",
+      "back": "часто",
+      "transcription": "ɔft",
+      "example": "Wir treffen uns oft am Wochenende.",
+      "example_tr": "Мы часто встречаемся по выходным.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "jetzt",
+      "back": "сейчас",
+      "transcription": "jɛtst",
+      "example": "Ich bin jetzt beschäftigt.",
+      "example_tr": "Сейчас я занят.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "hier",
+      "back": "здесь",
+      "transcription": "hiːɐ̯",
+      "example": "Komm bitte her.",
+      "example_tr": "Иди сюда, пожалуйста.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "dort",
+      "back": "там",
+      "transcription": "dɔʁt",
+      "example": "Das Buch ist dort.",
+      "example_tr": "Книга там.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "auch",
+      "back": "тоже",
+      "transcription": "aʊx",
+      "example": "Ich mag Tee auch.",
+      "example_tr": "Мне тоже нравится чай.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "wieder",
+      "back": "снова",
+      "transcription": "ˈviːdɐ",
+      "example": "Versuch es bitte wieder.",
+      "example_tr": "Попробуй снова, пожалуйста.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "schon",
+      "back": "уже",
+      "transcription": "ʃoːn",
+      "example": "Ich bin schon fertig.",
+      "example_tr": "Я уже готов.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "noch",
+      "back": "ещё",
+      "transcription": "nɔx",
+      "example": "Ich bin noch müde.",
+      "example_tr": "Я всё ещё устал.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "nur",
+      "back": "только",
+      "transcription": "nuːɐ̯",
+      "example": "Ich habe nur eine Schwester.",
+      "example_tr": "У меня только одна сестра.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "in",
+      "back": "в",
+      "transcription": "ɪn",
+      "example": "Das Buch ist in der Tasche.",
+      "example_tr": "Книга в сумке.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "auf",
+      "back": "на",
+      "transcription": "aʊf",
+      "example": "Die Tasse ist auf dem Tisch.",
+      "example_tr": "Чашка на столе.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "an",
+      "back": "у, около, на",
+      "transcription": "an",
+      "example": "Er steht an der Tür.",
+      "example_tr": "Он стоит у двери.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "mit",
+      "back": "с",
+      "transcription": "mɪt",
+      "example": "Ich gehe mit meinem Freund zur Schule.",
+      "example_tr": "Я иду в школу с другом.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "für",
+      "back": "для",
+      "transcription": "fyːɐ̯",
+      "example": "Das Geschenk ist für dich.",
+      "example_tr": "Этот подарок для тебя.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "von",
+      "back": "от, из",
+      "transcription": "fɔn",
+      "example": "Ich komme von der Arbeit.",
+      "example_tr": "Я иду с работы.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "zu",
+      "back": "к",
+      "transcription": "tsuː",
+      "example": "Ich gehe zu meiner Oma.",
+      "example_tr": "Я иду к бабушке.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "bei",
+      "back": "у, при",
+      "transcription": "baɪ",
+      "example": "Ich wohne bei meinen Eltern.",
+      "example_tr": "Я живу у родителей.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "nach",
+      "back": "после, в (направление)",
+      "transcription": "naːx",
+      "example": "Wir essen nach der Schule.",
+      "example_tr": "Мы едим после школы.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "über",
+      "back": "над, о",
+      "transcription": "ˈyːbɐ",
+      "example": "Der Vogel fliegt über das Haus.",
+      "example_tr": "Птица летит над домом.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "unter",
+      "back": "под",
+      "transcription": "ˈʊntɐ",
+      "example": "Die Katze ist unter dem Tisch.",
+      "example_tr": "Кошка под столом.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "zwischen",
+      "back": "между",
+      "transcription": "ˈtsvɪʃn̩",
+      "example": "Die Bank ist zwischen dem Laden und dem Park.",
+      "example_tr": "Банк между магазином и парком.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "neben",
+      "back": "рядом с",
+      "transcription": "ˈneːbn̩",
+      "example": "Der Laden ist neben der Bank.",
+      "example_tr": "Магазин рядом с банком.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "vor",
+      "back": "перед, до",
+      "transcription": "foːɐ̯",
+      "example": "Wasch dir die Hände vor dem Essen.",
+      "example_tr": "Помой руки перед едой.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "ohne",
+      "back": "без",
+      "transcription": "ˈoːnə",
+      "example": "Ich kann nicht ohne Kaffee leben.",
+      "example_tr": "Я не могу жить без кофе.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "und",
+      "back": "и",
+      "transcription": "ʊnt",
+      "example": "Ich mag Tee und Kaffee.",
+      "example_tr": "Мне нравится чай и кофе.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "aber",
+      "back": "но",
+      "transcription": "ˈaːbɐ",
+      "example": "Ich will gehen, aber ich bin beschäftigt.",
+      "example_tr": "Я хочу пойти, но я занят.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "oder",
+      "back": "или",
+      "transcription": "ˈoːdɐ",
+      "example": "Tee oder Kaffee?",
+      "example_tr": "Чай или кофе?",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "weil",
+      "back": "потому что",
+      "transcription": "vaɪl",
+      "example": "Ich blieb zu Hause, weil ich krank war.",
+      "example_tr": "Я остался дома, потому что болел.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "wenn",
+      "back": "если, когда",
+      "transcription": "vɛn",
+      "example": "Ruf mich an, wenn du Hilfe brauchst.",
+      "example_tr": "Позвони мне, если понадобится помощь.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "das Buch",
+      "back": "книга",
+      "transcription": "das buːx",
+      "example": "Ich lese ein neues Buch.",
+      "example_tr": "Я читаю новую книгу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Handy",
+      "back": "мобильный телефон",
+      "transcription": "das ˈhɛndi",
+      "example": "Mein Handy ist neu.",
+      "example_tr": "Мой телефон новый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Computer",
+      "back": "компьютер",
+      "transcription": "deːɐ̯ kɔmˈpjuːtɐ",
+      "example": "Ich arbeite am Computer.",
+      "example_tr": "Я работаю за компьютером.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Auto",
+      "back": "машина",
+      "transcription": "das ˈaʊto",
+      "example": "Wir fahren mit dem Auto.",
+      "example_tr": "Мы едем на машине.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Bus",
+      "back": "автобус",
+      "transcription": "deːɐ̯ bʊs",
+      "example": "Ich fahre mit dem Bus zur Arbeit.",
+      "example_tr": "Я езжу на работу на автобусе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Zug",
+      "back": "поезд",
+      "transcription": "deːɐ̯ tsuːk",
+      "example": "Der Zug ist schnell.",
+      "example_tr": "Поезд быстрый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Tasche",
+      "back": "сумка",
+      "transcription": "diː ˈtaʃə",
+      "example": "Ihre Tasche ist rot.",
+      "example_tr": "Её сумка красная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Geld",
+      "back": "деньги",
+      "transcription": "das ɡɛlt",
+      "example": "Ich habe nicht viel Geld.",
+      "example_tr": "У меня немного денег.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Musik",
+      "back": "музыка",
+      "transcription": "diː muˈziːk",
+      "example": "Ich mag diese Musik.",
+      "example_tr": "Мне нравится эта музыка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Film",
+      "back": "фильм",
+      "transcription": "deːɐ̯ fɪlm",
+      "example": "Schauen wir heute Abend einen Film.",
+      "example_tr": "Давай посмотрим фильм сегодня вечером.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Hund",
+      "back": "собака",
+      "transcription": "deːɐ̯ hʊnt",
+      "example": "Mein Hund ist sehr freundlich.",
+      "example_tr": "Моя собака очень дружелюбная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Katze",
+      "back": "кошка",
+      "transcription": "diː ˈkatsə",
+      "example": "Die Katze schläft.",
+      "example_tr": "Кошка спит.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Baum",
+      "back": "дерево",
+      "transcription": "deːɐ̯ baʊm",
+      "example": "Neben meinem Haus steht ein großer Baum.",
+      "example_tr": "Рядом с моим домом растёт большое дерево.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Sonne",
+      "back": "солнце",
+      "transcription": "diː ˈzɔnə",
+      "example": "Die Sonne scheint.",
+      "example_tr": "Светит солнце.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Wetter",
+      "back": "погода",
+      "transcription": "das ˈvɛtɐ",
+      "example": "Das Wetter ist heute schön.",
+      "example_tr": "Сегодня хорошая погода.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Regen",
+      "back": "дождь",
+      "transcription": "deːɐ̯ ˈʁeːɡn̩",
+      "example": "Es regnet draußen.",
+      "example_tr": "На улице идёт дождь.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Schnee",
+      "back": "снег",
+      "transcription": "deːɐ̯ ʃneː",
+      "example": "Die Kinder spielen im Schnee.",
+      "example_tr": "Дети играют в снегу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Kleidung",
+      "back": "одежда",
+      "transcription": "diː ˈklaɪdʊŋ",
+      "example": "Ich muss neue Kleidung kaufen.",
+      "example_tr": "Мне нужно купить новую одежду.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Schuhe",
+      "back": "обувь",
+      "transcription": "diː ˈʃuːə",
+      "example": "Diese Schuhe sind bequem.",
+      "example_tr": "Эта обувь удобная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Kopf",
+      "back": "голова",
+      "transcription": "deːɐ̯ kɔpf",
+      "example": "Mein Kopf tut weh.",
+      "example_tr": "У меня болит голова.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Hand",
+      "back": "рука (кисть)",
+      "transcription": "diː hant",
+      "example": "Gib mir deine Hand.",
+      "example_tr": "Дай мне руку.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Auge",
+      "back": "глаз",
+      "transcription": "das ˈaʊɡə",
+      "example": "Sie hat blaue Augen.",
+      "example_tr": "У неё голубые глаза.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Haar",
+      "back": "волосы",
+      "transcription": "das haːɐ̯",
+      "example": "Sie hat lange Haare.",
+      "example_tr": "У неё длинные волосы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Gesicht",
+      "back": "лицо",
+      "transcription": "das ɡəˈzɪçt",
+      "example": "Er hat ein freundliches Gesicht.",
+      "example_tr": "У него доброе лицо.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "rot",
+      "back": "красный",
+      "transcription": "ʁoːt",
+      "example": "Sie hat eine rote Tasche.",
+      "example_tr": "У неё красная сумка.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "blau",
+      "back": "синий, голубой",
+      "transcription": "blaʊ",
+      "example": "Der Himmel ist blau.",
+      "example_tr": "Небо голубое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "grün",
+      "back": "зелёный",
+      "transcription": "ɡʁyːn",
+      "example": "Ich mag die Farbe Grün.",
+      "example_tr": "Мне нравится зелёный цвет.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "gelb",
+      "back": "жёлтый",
+      "transcription": "ɡɛlp",
+      "example": "Die Sonne ist gelb.",
+      "example_tr": "Солнце жёлтое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "schwarz",
+      "back": "чёрный",
+      "transcription": "ʃvaʁts",
+      "example": "Er trägt eine schwarze Jacke.",
+      "example_tr": "Он носит чёрную куртку.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "weiß",
+      "back": "белый",
+      "transcription": "vaɪs",
+      "example": "Ihr Kleid ist weiß.",
+      "example_tr": "Её платье белое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "wie viel",
+      "back": "сколько",
+      "transcription": "viː fiːl",
+      "example": "Wie viel kostet das?",
+      "example_tr": "Сколько это стоит?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "wie viele",
+      "back": "сколько (штук)",
+      "transcription": "viː ˈfiːlə",
+      "example": "Wie viele Brüder hast du?",
+      "example_tr": "Сколько у тебя братьев?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "wie geht's",
+      "back": "как дела",
+      "transcription": "viː ɡeːts",
+      "example": "Hallo, wie geht's?",
+      "example_tr": "Привет, как дела?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "das Wort",
+      "back": "слово",
+      "transcription": "das vɔʁt",
+      "example": "Ich kenne dieses Wort nicht.",
+      "example_tr": "Я не знаю это слово.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Frage",
+      "back": "вопрос",
+      "transcription": "diː ˈfʁaːɡə",
+      "example": "Darf ich eine Frage stellen?",
+      "example_tr": "Можно задать вопрос?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Antwort",
+      "back": "ответ",
+      "transcription": "diː ˈantvɔʁt",
+      "example": "Das ist die richtige Antwort.",
+      "example_tr": "Это правильный ответ.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Geburtstag",
+      "back": "день рождения",
+      "transcription": "deːɐ̯ ɡəˈbʊʁtstaːk",
+      "example": "Herzlichen Glückwunsch zum Geburtstag!",
+      "example_tr": "С днём рождения!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "der Urlaub",
+      "back": "отпуск",
+      "transcription": "deːɐ̯ ˈuːɐ̯laʊp",
+      "example": "Wir sind im Urlaub.",
+      "example_tr": "Мы в отпуске.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "die Party",
+      "back": "вечеринка",
+      "transcription": "diː ˈpaːɐ̯ti",
+      "example": "Heute Abend ist eine Party.",
+      "example_tr": "Сегодня вечером вечеринка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "das Geschenk",
+      "back": "подарок",
+      "transcription": "das ɡəˈʃɛŋk",
+      "example": "Das ist ein Geschenk für dich.",
+      "example_tr": "Это подарок для тебя.",
+      "tags": [
+        "noun"
+      ]
+    }
+  ]
+}
