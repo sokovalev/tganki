@@ -119,11 +119,15 @@ describe("question screen", () => {
     expect(data).toEqual(["s:show:11", "c:open:11", "s:skip:11", "s:fin"]);
   });
 
-  it('keeps "Знаю" out of the answer screen', () => {
-    const data = buttons(renderCard(ru, view({ stage: "answer" })).keyboard).map((button) =>
+  it('keeps "Знаю" on the answer screen of a new card only', () => {
+    const fresh = buttons(renderCard(ru, view({ stage: "answer" })).keyboard).map((button) =>
       "callback_data" in button ? button.callback_data : "",
     );
-    expect(data).not.toContain("s:know:11");
+    expect(fresh).toContain("s:know:11");
+    const seen = buttons(renderCard(ru, view({ stage: "answer", isNew: false })).keyboard).map(
+      (button) => ("callback_data" in button ? button.callback_data : ""),
+    );
+    expect(seen).not.toContain("s:know:11");
   });
 
   it("shows the translation for a reverse card", () => {

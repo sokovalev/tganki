@@ -100,6 +100,9 @@ export function renderCard(t: Translate, view: SessionView): Screen {
     keyboard.text(ratingLabel(t, rating), cb(NS.rate, String(pos), rating));
   }
   keyboard.row();
+  // The word may turn out to be familiar only once the translation is seen,
+  // so a new card keeps its "Знаю" on the answer side too.
+  if (view.isNew) keyboard.text(t("btn-known"), cb(NS.session, "know", pos)).row();
   if (view.canUndo) keyboard.text(t("btn-undo"), cb(NS.session, "undo"));
   keyboard.text(t("btn-card-menu"), cb(NS.card, "open", pos));
   keyboard.text(t("btn-finish"), cb(NS.session, "fin"));
