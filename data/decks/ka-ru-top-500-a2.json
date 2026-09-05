@@ -1,7 +1,7 @@
 {
   "slug": "ka-ru-top-500-a2",
   "title": "Грузинский Top 500 · A2",
-  "description": "250 слов уровня A2 без пересечений с A1: быт, работа, поездки, чувства, погода, покупки, послелоги и новые глаголы.",
+  "description": "500 слов и выражений уровня A2: транспорт и дорога, жильё и аренда, документы и банк, здоровье, еда и застолье, работа и учёба, природа, чувства и разговорные фразы.",
   "lang_from": "ka",
   "lang_to": "ru",
   "level": "A2",
@@ -67,16 +67,6 @@
       ]
     },
     {
-      "front": "სახე",
-      "back": "лицо",
-      "transcription": "sɑxɛ",
-      "example": "ბავშვს ლამაზი სახე აქვს.",
-      "example_tr": "У ребёнка красивое лицо.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
       "front": "შემდეგ",
       "back": "затем, после",
       "transcription": "ʃɛmdɛɡ",
@@ -87,13 +77,13 @@
       ]
     },
     {
-      "front": "სიმღერა",
-      "back": "петь, песня",
-      "transcription": "simɣɛrɑ",
-      "example": "სიმღერა მიყვარს.",
-      "example_tr": "Я люблю петь.",
+      "front": "სახე",
+      "back": "лицо",
+      "transcription": "sɑxɛ",
+      "example": "ბავშვს ლამაზი სახე აქვს.",
+      "example_tr": "У ребёнка красивое лицо.",
       "tags": [
-        "verb"
+        "noun"
       ]
     },
     {
@@ -107,61 +97,21 @@
       ]
     },
     {
-      "front": "სურათი",
-      "back": "фотография, картина",
-      "transcription": "surɑtʰi",
-      "example": "ეს სურათი ლამაზია.",
-      "example_tr": "Эта фотография красивая.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "გაყიდვა",
-      "back": "продавать",
-      "transcription": "ɡɑqʼidvɑ",
-      "example": "მანქანის გაყიდვა მინდა.",
-      "example_tr": "Я хочу продать машину.",
+      "front": "სიმღერა",
+      "back": "петь, песня",
+      "transcription": "simɣɛrɑ",
+      "example": "სიმღერა მიყვარს.",
+      "example_tr": "Я люблю петь.",
       "tags": [
         "verb"
       ]
     },
     {
-      "front": "სევდიანი",
-      "back": "грустный",
-      "transcription": "sɛvdiɑni",
-      "example": "დღეს სევდიანი ვარ.",
-      "example_tr": "Сегодня мне грустно.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "-ში",
-      "back": "в, во (внутри чего-то)",
-      "transcription": "-ʃi",
-      "example": "მაღაზიაში მივდივარ.",
-      "example_tr": "Я иду в магазин.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "ბოსტნეული",
-      "back": "овощи",
-      "transcription": "bɔstʼnɛuli",
-      "example": "ბაზარში ბოსტნეულს ვყიდულობ.",
-      "example_tr": "На рынке я покупаю овощи.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "კარტოფილი",
-      "back": "картофель",
-      "transcription": "kʼɑrtʼɔpʰili",
-      "example": "სუპში კარტოფილია.",
-      "example_tr": "В супе картошка.",
+      "front": "სურათი",
+      "back": "фотография, картина",
+      "transcription": "surɑtʰi",
+      "example": "ეს სურათი ლამაზია.",
+      "example_tr": "Эта фотография красивая.",
       "tags": [
         "noun"
       ]
@@ -177,33 +127,53 @@
       ]
     },
     {
-      "front": "პირველი",
-      "back": "первый",
-      "transcription": "pʼirvɛli",
-      "example": "ეს ჩემი პირველი დღეა.",
-      "example_tr": "Это мой первый день.",
-      "tags": [
-        "numeral"
-      ]
-    },
-    {
-      "front": "მოტანა",
-      "back": "приносить",
-      "transcription": "mɔtʼɑnɑ",
-      "example": "წყლის მოტანა შეგიძლია?",
-      "example_tr": "Можешь принести воды?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "პომიდორი",
-      "back": "помидор",
-      "transcription": "pʼɔmidɔri",
-      "example": "ერთი კილო პომიდორი მინდა.",
-      "example_tr": "Я хочу килограмм помидоров.",
+      "front": "ბოსტნეული",
+      "back": "овощи",
+      "transcription": "bɔstʼnɛuli",
+      "example": "ბაზარში ბოსტნეულს ვყიდულობ.",
+      "example_tr": "На рынке я покупаю овощи.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "-ში",
+      "back": "в, во (внутри чего-то)",
+      "transcription": "-ʃi",
+      "example": "მაღაზიაში მივდივარ.",
+      "example_tr": "Я иду в магазин.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "სევდიანი",
+      "back": "грустный",
+      "transcription": "sɛvdiɑni",
+      "example": "დღეს სევდიანი ვარ.",
+      "example_tr": "Сегодня мне грустно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "კარტოფილი",
+      "back": "картофель",
+      "transcription": "kʼɑrtʼɔpʰili",
+      "example": "სუპში კარტოფილია.",
+      "example_tr": "В супе картошка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გაყიდვა",
+      "back": "продавать",
+      "transcription": "ɡɑqʼidvɑ",
+      "example": "მანქანის გაყიდვა მინდა.",
+      "example_tr": "Я хочу продать машину.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -217,11 +187,71 @@
       ]
     },
     {
+      "front": "პომიდორი",
+      "back": "помидор",
+      "transcription": "pʼɔmidɔri",
+      "example": "ერთი კილო პომიდორი მინდა.",
+      "example_tr": "Я хочу килограмм помидоров.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "პირველი",
+      "back": "первый",
+      "transcription": "pʼirvɛli",
+      "example": "ეს ჩემი პირველი დღეა.",
+      "example_tr": "Это мой первый день.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
       "front": "ეზო",
       "back": "двор",
       "transcription": "ɛzɔ",
       "example": "ბავშვები ეზოში თამაშობენ.",
       "example_tr": "Дети играют во дворе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მოტანა",
+      "back": "приносить",
+      "transcription": "mɔtʼɑnɑ",
+      "example": "წყლის მოტანა შეგიძლია?",
+      "example_tr": "Можешь принести воды?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ცენტრი",
+      "back": "центр",
+      "transcription": "t͡sʰɛntʼri",
+      "example": "ცენტრში ვმუშაობ.",
+      "example_tr": "Я работаю в центре.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თვითონ",
+      "back": "сам, сама",
+      "transcription": "tʰvitʰɔn",
+      "example": "თვითონ გააკეთა ეს.",
+      "example_tr": "Он сам это сделал.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "მოსწავლე",
+      "back": "ученик",
+      "transcription": "mɔst͡sʼɑvlɛ",
+      "example": "მოსწავლე გაკვეთილს სწავლობს.",
+      "example_tr": "Ученик учит урок.",
       "tags": [
         "noun"
       ]
@@ -237,56 +267,6 @@
       ]
     },
     {
-      "front": "დაწყება",
-      "back": "начинать",
-      "transcription": "dɑt͡sʼqʼɛbɑ",
-      "example": "სწავლის დაწყება მინდა.",
-      "example_tr": "Я хочу начать учёбу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "თვითონ",
-      "back": "сам, сама",
-      "transcription": "tʰvitʰɔn",
-      "example": "თვითონ გააკეთა ეს.",
-      "example_tr": "Он сам это сделал.",
-      "tags": [
-        "pronoun"
-      ]
-    },
-    {
-      "front": "ცენტრი",
-      "back": "центр",
-      "transcription": "t͡sʰɛntʼri",
-      "example": "ცენტრში ვმუშაობ.",
-      "example_tr": "Я работаю в центре.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "მოსწავლე",
-      "back": "ученик",
-      "transcription": "mɔst͡sʼɑvlɛ",
-      "example": "მოსწავლე გაკვეთილს სწავლობს.",
-      "example_tr": "Ученик учит урок.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "დაბრუნება",
-      "back": "возвращаться",
-      "transcription": "dɑbrunɛbɑ",
-      "example": "სახლში დაბრუნება მინდა.",
-      "example_tr": "Я хочу вернуться домой.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
       "front": "პასუხი",
       "back": "ответ",
       "transcription": "pʼɑsuxi",
@@ -297,31 +277,11 @@
       ]
     },
     {
-      "front": "გაბრაზებული",
-      "back": "сердитый, злой",
-      "transcription": "ɡɑbrɑzɛbuli",
-      "example": "რატომ ხარ გაბრაზებული?",
-      "example_tr": "Почему ты сердитый?",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "სიყვარული",
-      "back": "любовь",
-      "transcription": "siqʼvɑruli",
-      "example": "დედის სიყვარული დიდია.",
-      "example_tr": "Материнская любовь велика.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "გამგზავრება",
-      "back": "уезжать, отправляться",
-      "transcription": "ɡɑmɡzɑvrɛbɑ",
-      "example": "საზღვარგარეთ გამგზავრება მინდა.",
-      "example_tr": "Я хочу уехать за границу.",
+      "front": "დაწყება",
+      "back": "начинать",
+      "transcription": "dɑt͡sʼqʼɛbɑ",
+      "example": "სწავლის დაწყება მინდა.",
+      "example_tr": "Я хочу начать учёбу.",
       "tags": [
         "verb"
       ]
@@ -337,141 +297,21 @@
       ]
     },
     {
+      "front": "სიყვარული",
+      "back": "любовь",
+      "transcription": "siqʼvɑruli",
+      "example": "დედის სიყვარული დიდია.",
+      "example_tr": "Материнская любовь велика.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
       "front": "საწოლი",
       "back": "кровать",
       "transcription": "sɑt͡sʼɔli",
       "example": "საწოლი დიდია.",
       "example_tr": "Кровать большая.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "მგზავრობა",
-      "back": "ездить, путешествовать",
-      "transcription": "mɡzɑvrɔbɑ",
-      "example": "მატარებლით ვმგზავრობ.",
-      "example_tr": "Я еду на поезде.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "კალამი",
-      "back": "ручка (для письма)",
-      "transcription": "kʼɑlɑmi",
-      "example": "კალამი მაქვს.",
-      "example_tr": "У меня есть ручка.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "დაღლილი",
-      "back": "усталый",
-      "transcription": "dɑɣlili",
-      "example": "ძალიან დაღლილი ვარ.",
-      "example_tr": "Я очень устал.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "მეტრო",
-      "back": "метро",
-      "transcription": "mɛtʼrɔ",
-      "example": "მეტროთი მივდივარ სამსახურში.",
-      "example_tr": "Я езжу на работу на метро.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "-ზე",
-      "back": "на; о (о чём-то)",
-      "transcription": "-zɛ",
-      "example": "მაგიდაზე წიგნია.",
-      "example_tr": "На столе книга.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "გაჩერება",
-      "back": "останавливаться; остановка",
-      "transcription": "ɡɑt͡ʃʰɛrɛbɑ",
-      "example": "აქ გაჩერება შეიძლება?",
-      "example_tr": "Здесь можно остановиться?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ტანსაცმელი",
-      "back": "одежда",
-      "transcription": "tʼɑnsɑt͡sʰmɛli",
-      "example": "ახალი ტანსაცმელი ვიყიდე.",
-      "example_tr": "Я купил новую одежду.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "პერანგი",
-      "back": "рубашка",
-      "transcription": "pʼɛrɑnɡi",
-      "example": "ეს პერანგი მომწონს.",
-      "example_tr": "Мне нравится эта рубашка.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ჯდომა",
-      "back": "сидеть, садиться",
-      "transcription": "d͡ʒdɔmɑ",
-      "example": "აქ ჯდომა შეიძლება?",
-      "example_tr": "Здесь можно сесть?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "შარვალი",
-      "back": "брюки",
-      "transcription": "ʃɑrvɑli",
-      "example": "შარვალი მჭირდება.",
-      "example_tr": "Мне нужны брюки.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "უკან",
-      "back": "назад",
-      "transcription": "ukʼɑn",
-      "example": "უკან დავბრუნდი.",
-      "example_tr": "Я вернулся назад.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "ავადმყოფი",
-      "back": "больной",
-      "transcription": "ɑvɑdmqʼɔpʰi",
-      "example": "ბავშვი ავადმყოფია.",
-      "example_tr": "Ребёнок болен.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "კაბა",
-      "back": "платье",
-      "transcription": "kʼɑbɑ",
-      "example": "ლამაზი კაბა იყიდა.",
-      "example_tr": "Она купила красивое платье.",
       "tags": [
         "noun"
       ]
@@ -487,21 +327,141 @@
       ]
     },
     {
-      "front": "მეორე",
-      "back": "второй",
-      "transcription": "mɛɔrɛ",
-      "example": "მეორე სართულზე ვცხოვრობ.",
-      "example_tr": "Я живу на втором этаже.",
+      "front": "კალამი",
+      "back": "ручка (для письма)",
+      "transcription": "kʼɑlɑmi",
+      "example": "კალამი მაქვს.",
+      "example_tr": "У меня есть ручка.",
       "tags": [
-        "numeral"
+        "noun"
       ]
     },
     {
-      "front": "დგომა",
-      "back": "стоять",
-      "transcription": "dɡɔmɑ",
-      "example": "რიგში დგომა არ მიყვარს.",
-      "example_tr": "Я не люблю стоять в очереди.",
+      "front": "დაბრუნება",
+      "back": "возвращаться",
+      "transcription": "dɑbrunɛbɑ",
+      "example": "სახლში დაბრუნება მინდა.",
+      "example_tr": "Я хочу вернуться домой.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "გაბრაზებული",
+      "back": "сердитый, злой",
+      "transcription": "ɡɑbrɑzɛbuli",
+      "example": "რატომ ხარ გაბრაზებული?",
+      "example_tr": "Почему ты сердитый?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "მეტრო",
+      "back": "метро",
+      "transcription": "mɛtʼrɔ",
+      "example": "მეტროთი მივდივარ სამსახურში.",
+      "example_tr": "Я езжу на работу на метро.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ამიტომ",
+      "back": "поэтому",
+      "transcription": "ɑmitʼɔm",
+      "example": "ავად ვიყავი, ამიტომ არ მოვედი.",
+      "example_tr": "Я был болен, поэтому не пришёл.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ტანსაცმელი",
+      "back": "одежда",
+      "transcription": "tʼɑnsɑt͡sʰmɛli",
+      "example": "ახალი ტანსაცმელი ვიყიდე.",
+      "example_tr": "Я купил новую одежду.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "უკან",
+      "back": "назад",
+      "transcription": "ukʼɑn",
+      "example": "უკან დავბრუნდი.",
+      "example_tr": "Я вернулся назад.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "პერანგი",
+      "back": "рубашка",
+      "transcription": "pʼɛrɑnɡi",
+      "example": "ეს პერანგი მომწონს.",
+      "example_tr": "Мне нравится эта рубашка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამგზავრება",
+      "back": "уезжать, отправляться",
+      "transcription": "ɡɑmɡzɑvrɛbɑ",
+      "example": "საზღვარგარეთ გამგზავრება მინდა.",
+      "example_tr": "Я хочу уехать за границу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "-ზე",
+      "back": "на; о (о чём-то)",
+      "transcription": "-zɛ",
+      "example": "მაგიდაზე წიგნია.",
+      "example_tr": "На столе книга.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "შარვალი",
+      "back": "брюки",
+      "transcription": "ʃɑrvɑli",
+      "example": "შარვალი მჭირდება.",
+      "example_tr": "Мне нужны брюки.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაღლილი",
+      "back": "усталый",
+      "transcription": "dɑɣlili",
+      "example": "ძალიან დაღლილი ვარ.",
+      "example_tr": "Я очень устал.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "კაბა",
+      "back": "платье",
+      "transcription": "kʼɑbɑ",
+      "example": "ლამაზი კაბა იყიდა.",
+      "example_tr": "Она купила красивое платье.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მგზავრობა",
+      "back": "ездить, путешествовать",
+      "transcription": "mɡzɑvrɔbɑ",
+      "example": "მატარებლით ვმგზავრობ.",
+      "example_tr": "Я еду на поезде.",
       "tags": [
         "verb"
       ]
@@ -527,23 +487,13 @@
       ]
     },
     {
-      "front": "ადგომა",
-      "back": "вставать",
-      "transcription": "ɑdɡɔmɑ",
-      "example": "ადრე ადგომა მიჭირს.",
-      "example_tr": "Мне трудно вставать рано.",
+      "front": "წინ",
+      "back": "вперёд; впереди",
+      "transcription": "t͡sʼin",
+      "example": "წინ წადი.",
+      "example_tr": "Иди вперёд.",
       "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ჯანმრთელი",
-      "back": "здоровый",
-      "transcription": "d͡ʒɑnmrtʰɛli",
-      "example": "ბაბუა ჯანმრთელია.",
-      "example_tr": "Дедушка здоров.",
-      "tags": [
-        "adjective"
+        "adverb"
       ]
     },
     {
@@ -557,6 +507,46 @@
       ]
     },
     {
+      "front": "გაჩერება",
+      "back": "останавливаться; остановка",
+      "transcription": "ɡɑt͡ʃʰɛrɛbɑ",
+      "example": "აქ გაჩერება შეიძლება?",
+      "example_tr": "Здесь можно остановиться?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მეორე",
+      "back": "второй",
+      "transcription": "mɛɔrɛ",
+      "example": "მეორე სართულზე ვცხოვრობ.",
+      "example_tr": "Я живу на втором этаже.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "მეშინია",
+      "back": "я боюсь",
+      "transcription": "mɛʃiniɑ",
+      "example": "სიბნელის მეშინია.",
+      "example_tr": "Я боюсь темноты.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "ავადმყოფი",
+      "back": "больной",
+      "transcription": "ɑvɑdmqʼɔpʰi",
+      "example": "ბავშვი ავადმყოფია.",
+      "example_tr": "Ребёнок болен.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "ფასი",
       "back": "цена",
       "transcription": "pʰɑsi",
@@ -564,26 +554,6 @@
       "example_tr": "Цена высокая.",
       "tags": [
         "noun"
-      ]
-    },
-    {
-      "front": "წინ",
-      "back": "вперёд; впереди",
-      "transcription": "t͡sʼin",
-      "example": "წინ წადი.",
-      "example_tr": "Иди вперёд.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "დაძინება",
-      "back": "засыпать, лечь спать",
-      "transcription": "dɑd͡zinɛbɑ",
-      "example": "ადრე დაძინება მინდა.",
-      "example_tr": "Я хочу пораньше лечь спать.",
-      "tags": [
-        "verb"
       ]
     },
     {
@@ -607,53 +577,13 @@
       ]
     },
     {
-      "front": "მნიშვნელოვანი",
-      "back": "важный",
-      "transcription": "mniʃvnɛlɔvɑni",
-      "example": "ეს ძალიან მნიშვნელოვანია.",
-      "example_tr": "Это очень важно.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "გაღვიძება",
-      "back": "просыпаться",
-      "transcription": "ɡɑɣvid͡zɛbɑ",
-      "example": "შვიდ საათზე გაღვიძება მჭირდება.",
-      "example_tr": "Мне нужно проснуться в семь.",
+      "front": "ჯდომა",
+      "back": "сидеть, садиться",
+      "transcription": "d͡ʒdɔmɑ",
+      "example": "აქ ჯდომა შეიძლება?",
+      "example_tr": "Здесь можно сесть?",
       "tags": [
         "verb"
-      ]
-    },
-    {
-      "front": "-თან",
-      "back": "у, к, рядом с",
-      "transcription": "-tʰɑn",
-      "example": "ექიმთან მივდივარ.",
-      "example_tr": "Я иду к врачу.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "რამდენიმე",
-      "back": "несколько",
-      "transcription": "rɑmdɛnimɛ",
-      "example": "რამდენიმე დღე დამრჩა.",
-      "example_tr": "У меня осталось несколько дней.",
-      "tags": [
-        "pronoun"
-      ]
-    },
-    {
-      "front": "ნუ",
-      "back": "не (при запрете)",
-      "transcription": "nu",
-      "example": "ნუ გეშინია.",
-      "example_tr": "Не бойся.",
-      "tags": [
-        "particle"
       ]
     },
     {
@@ -667,13 +597,13 @@
       ]
     },
     {
-      "front": "ამიტომ",
-      "back": "поэтому",
-      "transcription": "ɑmitʼɔm",
-      "example": "ავად ვიყავი, ამიტომ არ მოვედი.",
-      "example_tr": "Я был болен, поэтому не пришёл.",
+      "front": "ზემოთ",
+      "back": "наверху, вверх",
+      "transcription": "zɛmɔtʰ",
+      "example": "ზემოთ ავედი.",
+      "example_tr": "Я поднялся наверх.",
       "tags": [
-        "conjunction"
+        "adverb"
       ]
     },
     {
@@ -687,11 +617,21 @@
       ]
     },
     {
-      "front": "დაბანა",
-      "back": "мыть, помыть",
-      "transcription": "dɑbɑnɑ",
-      "example": "ხელების დაბანა მინდა.",
-      "example_tr": "Я хочу помыть руки.",
+      "front": "ჯანმრთელი",
+      "back": "здоровый",
+      "transcription": "d͡ʒɑnmrtʰɛli",
+      "example": "ბაბუა ჯანმრთელია.",
+      "example_tr": "Дедушка здоров.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დგომა",
+      "back": "стоять",
+      "transcription": "dɡɔmɑ",
+      "example": "რიგში დგომა არ მიყვარს.",
+      "example_tr": "Я не люблю стоять в очереди.",
       "tags": [
         "verb"
       ]
@@ -707,23 +647,13 @@
       ]
     },
     {
-      "front": "საინტერესო",
-      "back": "интересный",
-      "transcription": "sɑintʼɛrɛsɔ",
-      "example": "წიგნი საინტერესოა.",
-      "example_tr": "Книга интересная.",
+      "front": "ნუ",
+      "back": "не (при запрете)",
+      "transcription": "nu",
+      "example": "ნუ გეშინია.",
+      "example_tr": "Не бойся.",
       "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "ზემოთ",
-      "back": "наверху, вверх",
-      "transcription": "zɛmɔtʰ",
-      "example": "ზემოთ ავედი.",
-      "example_tr": "Я поднялся наверх.",
-      "tags": [
-        "adverb"
+        "particle"
       ]
     },
     {
@@ -737,13 +667,13 @@
       ]
     },
     {
-      "front": "გარეცხვა",
-      "back": "стирать",
-      "transcription": "ɡɑrɛt͡sʰxvɑ",
-      "example": "ტანსაცმლის გარეცხვა მჭირდება.",
-      "example_tr": "Мне нужно постирать одежду.",
+      "front": "-თან",
+      "back": "у, к, рядом с",
+      "transcription": "-tʰɑn",
+      "example": "ექიმთან მივდივარ.",
+      "example_tr": "Я иду к врачу.",
       "tags": [
-        "verb"
+        "postposition"
       ]
     },
     {
@@ -757,6 +687,26 @@
       ]
     },
     {
+      "front": "ადგომა",
+      "back": "вставать",
+      "transcription": "ɑdɡɔmɑ",
+      "example": "ადრე ადგომა მიჭირს.",
+      "example_tr": "Мне трудно вставать рано.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "რამდენიმე",
+      "back": "несколько",
+      "transcription": "rɑmdɛnimɛ",
+      "example": "რამდენიმე დღე დამრჩა.",
+      "example_tr": "У меня осталось несколько дней.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
       "front": "საჩუქარი",
       "back": "подарок",
       "transcription": "sɑt͡ʃʰukʰɑri",
@@ -767,23 +717,33 @@
       ]
     },
     {
-      "front": "დალაგება",
-      "back": "убирать",
-      "transcription": "dɑlɑɡɛbɑ",
-      "example": "ოთახის დალაგება მინდა.",
-      "example_tr": "Я хочу убрать комнату.",
+      "front": "ქვემოთ",
+      "back": "внизу, вниз",
+      "transcription": "kʰvɛmɔtʰ",
+      "example": "ქვემოთ დაგელოდები.",
+      "example_tr": "Я подожду тебя внизу.",
       "tags": [
-        "verb"
+        "adverb"
       ]
     },
     {
-      "front": "მოსაწყენი",
-      "back": "скучный",
-      "transcription": "mɔsɑt͡sʼqʼɛni",
-      "example": "ფილმი მოსაწყენი იყო.",
-      "example_tr": "Фильм был скучным.",
+      "front": "მნიშვნელოვანი",
+      "back": "важный",
+      "transcription": "mniʃvnɛlɔvɑni",
+      "example": "ეს ძალიან მნიშვნელოვანია.",
+      "example_tr": "Это очень важно.",
       "tags": [
         "adjective"
+      ]
+    },
+    {
+      "front": "მაპატიე",
+      "back": "прости меня",
+      "transcription": "mɑpʼɑtʼiɛ",
+      "example": "მაპატიე, არ მინდოდა.",
+      "example_tr": "Прости, я не хотел.",
+      "tags": [
+        "phrase"
       ]
     },
     {
@@ -797,26 +757,6 @@
       ]
     },
     {
-      "front": "მეშინია",
-      "back": "я боюсь",
-      "transcription": "mɛʃiniɑ",
-      "example": "სიბნელის მეშინია.",
-      "example_tr": "Я боюсь темноты.",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "მესამე",
-      "back": "третий",
-      "transcription": "mɛsɑmɛ",
-      "example": "მესამე გაკვეთილი რთულია.",
-      "example_tr": "Третий урок трудный.",
-      "tags": [
-        "numeral"
-      ]
-    },
-    {
       "front": "პასპორტი",
       "back": "паспорт",
       "transcription": "pʼɑspʼɔrtʼi",
@@ -827,23 +767,13 @@
       ]
     },
     {
-      "front": "მომზადება",
-      "back": "готовить, приготовить",
-      "transcription": "mɔmzɑdɛbɑ",
-      "example": "სადილის მომზადება მინდა.",
-      "example_tr": "Я хочу приготовить обед.",
+      "front": "დაძინება",
+      "back": "засыпать, лечь спать",
+      "transcription": "dɑd͡zinɛbɑ",
+      "example": "ადრე დაძინება მინდა.",
+      "example_tr": "Я хочу пораньше лечь спать.",
       "tags": [
         "verb"
-      ]
-    },
-    {
-      "front": "ქვემოთ",
-      "back": "внизу, вниз",
-      "transcription": "kʰvɛmɔtʰ",
-      "example": "ქვემოთ დაგელოდები.",
-      "example_tr": "Я подожду тебя внизу.",
-      "tags": [
-        "adverb"
       ]
     },
     {
@@ -867,23 +797,23 @@
       ]
     },
     {
-      "front": "გახსნა",
-      "back": "открывать",
-      "transcription": "ɡɑxsnɑ",
-      "example": "ფანჯრის გახსნა შეიძლება?",
-      "example_tr": "Можно открыть окно?",
+      "front": "საინტერესო",
+      "back": "интересный",
+      "transcription": "sɑintʼɛrɛsɔ",
+      "example": "წიგნი საინტერესოა.",
+      "example_tr": "Книга интересная.",
       "tags": [
-        "verb"
+        "adjective"
       ]
     },
     {
-      "front": "ძლიერი",
-      "back": "сильный",
-      "transcription": "d͡zliɛri",
-      "example": "ის ძალიან ძლიერია.",
-      "example_tr": "Он очень сильный.",
+      "front": "გაღვიძება",
+      "back": "просыпаться",
+      "transcription": "ɡɑɣvid͡zɛbɑ",
+      "example": "შვიდ საათზე გაღვიძება მჭირდება.",
+      "example_tr": "Мне нужно проснуться в семь.",
       "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
@@ -897,13 +827,13 @@
       ]
     },
     {
-      "front": "-დან",
-      "back": "из, от, с",
-      "transcription": "-dɑn",
-      "example": "სამსახურიდან მოვდივარ.",
-      "example_tr": "Я иду с работы.",
+      "front": "გარეთ",
+      "back": "на улице, снаружи",
+      "transcription": "ɡɑrɛtʰ",
+      "example": "გარეთ ცივა.",
+      "example_tr": "На улице холодно.",
       "tags": [
-        "postposition"
+        "adverb"
       ]
     },
     {
@@ -917,13 +847,13 @@
       ]
     },
     {
-      "front": "დახურვა",
-      "back": "закрывать",
-      "transcription": "dɑxurvɑ",
-      "example": "კარის დახურვა დამავიწყდა.",
-      "example_tr": "Я забыл закрыть дверь.",
+      "front": "მესამე",
+      "back": "третий",
+      "transcription": "mɛsɑmɛ",
+      "example": "მესამე გაკვეთილი რთულია.",
+      "example_tr": "Третий урок трудный.",
       "tags": [
-        "verb"
+        "numeral"
       ]
     },
     {
@@ -937,13 +867,13 @@
       ]
     },
     {
-      "front": "სუსტი",
-      "back": "слабый",
-      "transcription": "sustʼi",
-      "example": "ინტერნეტი სუსტია.",
-      "example_tr": "Интернет слабый.",
+      "front": "დაბანა",
+      "back": "мыть, помыть",
+      "transcription": "dɑbɑnɑ",
+      "example": "ხელების დაბანა მინდა.",
+      "example_tr": "Я хочу помыть руки.",
       "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
@@ -957,23 +887,13 @@
       ]
     },
     {
-      "front": "პოვნა",
-      "back": "находить",
-      "transcription": "pʼɔvnɑ",
-      "example": "გასაღები ვერ ვიპოვე.",
-      "example_tr": "Я не нашёл ключ.",
+      "front": "მოსაწყენი",
+      "back": "скучный",
+      "transcription": "mɔsɑt͡sʼqʼɛni",
+      "example": "ფილმი მოსაწყენი იყო.",
+      "example_tr": "Фильм был скучным.",
       "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "გარეთ",
-      "back": "на улице, снаружи",
-      "transcription": "ɡɑrɛtʰ",
-      "example": "გარეთ ცივა.",
-      "example_tr": "На улице холодно.",
-      "tags": [
-        "adverb"
+        "adjective"
       ]
     },
     {
@@ -982,426 +902,6 @@
       "transcription": "ɑbɑzɑnɑ",
       "example": "აბაზანა სად არის?",
       "example_tr": "Где ванная?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "დაკარგვა",
-      "back": "терять",
-      "transcription": "dɑkʼɑrɡvɑ",
-      "example": "დოკუმენტების დაკარგვა საშიშია.",
-      "example_tr": "Терять документы опасно.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "სარკე",
-      "back": "зеркало",
-      "transcription": "sɑrkʼɛ",
-      "example": "სარკეში ვიყურები.",
-      "example_tr": "Я смотрю в зеркало.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "მაცივარი",
-      "back": "холодильник",
-      "transcription": "mɑt͡sʰivɑri",
-      "example": "მაცივარი ცარიელია.",
-      "example_tr": "Холодильник пустой.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "სავსე",
-      "back": "полный",
-      "transcription": "sɑvsɛ",
-      "example": "ავტობუსი სავსეა.",
-      "example_tr": "Автобус полный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "გაგზავნა",
-      "back": "посылать, отправлять",
-      "transcription": "ɡɑɡzɑvnɑ",
-      "example": "წერილის გაგზავნა მინდა.",
-      "example_tr": "Я хочу отправить письмо.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ტელევიზორი",
-      "back": "телевизор",
-      "transcription": "tʼɛlɛvizɔri",
-      "example": "ტელევიზორს ვუყურებ.",
-      "example_tr": "Я смотрю телевизор.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "არავინ",
-      "back": "никто",
-      "transcription": "ɑrɑvin",
-      "example": "არავინ მოვიდა.",
-      "example_tr": "Никто не пришёл.",
-      "tags": [
-        "pronoun"
-      ]
-    },
-    {
-      "front": "ინტერნეტი",
-      "back": "интернет",
-      "transcription": "intʼɛrnɛtʼi",
-      "example": "ინტერნეტი არ მუშაობს.",
-      "example_tr": "Интернет не работает.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "შიგნით",
-      "back": "внутри, внутрь",
-      "transcription": "ʃiɡnitʰ",
-      "example": "შიგნით შემოდი.",
-      "example_tr": "Заходи внутрь.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "მიღება",
-      "back": "получать; принимать",
-      "transcription": "miɣɛbɑ",
-      "example": "საჩუქრის მიღება სასიამოვნოა.",
-      "example_tr": "Приятно получать подарок.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "სართული",
-      "back": "этаж",
-      "transcription": "sɑrtʰuli",
-      "example": "რომელ სართულზე ცხოვრობ?",
-      "example_tr": "На каком этаже ты живёшь?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ცარიელი",
-      "back": "пустой",
-      "transcription": "t͡sʰɑriɛli",
-      "example": "ოთახი ცარიელია.",
-      "example_tr": "Комната пустая.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "მაპატიე",
-      "back": "прости меня",
-      "transcription": "mɑpʼɑtʼiɛ",
-      "example": "მაპატიე, არ მინდოდა.",
-      "example_tr": "Прости, я не хотел.",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "ოცდაათი",
-      "back": "тридцать",
-      "transcription": "ɔt͡sʰdɑɑtʰi",
-      "example": "ოცდაათი წლის ვარ.",
-      "example_tr": "Мне тридцать лет.",
-      "tags": [
-        "numeral"
-      ]
-    },
-    {
-      "front": "ლიფტი",
-      "back": "лифт",
-      "transcription": "lipʰtʼi",
-      "example": "ლიფტი არ მუშაობს.",
-      "example_tr": "Лифт не работает.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "გაცნობა",
-      "back": "знакомиться",
-      "transcription": "ɡɑt͡sʰnɔbɑ",
-      "example": "სასიამოვნოა თქვენი გაცნობა.",
-      "example_tr": "Приятно с вами познакомиться.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "მისამართი",
-      "back": "адрес",
-      "transcription": "misɑmɑrtʰi",
-      "example": "მისამართი დამავიწყდა.",
-      "example_tr": "Я забыл адрес.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "-მდე",
-      "back": "до",
-      "transcription": "-mdɛ",
-      "example": "სახლამდე ფეხით მივდივარ.",
-      "example_tr": "До дома я иду пешком.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "ნომერი",
-      "back": "номер",
-      "transcription": "nɔmɛri",
-      "example": "ტელეფონის ნომერი მომეცი.",
-      "example_tr": "Дай мне номер телефона.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "შეხვედრა",
-      "back": "встречаться; встреча",
-      "transcription": "ʃɛxvɛdrɑ",
-      "example": "ხვალ შეხვედრა გვაქვს.",
-      "example_tr": "Завтра у нас встреча.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ფოსტა",
-      "back": "почта",
-      "transcription": "pʰɔstʼɑ",
-      "example": "წერილი ფოსტით გავგზავნე.",
-      "example_tr": "Я отправил письмо почтой.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "მძიმე",
-      "back": "тяжёлый",
-      "transcription": "md͡zimɛ",
-      "example": "მძიმე დღე მქონდა.",
-      "example_tr": "У меня был тяжёлый день.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "მარტო",
-      "back": "один, в одиночку",
-      "transcription": "mɑrtʼɔ",
-      "example": "მარტო ვცხოვრობ.",
-      "example_tr": "Я живу один.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "წერილი",
-      "back": "письмо",
-      "transcription": "t͡sʼɛrili",
-      "example": "წერილი მივიღე.",
-      "example_tr": "Я получил письмо.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "გამეორება",
-      "back": "повторять",
-      "transcription": "ɡɑmɛɔrɛbɑ",
-      "example": "გაკვეთილის გამეორება მჭირდება.",
-      "example_tr": "Мне нужно повторить урок.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "გაზეთი",
-      "back": "газета",
-      "transcription": "ɡɑzɛtʰi",
-      "example": "გაზეთს ვკითხულობ.",
-      "example_tr": "Я читаю газету.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ჟურნალი",
-      "back": "журнал",
-      "transcription": "ʒurnɑli",
-      "example": "ჟურნალი მაგიდაზეა.",
-      "example_tr": "Журнал на столе.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "დავიწყება",
-      "back": "забывать",
-      "transcription": "dɑvit͡sʼqʼɛbɑ",
-      "example": "ყველაფრის დავიწყება მინდა.",
-      "example_tr": "Я хочу всё забыть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "მსუბუქი",
-      "back": "лёгкий (по весу)",
-      "transcription": "msubukʰi",
-      "example": "ჩანთა მსუბუქია.",
-      "example_tr": "Сумка лёгкая.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "ფილმი",
-      "back": "фильм",
-      "transcription": "pʰilmi",
-      "example": "ფილმი საინტერესო იყო.",
-      "example_tr": "Фильм был интересным.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "თეატრი",
-      "back": "театр",
-      "transcription": "tʰɛɑtʼri",
-      "example": "თეატრში მივდივართ.",
-      "example_tr": "Мы идём в театр.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "გახსენება",
-      "back": "вспоминать",
-      "transcription": "ɡɑxsɛnɛbɑ",
-      "example": "მისი სახელის გახსენება ვერ შევძელი.",
-      "example_tr": "Я не смог вспомнить его имя.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "კინო",
-      "back": "кино",
-      "transcription": "kʼinɔ",
-      "example": "კინოში წავიდეთ?",
-      "example_tr": "Пойдём в кино?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "აუცილებლად",
-      "back": "обязательно",
-      "transcription": "ɑut͡sʰilɛblɑd",
-      "example": "აუცილებლად მოვალ.",
-      "example_tr": "Я обязательно приду.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "ბნელი",
-      "back": "тёмный",
-      "transcription": "bnɛli",
-      "example": "ოთახი ბნელია.",
-      "example_tr": "Комната тёмная.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "მუზეუმი",
-      "back": "музей",
-      "transcription": "muzɛumi",
-      "example": "მუზეუმი ორშაბათს დაკეტილია.",
-      "example_tr": "Музей закрыт в понедельник.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "შეცვლა",
-      "back": "менять, изменять",
-      "transcription": "ʃɛt͡sʰvlɑ",
-      "example": "გეგმის შეცვლა მინდა.",
-      "example_tr": "Я хочу изменить план.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ბიბლიოთეკა",
-      "back": "библиотека",
-      "transcription": "bibliɔtʰɛkʼɑ",
-      "example": "ბიბლიოთეკაში ვსწავლობ.",
-      "example_tr": "Я занимаюсь в библиотеке.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "-თვის",
-      "back": "для",
-      "transcription": "-tʰvis",
-      "example": "შენთვის საჩუქარი მაქვს.",
-      "example_tr": "У меня есть подарок для тебя.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "პარკი",
-      "back": "парк",
-      "transcription": "pʼɑrkʼi",
-      "example": "პარკი სახლთან ახლოსაა.",
-      "example_tr": "Парк рядом с домом.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "არჩევა",
-      "back": "выбирать",
-      "transcription": "ɑrt͡ʃʰɛvɑ",
-      "example": "საჩუქრის არჩევა რთულია.",
-      "example_tr": "Выбрать подарок трудно.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ხიდი",
-      "back": "мост",
-      "transcription": "xidi",
-      "example": "ხიდი ძველია.",
-      "example_tr": "Мост старый.",
       "tags": [
         "noun"
       ]
@@ -1417,43 +917,333 @@
       ]
     },
     {
-      "front": "ორმოცი",
-      "back": "сорок",
-      "transcription": "ɔrmɔt͡sʰi",
-      "example": "ორმოცი ლარი მაქვს.",
-      "example_tr": "У меня сорок лари.",
+      "front": "შიგნით",
+      "back": "внутри, внутрь",
+      "transcription": "ʃiɡnitʰ",
+      "example": "შიგნით შემოდი.",
+      "example_tr": "Заходи внутрь.",
       "tags": [
-        "numeral"
+        "adverb"
       ]
     },
     {
-      "front": "ნათელი",
-      "back": "светлый",
-      "transcription": "nɑtʰɛli",
-      "example": "ბინა ნათელია.",
-      "example_tr": "Квартира светлая.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "ეკლესია",
-      "back": "церковь",
-      "transcription": "ɛkʼlɛsiɑ",
-      "example": "ეკლესია მთაზეა.",
-      "example_tr": "Церковь на горе.",
+      "front": "სარკე",
+      "back": "зеркало",
+      "transcription": "sɑrkʼɛ",
+      "example": "სარკეში ვიყურები.",
+      "example_tr": "Я смотрю в зеркало.",
       "tags": [
         "noun"
       ]
     },
     {
-      "front": "გადახდა",
-      "back": "платить",
-      "transcription": "ɡɑdɑxdɑ",
-      "example": "ბარათით გადახდა შემიძლია?",
-      "example_tr": "Могу я заплатить картой?",
+      "front": "გარეცხვა",
+      "back": "стирать",
+      "transcription": "ɡɑrɛt͡sʰxvɑ",
+      "example": "ტანსაცმლის გარეცხვა მჭირდება.",
+      "example_tr": "Мне нужно постирать одежду.",
       "tags": [
         "verb"
+      ]
+    },
+    {
+      "front": "-დან",
+      "back": "из, от, с",
+      "transcription": "-dɑn",
+      "example": "სამსახურიდან მოვდივარ.",
+      "example_tr": "Я иду с работы.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "მაცივარი",
+      "back": "холодильник",
+      "transcription": "mɑt͡sʰivɑri",
+      "example": "მაცივარი ცარიელია.",
+      "example_tr": "Холодильник пустой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ტელევიზორი",
+      "back": "телевизор",
+      "transcription": "tʼɛlɛvizɔri",
+      "example": "ტელევიზორს ვუყურებ.",
+      "example_tr": "Я смотрю телевизор.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დალაგება",
+      "back": "убирать",
+      "transcription": "dɑlɑɡɛbɑ",
+      "example": "ოთახის დალაგება მინდა.",
+      "example_tr": "Я хочу убрать комнату.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ინტერნეტი",
+      "back": "интернет",
+      "transcription": "intʼɛrnɛtʼi",
+      "example": "ინტერნეტი არ მუშაობს.",
+      "example_tr": "Интернет не работает.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ძლიერი",
+      "back": "сильный",
+      "transcription": "d͡zliɛri",
+      "example": "ის ძალიან ძლიერია.",
+      "example_tr": "Он очень сильный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "სართული",
+      "back": "этаж",
+      "transcription": "sɑrtʰuli",
+      "example": "რომელ სართულზე ცხოვრობ?",
+      "example_tr": "На каком этаже ты живёшь?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მარტო",
+      "back": "один, в одиночку",
+      "transcription": "mɑrtʼɔ",
+      "example": "მარტო ვცხოვრობ.",
+      "example_tr": "Я живу один.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ლიფტი",
+      "back": "лифт",
+      "transcription": "lipʰtʼi",
+      "example": "ლიფტი არ მუშაობს.",
+      "example_tr": "Лифт не работает.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მომზადება",
+      "back": "готовить, приготовить",
+      "transcription": "mɔmzɑdɛbɑ",
+      "example": "სადილის მომზადება მინდა.",
+      "example_tr": "Я хочу приготовить обед.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მისამართი",
+      "back": "адрес",
+      "transcription": "misɑmɑrtʰi",
+      "example": "მისამართი დამავიწყდა.",
+      "example_tr": "Я забыл адрес.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ნომერი",
+      "back": "номер",
+      "transcription": "nɔmɛri",
+      "example": "ტელეფონის ნომერი მომეცი.",
+      "example_tr": "Дай мне номер телефона.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სუსტი",
+      "back": "слабый",
+      "transcription": "sustʼi",
+      "example": "ინტერნეტი სუსტია.",
+      "example_tr": "Интернет слабый.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "თუმცა",
+      "back": "хотя, однако",
+      "transcription": "tʰumt͡sʰɑ",
+      "example": "მინდოდა, თუმცა ვერ მოვედი.",
+      "example_tr": "Я хотел, однако не смог прийти.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ფოსტა",
+      "back": "почта",
+      "transcription": "pʰɔstʼɑ",
+      "example": "წერილი ფოსტით გავგზავნე.",
+      "example_tr": "Я отправил письмо почтой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გახსნა",
+      "back": "открывать",
+      "transcription": "ɡɑxsnɑ",
+      "example": "ფანჯრის გახსნა შეიძლება?",
+      "example_tr": "Можно открыть окно?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "რომელი საათია",
+      "back": "который час",
+      "transcription": "rɔmɛli sɑɑtʰiɑ",
+      "example": "უკაცრავად, რომელი საათია?",
+      "example_tr": "Извините, который час?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "წერილი",
+      "back": "письмо",
+      "transcription": "t͡sʼɛrili",
+      "example": "წერილი მივიღე.",
+      "example_tr": "Я получил письмо.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "აუცილებლად",
+      "back": "обязательно",
+      "transcription": "ɑut͡sʰilɛblɑd",
+      "example": "აუცილებლად მოვალ.",
+      "example_tr": "Я обязательно приду.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გაზეთი",
+      "back": "газета",
+      "transcription": "ɡɑzɛtʰi",
+      "example": "გაზეთს ვკითხულობ.",
+      "example_tr": "Я читаю газету.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "არავინ",
+      "back": "никто",
+      "transcription": "ɑrɑvin",
+      "example": "არავინ მოვიდა.",
+      "example_tr": "Никто не пришёл.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "ჟურნალი",
+      "back": "журнал",
+      "transcription": "ʒurnɑli",
+      "example": "ჟურნალი მაგიდაზეა.",
+      "example_tr": "Журнал на столе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დახურვა",
+      "back": "закрывать",
+      "transcription": "dɑxurvɑ",
+      "example": "კარის დახურვა დამავიწყდა.",
+      "example_tr": "Я забыл закрыть дверь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "სავსე",
+      "back": "полный",
+      "transcription": "sɑvsɛ",
+      "example": "ავტობუსი სავსეა.",
+      "example_tr": "Автобус полный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ოცდაათი",
+      "back": "тридцать",
+      "transcription": "ɔt͡sʰdɑɑtʰi",
+      "example": "ოცდაათი წლის ვარ.",
+      "example_tr": "Мне тридцать лет.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "ფილმი",
+      "back": "фильм",
+      "transcription": "pʰilmi",
+      "example": "ფილმი საინტერესო იყო.",
+      "example_tr": "Фильм был интересным.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "-მდე",
+      "back": "до",
+      "transcription": "-mdɛ",
+      "example": "სახლამდე ფეხით მივდივარ.",
+      "example_tr": "До дома я иду пешком.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "თეატრი",
+      "back": "театр",
+      "transcription": "tʰɛɑtʼri",
+      "example": "თეატრში მივდივართ.",
+      "example_tr": "Мы идём в театр.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "პოვნა",
+      "back": "находить",
+      "transcription": "pʼɔvnɑ",
+      "example": "გასაღები ვერ ვიპოვე.",
+      "example_tr": "Я не нашёл ключ.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "კინო",
+      "back": "кино",
+      "transcription": "kʼinɔ",
+      "example": "კინოში წავიდეთ?",
+      "example_tr": "Пойдём в кино?",
+      "tags": [
+        "noun"
       ]
     },
     {
@@ -1467,6 +1257,126 @@
       ]
     },
     {
+      "front": "მუზეუმი",
+      "back": "музей",
+      "transcription": "muzɛumi",
+      "example": "მუზეუმი ორშაბათს დაკეტილია.",
+      "example_tr": "Музей закрыт в понедельник.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ცარიელი",
+      "back": "пустой",
+      "transcription": "t͡sʰɑriɛli",
+      "example": "ოთახი ცარიელია.",
+      "example_tr": "Комната пустая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ჰო",
+      "back": "ага, да (разговорное)",
+      "transcription": "hɔ",
+      "example": "ჰო, კარგი, მოვდივარ.",
+      "example_tr": "Ага, хорошо, иду.",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "ბიბლიოთეკა",
+      "back": "библиотека",
+      "transcription": "bibliɔtʰɛkʼɑ",
+      "example": "ბიბლიოთეკაში ვსწავლობ.",
+      "example_tr": "Я занимаюсь в библиотеке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაკარგვა",
+      "back": "терять",
+      "transcription": "dɑkʼɑrɡvɑ",
+      "example": "დოკუმენტების დაკარგვა საშიშია.",
+      "example_tr": "Терять документы опасно.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "პარკი",
+      "back": "парк",
+      "transcription": "pʼɑrkʼi",
+      "example": "პარკი სახლთან ახლოსაა.",
+      "example_tr": "Парк рядом с домом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხიდი",
+      "back": "мост",
+      "transcription": "xidi",
+      "example": "ხიდი ძველია.",
+      "example_tr": "Мост старый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "წარმატებები",
+      "back": "успехов",
+      "transcription": "t͡sʼɑrmɑtʼɛbɛbi",
+      "example": "წარმატებები გამოცდაზე!",
+      "example_tr": "Успехов на экзамене!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "ეკლესია",
+      "back": "церковь",
+      "transcription": "ɛkʼlɛsiɑ",
+      "example": "ეკლესია მთაზეა.",
+      "example_tr": "Церковь на горе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გაგზავნა",
+      "back": "посылать, отправлять",
+      "transcription": "ɡɑɡzɑvnɑ",
+      "example": "წერილის გაგზავნა მინდა.",
+      "example_tr": "Я хочу отправить письмо.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "თითქმის",
+      "back": "почти",
+      "transcription": "tʰitʰkʰmis",
+      "example": "თითქმის მზად ვარ.",
+      "example_tr": "Я почти готов.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "მძიმე",
+      "back": "тяжёлый",
+      "transcription": "md͡zimɛ",
+      "example": "მძიმე დღე მქონდა.",
+      "example_tr": "У меня был тяжёлый день.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "ოფისი",
       "back": "офис",
       "transcription": "ɔpʰisi",
@@ -1474,16 +1384,6 @@
       "example_tr": "Офис в центре.",
       "tags": [
         "noun"
-      ]
-    },
-    {
-      "front": "არაფერი",
-      "back": "ничего",
-      "transcription": "ɑrɑpʰɛri",
-      "example": "არაფერი მინდა.",
-      "example_tr": "Мне ничего не нужно.",
-      "tags": [
-        "pronoun"
       ]
     },
     {
@@ -1497,23 +1397,13 @@
       ]
     },
     {
-      "front": "სირბილი",
-      "back": "бегать, бег",
-      "transcription": "sirbili",
-      "example": "დილით სირბილი მიყვარს.",
-      "example_tr": "Я люблю бегать по утрам.",
+      "front": "მიღება",
+      "back": "получать; принимать",
+      "transcription": "miɣɛbɑ",
+      "example": "საჩუქრის მიღება სასიამოვნოა.",
+      "example_tr": "Приятно получать подарок.",
       "tags": [
         "verb"
-      ]
-    },
-    {
-      "front": "სველი",
-      "back": "мокрый",
-      "transcription": "svɛli",
-      "example": "ტანსაცმელი სველია.",
-      "example_tr": "Одежда мокрая.",
-      "tags": [
-        "adjective"
       ]
     },
     {
@@ -1537,16 +1427,6 @@
       ]
     },
     {
-      "front": "ცურვა",
-      "back": "плавать",
-      "transcription": "t͡sʰurvɑ",
-      "example": "ზღვაში ცურვა მიყვარს.",
-      "example_tr": "Я люблю плавать в море.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
       "front": "გამოცდა",
       "back": "экзамен",
       "transcription": "ɡɑmɔt͡sʰdɑ",
@@ -1557,133 +1437,13 @@
       ]
     },
     {
-      "front": "თითქმის",
-      "back": "почти",
-      "transcription": "tʰitʰkʰmis",
-      "example": "თითქმის მზად ვარ.",
-      "example_tr": "Я почти готов.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "სიცილი",
-      "back": "смеяться, смех",
-      "transcription": "sit͡sʰili",
-      "example": "სიცილი ჯანმრთელობისთვის კარგია.",
-      "example_tr": "Смех полезен для здоровья.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "შეცდომა",
-      "back": "ошибка",
-      "transcription": "ʃɛt͡sʰdɔmɑ",
-      "example": "შეცდომა დავუშვი.",
-      "example_tr": "Я допустил ошибку.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ტკბილი",
-      "back": "сладкий",
-      "transcription": "tʼkʼbili",
-      "example": "ეს ღვინო ტკბილია.",
-      "example_tr": "Это вино сладкое.",
+      "front": "მსუბუქი",
+      "back": "лёгкий (по весу)",
+      "transcription": "msubukʰi",
+      "example": "ჩანთა მსუბუქია.",
+      "example_tr": "Сумка лёгкая.",
       "tags": [
         "adjective"
-      ]
-    },
-    {
-      "front": "პრობლემა",
-      "back": "проблема",
-      "transcription": "pʼrɔblɛmɑ",
-      "example": "პრობლემა არ არის.",
-      "example_tr": "Проблемы нет.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ტირილი",
-      "back": "плакать, плач",
-      "transcription": "tʼirili",
-      "example": "ბავშვის ტირილი მესმის.",
-      "example_tr": "Я слышу плач ребёнка.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "საქმე",
-      "back": "дело",
-      "transcription": "sɑkʰmɛ",
-      "example": "ეს ჩემი საქმეა.",
-      "example_tr": "Это моё дело.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "-ით",
-      "back": "на, с помощью (о средстве)",
-      "transcription": "-itʰ",
-      "example": "ავტობუსით ვმგზავრობ.",
-      "example_tr": "Я езжу на автобусе.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "გეგმა",
-      "back": "план",
-      "transcription": "ɡɛɡmɑ",
-      "example": "რა გეგმა გაქვს?",
-      "example_tr": "Какие у тебя планы?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "მწარე",
-      "back": "горький",
-      "transcription": "mt͡sʼɑrɛ",
-      "example": "ყავა მწარეა.",
-      "example_tr": "Кофе горький.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "ხატვა",
-      "back": "рисовать",
-      "transcription": "xɑtʼvɑ",
-      "example": "ხატვა მიყვარს.",
-      "example_tr": "Я люблю рисовать.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "იდეა",
-      "back": "идея",
-      "transcription": "idɛɑ",
-      "example": "კარგი იდეაა.",
-      "example_tr": "Хорошая идея.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "ამბავი",
-      "back": "новость, история",
-      "transcription": "ɑmbɑvi",
-      "example": "რა ამბავია?",
-      "example_tr": "Что нового?",
-      "tags": [
-        "noun"
       ]
     },
     {
@@ -1697,13 +1457,143 @@
       ]
     },
     {
-      "front": "დარეკვა",
-      "back": "звонить",
-      "transcription": "dɑrɛkʼvɑ",
-      "example": "საღამოს დარეკვა შემიძლია.",
-      "example_tr": "Я могу позвонить вечером.",
+      "front": "გაცნობა",
+      "back": "знакомиться",
+      "transcription": "ɡɑt͡sʰnɔbɑ",
+      "example": "სასიამოვნოა თქვენი გაცნობა.",
+      "example_tr": "Приятно с вами познакомиться.",
       "tags": [
         "verb"
+      ]
+    },
+    {
+      "front": "-თვის",
+      "back": "для",
+      "transcription": "-tʰvis",
+      "example": "შენთვის საჩუქარი მაქვს.",
+      "example_tr": "У меня есть подарок для тебя.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "შეცდომა",
+      "back": "ошибка",
+      "transcription": "ʃɛt͡sʰdɔmɑ",
+      "example": "შეცდომა დავუშვი.",
+      "example_tr": "Я допустил ошибку.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "პრობლემა",
+      "back": "проблема",
+      "transcription": "pʼrɔblɛmɑ",
+      "example": "პრობლემა არ არის.",
+      "example_tr": "Проблемы нет.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "საქმე",
+      "back": "дело",
+      "transcription": "sɑkʰmɛ",
+      "example": "ეს ჩემი საქმეა.",
+      "example_tr": "Это моё дело.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შეხვედრა",
+      "back": "встречаться; встреча",
+      "transcription": "ʃɛxvɛdrɑ",
+      "example": "ხვალ შეხვედრა გვაქვს.",
+      "example_tr": "Завтра у нас встреча.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ორმოცი",
+      "back": "сорок",
+      "transcription": "ɔrmɔt͡sʰi",
+      "example": "ორმოცი ლარი მაქვს.",
+      "example_tr": "У меня сорок лари.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "გაუმარჯოს",
+      "back": "да здравствует (тост за кого-то)",
+      "transcription": "ɡɑumɑrd͡ʒɔs",
+      "example": "გაუმარჯოს საქართველოს!",
+      "example_tr": "Да здравствует Грузия!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "გეგმა",
+      "back": "план",
+      "transcription": "ɡɛɡmɑ",
+      "example": "რა გეგმა გაქვს?",
+      "example_tr": "Какие у тебя планы?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ბნელი",
+      "back": "тёмный",
+      "transcription": "bnɛli",
+      "example": "ოთახი ბნელია.",
+      "example_tr": "Комната тёмная.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "იდეა",
+      "back": "идея",
+      "transcription": "idɛɑ",
+      "example": "კარგი იდეაა.",
+      "example_tr": "Хорошая идея.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ჩუმად",
+      "back": "тихо",
+      "transcription": "t͡ʃʰumɑd",
+      "example": "ჩუმად ილაპარაკე.",
+      "example_tr": "Говори тихо.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გამეორება",
+      "back": "повторять",
+      "transcription": "ɡɑmɛɔrɛbɑ",
+      "example": "გაკვეთილის გამეორება მჭირდება.",
+      "example_tr": "Мне нужно повторить урок.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ამბავი",
+      "back": "новость, история",
+      "transcription": "ɑmbɑvi",
+      "example": "რა ამბავია?",
+      "example_tr": "Что нового?",
+      "tags": [
+        "noun"
       ]
     },
     {
@@ -1717,23 +1607,13 @@
       ]
     },
     {
-      "front": "რომელი საათია",
-      "back": "который час",
-      "transcription": "rɔmɛli sɑɑtʰiɑ",
-      "example": "უკაცრავად, რომელი საათია?",
-      "example_tr": "Извините, который час?",
+      "front": "არაფერი",
+      "back": "ничего",
+      "transcription": "ɑrɑpʰɛri",
+      "example": "არაფერი მინდა.",
+      "example_tr": "Мне ничего не нужно.",
       "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "ორმოცდაათი",
-      "back": "пятьдесят",
-      "transcription": "ɔrmɔt͡sʰdɑɑtʰi",
-      "example": "ორმოცდაათი კაცი მოვიდა.",
-      "example_tr": "Пришло пятьдесят человек.",
-      "tags": [
-        "numeral"
+        "pronoun"
       ]
     },
     {
@@ -1747,23 +1627,23 @@
       ]
     },
     {
-      "front": "ცხარე",
-      "back": "острый (о еде)",
-      "transcription": "t͡sʰxɑrɛ",
-      "example": "საჭმელი ცხარეა.",
-      "example_tr": "Еда острая.",
+      "front": "დავიწყება",
+      "back": "забывать",
+      "transcription": "dɑvit͡sʼqʼɛbɑ",
+      "example": "ყველაფრის დავიწყება მინდა.",
+      "example_tr": "Я хочу всё забыть.",
       "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
-      "front": "თხოვნა",
-      "back": "просить, просьба",
-      "transcription": "tʰxɔvnɑ",
-      "example": "ერთი თხოვნა მაქვს.",
-      "example_tr": "У меня есть одна просьба.",
+      "front": "ნათელი",
+      "back": "светлый",
+      "transcription": "nɑtʰɛli",
+      "example": "ბინა ნათელია.",
+      "example_tr": "Квартира светлая.",
       "tags": [
-        "verb"
+        "adjective"
       ]
     },
     {
@@ -1787,13 +1667,13 @@
       ]
     },
     {
-      "front": "ჩვენება",
-      "back": "показывать",
-      "transcription": "t͡ʃʰvɛnɛbɑ",
-      "example": "გზის ჩვენება შეგიძლიათ?",
-      "example_tr": "Можете показать дорогу?",
+      "front": "ერთხელ",
+      "back": "однажды, один раз",
+      "transcription": "ɛrtʰxɛl",
+      "example": "ერთხელ უკვე ვნახე.",
+      "example_tr": "Я уже видел один раз.",
       "tags": [
-        "verb"
+        "adverb"
       ]
     },
     {
@@ -1807,23 +1687,13 @@
       ]
     },
     {
-      "front": "ჩუმად",
-      "back": "тихо",
-      "transcription": "t͡ʃʰumɑd",
-      "example": "ჩუმად ილაპარაკე.",
-      "example_tr": "Говори тихо.",
+      "front": "გახსენება",
+      "back": "вспоминать",
+      "transcription": "ɡɑxsɛnɛbɑ",
+      "example": "მისი სახელის გახსენება ვერ შევძელი.",
+      "example_tr": "Я не смог вспомнить его имя.",
       "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "თავისუფალი",
-      "back": "свободный",
-      "transcription": "tʰɑvisupʰɑli",
-      "example": "ხვალ თავისუფალი ვარ.",
-      "example_tr": "Завтра я свободен.",
-      "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
@@ -1837,13 +1707,33 @@
       ]
     },
     {
-      "front": "ახსნა",
-      "back": "объяснять",
-      "transcription": "ɑxsnɑ",
-      "example": "ამის ახსნა შეგიძლია?",
-      "example_tr": "Можешь это объяснить?",
+      "front": "ქირავდება",
+      "back": "сдаётся (в аренду)",
+      "transcription": "kʰirɑvdɛbɑ",
+      "example": "ეს ბინა ქირავდება.",
+      "example_tr": "Эта квартира сдаётся.",
       "tags": [
-        "verb"
+        "phrase"
+      ]
+    },
+    {
+      "front": "-ით",
+      "back": "на, с помощью (о средстве)",
+      "transcription": "-itʰ",
+      "example": "ავტობუსით ვმგზავრობ.",
+      "example_tr": "Я езжу на автобусе.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "სველი",
+      "back": "мокрый",
+      "transcription": "svɛli",
+      "example": "ტანსაცმელი სველია.",
+      "example_tr": "Одежда мокрая.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -1857,33 +1747,13 @@
       ]
     },
     {
-      "front": "შესახებ",
-      "back": "о, про",
-      "transcription": "ʃɛsɑxɛb",
-      "example": "ფილმის შესახებ ვისაუბრეთ.",
-      "example_tr": "Мы поговорили о фильме.",
+      "front": "შეცვლა",
+      "back": "менять, изменять",
+      "transcription": "ʃɛt͡sʰvlɑ",
+      "example": "გეგმის შეცვლა მინდა.",
+      "example_tr": "Я хочу изменить план.",
       "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "ვიღაც",
-      "back": "кто-то",
-      "transcription": "viɣɑt͡sʰ",
-      "example": "ვიღაც კარზე აკაკუნებს.",
-      "example_tr": "Кто-то стучит в дверь.",
-      "tags": [
-        "pronoun"
-      ]
-    },
-    {
-      "front": "შეიძლება",
-      "back": "можно",
-      "transcription": "ʃɛid͡zlɛbɑ",
-      "example": "შეიძლება შემოვიდე?",
-      "example_tr": "Можно войти?",
-      "tags": [
-        "particle"
+        "verb"
       ]
     },
     {
@@ -1897,33 +1767,13 @@
       ]
     },
     {
-      "front": "თუმცა",
-      "back": "хотя, однако",
-      "transcription": "tʰumt͡sʰɑ",
-      "example": "მინდოდა, თუმცა ვერ მოვედი.",
-      "example_tr": "Я хотел, однако не смог прийти.",
+      "front": "ასე",
+      "back": "так",
+      "transcription": "ɑsɛ",
+      "example": "ასე არ შეიძლება.",
+      "example_tr": "Так нельзя.",
       "tags": [
-        "conjunction"
-      ]
-    },
-    {
-      "front": "თარგმნა",
-      "back": "переводить",
-      "transcription": "tʰɑrɡmnɑ",
-      "example": "ამ სიტყვის თარგმნა შემიძლია.",
-      "example_tr": "Я могу перевести это слово.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "დაკავებული",
-      "back": "занятый",
-      "transcription": "dɑkʼɑvɛbuli",
-      "example": "ახლა დაკავებული ვარ.",
-      "example_tr": "Сейчас я занят.",
-      "tags": [
-        "adjective"
+        "adverb"
       ]
     },
     {
@@ -1947,23 +1797,23 @@
       ]
     },
     {
-      "front": "გაგრძელება",
-      "back": "продолжать",
-      "transcription": "ɡɑɡrd͡zɛlɛbɑ",
-      "example": "მუშაობის გაგრძელება მინდა.",
-      "example_tr": "Я хочу продолжить работу.",
+      "front": "რადგან",
+      "back": "так как, поскольку",
+      "transcription": "rɑdɡɑn",
+      "example": "არ მოვედი, რადგან ავად ვიყავი.",
+      "example_tr": "Я не пришёл, так как был болен.",
       "tags": [
-        "verb"
+        "conjunction"
       ]
     },
     {
-      "front": "ერთხელ",
-      "back": "однажды, один раз",
-      "transcription": "ɛrtʰxɛl",
-      "example": "ერთხელ უკვე ვნახე.",
-      "example_tr": "Я уже видел один раз.",
+      "front": "არჩევა",
+      "back": "выбирать",
+      "transcription": "ɑrt͡ʃʰɛvɑ",
+      "example": "საჩუქრის არჩევა რთულია.",
+      "example_tr": "Выбрать подарок трудно.",
       "tags": [
-        "adverb"
+        "verb"
       ]
     },
     {
@@ -1977,6 +1827,16 @@
       ]
     },
     {
+      "front": "ტკბილი",
+      "back": "сладкий",
+      "transcription": "tʼkʼbili",
+      "example": "ეს ღვინო ტკბილია.",
+      "example_tr": "Это вино сладкое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "სუფრა",
       "back": "застолье; накрытый стол",
       "transcription": "supʰrɑ",
@@ -1987,23 +1847,13 @@
       ]
     },
     {
-      "front": "მზად",
-      "back": "готов",
-      "transcription": "mzɑd",
-      "example": "ყველაფერი მზადაა.",
-      "example_tr": "Всё готово.",
+      "front": "ორმოცდაათი",
+      "back": "пятьдесят",
+      "transcription": "ɔrmɔt͡sʰdɑɑtʰi",
+      "example": "ორმოცდაათი კაცი მოვიდა.",
+      "example_tr": "Пришло пятьдесят человек.",
       "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "დამთავრება",
-      "back": "заканчивать",
-      "transcription": "dɑmtʰɑvrɛbɑ",
-      "example": "სამუშაოს დამთავრება მჭირდება.",
-      "example_tr": "Мне нужно закончить работу.",
-      "tags": [
-        "verb"
+        "numeral"
       ]
     },
     {
@@ -2017,6 +1867,26 @@
       ]
     },
     {
+      "front": "გადახდა",
+      "back": "платить",
+      "transcription": "ɡɑdɑxdɑ",
+      "example": "ბარათით გადახდა შემიძლია?",
+      "example_tr": "Могу я заплатить картой?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ყველგან",
+      "back": "везде",
+      "transcription": "qʼvɛlɡɑn",
+      "example": "ყველგან ვეძებე.",
+      "example_tr": "Я искал везде.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "ჯანმრთელობა",
       "back": "здоровье",
       "transcription": "d͡ʒɑnmrtʰɛlɔbɑ",
@@ -2027,33 +1897,13 @@
       ]
     },
     {
-      "front": "დაბადება",
-      "back": "рождаться; рождение",
-      "transcription": "dɑbɑdɛbɑ",
-      "example": "ჩემი დაბადების დღე ივნისშია.",
-      "example_tr": "Мой день рождения в июне.",
+      "front": "შეიძლება",
+      "back": "можно",
+      "transcription": "ʃɛid͡zlɛbɑ",
+      "example": "შეიძლება შემოვიდე?",
+      "example_tr": "Можно войти?",
       "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "წარმატებები",
-      "back": "успехов",
-      "transcription": "t͡sʼɑrmɑtʼɛbɛbi",
-      "example": "წარმატებები გამოცდაზე!",
-      "example_tr": "Успехов на экзамене!",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "ათასი",
-      "back": "тысяча",
-      "transcription": "ɑtʰɑsi",
-      "example": "ათასი ლარი ღირს.",
-      "example_tr": "Стоит тысячу лари.",
-      "tags": [
-        "numeral"
+        "particle"
       ]
     },
     {
@@ -2067,23 +1917,23 @@
       ]
     },
     {
-      "front": "ცნობილი",
-      "back": "известный",
-      "transcription": "t͡sʰnɔbili",
-      "example": "ის ცნობილი მომღერალია.",
-      "example_tr": "Он известный певец.",
+      "front": "მწარე",
+      "back": "горький",
+      "transcription": "mt͡sʼɑrɛ",
+      "example": "ყავა მწარეა.",
+      "example_tr": "Кофе горький.",
       "tags": [
         "adjective"
       ]
     },
     {
-      "front": "ასე",
-      "back": "так",
-      "transcription": "ɑsɛ",
-      "example": "ასე არ შეიძლება.",
-      "example_tr": "Так нельзя.",
+      "front": "მტკივა",
+      "back": "у меня болит",
+      "transcription": "mtʼkʼivɑ",
+      "example": "თავი მტკივა.",
+      "example_tr": "У меня болит голова.",
       "tags": [
-        "adverb"
+        "phrase"
       ]
     },
     {
@@ -2097,11 +1947,11 @@
       ]
     },
     {
-      "front": "სწავლება",
-      "back": "преподавать, обучение",
-      "transcription": "st͡sʼɑvlɛbɑ",
-      "example": "ბავშვების სწავლება მიყვარს.",
-      "example_tr": "Я люблю учить детей.",
+      "front": "სირბილი",
+      "back": "бегать, бег",
+      "transcription": "sirbili",
+      "example": "დილით სირბილი მიყვარს.",
+      "example_tr": "Я люблю бегать по утрам.",
       "tags": [
         "verb"
       ]
@@ -2127,21 +1977,31 @@
       ]
     },
     {
-      "front": "დარჩენა",
-      "back": "оставаться",
-      "transcription": "dɑrt͡ʃʰɛnɑ",
-      "example": "სახლში დარჩენა მინდა.",
-      "example_tr": "Я хочу остаться дома.",
+      "front": "ცუდად",
+      "back": "плохо",
+      "transcription": "t͡sʰudɑd",
+      "example": "თავს ცუდად ვგრძნობ.",
+      "example_tr": "Я плохо себя чувствую.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ცურვა",
+      "back": "плавать",
+      "transcription": "t͡sʰurvɑ",
+      "example": "ზღვაში ცურვა მიყვარს.",
+      "example_tr": "Я люблю плавать в море.",
       "tags": [
         "verb"
       ]
     },
     {
-      "front": "გარეშე",
-      "back": "без",
-      "transcription": "ɡɑrɛʃɛ",
-      "example": "შენ გარეშე არ წავალ.",
-      "example_tr": "Без тебя я не пойду.",
+      "front": "შესახებ",
+      "back": "о, про",
+      "transcription": "ʃɛsɑxɛb",
+      "example": "ფილმის შესახებ ვისაუბრეთ.",
+      "example_tr": "Мы поговорили о фильме.",
       "tags": [
         "postposition"
       ]
@@ -2157,11 +2017,11 @@
       ]
     },
     {
-      "front": "ღია",
-      "back": "открытый",
-      "transcription": "ɣiɑ",
-      "example": "მაღაზია ღიაა.",
-      "example_tr": "Магазин открыт.",
+      "front": "ცხარე",
+      "back": "острый (о еде)",
+      "transcription": "t͡sʰxɑrɛ",
+      "example": "საჭმელი ცხარეა.",
+      "example_tr": "Еда острая.",
       "tags": [
         "adjective"
       ]
@@ -2177,16 +2037,6 @@
       ]
     },
     {
-      "front": "ჩამოსვლა",
-      "back": "приезжать",
-      "transcription": "t͡ʃʰɑmɔsvlɑ",
-      "example": "მეგობრის ჩამოსვლას ველოდები.",
-      "example_tr": "Я жду приезда друга.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
       "front": "სიცხე",
       "back": "температура, жар",
       "transcription": "sit͡sʰxɛ",
@@ -2197,21 +2047,11 @@
       ]
     },
     {
-      "front": "ყველგან",
-      "back": "везде",
-      "transcription": "qʼvɛlɡɑn",
-      "example": "ყველგან ვეძებე.",
-      "example_tr": "Я искал везде.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "შესვლა",
-      "back": "входить",
-      "transcription": "ʃɛsvlɑ",
-      "example": "ოთახში შესვლა შეიძლება?",
-      "example_tr": "Можно войти в комнату?",
+      "front": "სიცილი",
+      "back": "смеяться, смех",
+      "transcription": "sit͡sʰili",
+      "example": "სიცილი ჯანმრთელობისთვის კარგია.",
+      "example_tr": "Смех полезен для здоровья.",
       "tags": [
         "verb"
       ]
@@ -2227,13 +2067,13 @@
       ]
     },
     {
-      "front": "დაკეტილი",
-      "back": "закрытый",
-      "transcription": "dɑkʼɛtʼili",
-      "example": "აფთიაქი უკვე დაკეტილია.",
-      "example_tr": "Аптека уже закрыта.",
+      "front": "ვიღაც",
+      "back": "кто-то",
+      "transcription": "viɣɑt͡sʰ",
+      "example": "ვიღაც კარზე აკაკუნებს.",
+      "example_tr": "Кто-то стучит в дверь.",
       "tags": [
-        "adjective"
+        "pronoun"
       ]
     },
     {
@@ -2247,13 +2087,23 @@
       ]
     },
     {
-      "front": "გასვლა",
-      "back": "выходить",
-      "transcription": "ɡɑsvlɑ",
-      "example": "გარეთ გასვლა მინდა.",
-      "example_tr": "Я хочу выйти на улицу.",
+      "front": "ასევე",
+      "back": "также, тоже",
+      "transcription": "ɑsɛvɛ",
+      "example": "მე ასევე მინდა წამოსვლა.",
+      "example_tr": "Я тоже хочу пойти.",
       "tags": [
-        "verb"
+        "adverb"
+      ]
+    },
+    {
+      "front": "თავისუფალი",
+      "back": "свободный",
+      "transcription": "tʰɑvisupʰɑli",
+      "example": "ხვალ თავისუფალი ვარ.",
+      "example_tr": "Завтра я свободен.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -2267,6 +2117,26 @@
       ]
     },
     {
+      "front": "ტირილი",
+      "back": "плакать, плач",
+      "transcription": "tʼirili",
+      "example": "ბავშვის ტირილი მესმის.",
+      "example_tr": "Я слышу плач ребёнка.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ერთი თვის შემდეგ",
+      "back": "через месяц",
+      "transcription": "ɛrtʰi tʰvis ʃɛmdɛɡ",
+      "example": "ერთი თვის შემდეგ დავბრუნდები.",
+      "example_tr": "Через месяц я вернусь.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
       "front": "ზამთარი",
       "back": "зима",
       "transcription": "zɑmtʰɑri",
@@ -2274,36 +2144,6 @@
       "example_tr": "Зимой идёт снег.",
       "tags": [
         "noun"
-      ]
-    },
-    {
-      "front": "ყოველი",
-      "back": "каждый",
-      "transcription": "qʼɔvɛli",
-      "example": "ყოველ კვირას ბაზარში დავდივარ.",
-      "example_tr": "Каждую неделю я хожу на рынок.",
-      "tags": [
-        "pronoun"
-      ]
-    },
-    {
-      "front": "ფიქრი",
-      "back": "думать, мысль",
-      "transcription": "pʰikʰri",
-      "example": "ამაზე ფიქრი მჭირდება.",
-      "example_tr": "Мне нужно об этом подумать.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "შემდეგი",
-      "back": "следующий",
-      "transcription": "ʃɛmdɛɡi",
-      "example": "შემდეგი მატარებელი ხუთ საათზეა.",
-      "example_tr": "Следующий поезд в пять.",
-      "tags": [
-        "adjective"
       ]
     },
     {
@@ -2317,13 +2157,13 @@
       ]
     },
     {
-      "front": "ცუდად",
-      "back": "плохо",
-      "transcription": "t͡sʰudɑd",
-      "example": "თავს ცუდად ვგრძნობ.",
-      "example_tr": "Я плохо себя чувствую.",
+      "front": "ხატვა",
+      "back": "рисовать",
+      "transcription": "xɑtʼvɑ",
+      "example": "ხატვა მიყვარს.",
+      "example_tr": "Я люблю рисовать.",
       "tags": [
-        "adverb"
+        "verb"
       ]
     },
     {
@@ -2337,31 +2177,11 @@
       ]
     },
     {
-      "front": "გრძნობა",
-      "back": "чувствовать; чувство",
-      "transcription": "ɡrd͡znɔbɑ",
-      "example": "თავს კარგად ვგრძნობ.",
-      "example_tr": "Я чувствую себя хорошо.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "გაუმარჯოს",
-      "back": "да здравствует (тост за кого-то)",
-      "transcription": "ɡɑumɑrd͡ʒɔs",
-      "example": "გაუმარჯოს საქართველოს!",
-      "example_tr": "Да здравствует Грузия!",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "ნახევარი",
-      "back": "половина",
-      "transcription": "nɑxɛvɑri",
-      "example": "ნახევარი საათი დამრჩა.",
-      "example_tr": "У меня осталось полчаса.",
+      "front": "ათასი",
+      "back": "тысяча",
+      "transcription": "ɑtʰɑsi",
+      "example": "ათასი ლარი ღირს.",
+      "example_tr": "Стоит тысячу лари.",
       "tags": [
         "numeral"
       ]
@@ -2377,6 +2197,26 @@
       ]
     },
     {
+      "front": "დაკავებული",
+      "back": "занятый",
+      "transcription": "dɑkʼɑvɛbuli",
+      "example": "ახლა დაკავებული ვარ.",
+      "example_tr": "Сейчас я занят.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "საკმაოდ",
+      "back": "довольно, достаточно",
+      "transcription": "sɑkʼmɑɔd",
+      "example": "ამინდი საკმაოდ თბილია.",
+      "example_tr": "Погода довольно тёплая.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "ორშაბათი",
       "back": "понедельник",
       "transcription": "ɔrʃɑbɑtʰi",
@@ -2387,31 +2227,11 @@
       ]
     },
     {
-      "front": "შორის",
-      "back": "между, среди",
-      "transcription": "ʃɔris",
-      "example": "ორ სახლს შორის ბაღია.",
-      "example_tr": "Между двумя домами сад.",
-      "tags": [
-        "postposition"
-      ]
-    },
-    {
-      "front": "წინა",
-      "back": "предыдущий, прошлый",
-      "transcription": "t͡sʼinɑ",
-      "example": "წინა კვირას თბილისში ვიყავი.",
-      "example_tr": "На прошлой неделе я был в Тбилиси.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "ვარჯიში",
-      "back": "тренироваться, тренировка",
-      "transcription": "vɑrd͡ʒiʃi",
-      "example": "დილით ვარჯიში მიყვარს.",
-      "example_tr": "Я люблю тренироваться по утрам.",
+      "front": "დარეკვა",
+      "back": "звонить",
+      "transcription": "dɑrɛkʼvɑ",
+      "example": "საღამოს დარეკვა შემიძლია.",
+      "example_tr": "Я могу позвонить вечером.",
       "tags": [
         "verb"
       ]
@@ -2427,6 +2247,16 @@
       ]
     },
     {
+      "front": "გარეშე",
+      "back": "без",
+      "transcription": "ɡɑrɛʃɛ",
+      "example": "შენ გარეშე არ წავალ.",
+      "example_tr": "Без тебя я не пойду.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
       "front": "ოთხშაბათი",
       "back": "среда",
       "transcription": "ɔtʰxʃɑbɑtʰi",
@@ -2434,26 +2264,6 @@
       "example_tr": "В среду я свободен.",
       "tags": [
         "noun"
-      ]
-    },
-    {
-      "front": "დასვენება",
-      "back": "отдыхать, отдых",
-      "transcription": "dɑsvɛnɛbɑ",
-      "example": "შაბათს დასვენება მინდა.",
-      "example_tr": "В субботу я хочу отдохнуть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ასევე",
-      "back": "также, тоже",
-      "transcription": "ɑsɛvɛ",
-      "example": "მე ასევე მინდა წამოსვლა.",
-      "example_tr": "Я тоже хочу пойти.",
-      "tags": [
-        "adverb"
       ]
     },
     {
@@ -2467,11 +2277,21 @@
       ]
     },
     {
-      "front": "ბოლო",
-      "back": "последний; конец",
-      "transcription": "bɔlɔ",
-      "example": "ეს ბოლო ავტობუსია.",
-      "example_tr": "Это последний автобус.",
+      "front": "თხოვნა",
+      "back": "просить, просьба",
+      "transcription": "tʰxɔvnɑ",
+      "example": "ერთი თხოვნა მაქვს.",
+      "example_tr": "У меня есть одна просьба.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მზად",
+      "back": "готов",
+      "transcription": "mzɑd",
+      "example": "ყველაფერი მზადაა.",
+      "example_tr": "Всё готово.",
       "tags": [
         "adjective"
       ]
@@ -2487,6 +2307,916 @@
       ]
     },
     {
+      "front": "ძირითადად",
+      "back": "в основном",
+      "transcription": "d͡ziritʰɑdɑd",
+      "example": "ძირითადად სახლში ვმუშაობ.",
+      "example_tr": "В основном я работаю дома.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "არ არის პრობლემა",
+      "back": "нет проблем",
+      "transcription": "ɑr ɑris pʼrɔblɛmɑ",
+      "example": "არ არის პრობლემა, ხვალ მოვალ.",
+      "example_tr": "Нет проблем, приду завтра.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "შაბათი",
+      "back": "суббота",
+      "transcription": "ʃɑbɑtʰi",
+      "example": "შაბათს ვისვენებ.",
+      "example_tr": "В субботу я отдыхаю.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ჩვენება",
+      "back": "показывать",
+      "transcription": "t͡ʃʰvɛnɛbɑ",
+      "example": "გზის ჩვენება შეგიძლიათ?",
+      "example_tr": "Можете показать дорогу?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მარშრუტკა",
+      "back": "маршрутка",
+      "transcription": "mɑrʃrutʼkʼɑ",
+      "example": "მარშრუტკა ხუთ წუთში მოვა.",
+      "example_tr": "Маршрутка придёт через пять минут.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მგზავრი",
+      "back": "пассажир",
+      "transcription": "mɡzɑvri",
+      "example": "მგზავრი ავტობუსში შევიდა.",
+      "example_tr": "Пассажир вошёл в автобус.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ცნობილი",
+      "back": "известный",
+      "transcription": "t͡sʰnɔbili",
+      "example": "ის ცნობილი მომღერალია.",
+      "example_tr": "Он известный певец.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "მძღოლი",
+      "back": "водитель",
+      "transcription": "md͡zɣɔli",
+      "example": "მძღოლი გვიან მოვიდა.",
+      "example_tr": "Водитель приехал поздно.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ახსნა",
+      "back": "объяснять",
+      "transcription": "ɑxsnɑ",
+      "example": "ამის ახსნა შეგიძლია?",
+      "example_tr": "Можешь это объяснить?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ბენზინი",
+      "back": "бензин",
+      "transcription": "bɛnzini",
+      "example": "ბენზინი ძვირია.",
+      "example_tr": "Бензин дорогой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "იშვიათად",
+      "back": "редко",
+      "transcription": "iʃviɑtʰɑd",
+      "example": "ის იშვიათად რეკავს.",
+      "example_tr": "Он редко звонит.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გზაჯვარედინი",
+      "back": "перекрёсток",
+      "transcription": "ɡzɑd͡ʒvɑrɛdini",
+      "example": "გზაჯვარედინზე მარჯვნივ უნდა მოუხვიო.",
+      "example_tr": "На перекрёстке нужно повернуть направо.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მიმართულება",
+      "back": "направление",
+      "transcription": "mimɑrtʰulɛbɑ",
+      "example": "რომელი მიმართულებით მივდივართ?",
+      "example_tr": "В каком направлении мы идём?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თარგმნა",
+      "back": "переводить",
+      "transcription": "tʰɑrɡmnɑ",
+      "example": "ამ სიტყვის თარგმნა შემიძლია.",
+      "example_tr": "Я могу перевести это слово.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ღია",
+      "back": "открытый",
+      "transcription": "ɣiɑ",
+      "example": "მაღაზია ღიაა.",
+      "example_tr": "Магазин открыт.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "კუთხე",
+      "back": "угол",
+      "transcription": "kʼutʰxɛ",
+      "example": "ქუჩის კუთხეში აფთიაქია.",
+      "example_tr": "На углу улицы аптека.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ტრანსპორტი",
+      "back": "транспорт",
+      "transcription": "tʼrɑnspʼɔrtʼi",
+      "example": "საზოგადოებრივი ტრანსპორტი იაფია.",
+      "example_tr": "Общественный транспорт дешёвый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გაგრძელება",
+      "back": "продолжать",
+      "transcription": "ɡɑɡrd͡zɛlɛbɑ",
+      "example": "მუშაობის გაგრძელება მინდა.",
+      "example_tr": "Я хочу продолжить работу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ყოველი",
+      "back": "каждый",
+      "transcription": "qʼɔvɛli",
+      "example": "ყოველ კვირას ბაზარში დავდივარ.",
+      "example_tr": "Каждую неделю я хожу на рынок.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "ნახევარი",
+      "back": "половина",
+      "transcription": "nɑxɛvɑri",
+      "example": "ნახევარი საათი დამრჩა.",
+      "example_tr": "У меня осталось полчаса.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "შორის",
+      "back": "между, среди",
+      "transcription": "ʃɔris",
+      "example": "ორ სახლს შორის ბაღია.",
+      "example_tr": "Между двумя домами сад.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "ავარია",
+      "back": "авария",
+      "transcription": "ɑvɑriɑ",
+      "example": "გზაზე ავარია მოხდა.",
+      "example_tr": "На дороге произошла авария.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "უფრო",
+      "back": "более, больше",
+      "transcription": "upʰrɔ",
+      "example": "ეს მაღაზია უფრო იაფია.",
+      "example_tr": "Этот магазин дешевле.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ხოლო",
+      "back": "а (в то время как)",
+      "transcription": "xɔlɔ",
+      "example": "მე ვმუშაობ, ხოლო ის სწავლობს.",
+      "example_tr": "Я работаю, а он учится.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ვნახოთ",
+      "back": "посмотрим",
+      "transcription": "vnɑxɔtʰ",
+      "example": "ვნახოთ, რა მოხდება.",
+      "example_tr": "Посмотрим, что будет.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "საცობი",
+      "back": "пробка (на дороге)",
+      "transcription": "sɑt͡sʰɔbi",
+      "example": "დილით გზაზე დიდი საცობია.",
+      "example_tr": "Утром на дороге большая пробка.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ბარგი",
+      "back": "багаж",
+      "transcription": "bɑrɡi",
+      "example": "ბარგი ძალიან მძიმეა.",
+      "example_tr": "Багаж очень тяжёлый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაკეტილი",
+      "back": "закрытый",
+      "transcription": "dɑkʼɛtʼili",
+      "example": "აფთიაქი უკვე დაკეტილია.",
+      "example_tr": "Аптека уже закрыта.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დამთავრება",
+      "back": "заканчивать",
+      "transcription": "dɑmtʰɑvrɛbɑ",
+      "example": "სამუშაოს დამთავრება მჭირდება.",
+      "example_tr": "Мне нужно закончить работу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ქირა",
+      "back": "аренда, съём",
+      "transcription": "kʰirɑ",
+      "example": "ბინის ქირა ძვირია.",
+      "example_tr": "Аренда квартиры дорогая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მეპატრონე",
+      "back": "хозяин, владелец",
+      "transcription": "mɛpʼɑtʼrɔnɛ",
+      "example": "ბინის მეპატრონე ხვალ მოვა.",
+      "example_tr": "Хозяин квартиры придёт завтра.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ყველაზე",
+      "back": "самый",
+      "transcription": "qʼvɛlɑzɛ",
+      "example": "ეს ყველაზე კარგი კაფეა.",
+      "example_tr": "Это самое лучшее кафе.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ხელშეკრულება",
+      "back": "договор",
+      "transcription": "xɛlʃɛkʼrulɛbɑ",
+      "example": "ხელშეკრულება ყურადღებით წავიკითხე.",
+      "example_tr": "Я внимательно прочитал договор.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაბადება",
+      "back": "рождаться; рождение",
+      "transcription": "dɑbɑdɛbɑ",
+      "example": "ჩემი დაბადების დღე ივნისშია.",
+      "example_tr": "Мой день рождения в июне.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ანგარიში",
+      "back": "счёт",
+      "transcription": "ɑnɡɑriʃi",
+      "example": "ოფიციანტმა ანგარიში მოგვიტანა.",
+      "example_tr": "Официант принёс нам счёт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შემდეგი",
+      "back": "следующий",
+      "transcription": "ʃɛmdɛɡi",
+      "example": "შემდეგი მატარებელი ხუთ საათზეა.",
+      "example_tr": "Следующий поезд в пять.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ქვითარი",
+      "back": "квитанция",
+      "transcription": "kʰvitʰɑri",
+      "example": "დენის ქვითარი მოვიდა.",
+      "example_tr": "Пришла квитанция за свет.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დენი",
+      "back": "электричество, ток",
+      "transcription": "dɛni",
+      "example": "საღამოს დენი გაითიშა.",
+      "example_tr": "Вечером отключили электричество.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სწავლება",
+      "back": "преподавать, обучение",
+      "transcription": "st͡sʼɑvlɛbɑ",
+      "example": "ბავშვების სწავლება მიყვარს.",
+      "example_tr": "Я люблю учить детей.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "გაზი",
+      "back": "газ",
+      "transcription": "ɡɑzi",
+      "example": "სამზარეულოში გაზი არ არის.",
+      "example_tr": "На кухне нет газа.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "კარგი იქნება",
+      "back": "будет хорошо",
+      "transcription": "kʼɑrɡi ikʰnɛbɑ",
+      "example": "კარგი იქნება, თუ ადრე მოხვალ.",
+      "example_tr": "Будет хорошо, если придёшь рано.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "მაინც",
+      "back": "всё-таки, всё равно",
+      "transcription": "mɑint͡sʰ",
+      "example": "გვიან იყო, მაინც მოვედი.",
+      "example_tr": "Было поздно, я всё-таки пришёл.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "რემონტი",
+      "back": "ремонт",
+      "transcription": "rɛmɔntʼi",
+      "example": "ბინაში რემონტია.",
+      "example_tr": "В квартире ремонт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "წინა",
+      "back": "предыдущий, прошлый",
+      "transcription": "t͡sʼinɑ",
+      "example": "წინა კვირას თბილისში ვიყავი.",
+      "example_tr": "На прошлой неделе я был в Тбилиси.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დარჩენა",
+      "back": "оставаться",
+      "transcription": "dɑrt͡ʃʰɛnɑ",
+      "example": "სახლში დარჩენა მინდა.",
+      "example_tr": "Я хочу остаться дома.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ავეჯი",
+      "back": "мебель",
+      "transcription": "ɑvɛd͡ʒi",
+      "example": "ბინაში ახალი ავეჯია.",
+      "example_tr": "В квартире новая мебель.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "კონდიციონერი",
+      "back": "кондиционер",
+      "transcription": "kʼɔndit͡sʰiɔnɛri",
+      "example": "კონდიციონერი არ მუშაობს.",
+      "example_tr": "Кондиционер не работает.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გარდა",
+      "back": "кроме",
+      "transcription": "ɡɑrdɑ",
+      "example": "ჩემს გარდა ყველა მოვიდა.",
+      "example_tr": "Кроме меня, пришли все.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "გათბობა",
+      "back": "отопление",
+      "transcription": "ɡɑtʰbɔbɑ",
+      "example": "სახლში გათბობა არ არის.",
+      "example_tr": "В доме нет отопления.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ჩამოსვლა",
+      "back": "приезжать",
+      "transcription": "t͡ʃʰɑmɔsvlɑ",
+      "example": "მეგობრის ჩამოსვლას ველოდები.",
+      "example_tr": "Я жду приезда друга.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "სადარბაზო",
+      "back": "подъезд",
+      "transcription": "sɑdɑrbɑzɔ",
+      "example": "სადარბაზოს კარი ღიაა.",
+      "example_tr": "Дверь подъезда открыта.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ნამდვილად",
+      "back": "действительно, точно",
+      "transcription": "nɑmdvilɑd",
+      "example": "ნამდვილად არ ვიცოდი.",
+      "example_tr": "Я действительно не знал.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ბოლო",
+      "back": "последний; конец",
+      "transcription": "bɔlɔ",
+      "example": "ეს ბოლო ავტობუსია.",
+      "example_tr": "Это последний автобус.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "კედელი",
+      "back": "стена",
+      "transcription": "kʼɛdɛli",
+      "example": "კედელზე სურათი კიდია.",
+      "example_tr": "На стене висит картина.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თერთმეტი",
+      "back": "одиннадцать",
+      "transcription": "tʰɛrtʰmɛtʼi",
+      "example": "კლასში თერთმეტი მოსწავლეა.",
+      "example_tr": "В классе одиннадцать учеников.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "იატაკი",
+      "back": "пол",
+      "transcription": "iɑtʼɑkʼi",
+      "example": "იატაკი სუფთაა.",
+      "example_tr": "Пол чистый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შესვლა",
+      "back": "входить",
+      "transcription": "ʃɛsvlɑ",
+      "example": "ოთახში შესვლა შეიძლება?",
+      "example_tr": "Можно войти в комнату?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "აივანი",
+      "back": "балкон",
+      "transcription": "ɑivɑni",
+      "example": "აივანზე ყვავილებია.",
+      "example_tr": "На балконе цветы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხმაური",
+      "back": "шум",
+      "transcription": "xmɑuri",
+      "example": "ღამით დიდი ხმაური იყო.",
+      "example_tr": "Ночью был большой шум.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მოდი",
+      "back": "давай, идём",
+      "transcription": "mɔdi",
+      "example": "მოდი, ერთად წავიდეთ.",
+      "example_tr": "Давай пойдём вместе.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "გასვლა",
+      "back": "выходить",
+      "transcription": "ɡɑsvlɑ",
+      "example": "გარეთ გასვლა მინდა.",
+      "example_tr": "Я хочу выйти на улицу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ნაგავი",
+      "back": "мусор",
+      "transcription": "nɑɡɑvi",
+      "example": "ნაგავი გარეთ გავიტანე.",
+      "example_tr": "Я вынес мусор.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "საჭირო",
+      "back": "нужный, необходимый",
+      "transcription": "sɑt͡ʃʼirɔ",
+      "example": "ეს საბუთი საჭიროა.",
+      "example_tr": "Этот документ нужен.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "უცებ",
+      "back": "вдруг, внезапно",
+      "transcription": "ut͡sʰɛb",
+      "example": "უცებ წვიმა დაიწყო.",
+      "example_tr": "Вдруг начался дождь.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "უბანი",
+      "back": "район",
+      "transcription": "ubɑni",
+      "example": "ჩვენი უბანი მშვიდია.",
+      "example_tr": "Наш район спокойный.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ერთმანეთი",
+      "back": "друг друга",
+      "transcription": "ɛrtʰmɑnɛtʰi",
+      "example": "ერთმანეთს ხშირად ვხედავთ.",
+      "example_tr": "Мы часто видим друг друга.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "პირსახოცი",
+      "back": "полотенце",
+      "transcription": "pʼirsɑxɔt͡sʰi",
+      "example": "პირსახოცი აბაზანაშია.",
+      "example_tr": "Полотенце в ванной.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ფიქრი",
+      "back": "думать, мысль",
+      "transcription": "pʰikʰri",
+      "example": "ამაზე ფიქრი მჭირდება.",
+      "example_tr": "Мне нужно об этом подумать.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "საპონი",
+      "back": "мыло",
+      "transcription": "sɑpʼɔni",
+      "example": "ხელები საპნით დაიბანე.",
+      "example_tr": "Помой руки с мылом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სინათლე",
+      "back": "свет",
+      "transcription": "sinɑtʰlɛ",
+      "example": "ოთახში სინათლე ცოტაა.",
+      "example_tr": "В комнате мало света.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მჟავე",
+      "back": "кислый",
+      "transcription": "mʒɑvɛ",
+      "example": "ეს ვაშლი მჟავეა.",
+      "example_tr": "Это яблоко кислое.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "საბუთი",
+      "back": "документ",
+      "transcription": "sɑbutʰi",
+      "example": "საბუთები თან მაქვს.",
+      "example_tr": "Документы у меня с собой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამო",
+      "back": "из-за",
+      "transcription": "ɡɑmɔ",
+      "example": "წვიმის გამო სახლში დავრჩი.",
+      "example_tr": "Из-за дождя я остался дома.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "გრძნობა",
+      "back": "чувствовать; чувство",
+      "transcription": "ɡrd͡znɔbɑ",
+      "example": "თავს კარგად ვგრძნობ.",
+      "example_tr": "Я чувствую себя хорошо.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ნელ-ნელა",
+      "back": "постепенно",
+      "transcription": "nɛl-nɛlɑ",
+      "example": "ნელ-ნელა ვსწავლობ ქართულს.",
+      "example_tr": "Я постепенно учу грузинский.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "პირადობა",
+      "back": "удостоверение личности",
+      "transcription": "pʼirɑdɔbɑ",
+      "example": "პირადობა მაჩვენეთ, თუ შეიძლება.",
+      "example_tr": "Покажите удостоверение, пожалуйста.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "განცხადება",
+      "back": "заявление",
+      "transcription": "ɡɑnt͡sʰxɑdɛbɑ",
+      "example": "ბანკში განცხადება დავწერე.",
+      "example_tr": "Я написал заявление в банке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ვარჯიში",
+      "back": "тренироваться, тренировка",
+      "transcription": "vɑrd͡ʒiʃi",
+      "example": "დილით ვარჯიში მიყვარს.",
+      "example_tr": "Я люблю тренироваться по утрам.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ხელმოწერა",
+      "back": "подпись",
+      "transcription": "xɛlmɔt͡sʼɛrɑ",
+      "example": "აქ ხელმოწერა აუცილებელია.",
+      "example_tr": "Здесь подпись обязательна.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "წავიდეთ",
+      "back": "пойдём",
+      "transcription": "t͡sʼɑvidɛtʰ",
+      "example": "წავიდეთ სახლში.",
+      "example_tr": "Пойдём домой.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "მარილიანი",
+      "back": "солёный",
+      "transcription": "mɑriliɑni",
+      "example": "სუპი ძალიან მარილიანია.",
+      "example_tr": "Суп очень солёный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ცნობა",
+      "back": "справка",
+      "transcription": "t͡sʰnɔbɑ",
+      "example": "ექიმისგან ცნობა მჭირდება.",
+      "example_tr": "Мне нужна справка от врача.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხომ",
+      "back": "ведь, разве",
+      "transcription": "xɔm",
+      "example": "ხომ არ იცი, სად არის სადგური?",
+      "example_tr": "Ты не знаешь, где вокзал?",
+      "tags": [
+        "particle"
+      ]
+    },
+    {
+      "front": "ნოტარიუსი",
+      "back": "нотариус",
+      "transcription": "nɔtʼɑriusi",
+      "example": "ხვალ ნოტარიუსთან მივდივარ.",
+      "example_tr": "Завтра я иду к нотариусу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხანდახან",
+      "back": "время от времени, порой",
+      "transcription": "xɑndɑxɑn",
+      "example": "ხანდახან თეატრში დავდივარ.",
+      "example_tr": "Время от времени я хожу в театр.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "დასვენება",
+      "back": "отдыхать, отдых",
+      "transcription": "dɑsvɛnɛbɑ",
+      "example": "შაბათს დასვენება მინდა.",
+      "example_tr": "В субботу я хочу отдохнуть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ნაღდი ფული",
+      "back": "наличные",
+      "transcription": "nɑɣdi pʰuli",
+      "example": "ნაღდი ფული არ მაქვს.",
+      "example_tr": "У меня нет наличных.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თორმეტი",
+      "back": "двенадцать",
+      "transcription": "tʰɔrmɛtʼi",
+      "example": "ახლა თორმეტი საათია.",
+      "example_tr": "Сейчас двенадцать часов.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "ბანკომატი",
+      "back": "банкомат",
+      "transcription": "bɑnkʼɔmɑtʼi",
+      "example": "ბანკომატი სად არის?",
+      "example_tr": "Где банкомат?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "საკმარისი",
+      "back": "достаточный",
+      "transcription": "sɑkʼmɑrisi",
+      "example": "ეს ფული საკმარისია.",
+      "example_tr": "Этих денег достаточно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "გადასახადი",
+      "back": "налог",
+      "transcription": "ɡɑdɑsɑxɑdi",
+      "example": "გადასახადი უკვე გადავიხადე.",
+      "example_tr": "Я уже заплатил налог.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
       "front": "სეირნობა",
       "back": "гулять, прогулка",
       "transcription": "sɛirnɔbɑ",
@@ -2497,11 +3227,1781 @@
       ]
     },
     {
-      "front": "შაბათი",
-      "back": "суббота",
-      "transcription": "ʃɑbɑtʰi",
-      "example": "შაბათს ვისვენებ.",
-      "example_tr": "В субботу я отдыхаю.",
+      "front": "სანამ",
+      "back": "пока, прежде чем",
+      "transcription": "sɑnɑm",
+      "example": "სანამ წახვალ, დამირეკე.",
+      "example_tr": "Прежде чем уйдёшь, позвони мне.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ჯარიმა",
+      "back": "штраф",
+      "transcription": "d͡ʒɑrimɑ",
+      "example": "მძღოლმა ჯარიმა გადაიხადა.",
+      "example_tr": "Водитель заплатил штраф.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ვადა",
+      "back": "срок",
+      "transcription": "vɑdɑ",
+      "example": "პასპორტის ვადა გავიდა.",
+      "example_tr": "Срок паспорта истёк.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ყოველდღე",
+      "back": "каждый день",
+      "transcription": "qʼɔvɛldɣɛ",
+      "example": "ყოველდღე ვვარჯიშობ.",
+      "example_tr": "Я тренируюсь каждый день.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "მოქალაქე",
+      "back": "гражданин",
+      "transcription": "mɔkʰɑlɑkʰɛ",
+      "example": "ის საქართველოს მოქალაქეა.",
+      "example_tr": "Он гражданин Грузии.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მოხვევა",
+      "back": "поворачивать",
+      "transcription": "mɔxvɛvɑ",
+      "example": "აქ მოხვევა არ შეიძლება.",
+      "example_tr": "Здесь нельзя поворачивать.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "განყოფილება",
+      "back": "отдел, отделение",
+      "transcription": "ɡɑnqʼɔpʰilɛbɑ",
+      "example": "ბანკის განყოფილება დაკეტილია.",
+      "example_tr": "Отделение банка закрыто.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ღრუბლიანი",
+      "back": "облачный",
+      "transcription": "ɣrubliɑni",
+      "example": "დღეს ღრუბლიანი ამინდია.",
+      "example_tr": "Сегодня облачная погода.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "მიხედვით",
+      "back": "по, согласно",
+      "transcription": "mixɛdvitʰ",
+      "example": "პროგნოზის მიხედვით ხვალ იწვიმებს.",
+      "example_tr": "По прогнозу завтра будет дождь.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "გენაცვალე",
+      "back": "дорогой мой (ласковое обращение)",
+      "transcription": "ɡɛnɑt͡sʰvɑlɛ",
+      "example": "მადლობა, გენაცვალე!",
+      "example_tr": "Спасибо, дорогой!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "მომსახურება",
+      "back": "обслуживание, услуга",
+      "transcription": "mɔmsɑxurɛbɑ",
+      "example": "მომსახურება ძალიან კარგი იყო.",
+      "example_tr": "Обслуживание было очень хорошее.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გადასვლა",
+      "back": "переходить",
+      "transcription": "ɡɑdɑsvlɑ",
+      "example": "ის ქუჩას გადადის.",
+      "example_tr": "Он переходит улицу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "რეცეპტი",
+      "back": "рецепт",
+      "transcription": "rɛt͡sʰɛpʼtʼi",
+      "example": "ექიმმა რეცეპტი დამიწერა.",
+      "example_tr": "Врач выписал мне рецепт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ორჯერ",
+      "back": "дважды, два раза",
+      "transcription": "ɔrd͡ʒɛr",
+      "example": "კვირაში ორჯერ ბაზარში დავდივარ.",
+      "example_tr": "Два раза в неделю я хожу на рынок.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "აბი",
+      "back": "таблетка",
+      "transcription": "ɑbi",
+      "example": "აბი დღეში ორჯერ დალიე.",
+      "example_tr": "Пей таблетку два раза в день.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ნემსი",
+      "back": "укол; игла",
+      "transcription": "nɛmsi",
+      "example": "ექთანმა ნემსი გამიკეთა.",
+      "example_tr": "Медсестра сделала мне укол.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მზიანი",
+      "back": "солнечный",
+      "transcription": "mziɑni",
+      "example": "მზიანი ამინდი მიყვარს.",
+      "example_tr": "Я люблю солнечную погоду.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ფრენა",
+      "back": "лететь, полёт",
+      "transcription": "pʰrɛnɑ",
+      "example": "ფრენა სამ საათს გრძელდება.",
+      "example_tr": "Полёт длится три часа.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ექთანი",
+      "back": "медсестра",
+      "transcription": "ɛkʰtʰɑni",
+      "example": "ექთანმა წამალი მომიტანა.",
+      "example_tr": "Медсестра принесла мне лекарство.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "იგივე",
+      "back": "тот же самый",
+      "transcription": "iɡivɛ",
+      "example": "იგივე პრობლემა მაქვს.",
+      "example_tr": "У меня та же проблема.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "სისხლი",
+      "back": "кровь",
+      "transcription": "sisxli",
+      "example": "ექიმმა სისხლი შეამოწმა.",
+      "example_tr": "Врач проверил кровь.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სურდო",
+      "back": "насморк",
+      "transcription": "surdɔ",
+      "example": "ბავშვს სურდო აქვს.",
+      "example_tr": "У ребёнка насморк.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაჯავშნა",
+      "back": "бронировать",
+      "transcription": "dɑd͡ʒɑvʃnɑ",
+      "example": "ბილეთის დაჯავშნა მინდა.",
+      "example_tr": "Я хочу забронировать билет.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "დაახლოებით",
+      "back": "примерно",
+      "transcription": "dɑɑxlɔɛbitʰ",
+      "example": "დაახლოებით ათი ლარი ღირს.",
+      "example_tr": "Стоит примерно десять лари.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გრიპი",
+      "back": "грипп",
+      "transcription": "ɡripʼi",
+      "example": "ზამთარში გრიპი ხშირია.",
+      "example_tr": "Зимой грипп — частое дело.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გრილი",
+      "back": "прохладный",
+      "transcription": "ɡrili",
+      "example": "საღამოს გრილია.",
+      "example_tr": "Вечером прохладно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "სასწრაფო",
+      "back": "скорая помощь",
+      "transcription": "sɑst͡sʼrɑpʰɔ",
+      "example": "სასწრაფო გამოიძახეთ!",
+      "example_tr": "Вызовите скорую!",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გაუქმება",
+      "back": "отменять",
+      "transcription": "ɡɑukʰmɛbɑ",
+      "example": "ჩვენი ფრენა გაუქმდა.",
+      "example_tr": "Наш рейс отменили.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "თხუთმეტი",
+      "back": "пятнадцать",
+      "transcription": "tʰxutʰmɛtʼi",
+      "example": "თხუთმეტი წუთი დამრჩა.",
+      "example_tr": "У меня осталось пятнадцать минут.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "დიდი მადლობა",
+      "back": "большое спасибо",
+      "transcription": "didi mɑdlɔbɑ",
+      "example": "დიდი მადლობა დახმარებისთვის.",
+      "example_tr": "Большое спасибо за помощь.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "ალერგია",
+      "back": "аллергия",
+      "transcription": "ɑlɛrɡiɑ",
+      "example": "ალერგია მაქვს.",
+      "example_tr": "У меня аллергия.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხინკალი",
+      "back": "хинкали",
+      "transcription": "xinkʼɑli",
+      "example": "ხინკალი ძალიან მიყვარს.",
+      "example_tr": "Я очень люблю хинкали.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ლობიო",
+      "back": "лобио (фасоль)",
+      "transcription": "lɔbiɔ",
+      "example": "ლობიო ძალიან გემრიელია.",
+      "example_tr": "Лобио очень вкусное.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ქვეშ",
+      "back": "под",
+      "transcription": "kʰvɛʃ",
+      "example": "ჩანთა მაგიდის ქვეშაა.",
+      "example_tr": "Сумка под столом.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "ჩართვა",
+      "back": "включать",
+      "transcription": "t͡ʃʰɑrtʰvɑ",
+      "example": "ტელევიზორი ჩართე.",
+      "example_tr": "Включи телевизор.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "პირიქით",
+      "back": "наоборот",
+      "transcription": "pʼirikʰitʰ",
+      "example": "პირიქით, ძალიან მომეწონა.",
+      "example_tr": "Наоборот, мне очень понравилось.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ნერვიული",
+      "back": "нервный",
+      "transcription": "nɛrviuli",
+      "example": "გამოცდის წინ ნერვიული ვარ.",
+      "example_tr": "Перед экзаменом я нервный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "მაწონი",
+      "back": "мацони",
+      "transcription": "mɑt͡sʼɔni",
+      "example": "დილით მაწონი ვჭამე.",
+      "example_tr": "Утром я ел мацони.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სუნელი",
+      "back": "специи, приправа",
+      "transcription": "sunɛli",
+      "example": "სუნელები ბაზარში ვიყიდე.",
+      "example_tr": "Я купил специи на рынке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "კერძი",
+      "back": "блюдо",
+      "transcription": "kʼɛrd͡zi",
+      "example": "ეს ქართული კერძია.",
+      "example_tr": "Это грузинское блюдо.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამორთვა",
+      "back": "выключать",
+      "transcription": "ɡɑmɔrtʰvɑ",
+      "example": "ტელეფონი გამორთე.",
+      "example_tr": "Выключи телефон.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მენიუ",
+      "back": "меню",
+      "transcription": "mɛniu",
+      "example": "მენიუ მომიტანეთ, თუ შეიძლება.",
+      "example_tr": "Принесите меню, пожалуйста.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ოფიციანტი",
+      "back": "официант",
+      "transcription": "ɔpʰit͡sʰiɑntʼi",
+      "example": "ოფიციანტი მაგიდასთან მოვიდა.",
+      "example_tr": "Официант подошёл к столу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მადლიერი",
+      "back": "благодарный",
+      "transcription": "mɑdliɛri",
+      "example": "ძალიან მადლიერი ვარ.",
+      "example_tr": "Я очень благодарен.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "გუშინწინ",
+      "back": "позавчера",
+      "transcription": "ɡuʃint͡sʼin",
+      "example": "გუშინწინ თბილისში ვიყავი.",
+      "example_tr": "Позавчера я был в Тбилиси.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გადარიცხვა",
+      "back": "переводить (деньги), перевод",
+      "transcription": "ɡɑdɑrit͡sʰxvɑ",
+      "example": "ფული უკვე გადავრიცხე.",
+      "example_tr": "Я уже перевёл деньги.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "თამადა",
+      "back": "тамада",
+      "transcription": "tʰɑmɑdɑ",
+      "example": "თამადა ჩვენი მეგობარია.",
+      "example_tr": "Тамада — наш друг.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "არაუშავს",
+      "back": "ничего страшного",
+      "transcription": "ɑrɑuʃɑvs",
+      "example": "არაუშავს, არ ინერვიულო.",
+      "example_tr": "Ничего страшного, не переживай.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "ტოსტი",
+      "back": "тост",
+      "transcription": "tʼɔstʼi",
+      "example": "მამამ ლამაზი ტოსტი თქვა.",
+      "example_tr": "Отец сказал красивый тост.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თეფში",
+      "back": "тарелка",
+      "transcription": "tʰɛpʰʃi",
+      "example": "თეფში მაგიდაზე დადგი.",
+      "example_tr": "Поставь тарелку на стол.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მკურნალობა",
+      "back": "лечение, лечить",
+      "transcription": "mkʼurnɑlɔbɑ",
+      "example": "მკურნალობა უკვე დავიწყე.",
+      "example_tr": "Я уже начал лечение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ჭიქა",
+      "back": "стакан, бокал",
+      "transcription": "t͡ʃʼikʰɑ",
+      "example": "ერთი ჭიქა წყალი მომეცი.",
+      "example_tr": "Дай мне стакан воды.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "კმაყოფილი",
+      "back": "довольный",
+      "transcription": "kʼmɑqʼɔpʰili",
+      "example": "სამსახურით კმაყოფილი ვარ.",
+      "example_tr": "Я доволен работой.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ვაი",
+      "back": "ой, ай",
+      "transcription": "vɑi",
+      "example": "ვაი, გასაღები დამავიწყდა!",
+      "example_tr": "Ой, я забыл ключи!",
+      "tags": [
+        "interjection"
+      ]
+    },
+    {
+      "front": "კოვზი",
+      "back": "ложка",
+      "transcription": "kʼɔvzi",
+      "example": "კოვზი მაგიდაზეა.",
+      "example_tr": "Ложка на столе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ზეგ",
+      "back": "послезавтра",
+      "transcription": "zɛɡ",
+      "example": "ზეგ შევხვდებით.",
+      "example_tr": "Послезавтра встретимся.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ჩანგალი",
+      "back": "вилка",
+      "transcription": "t͡ʃʰɑnɡɑli",
+      "example": "ჩანგალი დამავიწყდა.",
+      "example_tr": "Я забыл вилку.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხველა",
+      "back": "кашлять, кашель",
+      "transcription": "xvɛlɑ",
+      "example": "ძლიერი ხველა მაქვს.",
+      "example_tr": "У меня сильный кашель.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "დანა",
+      "back": "нож",
+      "transcription": "dɑnɑ",
+      "example": "დანით პური დავჭერი.",
+      "example_tr": "Я нарезал хлеб ножом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გვერდით",
+      "back": "рядом с, около",
+      "transcription": "ɡvɛrditʰ",
+      "example": "სკოლის გვერდით პარკია.",
+      "example_tr": "Рядом со школой парк.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "თაფლი",
+      "back": "мёд",
+      "transcription": "tʰɑpʰli",
+      "example": "თაფლიანი ჩაი მიყვარს.",
+      "example_tr": "Я люблю чай с мёдом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სამოცი",
+      "back": "шестьдесят",
+      "transcription": "sɑmɔt͡sʰi",
+      "example": "ბაბუა სამოცი წლისაა.",
+      "example_tr": "Дедушке шестьдесят лет.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "სხვადასხვა",
+      "back": "разный, различный",
+      "transcription": "sxvɑdɑsxvɑ",
+      "example": "მაღაზიაში სხვადასხვა ფერის კაბებია.",
+      "example_tr": "В магазине платья разных цветов.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "გამოჯანმრთელება",
+      "back": "выздоравливать",
+      "transcription": "ɡɑmɔd͡ʒɑnmrtʰɛlɛbɑ",
+      "example": "მალე გამოჯანმრთელდი!",
+      "example_tr": "Скорее выздоравливай!",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "კარაქი",
+      "back": "сливочное масло",
+      "transcription": "kʼɑrɑkʰi",
+      "example": "კარაქი მაცივარშია.",
+      "example_tr": "Масло в холодильнике.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ამდენი",
+      "back": "столько",
+      "transcription": "ɑmdɛni",
+      "example": "ამდენი ფული არ მაქვს.",
+      "example_tr": "У меня нет столько денег.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "ზეთი",
+      "back": "растительное масло",
+      "transcription": "zɛtʰi",
+      "example": "სალათს ზეთი დაასხი.",
+      "example_tr": "Полей салат маслом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შარშან",
+      "back": "в прошлом году",
+      "transcription": "ʃɑrʃɑn",
+      "example": "შარშან საქართველოში ჩამოვედი.",
+      "example_tr": "В прошлом году я приехал в Грузию.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "სალათი",
+      "back": "салат",
+      "transcription": "sɑlɑtʰi",
+      "example": "სადილად სალათი მინდა.",
+      "example_tr": "На обед я хочу салат.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ერთი წუთით",
+      "back": "на минутку",
+      "transcription": "ɛrtʰi t͡sʼutʰitʰ",
+      "example": "ერთი წუთით მოიცადეთ.",
+      "example_tr": "Подождите минутку.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "სუნთქვა",
+      "back": "дышать, дыхание",
+      "transcription": "suntʰkʰvɑ",
+      "example": "სუნთქვა მიჭირს.",
+      "example_tr": "Мне трудно дышать.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ხახვი",
+      "back": "лук",
+      "transcription": "xɑxvi",
+      "example": "სალათში ხახვი მიყვარს.",
+      "example_tr": "Я люблю лук в салате.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ანუ",
+      "back": "то есть",
+      "transcription": "ɑnu",
+      "example": "ხვალ, ანუ ორშაბათს, შევხვდებით.",
+      "example_tr": "Завтра, то есть в понедельник, встретимся.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "საშიში",
+      "back": "опасный",
+      "transcription": "sɑʃiʃi",
+      "example": "ეს გზა საშიშია.",
+      "example_tr": "Эта дорога опасная.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "კიტრი",
+      "back": "огурец",
+      "transcription": "kʼitʼri",
+      "example": "კიტრი და პომიდორი დავჭერი.",
+      "example_tr": "Я нарезал огурец и помидор.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ყურძენი",
+      "back": "виноград",
+      "transcription": "qʼurd͡zɛni",
+      "example": "ყურძენი ძალიან ტკბილია.",
+      "example_tr": "Виноград очень сладкий.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შეკვეთა",
+      "back": "заказывать, заказ",
+      "transcription": "ʃɛkʼvɛtʰɑ",
+      "example": "შეკვეთა უკვე გავაკეთეთ.",
+      "example_tr": "Мы уже сделали заказ.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ლიმონი",
+      "back": "лимон",
+      "transcription": "limɔni",
+      "example": "ლიმონი ძალიან მჟავეა.",
+      "example_tr": "Лимон очень кислый.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "წელს",
+      "back": "в этом году",
+      "transcription": "t͡sʼɛls",
+      "example": "წელს ბევრი ვიმუშავე.",
+      "example_tr": "В этом году я много работал.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ჭაჭა",
+      "back": "чача",
+      "transcription": "t͡ʃʼɑt͡ʃʼɑ",
+      "example": "ჭაჭა ძალიან ძლიერია.",
+      "example_tr": "Чача очень крепкая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "უსაფრთხო",
+      "back": "безопасный",
+      "transcription": "usɑpʰrtʰxɔ",
+      "example": "ღამით აქ უსაფრთხოა.",
+      "example_tr": "Ночью здесь безопасно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ხურდა",
+      "back": "сдача, мелочь",
+      "transcription": "xurdɑ",
+      "example": "ხურდა არ მაქვს.",
+      "example_tr": "У меня нет сдачи.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "პასუხის გაცემა",
+      "back": "отвечать",
+      "transcription": "pʼɑsuxis ɡɑt͡sʰɛmɑ",
+      "example": "მასწავლებელს პასუხი გავეცი.",
+      "example_tr": "Я ответил учителю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "გემო",
+      "back": "вкус",
+      "transcription": "ɡɛmɔ",
+      "example": "ამ კერძს კარგი გემო აქვს.",
+      "example_tr": "У этого блюда хороший вкус.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სუნი",
+      "back": "запах",
+      "transcription": "suni",
+      "example": "სამზარეულოდან კარგი სუნი მოდის.",
+      "example_tr": "Из кухни идёт хороший запах.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მაგივრად",
+      "back": "вместо",
+      "transcription": "mɑɡivrɑd",
+      "example": "ჩაის მაგივრად ყავა დავლიე.",
+      "example_tr": "Вместо чая я выпил кофе.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "მოსინჯვა",
+      "back": "пробовать (на вкус)",
+      "transcription": "mɔsind͡ʒvɑ",
+      "example": "ეს ღვინო მოსინჯე.",
+      "example_tr": "Попробуй это вино.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ჯიბე",
+      "back": "карман",
+      "transcription": "d͡ʒibɛ",
+      "example": "ფული ჯიბეში მაქვს.",
+      "example_tr": "Деньги у меня в кармане.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გასულ კვირას",
+      "back": "на прошлой неделе",
+      "transcription": "ɡɑsul kʼvirɑs",
+      "example": "გასულ კვირას ავად ვიყავი.",
+      "example_tr": "На прошлой неделе я болел.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გისმენ",
+      "back": "слушаю вас",
+      "transcription": "ɡismɛn",
+      "example": "ალო, გისმენ.",
+      "example_tr": "Алло, слушаю.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "დღესასწაული",
+      "back": "праздник",
+      "transcription": "dɣɛsɑst͡sʼɑuli",
+      "example": "ხვალ დღესასწაულია.",
+      "example_tr": "Завтра праздник.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მშვიდი",
+      "back": "спокойный",
+      "transcription": "mʃvidi",
+      "example": "ის ძალიან მშვიდი ადამიანია.",
+      "example_tr": "Он очень спокойный человек.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დაბადების დღე",
+      "back": "день рождения",
+      "transcription": "dɑbɑdɛbis dɣɛ",
+      "example": "დღეს ჩემი დაბადების დღეა.",
+      "example_tr": "Сегодня мой день рождения.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "შეთანხმება",
+      "back": "договариваться, договорённость",
+      "transcription": "ʃɛtʰɑnxmɛbɑ",
+      "example": "ჩვენ შორის შეთანხმებაა.",
+      "example_tr": "Между нами договорённость.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "შვებულება",
+      "back": "отпуск",
+      "transcription": "ʃvɛbulɛbɑ",
+      "example": "შვებულება ორ კვირას გრძელდება.",
+      "example_tr": "Отпуск длится две недели.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ოთხმოცი",
+      "back": "восемьдесят",
+      "transcription": "ɔtʰxmɔt͡sʰi",
+      "example": "ოთხმოცი ლარი გადავიხადე.",
+      "example_tr": "Я заплатил восемьдесят лари.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "ნისლი",
+      "back": "туман",
+      "transcription": "nisli",
+      "example": "დილით ნისლი იყო.",
+      "example_tr": "Утром был туман.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მომავალ კვირას",
+      "back": "на следующей неделе",
+      "transcription": "mɔmɑvɑl kʼvirɑs",
+      "example": "მომავალ კვირას შვებულებაში მივდივარ.",
+      "example_tr": "На следующей неделе я иду в отпуск.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ჭექა-ქუხილი",
+      "back": "гроза",
+      "transcription": "t͡ʃʼɛkʰɑ-kʰuxili",
+      "example": "საღამოს ჭექა-ქუხილი დაიწყო.",
+      "example_tr": "Вечером началась гроза.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დაპირება",
+      "back": "обещать, обещание",
+      "transcription": "dɑpʼirɛbɑ",
+      "example": "დაპირება შევასრულე.",
+      "example_tr": "Я выполнил обещание.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ხმაურიანი",
+      "back": "шумный",
+      "transcription": "xmɑuriɑni",
+      "example": "ქუჩა ძალიან ხმაურიანია.",
+      "example_tr": "Улица очень шумная.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ყინვა",
+      "back": "мороз",
+      "transcription": "qʼinvɑ",
+      "example": "დღეს ძლიერი ყინვაა.",
+      "example_tr": "Сегодня сильный мороз.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "პროგნოზი",
+      "back": "прогноз",
+      "transcription": "pʼrɔɡnɔzi",
+      "example": "ამინდის პროგნოზი ვნახე.",
+      "example_tr": "Я посмотрел прогноз погоды.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გადაწყვეტა",
+      "back": "решать",
+      "transcription": "ɡɑdɑt͡sʼqʼvɛtʼɑ",
+      "example": "გადავწყვიტე, რომ დავრჩები.",
+      "example_tr": "Я решил, что останусь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ქოლგა",
+      "back": "зонт",
+      "transcription": "kʰɔlɡɑ",
+      "example": "ქოლგა თან წაიღე.",
+      "example_tr": "Возьми зонт с собой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მდინარე",
+      "back": "река",
+      "transcription": "mdinɑrɛ",
+      "example": "ბავშვები მდინარეში ბანაობენ.",
+      "example_tr": "Дети купаются в реке.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ხვალამდე",
+      "back": "до завтра",
+      "transcription": "xvɑlɑmdɛ",
+      "example": "კარგი, ხვალამდე!",
+      "example_tr": "Хорошо, до завтра!",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "უფასო",
+      "back": "бесплатный",
+      "transcription": "upʰɑsɔ",
+      "example": "მუზეუმში შესვლა უფასოა.",
+      "example_tr": "Вход в музей бесплатный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დილით",
+      "back": "утром",
+      "transcription": "dilitʰ",
+      "example": "დილით ყავას ვსვამ.",
+      "example_tr": "Утром я пью кофе.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ხეობა",
+      "back": "ущелье",
+      "transcription": "xɛɔbɑ",
+      "example": "ხეობაში ლამაზი სოფელია.",
+      "example_tr": "В ущелье красивая деревня.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მათი",
+      "back": "их",
+      "transcription": "mɑtʰi",
+      "example": "მათი სახლი დიდია.",
+      "example_tr": "Их дом большой.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "დაჯერება",
+      "back": "верить, поверить",
+      "transcription": "dɑd͡ʒɛrɛbɑ",
+      "example": "ამის დაჯერება რთულია.",
+      "example_tr": "В это трудно поверить.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ტყე",
+      "back": "лес",
+      "transcription": "tʼqʼɛ",
+      "example": "ტყეში გასეირნება მიყვარს.",
+      "example_tr": "Я люблю гулять в лесу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გარშემო",
+      "back": "вокруг",
+      "transcription": "ɡɑrʃɛmɔ",
+      "example": "სახლის გარშემო ბაღია.",
+      "example_tr": "Вокруг дома сад.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "ბუნება",
+      "back": "природа",
+      "transcription": "bunɛbɑ",
+      "example": "საქართველოს ბუნება ლამაზია.",
+      "example_tr": "Природа Грузии красивая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "აი",
+      "back": "вот",
+      "transcription": "ɑi",
+      "example": "აი, შენი ბილეთი.",
+      "example_tr": "Вот твой билет.",
+      "tags": [
+        "particle"
+      ]
+    },
+    {
+      "front": "ტბა",
+      "back": "озеро",
+      "transcription": "tʼbɑ",
+      "example": "ტბაში ბევრი თევზია.",
+      "example_tr": "В озере много рыбы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მოყოლა",
+      "back": "рассказывать",
+      "transcription": "mɔqʼɔlɑ",
+      "example": "ბაბუამ ამბის მოყოლა დაიწყო.",
+      "example_tr": "Дедушка начал рассказывать историю.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "სასარგებლო",
+      "back": "полезный",
+      "transcription": "sɑsɑrɡɛblɔ",
+      "example": "ხილი ძალიან სასარგებლოა.",
+      "example_tr": "Фрукты очень полезны.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ბაღი",
+      "back": "сад",
+      "transcription": "bɑɣi",
+      "example": "ბაღში ვაშლის ხეა.",
+      "example_tr": "В саду яблоня.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "საღამოს",
+      "back": "вечером",
+      "transcription": "sɑɣɑmɔs",
+      "example": "საღამოს სახლში ვარ.",
+      "example_tr": "Вечером я дома.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ცხოველი",
+      "back": "животное",
+      "transcription": "t͡sʰxɔvɛli",
+      "example": "ზოოპარკში ბევრი ცხოველია.",
+      "example_tr": "В зоопарке много животных.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამოყენება",
+      "back": "использовать",
+      "transcription": "ɡɑmɔqʼɛnɛbɑ",
+      "example": "კომპიუტერის გამოყენება ვისწავლე.",
+      "example_tr": "Я научился пользоваться компьютером.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ქათამი",
+      "back": "курица",
+      "transcription": "kʰɑtʰɑmi",
+      "example": "სადილად ქათამი მოვამზადე.",
+      "example_tr": "На обед я приготовил курицу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ბიძა",
+      "back": "дядя",
+      "transcription": "bid͡zɑ",
+      "example": "ბიძა ექიმია.",
+      "example_tr": "Дядя — врач.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დეიდა",
+      "back": "тётя (сестра матери)",
+      "transcription": "dɛidɑ",
+      "example": "დეიდა ხვალ ჩვენთან მოვა.",
+      "example_tr": "Тётя завтра придёт к нам.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ფართო",
+      "back": "широкий, просторный",
+      "transcription": "pʰɑrtʰɔ",
+      "example": "ბინა ფართო და ნათელია.",
+      "example_tr": "Квартира просторная и светлая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "შენახვა",
+      "back": "хранить, сохранять",
+      "transcription": "ʃɛnɑxvɑ",
+      "example": "საბუთების შენახვა მნიშვნელოვანია.",
+      "example_tr": "Хранить документы важно.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მეოთხე",
+      "back": "четвёртый",
+      "transcription": "mɛɔtʰxɛ",
+      "example": "მეოთხე სართულზე ვცხოვრობ.",
+      "example_tr": "Я живу на четвёртом этаже.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "ჩემი აზრით",
+      "back": "по-моему",
+      "transcription": "t͡ʃʰɛmi ɑzritʰ",
+      "example": "ჩემი აზრით, ეს კარგი იდეაა.",
+      "example_tr": "По-моему, это хорошая идея.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "მამიდა",
+      "back": "тётя (сестра отца)",
+      "transcription": "mɑmidɑ",
+      "example": "მამიდა თბილისში ცხოვრობს.",
+      "example_tr": "Тётя живёт в Тбилиси.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ღამით",
+      "back": "ночью",
+      "transcription": "ɣɑmitʰ",
+      "example": "ღამით ცივა.",
+      "example_tr": "Ночью холодно.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ბიძაშვილი",
+      "back": "двоюродный брат, двоюродная сестра",
+      "transcription": "bid͡zɑʃvili",
+      "example": "ბიძაშვილთან ერთად ვმუშაობ.",
+      "example_tr": "Я работаю вместе с двоюродным братом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ნათესავი",
+      "back": "родственник",
+      "transcription": "nɑtʰɛsɑvi",
+      "example": "ბევრი ნათესავი მყავს.",
+      "example_tr": "У меня много родственников.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "დათვლა",
+      "back": "считать",
+      "transcription": "dɑtʰvlɑ",
+      "example": "ბავშვმა ასამდე დათვლა იცის.",
+      "example_tr": "Ребёнок умеет считать до ста.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "მშობელი",
+      "back": "родитель",
+      "transcription": "mʃɔbɛli",
+      "example": "ჩემი მშობლები სოფელში არიან.",
+      "example_tr": "Мои родители в деревне.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მშვენიერი",
+      "back": "прекрасный",
+      "transcription": "mʃvɛniɛri",
+      "example": "მშვენიერი ამინდია.",
+      "example_tr": "Прекрасная погода.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ქალიშვილი",
+      "back": "дочь",
+      "transcription": "kʰɑliʃvili",
+      "example": "ჩემი ქალიშვილი სკოლაში დადის.",
+      "example_tr": "Моя дочь ходит в школу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "-კენ",
+      "back": "к, в сторону",
+      "transcription": "-kʼɛn",
+      "example": "სახლისკენ მივდივარ.",
+      "example_tr": "Я иду в сторону дома.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "ჩაცმა",
+      "back": "надевать, одеваться",
+      "transcription": "t͡ʃʰɑt͡sʰmɑ",
+      "example": "ახალი კაბის ჩაცმა მინდა.",
+      "example_tr": "Я хочу надеть новое платье.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ვაჟი",
+      "back": "сын",
+      "transcription": "vɑʒi",
+      "example": "მისი ვაჟი სტუდენტია.",
+      "example_tr": "Его сын студент.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მალე",
+      "back": "скоро",
+      "transcription": "mɑlɛ",
+      "example": "ავტობუსი მალე მოვა.",
+      "example_tr": "Автобус скоро придёт.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "შვილიშვილი",
+      "back": "внук, внучка",
+      "transcription": "ʃviliʃvili",
+      "example": "ბებიას სამი შვილიშვილი ჰყავს.",
+      "example_tr": "У бабушки трое внуков.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "როგორც",
+      "back": "как, в качестве",
+      "transcription": "rɔɡɔrt͡sʰ",
+      "example": "როგორც გინდა, ისე გააკეთე.",
+      "example_tr": "Делай как хочешь.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ქორწილი",
+      "back": "свадьба",
+      "transcription": "kʰɔrt͡sʼili",
+      "example": "შაბათს ქორწილში მივდივართ.",
+      "example_tr": "В субботу мы идём на свадьбу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სასიამოვნო",
+      "back": "приятный",
+      "transcription": "sɑsiɑmɔvnɔ",
+      "example": "სასიამოვნო საღამო იყო.",
+      "example_tr": "Был приятный вечер.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "წაღება",
+      "back": "брать с собой, уносить",
+      "transcription": "t͡sʼɑɣɛbɑ",
+      "example": "ჩანთის წაღება არ დაგავიწყდეს.",
+      "example_tr": "Не забудь взять сумку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ურთიერთობა",
+      "back": "отношения",
+      "transcription": "urtʰiɛrtʰɔbɑ",
+      "example": "ჩვენ კარგი ურთიერთობა გვაქვს.",
+      "example_tr": "У нас хорошие отношения.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "რას ნიშნავს",
+      "back": "что значит",
+      "transcription": "rɑs niʃnɑvs",
+      "example": "ეს სიტყვა რას ნიშნავს?",
+      "example_tr": "Что значит это слово?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "პროფესია",
+      "back": "профессия",
+      "transcription": "pʼrɔpʰɛsiɑ",
+      "example": "რა პროფესია გაქვს?",
+      "example_tr": "Какая у тебя профессия?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამოცდილება",
+      "back": "опыт",
+      "transcription": "ɡɑmɔt͡sʰdilɛbɑ",
+      "example": "სამუშაო გამოცდილება მაქვს.",
+      "example_tr": "У меня есть опыт работы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ბოლოს",
+      "back": "наконец, в конце",
+      "transcription": "bɔlɔs",
+      "example": "ბოლოს ყველაფერი კარგად დამთავრდა.",
+      "example_tr": "В конце всё хорошо закончилось.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "ჩაბარება",
+      "back": "сдавать (экзамен)",
+      "transcription": "t͡ʃʰɑbɑrɛbɑ",
+      "example": "ხვალ გამოცდის ჩაბარება მაქვს.",
+      "example_tr": "Завтра у меня сдача экзамена.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "კომპანია",
+      "back": "компания",
+      "transcription": "kʼɔmpʼɑniɑ",
+      "example": "დიდ კომპანიაში ვმუშაობ.",
+      "example_tr": "Я работаю в большой компании.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "უცნაური",
+      "back": "странный",
+      "transcription": "ut͡sʰnɑuri",
+      "example": "ეს ძალიან უცნაური ამბავია.",
+      "example_tr": "Это очень странная история.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "დავალება",
+      "back": "задание",
+      "transcription": "dɑvɑlɛbɑ",
+      "example": "მასწავლებელმა დავალება მოგვცა.",
+      "example_tr": "Учитель дал нам задание.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ვინც",
+      "back": "кто (тот, кто)",
+      "transcription": "vint͡sʰ",
+      "example": "ვინც იცის, თქვას.",
+      "example_tr": "Кто знает, пусть скажет.",
+      "tags": [
+        "pronoun"
+      ]
+    },
+    {
+      "front": "ლექცია",
+      "back": "лекция",
+      "transcription": "lɛkʰt͡sʰiɑ",
+      "example": "ლექცია ცხრა საათზეა.",
+      "example_tr": "Лекция в девять часов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გამარჯვება",
+      "back": "побеждать, победа",
+      "transcription": "ɡɑmɑrd͡ʒvɛbɑ",
+      "example": "ჩვენმა გუნდმა გამარჯვება მოიპოვა.",
+      "example_tr": "Наша команда одержала победу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "განათლება",
+      "back": "образование",
+      "transcription": "ɡɑnɑtʰlɛbɑ",
+      "example": "უმაღლესი განათლება მაქვს.",
+      "example_tr": "У меня высшее образование.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მეხუთე",
+      "back": "пятый",
+      "transcription": "mɛxutʰɛ",
+      "example": "ეს მეხუთე გაკვეთილია.",
+      "example_tr": "Это пятый урок.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
+      "front": "გუნდი",
+      "back": "команда",
+      "transcription": "ɡundi",
+      "example": "ჩვენი გუნდი ძლიერია.",
+      "example_tr": "Наша команда сильная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "თავიდან",
+      "back": "сначала, заново",
+      "transcription": "tʰɑvidɑn",
+      "example": "მოდი, თავიდან დავიწყოთ.",
+      "example_tr": "Давай начнём сначала.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "გაფუჭება",
+      "back": "ломаться, портиться",
+      "transcription": "ɡɑpʰut͡ʃʼɛbɑ",
+      "example": "ლიფტი გაფუჭებულია.",
+      "example_tr": "Лифт сломан.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "აზრი",
+      "back": "мысль, мнение",
+      "transcription": "ɑzri",
+      "example": "შენი აზრი მაინტერესებს.",
+      "example_tr": "Мне интересно твоё мнение.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მარტივი",
+      "back": "простой",
+      "transcription": "mɑrtʼivi",
+      "example": "კითხვა მარტივი იყო.",
+      "example_tr": "Вопрос был простой.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "-ვით",
+      "back": "как, подобно",
+      "transcription": "-vitʰ",
+      "example": "ის ბავშვივით იცინის.",
+      "example_tr": "Он смеётся как ребёнок.",
+      "tags": [
+        "postposition"
+      ]
+    },
+    {
+      "front": "ბრაზი",
+      "back": "злость, гнев",
+      "transcription": "brɑzi",
+      "example": "მისი ბრაზი მესმის.",
+      "example_tr": "Я понимаю его злость.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "რა ხდება",
+      "back": "что происходит",
+      "transcription": "rɑ xdɛbɑ",
+      "example": "რა ხდება, ყველაფერი კარგადაა?",
+      "example_tr": "Что происходит, всё хорошо?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "შიში",
+      "back": "страх",
+      "transcription": "ʃiʃi",
+      "example": "შიში არ მაქვს.",
+      "example_tr": "У меня нет страха.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "მოწევა",
+      "back": "курить",
+      "transcription": "mɔt͡sʼɛvɑ",
+      "example": "აქ მოწევა არ შეიძლება.",
+      "example_tr": "Здесь нельзя курить.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "იმედი",
+      "back": "надежда",
+      "transcription": "imɛdi",
+      "example": "იმედი მაქვს, რომ მალე შევხვდებით.",
+      "example_tr": "Надеюсь, что скоро увидимся.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "სირცხვილი",
+      "back": "стыд",
+      "transcription": "sirt͡sʰxvili",
+      "example": "ეს დიდი სირცხვილია.",
+      "example_tr": "Это большой стыд.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ჯერჯერობით",
+      "back": "пока что",
+      "transcription": "d͡ʒɛrd͡ʒɛrɔbitʰ",
+      "example": "ჯერჯერობით ყველაფერი კარგადაა.",
+      "example_tr": "Пока что всё хорошо.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "საკუთარი",
+      "back": "собственный",
+      "transcription": "sɑkʼutʰɑri",
+      "example": "ეს ჩემი საკუთარი სახლია.",
+      "example_tr": "Это мой собственный дом.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "განწყობა",
+      "back": "настроение",
+      "transcription": "ɡɑnt͡sʼqʼɔbɑ",
+      "example": "დღეს კარგი განწყობა მაქვს.",
+      "example_tr": "Сегодня у меня хорошее настроение.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "გადაღება",
+      "back": "снимать, фотографировать",
+      "transcription": "ɡɑdɑɣɛbɑ",
+      "example": "სურათის გადაღება შეიძლება?",
+      "example_tr": "Можно сфотографировать?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "ბედნიერება",
+      "back": "счастье",
+      "transcription": "bɛdniɛrɛbɑ",
+      "example": "ბედნიერება ფულით არ იყიდება.",
+      "example_tr": "Счастье за деньги не купишь.",
       "tags": [
         "noun"
       ]
