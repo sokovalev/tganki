@@ -18,7 +18,14 @@ import {
 } from "../core/scheduler.js";
 import { endOfLearningDay, recordActivity, startOfLearningDay } from "../core/streak.js";
 import { type UndoRepo, undoLastReview } from "../core/undo.js";
-import type { CardMode, Session, SessionStats, TranscriptionMode, User } from "../db/schema.js";
+import type {
+  CardMode,
+  Session,
+  SessionStats,
+  SuspendedReason,
+  TranscriptionMode,
+  User,
+} from "../db/schema.js";
 
 /** Reviews per session before the rest is pushed to a "Продолжить" tap (SPEC §3.1). */
 export const SESSION_REVIEW_CAP = 20;
@@ -69,7 +76,15 @@ export interface SessionPort {
   cardView(cardId: number): Promise<SessionCardView | null>;
   cardState(cardId: number): Promise<CardState | null>;
   applyReview(cardId: number, userId: number, result: ApplyResult): Promise<void>;
-  setSuspended(cardId: number, suspended: boolean): Promise<void>;
+  setSuspended(cardId: number, suspended: boolean, reason?: SuspendedReason | null): Promise<void>;
+  /**
+   * Remembers the word as known and suspends every card the user has for it,
+   * in any deck (SPEC §3.7). Returns the word, or null when the card is gone.
+   */
+  markKnown(input: {
+    userId: number;
+    cardId: number;
+  }): Promise<{ front: string; cards: number } | null>;
   setBuried(cardId: number, until: Date | null): Promise<void>;
   deleteNote(noteId: number): Promise<void>;
   reportNote(input: { noteId: number; userId: number; reason?: string | null }): Promise<void>;
@@ -491,6 +506,42 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       return view ?? { kind: "nothing" };
     },
 
+    /**
+     * «✅ Знаю»: the word is switched off everywhere and the session moves on.
+     * No rating, no review log, nothing added to `stats.reviewed` — this is not
+     * a repetition (SPEC §3.7).
+     */
+    async markKnown(input: {
+      user: User;
+      session: Session;
+      position: number;
+      now: Date;
+    }): Promise<{ view: SessionView | SessionSummary; word: string } | { kind: "stale" }> {
+      const { user, session, position, now } = input;
+      if (position !== session.position) return { kind: "stale" };
+      const item = session.queue[position];
+      if (!item) return { kind: "stale" };
+      const known = await port.markKnown({ userId: user.id, cardId: item.cardId });
+      if (!known) return { kind: "stale" };
+
+      // Like a rating, the queue moves on — so a second tap on the same
+      // position is stale. Re-queued copies of the card are dropped.
+      const items = session.queue.filter(
+        (queued, i) => i <= position || queued.cardId !== item.cardId,
+      );
+      const next = settle({ items, position: position + 1 }, now);
+      await port.saveSession(session.id, { queue: next.items, position: next.position });
+      const updated: Session = { ...session, queue: next.items, position: next.position };
+      if (isFinished(next)) {
+        await port.finishSession(session.id, "finished");
+        return { view: await summarize(updated, now, user.streak), word: known.front };
+      }
+      const view = await viewAt(updated, user, now, "question");
+      if (view) return { view, word: known.front };
+      await port.finishSession(session.id, "finished");
+      return { view: await summarize(updated, now, user.streak), word: known.front };
+    },
+
     /** Card-actions menu: suspend / bury / report / delete, then move on. */
     async cardAction(input: {
       user: User;
@@ -506,7 +557,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       const card = await port.cardView(item.cardId);
       if (!card) return { kind: "stale" };
 
-      if (action === "suspend") await port.setSuspended(item.cardId, true);
+      if (action === "suspend") await port.setSuspended(item.cardId, true, "manual");
       if (action === "bury") await port.setBuried(item.cardId, endOfLearningDay(now, user.tz));
       if (action === "report") {
         await port.reportNote({ noteId: card.noteId, userId: user.id });
@@ -563,7 +614,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
 
     /** Suspends a leech straight from the post-session notice. */
     async suspendCard(cardId: number): Promise<void> {
-      await port.setSuspended(cardId, true);
+      await port.setSuspended(cardId, true, "leech");
     },
   };
 }

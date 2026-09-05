@@ -97,6 +97,12 @@ toast-already-rated = Уже оценено
 toast-session-gone = Сессия уже закрыта
 toast-buried = Отложил до завтра
 toast-suspended = Приостановил
+toast-known = Отключил «{ $word }» во всех деках
+toast-restored = Вернул { $n ->
+        [one] { $n } карточку
+        [few] { $n } карточки
+       *[other] { $n } карточек
+    }
 toast-reported = Спасибо, посмотрим
 toast-deleted = Удалено
 toast-undone = Откатил
@@ -138,6 +144,7 @@ decks-empty = Пока пусто.
 decks-counts = 🆕 { $fresh } · ⏰ { $due } · всего { $total }
 deck-stats = Новых: { $fresh } · На сегодня: { $due } · Выучено: { $learned } · Всего: { $total }
 deck-settings = Новых в день: { $perDay } · Режимы: { $modes }
+deck-disabled = Отключено: { $n }
 deck-per-day-default = по умолчанию
 deck-ask-per-day = Сколько новых карточек в день из этой деки?
 deck-ask-modes = Какие режимы включить?
@@ -279,6 +286,8 @@ btn-card-menu = ✏️
 btn-undo = ↩️ Отменить
 btn-continue = ▶️ Продолжить ({ $n })
 btn-extra-new = ➕ Ещё { $n } новых
+btn-known = ✅ Знаю
+btn-known-menu = ✅ Уже знаю
 btn-suspend = ⏸ Приостановить
 btn-bury = 😴 Отложить до завтра
 btn-report = ⚠️ Сообщить об ошибке
@@ -303,6 +312,7 @@ btn-new-per-day = ⚙️ Новых в день
 btn-per-day-default = По умолчанию
 btn-modes = 🔁 Режимы
 btn-share = 🔗 Поделиться
+btn-restore-disabled = ↩️ Вернуть отключённые
 btn-unsubscribe = ➖ Отписаться
 btn-delete-deck = 🗑 Удалить деку
 btn-delete-confirm = 🗑 Удалить
@@ -327,7 +337,7 @@ admin-activity = Сегодня: сессий { $sessions }, оценок { $rev
 admin-reports = Жалоб открыто: { $n }
 admin-grant-usage = Использование: /admin pro <tg_id> [дней]
 admin-granted = Выдал Pro для { $tgId } до { $until }.
-admin-reset-usage = Использование: /admin reset <tg_id>. Удаляет карточки, историю повторений, сессии и стрик; настройки, деки и свои слова остаются.
+admin-reset-usage = Использование: /admin reset <tg_id>. Удаляет карточки, историю повторений, сессии, известные слова и стрик; настройки, деки и свои слова остаются.
 admin-reset-done = Сбросил прогресс для { $tgId }.
 
 ## Команды Telegram

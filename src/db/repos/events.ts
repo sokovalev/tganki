@@ -19,6 +19,8 @@ export type EventName =
   | "pro_screen"
   | "payment"
   | "note_reported"
+  | "word_known"
+  | "deck_restored"
   | "account_deleted"
   | "blocked";
 

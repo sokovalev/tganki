@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import type { Database } from "../index.js";
-import { ts } from "../sql.js";
+import { notKnownOrDuplicate, ts } from "../sql.js";
 import { MATURE_STABILITY_DAYS } from "./decks.js";
 
 export interface MenuCounters {
@@ -42,8 +42,9 @@ export interface AdminSummary {
 }
 
 /**
- * Notes (times modes) in subscribed decks that the user has not started yet,
- * grouped by deck. Shared by the menu counters and the stats screen.
+ * Notes (times modes) in subscribed decks that the user has not started yet and
+ * has not switched off, grouped by deck. Shared by the menu counters and the
+ * stats screen.
  */
 const availableCte = (userId: number, now: Date) => sql`
   subs as (
@@ -53,11 +54,15 @@ const availableCte = (userId: number, now: Date) => sql`
   avail as (
     select s.deck_id, count(*)::int as c
     from subs s
+    join decks d on d.id = s.deck_id
     join notes n on n.deck_id = s.deck_id
     cross join lateral unnest(s.modes) as m(mode)
     left join cards c on c.note_id = n.id and c.user_id = s.user_id and c.mode = m.mode
     where (c.id is null or (c.state = 0 and c.suspended = false))
       and (c.id is null or c.buried_until is null or c.buried_until <= ${ts(now)})
+      -- Known words and words already learned in another deck are not available
+      -- as new ones (SPEC §3.7).
+      and ${notKnownOrDuplicate({ userId, note: "n", deck: "d" })}
     group by s.deck_id
   )`;
 

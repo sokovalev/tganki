@@ -1,6 +1,7 @@
 import type { InlineKeyboardButton } from "grammy/types";
 import { describe, expect, it } from "vitest";
 import { callbackByteLength, MAX_CALLBACK_BYTES } from "../src/bot/callbacks.js";
+import { renderDeckCard } from "../src/bot/decks.js";
 import { formatInterval } from "../src/bot/format.js";
 import { renderMenu } from "../src/bot/menu.js";
 import {
@@ -11,6 +12,7 @@ import {
   renderLeech,
   renderSummary,
 } from "../src/bot/session.js";
+import type { DeckWithCounts } from "../src/db/repos/decks.js";
 import { createI18n, SUPPORTED_LOCALES, translator } from "../src/i18n/index.js";
 import type { SessionSummary, SessionView } from "../src/services/sessionService.js";
 import { makeUser } from "./helpers/fakeSession.js";
@@ -100,9 +102,28 @@ describe("question screen", () => {
     const data = buttons(screen.keyboard).map((button) =>
       "callback_data" in button ? button.callback_data : "",
     );
-    expect(data).toEqual(["s:show:11", "c:open:11", "s:skip:11", "s:fin"]);
+    expect(data).toEqual(["s:show:11", "s:know:11", "c:open:11", "s:skip:11", "s:fin"]);
     for (const item of data)
       expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+  });
+
+  it('offers "Знаю" on new cards only', () => {
+    const fresh = renderCard(ru, view());
+    expect(buttons(fresh.keyboard).map((b) => b.text)).toContain("✅ Знаю");
+    expect(buttons(renderCard(en, view()).keyboard).map((b) => b.text)).toContain("✅ I know it");
+
+    const seen = renderCard(ru, view({ isNew: false }));
+    const data = buttons(seen.keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).toEqual(["s:show:11", "c:open:11", "s:skip:11", "s:fin"]);
+  });
+
+  it('keeps "Знаю" out of the answer screen', () => {
+    const data = buttons(renderCard(ru, view({ stage: "answer" })).keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).not.toContain("s:know:11");
   });
 
   it("shows the translation for a reverse card", () => {
@@ -190,6 +211,22 @@ describe("interval labels", () => {
 });
 
 describe("card actions", () => {
+  it('offers "Уже знаю" for every card, new or not', () => {
+    for (const isNew of [true, false]) {
+      const screen = renderActions(ru, view({ isNew, stage: "actions" }));
+      const data = buttons(screen.keyboard).map((button) =>
+        "callback_data" in button ? button.callback_data : "",
+      );
+      expect(data).toContain("c:know:11");
+      for (const item of data)
+        expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+    }
+    expect(buttons(renderActions(ru, view()).keyboard).map((b) => b.text)).toContain("✅ Уже знаю");
+    expect(buttons(renderActions(en, view()).keyboard).map((b) => b.text)).toContain(
+      "✅ Already know it",
+    );
+  });
+
   it("offers reporting for builtin decks and deleting for own ones", () => {
     const builtin = buttons(renderActions(ru, view()).keyboard).map((button) =>
       "callback_data" in button ? button.callback_data : "",
@@ -283,6 +320,55 @@ describe("leech notice", () => {
         "callback_data" in button ? button.callback_data : "",
       ),
     ).toEqual(["lch:susp:42", "lch:keep:42"]);
+  });
+});
+
+describe("deck card", () => {
+  const row: DeckWithCounts = {
+    deck: {
+      id: 7,
+      ownerId: null,
+      slug: "en-ru-top-1000-a2",
+      title: "English Top 1000 · A2",
+      description: "Самые частотные слова уровня A2.",
+      langFrom: "en",
+      langTo: "ru",
+      kind: "builtin",
+      level: "A2",
+      isPublic: true,
+      publicId: null,
+      createdAt: NOW,
+    },
+    newPerDay: 10,
+    modes: ["recognition"],
+    total: 350,
+    due: 12,
+    fresh: 148,
+    learned: 190,
+    disabled: 0,
+  };
+
+  it('hides "Отключено" while nothing is switched off', () => {
+    const screen = renderDeckCard(ru, row, 1);
+    expect(screen.text).not.toContain("Отключено");
+    const data = buttons(screen.keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).not.toContain("d:unsusp:7");
+  });
+
+  it("counts switched-off cards and offers to bring them back", () => {
+    const screen = renderDeckCard(ru, { ...row, disabled: 3 }, 1);
+    expect(screen.text).toContain("Отключено: 3");
+    const data = buttons(screen.keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).toContain("d:unsusp:7");
+    for (const item of data)
+      expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+    expect(buttons(renderDeckCard(en, { ...row, disabled: 3 }, 1).keyboard).map((b) => b.text)) //
+      .toContain("↩️ Bring back");
+    expect(renderDeckCard(en, { ...row, disabled: 3 }, 1).text).toContain("Switched off: 3");
   });
 });
 

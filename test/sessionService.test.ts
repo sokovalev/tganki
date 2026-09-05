@@ -6,7 +6,13 @@ import {
   SNOWBALL_THRESHOLD,
   skipCurrent,
 } from "../src/services/sessionService.js";
-import { createFakePort, type FakeCard, makeCard, makeUser } from "./helpers/fakeSession.js";
+import {
+  createFakePort,
+  type FakeCard,
+  makeCard,
+  makeUser,
+  normalizeFront,
+} from "./helpers/fakeSession.js";
 
 const NOW = new Date("2026-01-10T12:00:00.000Z");
 const CHAT = 555;
@@ -58,6 +64,53 @@ describe("pure queue operations", () => {
     );
     expect(rewound.position).toBe(0);
     expect(rewound.items.map((item) => item.cardId)).toEqual([1, 2]);
+  });
+});
+
+/** A card in review, due far in the future, so it only exists as a sibling. */
+function reviewedCard(id: number, overrides: Partial<FakeCard> = {}): FakeCard {
+  const card = makeCard(id, NOW, overrides);
+  card.state = {
+    ...card.state,
+    state: 2,
+    stability: 10,
+    difficulty: 5,
+    reps: 3,
+    due: new Date(NOW.getTime() + 7 * 24 * 60 * 60 * 1000),
+    lastReview: new Date(NOW.getTime() - 24 * 60 * 60 * 1000),
+  };
+  return card;
+}
+
+describe("new candidates", () => {
+  const user = makeUser();
+
+  it("skips a word the user switched off", async () => {
+    const fake = createFakePort([makeCard(10, NOW, { front: "Water " }), makeCard(11, NOW)], {
+      newCandidateIds: [10, 11],
+      knownWords: [{ langFrom: "en", frontNorm: normalizeFront("water") }],
+    });
+    const service = createSessionService(fake.port);
+    const started = await service.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+    expect(started.total).toBe(1);
+    expect(started.card.cardId).toBe(11);
+  });
+
+  it("skips a word that is already being learned through another deck", async () => {
+    const fake = createFakePort(
+      [
+        // The same word, in another deck: a different note, same language.
+        reviewedCard(5, { noteId: 500, deckId: 2, front: "bread" }),
+        makeCard(10, NOW, { noteId: 510, deckId: 3, front: "Bread" }),
+        makeCard(11, NOW, { noteId: 511, deckId: 3, front: "butter" }),
+      ],
+      { newCandidateIds: [10, 11] },
+    );
+    const service = createSessionService(fake.port);
+    const started = await service.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+    expect(started.session.queue.map((item) => item.cardId)).toEqual([11]);
   });
 });
 
@@ -313,6 +366,97 @@ describe("session service", () => {
       expect(suspended.card.cardId).toBe(2);
       expect(suspended.session.queue).toHaveLength(1);
     }
+  });
+
+  it('switches a word off everywhere on "Знаю"', async () => {
+    // Card 3 is the same word in another deck, card 4 is a different word.
+    fake.state.cards.set(3, makeCard(3, NOW, { noteId: 300, deckId: 2, front: " Word1 " }));
+    fake.state.cards.set(4, makeCard(4, NOW, { noteId: 400, deckId: 2, front: "other" }));
+    const started = await service.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+
+    const result = await service.markKnown({
+      user,
+      session: started.session,
+      position: 0,
+      now: NOW,
+    });
+    if ("kind" in result) throw new Error("expected a view");
+    expect(result.word).toBe("word1");
+    expect(fake.state.knownWords).toEqual([{ langFrom: "en", frontNorm: "word1" }]);
+    // This card and its twin in the other deck are off; the other word is not.
+    expect(fake.state.cards.get(1)!.suspended).toBe(true);
+    expect(fake.state.cards.get(1)!.suspendedReason).toBe("known");
+    expect(fake.state.cards.get(3)!.suspended).toBe(true);
+    expect(fake.state.cards.get(4)!.suspended).toBe(false);
+    // No rating: no review log, and the session counters stay where they were.
+    expect(fake.state.logs).toHaveLength(0);
+    expect(result.view.session.stats).toMatchObject({ reviewed: 0, newLearned: 0 });
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    expect(result.view.card.cardId).toBe(2);
+    expect(result.view.position).toBe(1);
+  });
+
+  it("drops the re-queued copy of a card that is switched off", async () => {
+    const started = await service.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+    // A session where card 1 is current and waits at the end for its next step.
+    const queue = [
+      { cardId: 1, isNew: false },
+      { cardId: 2, isNew: false },
+      { cardId: 1, isNew: false, notBefore: NOW.getTime() + 60_000, requeues: 1 },
+    ];
+    Object.assign(fake.state.sessions[0]!, { queue, position: 0 });
+
+    const result = await service.markKnown({
+      user,
+      session: { ...started.session, queue, position: 0 },
+      position: 0,
+      now: NOW,
+    });
+    if ("kind" in result) throw new Error("expected a view");
+    expect(result.view.session.queue.map((item) => item.cardId)).toEqual([1, 2]);
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    expect(result.view.card.cardId).toBe(2);
+  });
+
+  it("ignores a second tap on a card that is already switched off", async () => {
+    const started = await service.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+    const first = await service.markKnown({
+      user,
+      session: started.session,
+      position: 0,
+      now: NOW,
+    });
+    if ("kind" in first) throw new Error("expected a view");
+    const second = await service.markKnown({
+      user,
+      session: started.session,
+      position: 0,
+      now: NOW,
+    });
+    expect(second).toEqual({ kind: "stale" });
+    expect(fake.state.knownWords).toHaveLength(1);
+  });
+
+  it('finishes the session when "Знаю" takes the last card', async () => {
+    const single = createFakePort([dueCard(1, 60)], { remainingDue: 4 });
+    const service2 = createSessionService(single.port);
+    const started = await service2.start({ user, deckId: null, chatId: CHAT, now: NOW });
+    if (started.kind !== "card") throw new Error("expected a card");
+    const result = await service2.markKnown({
+      user,
+      session: started.session,
+      position: 0,
+      now: NOW,
+    });
+    if ("kind" in result) throw new Error("expected a view");
+    expect(result.view.kind).toBe("summary");
+    if (result.view.kind !== "summary") return;
+    expect(result.view.stats.reviewed).toBe(0);
+    expect(result.view.remainingDue).toBe(4);
+    expect(single.state.sessions[0]!.status).toBe("finished");
   });
 
   it("marks the leech in the summary once it lapses too often", async () => {

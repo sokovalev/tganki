@@ -2,7 +2,18 @@ import { and, asc, eq, gte, inArray, isNull, lte, ne, or, sql } from "drizzle-or
 import type { DueCard, NewCandidate, QueueRepo } from "../../core/queue.js";
 import type { ApplyResult, CardState } from "../../core/scheduler.js";
 import type { Database } from "../index.js";
-import { type Card, type CardMode, cards, decks, notes, reviewLogs, userDecks } from "../schema.js";
+import {
+  type Card,
+  type CardMode,
+  cards,
+  decks,
+  knownWords,
+  notes,
+  reviewLogs,
+  type SuspendedReason,
+  userDecks,
+} from "../schema.js";
+import { frontNorm, notKnownOrDuplicate } from "../sql.js";
 
 export interface ReviewCard {
   card: Card;
@@ -188,6 +199,7 @@ export function createCardsRepo(db: Database) {
                    partition by ud.deck_id order by n.position, n.id, m.mode
                  ) as rn
           from user_decks ud
+          join decks d on d.id = ud.deck_id
           cross join lateral unnest(ud.modes) as m(mode)
           join notes n on n.deck_id = ud.deck_id
           left join cards c
@@ -195,6 +207,9 @@ export function createCardsRepo(db: Database) {
           where ud.user_id = ${input.userId}
             and (c.id is null or (c.state = 0 and c.suspended = false))
             and (c.id is null or c.buried_until is null or c.buried_until <= now())
+            -- Words the user switched off, and words they already learn through
+            -- another deck, never come back as new (SPEC §3.7).
+            and ${notKnownOrDuplicate({ userId: input.userId, note: "n", deck: "d" })}
             -- A reverse card only becomes available a day after the forward one
             -- was first shown, so both never land in the same session.
             and (
@@ -284,8 +299,96 @@ export function createCardsRepo(db: Database) {
       });
     },
 
-    async setSuspended(cardId: number, suspended: boolean): Promise<void> {
-      await db.update(cards).set({ suspended }).where(eq(cards.id, cardId));
+    async setSuspended(
+      cardId: number,
+      suspended: boolean,
+      reason: SuspendedReason | null = null,
+    ): Promise<void> {
+      await db
+        .update(cards)
+        .set({ suspended, suspendedReason: suspended ? reason : null })
+        .where(eq(cards.id, cardId));
+    },
+
+    /**
+     * "Я уже знаю это слово": remembers the word for this user and switches off
+     * every card they have for it — in this deck and in every other deck with
+     * the same learning language (SPEC §3.7).
+     */
+    async markKnown(input: {
+      userId: number;
+      cardId: number;
+    }): Promise<{ front: string; langFrom: string; cards: number } | null> {
+      return db.transaction(async (tx) => {
+        const [target] = (await tx.execute(sql`
+          select n.front as front,
+                 d.lang_from as lang_from,
+                 ${frontNorm(sql`n.front`)} as front_norm
+          from cards c
+          join notes n on n.id = c.note_id
+          join decks d on d.id = n.deck_id
+          where c.id = ${input.cardId} and c.user_id = ${input.userId}
+          limit 1
+        `)) as unknown as Array<{ front: string; lang_from: string; front_norm: string }>;
+        if (!target) return null;
+
+        await tx
+          .insert(knownWords)
+          .values({
+            userId: input.userId,
+            langFrom: target.lang_from,
+            frontNorm: target.front_norm,
+          })
+          .onConflictDoNothing();
+
+        const suspended = (await tx.execute(sql`
+          update cards c
+             set suspended = true, suspended_reason = 'known'
+          from notes n
+          join decks d on d.id = n.deck_id
+          where n.id = c.note_id
+            and c.user_id = ${input.userId}
+            and d.lang_from = ${target.lang_from}
+            and ${frontNorm(sql`n.front`)} = ${target.front_norm}
+          returning c.id
+        `)) as unknown as Array<{ id: number }>;
+
+        return { front: target.front, langFrom: target.lang_from, cards: suspended.length };
+      });
+    },
+
+    /**
+     * "Вернуть отключённые": brings every suspended card of one deck back and
+     * forgets the matching known words, so they can be learned again.
+     */
+    async restoreSuspended(input: { userId: number; deckId: number }): Promise<number> {
+      return db.transaction(async (tx) => {
+        // Delete the known-word rows first: they are looked up through the very
+        // cards that are about to lose their `suspended` flag.
+        await tx.execute(sql`
+          delete from known_words kw
+          using cards c
+          join notes n on n.id = c.note_id
+          join decks d on d.id = n.deck_id
+          where c.user_id = ${input.userId}
+            and c.suspended = true
+            and n.deck_id = ${input.deckId}
+            and kw.user_id = c.user_id
+            and kw.lang_from = d.lang_from
+            and kw.front_norm = ${frontNorm(sql`n.front`)}
+        `);
+        const restored = (await tx.execute(sql`
+          update cards c
+             set suspended = false, suspended_reason = null
+          from notes n
+          where n.id = c.note_id
+            and c.user_id = ${input.userId}
+            and n.deck_id = ${input.deckId}
+            and c.suspended = true
+          returning c.id
+        `)) as unknown as Array<{ id: number }>;
+        return restored.length;
+      });
     },
 
     /** Takes the card out of every queue until `until` ("отложить до завтра"). */

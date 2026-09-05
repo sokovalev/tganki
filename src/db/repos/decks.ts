@@ -8,7 +8,7 @@ import {
   type NewDeck,
   userDecks,
 } from "../schema.js";
-import { ts } from "../sql.js";
+import { notKnownOrDuplicate, ts } from "../sql.js";
 
 /** Stability (days) at which a card counts as "learned" on the stats screens. */
 export const MATURE_STABILITY_DAYS = 21;
@@ -21,10 +21,12 @@ export interface DeckWithCounts {
   total: number;
   /** Cards ready for review right now. */
   due: number;
-  /** (note, mode) pairs the user has not started yet. */
+  /** (note, mode) pairs the user has not started yet and has not switched off. */
   fresh: number;
   /** Cards with stability ≥ 21 days. */
   learned: number;
+  /** Suspended cards of this deck, whatever the reason. */
+  disabled: number;
 }
 
 export interface CatalogDeck {
@@ -52,6 +54,7 @@ interface DeckCountsRow {
   due: number;
   fresh: number;
   learned: number;
+  disabled: number;
 }
 
 export function createDecksRepo(db: Database) {
@@ -200,7 +203,7 @@ export function createDecksRepo(db: Database) {
     },
 
     /**
-     * Every subscribed deck with the four counters the deck screens show.
+     * Every subscribed deck with the counters the deck screens show.
      * One round trip: the counters are correlated subqueries, not N+1 calls.
      */
     async listSubscribedWithCounts(input: {
@@ -224,11 +227,19 @@ export function createDecksRepo(db: Database) {
                   left join cards c
                     on c.note_id = n.id and c.user_id = ud.user_id and c.mode = m.mode
                  where n.deck_id = d.id
-                   and (c.id is null or (c.state = 0 and c.suspended = false)))::int as fresh,
+                   and (c.id is null or (c.state = 0 and c.suspended = false))
+                   -- Same de-duplication as the queue builder (SPEC §3.7), so the
+                   -- counter never promises cards the session will not deal.
+                   and ${notKnownOrDuplicate({ userId: input.userId, note: "n", deck: "d" })})::int
+                 as fresh,
                (select count(*) from cards c
                   join notes n on n.id = c.note_id
                  where n.deck_id = d.id and c.user_id = ud.user_id
-                   and c.stability >= ${MATURE_STABILITY_DAYS})::int as learned
+                   and c.stability >= ${MATURE_STABILITY_DAYS})::int as learned,
+               (select count(*) from cards c
+                  join notes n on n.id = c.note_id
+                 where n.deck_id = d.id and c.user_id = ud.user_id
+                   and c.suspended = true)::int as disabled
         from user_decks ud
         join decks d on d.id = ud.deck_id
         where ud.user_id = ${input.userId}
@@ -244,6 +255,7 @@ export function createDecksRepo(db: Database) {
           due: Number(counts?.due ?? 0),
           fresh: Number(counts?.fresh ?? 0),
           learned: Number(counts?.learned ?? 0),
+          disabled: Number(counts?.disabled ?? 0),
         };
       });
     },

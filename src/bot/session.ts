@@ -68,7 +68,11 @@ export function renderCard(t: Translate, view: SessionView): Screen {
     const text = [...header(t, view), SEPARATOR, ...questionLines(view)].join("\n");
     const keyboard = new InlineKeyboard()
       .text(t("btn-show-answer"), cb(NS.session, "show", pos))
-      .row()
+      .row();
+    // "Знаю" only makes sense before the word was ever studied; a row of its
+    // own, four buttons in one row get truncated on phones (SPEC §3.7).
+    if (view.isNew) keyboard.text(t("btn-known"), cb(NS.session, "know", pos)).row();
+    keyboard
       .text(t("btn-card-menu"), cb(NS.card, "open", pos))
       .text(t("btn-skip"), cb(NS.session, "skip", pos))
       .text(t("btn-finish"), cb(NS.session, "fin"));
@@ -107,6 +111,8 @@ export function renderActions(t: Translate, view: SessionView): Screen {
   const pos = view.position;
   const own = view.card.deckOwnerId !== null;
   const keyboard = new InlineKeyboard()
+    .text(t("btn-known-menu"), cb(NS.card, "know", pos))
+    .row()
     .text(t("btn-suspend"), cb(NS.card, "susp", pos))
     .row()
     .text(t("btn-bury"), cb(NS.card, "bury", pos))
@@ -348,6 +354,39 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
     await renderSession(ctx, deps, result.session, renderCard(ctx.t.bind(ctx), result));
   });
 
+  /** «Знаю»: shared by the question screen and the ✏️ menu (SPEC §3.7). */
+  const markKnown = async (ctx: BotContext, position: number): Promise<void> => {
+    const session = await active(ctx);
+    if (!session) {
+      await answer(ctx, ctx.t("toast-session-gone"));
+      return;
+    }
+    const result = await deps.sessions.markKnown({
+      user: ctx.user,
+      session,
+      position,
+      now: deps.now(),
+    });
+    if ("kind" in result) {
+      await answer(ctx, ctx.t("toast-already-rated"));
+      return;
+    }
+    deps.events.record(ctx.user.id, "word_known", { word: result.word });
+    await answer(ctx, ctx.t("toast-known", { word: result.word }));
+    if (result.view.kind === "summary") {
+      await finishAndRender(ctx, deps, result.view);
+      return;
+    }
+    await renderSession(ctx, deps, result.view.session, renderCard(ctx.t.bind(ctx), result.view));
+  };
+
+  bot.callbackQuery(/^s:know:/u, async (ctx) => {
+    const parsed = parseCallback(ctx.callbackQuery.data);
+    const position = parsed ? argInt(parsed, 0) : null;
+    if (position === null) return answer(ctx);
+    await markKnown(ctx, position);
+  });
+
   bot.callbackQuery(/^s:skip:/u, async (ctx) => {
     const parsed = parseCallback(ctx.callbackQuery.data);
     const session = await active(ctx);
@@ -429,6 +468,11 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
       await answer(ctx);
       const view = await deps.sessions.render(session, ctx.user, deps.now(), "actions");
       if (view) await renderSession(ctx, deps, session, renderCard(t, view));
+      return;
+    }
+
+    if (parsed.action === "know") {
+      await markKnown(ctx, position);
       return;
     }
 

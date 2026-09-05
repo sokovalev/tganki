@@ -16,6 +16,7 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { frontNorm } from "./sql.js";
 
 export const userPlan = pgEnum("user_plan", ["free", "pro", "lifetime"]);
 export const deckKind = pgEnum("deck_kind", ["builtin", "user", "shared"]);
@@ -129,8 +130,18 @@ export const notes = pgTable(
   (t) => [
     uniqueIndex("notes_deck_id_front_key").on(t.deckId, t.front),
     index("notes_deck_id_position_idx").on(t.deckId, t.position),
+    // Cross-deck de-duplication looks notes up by their normalized front
+    // (SPEC §3.7); the expression has to match `frontNorm` exactly.
+    index("notes_front_norm_idx").on(frontNorm(sql`front`)),
   ],
 );
+
+/**
+ * Why a card is suspended: the user knows the word ("known"), switched it off
+ * by hand ("manual"), it turned into a leech ("leech"), or it duplicates a word
+ * from another deck ("duplicate"). `cards.suspended` stays the source of truth.
+ */
+export type SuspendedReason = "known" | "manual" | "leech" | "duplicate";
 
 export const cards = pgTable(
   "cards",
@@ -156,6 +167,8 @@ export const cards = pgTable(
     /** Index into the FSRS (re)learning steps. */
     learningSteps: integer("learning_steps").notNull().default(0),
     suspended: boolean("suspended").notNull().default(false),
+    /** Why the card was switched off; only meaningful while `suspended` is true. */
+    suspendedReason: text("suspended_reason").$type<SuspendedReason>(),
     /** Set by "bury": the card is skipped by the queue builder until this instant. */
     buriedUntil: timestamp("buried_until", { withTimezone: true }),
     createdAt,
@@ -164,6 +177,25 @@ export const cards = pgTable(
     uniqueIndex("cards_note_user_mode_key").on(t.noteId, t.userId, t.mode),
     index("cards_user_due_idx").on(t.userId, t.due),
   ],
+);
+
+/**
+ * Words the user marked as "I already know this" (SPEC §3.7). Keyed by the
+ * learning language and the normalized front, so the word never comes back as
+ * a new card — in any deck, present or future.
+ */
+export const knownWords = pgTable(
+  "known_words",
+  {
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    langFrom: text("lang_from").notNull(),
+    /** `notes.front` normalized: NFC, trimmed, whitespace collapsed, lowercased. */
+    frontNorm: text("front_norm").notNull(),
+    createdAt,
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.langFrom, t.frontNorm] })],
 );
 
 export const reviewLogs = pgTable(
@@ -333,6 +365,7 @@ export type Note = typeof notes.$inferSelect;
 export type NewNote = typeof notes.$inferInsert;
 export type Card = typeof cards.$inferSelect;
 export type NewCard = typeof cards.$inferInsert;
+export type KnownWord = typeof knownWords.$inferSelect;
 export type ReviewLog = typeof reviewLogs.$inferSelect;
 export type NewReviewLog = typeof reviewLogs.$inferInsert;
 export type UserDeck = typeof userDecks.$inferSelect;

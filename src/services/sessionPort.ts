@@ -41,7 +41,9 @@ export function createSessionPort(db: Database, repos: Repos): SessionPort {
     },
 
     applyReview: (cardId, userId, result) => repos.cards.applyReview(cardId, userId, result),
-    setSuspended: (cardId, suspended) => repos.cards.setSuspended(cardId, suspended),
+    setSuspended: (cardId, suspended, reason = null) =>
+      repos.cards.setSuspended(cardId, suspended, reason),
+    markKnown: (input) => repos.cards.markKnown(input),
     setBuried: (cardId, until) => repos.cards.setBuried(cardId, until),
     deleteNote: (noteId) => repos.notes.deleteById(noteId),
     reportNote: (input) => repos.noteReports.create(input),

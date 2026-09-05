@@ -88,6 +88,11 @@ toast-already-rated = Already rated
 toast-session-gone = This session is closed
 toast-buried = Postponed until tomorrow
 toast-suspended = Suspended
+toast-known = Turned "{ $word }" off in every deck
+toast-restored = Brought back { $n ->
+        [one] { $n } card
+       *[other] { $n } cards
+    }
 toast-reported = Thanks, we will look into it
 toast-deleted = Deleted
 toast-undone = Undone
@@ -127,6 +132,7 @@ decks-empty = Nothing here yet.
 decks-counts = 🆕 { $fresh } · ⏰ { $due } · { $total } total
 deck-stats = New: { $fresh } · Due today: { $due } · Learned: { $learned } · Total: { $total }
 deck-settings = New per day: { $perDay } · Modes: { $modes }
+deck-disabled = Switched off: { $n }
 deck-per-day-default = default
 deck-ask-per-day = How many new cards per day from this deck?
 deck-ask-modes = Which modes should be on?
@@ -262,6 +268,8 @@ btn-card-menu = ✏️
 btn-undo = ↩️ Undo
 btn-continue = ▶️ Continue ({ $n })
 btn-extra-new = ➕ { $n } more new
+btn-known = ✅ I know it
+btn-known-menu = ✅ Already know it
 btn-suspend = ⏸ Suspend
 btn-bury = 😴 Postpone to tomorrow
 btn-report = ⚠️ Report a mistake
@@ -286,6 +294,7 @@ btn-new-per-day = ⚙️ New per day
 btn-per-day-default = Default
 btn-modes = 🔁 Modes
 btn-share = 🔗 Share
+btn-restore-disabled = ↩️ Bring back
 btn-unsubscribe = ➖ Unsubscribe
 btn-delete-deck = 🗑 Delete deck
 btn-delete-confirm = 🗑 Delete
@@ -310,7 +319,7 @@ admin-activity = Today: { $sessions } sessions, { $reviews } reviews
 admin-reports = Open reports: { $n }
 admin-grant-usage = Usage: /admin pro <tg_id> [days]
 admin-granted = Granted Pro to { $tgId } until { $until }.
-admin-reset-usage = Usage: /admin reset <tg_id>. Deletes cards, review history, sessions and the streak; settings, decks and own words stay.
+admin-reset-usage = Usage: /admin reset <tg_id>. Deletes cards, review history, sessions, known words and the streak; settings, decks and own words stay.
 admin-reset-done = Reset progress for { $tgId }.
 
 ## Telegram commands

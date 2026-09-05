@@ -76,14 +76,20 @@ export function renderDeckCard(t: Translate, row: DeckWithCounts, ownerId: numbe
       modes: modesLabel(t, row.modes),
     }),
   );
+  // Words the user switched off ("Знаю", "Приостановить") — silent unless there
+  // are any, and then one tap brings them all back (SPEC §5.1).
+  if (row.disabled > 0) lines.push(t("deck-disabled", { n: row.disabled }));
 
   const keyboard = new InlineKeyboard()
     .text(t("btn-learn-deck"), cb(NS.learn, "d", row.deck.id))
     .row()
     .text(t("btn-new-per-day"), cb(NS.decks, "npd", row.deck.id))
     .text(t("btn-modes"), cb(NS.decks, "modes", row.deck.id))
-    .row()
-    .text(t("btn-share"), cb(NS.decks, "share", row.deck.id));
+    .row();
+  if (row.disabled > 0) {
+    keyboard.text(t("btn-restore-disabled"), cb(NS.decks, "unsusp", row.deck.id)).row();
+  }
+  keyboard.text(t("btn-share"), cb(NS.decks, "share", row.deck.id));
   keyboard
     .text(
       own ? t("btn-delete-deck") : t("btn-unsubscribe"),
@@ -259,6 +265,18 @@ export function installDecks(bot: Bot<BotContext>, deps: BotDeps): void {
     await deps.repos.decks.unsubscribe(ctx.user.id, deckId);
     deps.events.record(ctx.user.id, "deck_unsubscribed", { deckId });
     await showList(ctx, deps);
+  });
+
+  bot.callbackQuery(/^d:unsusp:/u, async (ctx) => {
+    const deckId = argInt(parseCallback(ctx.callbackQuery.data)!, 0);
+    if (deckId === null) return answer(ctx);
+    const restored = await deps.repos.cards.restoreSuspended({
+      userId: ctx.user.id,
+      deckId,
+    });
+    await answer(ctx, ctx.t("toast-restored", { n: restored }));
+    deps.events.record(ctx.user.id, "deck_restored", { deckId, cards: restored });
+    await showDeck(ctx, deps, deckId);
   });
 
   bot.callbackQuery(/^d:del:/u, async (ctx) => {

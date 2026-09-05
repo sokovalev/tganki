@@ -1,7 +1,15 @@
 import { and, eq, gte, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import type { StreakUpdate } from "../../core/streak.js";
 import type { Database } from "../index.js";
-import { cards, type NewUser, type PendingPayload, sessions, type User, users } from "../schema.js";
+import {
+  cards,
+  knownWords,
+  type NewUser,
+  type PendingPayload,
+  sessions,
+  type User,
+  users,
+} from "../schema.js";
 
 export function createUsersRepo(db: Database) {
   return {
@@ -110,6 +118,8 @@ export function createUsersRepo(db: Database) {
       await db.transaction(async (tx) => {
         await tx.delete(sessions).where(eq(sessions.userId, id));
         await tx.delete(cards).where(eq(cards.userId, id));
+        // Switched-off words are progress too — a reset user meets them again.
+        await tx.delete(knownWords).where(eq(knownWords.userId, id));
         await tx
           .update(users)
           .set({

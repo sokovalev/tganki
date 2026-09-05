@@ -1,6 +1,6 @@
 import type { CardState } from "../../src/core/scheduler.js";
 import type { ReviewLogSnapshot } from "../../src/core/undo.js";
-import type { CardMode, Session, User } from "../../src/db/schema.js";
+import type { CardMode, Session, SuspendedReason, User } from "../../src/db/schema.js";
 import type { SessionCardView, SessionPort } from "../../src/services/sessionService.js";
 
 export function makeUser(overrides: Partial<User> = {}): User {
@@ -39,6 +39,8 @@ export interface FakeCard {
   noteId: number;
   deckId: number;
   deckTitle: string;
+  /** Learning language of the deck the note lives in. */
+  langFrom: string;
   deckOwnerId: number | null;
   mode: CardMode;
   front: string;
@@ -48,7 +50,13 @@ export interface FakeCard {
   exampleTr: string | null;
   state: CardState;
   suspended: boolean;
+  suspendedReason: SuspendedReason | null;
   buriedUntil: Date | null;
+}
+
+/** The JS twin of `frontNorm` in `src/db/sql.ts`. */
+export function normalizeFront(front: string): string {
+  return front.normalize("NFC").replace(/\s+/gu, " ").trim().toLowerCase();
 }
 
 export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {}): FakeCard {
@@ -57,6 +65,7 @@ export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {
     noteId: 100 + id,
     deckId: 1,
     deckTitle: "English Top 1000 · A2",
+    langFrom: "en",
     deckOwnerId: null,
     mode: "recognition",
     front: `word${id}`,
@@ -77,6 +86,7 @@ export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {
       learningSteps: 0,
     },
     suspended: false,
+    suspendedReason: null,
     buriedUntil: null,
     ...overrides,
   };
@@ -90,6 +100,8 @@ export interface FakeState {
   reports: Array<{ noteId: number; userId: number }>;
   /** Extra cards the queue builder may introduce as new. */
   newCandidateIds: number[];
+  /** Words switched off with "✅ Знаю", as `lang_from` + normalized front. */
+  knownWords: Array<{ langFrom: string; frontNorm: string }>;
   introducedToday: number;
   /** When today's new cards were introduced, so `since` filtering behaves like SQL. */
   introducedAt: Date;
@@ -101,6 +113,23 @@ export interface FakeState {
   nextLogId: number;
 }
 
+function isKnown(state: FakeState, langFrom: string, frontNorm: string): boolean {
+  return state.knownWords.some(
+    (word) => word.langFrom === langFrom && word.frontNorm === frontNorm,
+  );
+}
+
+/** True when another note carries the same word in the same learning language. */
+function hasOtherCard(state: FakeState, candidate: FakeCard): boolean {
+  const front = normalizeFront(candidate.front);
+  for (const card of state.cards.values()) {
+    if (card.noteId === candidate.noteId) continue;
+    if (card.langFrom !== candidate.langFrom) continue;
+    if (normalizeFront(card.front) === front) return true;
+  }
+  return false;
+}
+
 export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = {}) {
   const state: FakeState = {
     cards: new Map(cards.map((card) => [card.id, card])),
@@ -109,6 +138,7 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
     deletedNotes: [],
     reports: [],
     newCandidateIds: [],
+    knownWords: [],
     introducedToday: 0,
     introducedAt: new Date(0),
     remainingDue: 0,
@@ -150,13 +180,24 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
           .map((card) => ({ cardId: card.id, due: card.state.due }));
       },
       async listNewCandidates({ limit }) {
-        return state.newCandidateIds.slice(0, limit).map((cardId, index) => ({
-          noteId: state.cards.get(cardId)?.noteId ?? 1000 + cardId,
-          deckId: 1,
-          mode: "recognition" as CardMode,
-          position: index,
-          cardId,
-        }));
+        // Mirrors the SQL in `cards.listNewCandidates`: known words and words
+        // the user already learns through another deck are not candidates.
+        return state.newCandidateIds
+          .filter((cardId) => {
+            const card = state.cards.get(cardId);
+            if (!card) return true;
+            const front = normalizeFront(card.front);
+            if (isKnown(state, card.langFrom, front)) return false;
+            return !hasOtherCard(state, card);
+          })
+          .slice(0, limit)
+          .map((cardId, index) => ({
+            noteId: state.cards.get(cardId)?.noteId ?? 1000 + cardId,
+            deckId: 1,
+            mode: "recognition" as CardMode,
+            position: index,
+            cardId,
+          }));
       },
       async countNewIntroducedSince({ since }) {
         return state.introducedAt.getTime() >= since.getTime() ? state.introducedToday : 0;
@@ -241,9 +282,29 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
       card.state = result.card;
     },
 
-    async setSuspended(cardId, suspended) {
+    async setSuspended(cardId, suspended, reason = null) {
       const card = state.cards.get(cardId);
-      if (card) card.suspended = suspended;
+      if (card) {
+        card.suspended = suspended;
+        card.suspendedReason = suspended ? reason : null;
+      }
+    },
+
+    async markKnown({ cardId }) {
+      const card = state.cards.get(cardId);
+      if (!card) return null;
+      const frontNorm = normalizeFront(card.front);
+      if (!isKnown(state, card.langFrom, frontNorm)) {
+        state.knownWords.push({ langFrom: card.langFrom, frontNorm });
+      }
+      let suspended = 0;
+      for (const row of state.cards.values()) {
+        if (row.langFrom !== card.langFrom || normalizeFront(row.front) !== frontNorm) continue;
+        row.suspended = true;
+        row.suspendedReason = "known";
+        suspended += 1;
+      }
+      return { front: card.front, cards: suspended };
     },
 
     async setBuried(cardId, until) {
