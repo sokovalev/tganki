@@ -23,6 +23,7 @@ export function makeUser(overrides: Partial<User> = {}): User {
     blockedAt: null,
     lastRemindedDay: null,
     showIntervals: true,
+    transcriptionMode: "answer",
     desiredRetention: 0.9,
     pendingInput: null,
     pendingInputExpiresAt: null,

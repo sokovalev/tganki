@@ -26,14 +26,17 @@ import {
 
 const RATINGS: readonly ReviewRating[] = [1, 2, 3, 4];
 
-function transcription(view: SessionView): string | null {
-  return view.card.transcription ? italic(`/${esc(view.card.transcription)}/`) : null;
+function transcription(view: SessionView, side: "question" | "answer"): string | null {
+  if (!view.card.transcription) return null;
+  const mode = view.transcriptionMode;
+  if (mode === "never" || (mode === "answer" && side === "question")) return null;
+  return italic(`/${esc(view.card.transcription)}/`);
 }
 
 /** Question side: the word for `recognition`, the translation for `recall`. */
 function questionLines(view: SessionView): string[] {
   if (view.card.mode === "recall") return [bold(esc(view.card.back))];
-  return [bold(esc(view.card.front)), transcription(view)].filter(
+  return [bold(esc(view.card.front)), transcription(view, "question")].filter(
     (line): line is string => line !== null,
   );
 }
@@ -41,7 +44,9 @@ function questionLines(view: SessionView): string[] {
 function answerLines(view: SessionView): string[] {
   const { card } = view;
   const lines =
-    card.mode === "recall" ? [bold(esc(card.front)), transcription(view)] : [esc(card.back)];
+    card.mode === "recall"
+      ? [bold(esc(card.front)), transcription(view, "answer")]
+      : [transcription(view, "answer"), esc(card.back)];
   if (card.example) lines.push(italic(esc(card.example)));
   if (card.exampleTr && card.mode !== "recall") lines.push(esc(card.exampleTr));
   return lines.filter((line): line is string => line !== null);

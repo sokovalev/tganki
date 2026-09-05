@@ -21,6 +21,7 @@ export const userPlan = pgEnum("user_plan", ["free", "pro", "lifetime"]);
 export const deckKind = pgEnum("deck_kind", ["builtin", "user", "shared"]);
 export const cardMode = pgEnum("card_mode", ["recognition", "recall"]);
 export const sessionStatus = pgEnum("session_status", ["active", "finished", "abandoned"]);
+export const transcriptionMode = pgEnum("transcription_mode", ["always", "answer", "never"]);
 
 const createdAt = timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
@@ -64,6 +65,8 @@ export const users = pgTable(
     lastRemindedDay: date("last_reminded_day"),
     /** Render FSRS interval hints under the rating buttons. */
     showIntervals: boolean("show_intervals").notNull().default(true),
+    /** Where to show the transcription: on both sides, only in the answer, or never. */
+    transcriptionMode: transcriptionMode("transcription_mode").notNull().default("answer"),
     /** The only FSRS knob exposed to users (Pro). */
     desiredRetention: real("desired_retention").notNull().default(0.9),
     /** What free-text input the bot is waiting for, e.g. "deck_title" or "tz_time". */
@@ -338,4 +341,5 @@ export type Payment = typeof payments.$inferSelect;
 export type NoteReport = typeof noteReports.$inferSelect;
 export type Event = typeof events.$inferSelect;
 export type CardMode = (typeof cardMode.enumValues)[number];
+export type TranscriptionMode = (typeof transcriptionMode.enumValues)[number];
 export type DeckKind = (typeof deckKind.enumValues)[number];

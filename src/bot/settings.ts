@@ -1,5 +1,5 @@
 import { type Bot, InlineKeyboard } from "grammy";
-import type { User } from "../db/schema.js";
+import type { TranscriptionMode, User } from "../db/schema.js";
 import type { Translate } from "../i18n/index.js";
 import { isSupportedLocale } from "../i18n/index.js";
 import {
@@ -39,6 +39,7 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
     t("settings-reminder", { value: user.reminderTime ?? t("settings-off") }),
     t("settings-tz", { value: user.tz, time: localNow }),
     t("settings-intervals", { value: user.showIntervals ? t("btn-on") : t("btn-off") }),
+    t("settings-transcription", { value: t(`tr-mode-${user.transcriptionMode}`) }),
     t("settings-retention", { value: user.desiredRetention.toFixed(2) }),
   ];
   const keyboard = new InlineKeyboard()
@@ -51,12 +52,21 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
     .text(t("btn-set-tz"), cb(NS.settings, "tz"))
     .text(t("btn-set-intervals"), cb(NS.settings, "iv"))
     .row()
+    .text(t("btn-set-transcription"), cb(NS.settings, "tr"))
     .text(t("btn-set-retention"), cb(NS.settings, "ret"))
     .row()
     .text(t("btn-delete-account"), cb(NS.settings, "del"))
     .row()
     .text(t("btn-menu"), cb(NS.menu));
   return { text: lines.join("\n"), keyboard };
+}
+
+const TRANSCRIPTION_MODES: readonly TranscriptionMode[] = ["answer", "always", "never"];
+
+/** Cycles answer → always → never → answer. */
+export function nextTranscriptionMode(mode: TranscriptionMode): TranscriptionMode {
+  const i = TRANSCRIPTION_MODES.indexOf(mode);
+  return TRANSCRIPTION_MODES[(i + 1) % TRANSCRIPTION_MODES.length] as TranscriptionMode;
 }
 
 async function showSettings(ctx: BotContext, deps: BotDeps): Promise<void> {
@@ -245,6 +255,16 @@ export function installSettings(bot: Bot<BotContext>, deps: BotDeps): void {
     await answer(ctx);
     ctx.setUser(
       await deps.repos.users.update(ctx.user.id, { showIntervals: !ctx.user.showIntervals }),
+    );
+    await showSettings(ctx, deps);
+  });
+
+  bot.callbackQuery("set:tr", async (ctx) => {
+    await answer(ctx);
+    ctx.setUser(
+      await deps.repos.users.update(ctx.user.id, {
+        transcriptionMode: nextTranscriptionMode(ctx.user.transcriptionMode),
+      }),
     );
     await showSettings(ctx, deps);
   });

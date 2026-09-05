@@ -60,6 +60,7 @@ function view(overrides: Partial<SessionView> = {}): SessionView {
     previews: null,
     canUndo: false,
     snowball: false,
+    transcriptionMode: "answer",
     ...overrides,
   };
 }
@@ -74,10 +75,18 @@ describe("question screen", () => {
     expect(screen.text).toContain("English Top 1000 · A2");
     expect(screen.text).toContain("12 / 25");
     expect(screen.text).toContain("<b>reluctant</b>");
-    expect(screen.text).toContain("<i>/rɪˈlʌktənt/</i>");
+    // Default: the transcription is a hint that belongs to the answer side.
+    expect(screen.text).not.toContain("/rɪˈlʌktənt/");
     expect(screen.text).toContain("🆕 новое");
     // The answer must not leak into the question.
     expect(screen.text).not.toContain("неохотный");
+  });
+
+  it("shows the transcription in the question only in the 'always' mode", () => {
+    expect(renderCard(ru, view({ transcriptionMode: "always" })).text).toContain(
+      "<i>/rɪˈlʌktənt/</i>",
+    );
+    expect(renderCard(ru, view({ transcriptionMode: "never" })).text).not.toContain("rɪˈlʌktənt");
   });
 
   it("keeps the same structure in English", () => {
@@ -122,6 +131,10 @@ describe("answer screen", () => {
   it("shows question, answer and example", () => {
     const screen = renderCard(ru, answered);
     expect(screen.text).toContain("<b>reluctant</b>");
+    expect(screen.text).toContain("<i>/rɪˈlʌktənt/</i>");
+    expect(renderCard(ru, { ...answered, transcriptionMode: "never" }).text).not.toContain(
+      "rɪˈlʌktənt",
+    );
     expect(screen.text).toContain("неохотный, сопротивляющийся");
     expect(screen.text).toContain("<i>She was reluctant to go.</i>");
     expect(screen.text).toContain("Она не хотела идти.");

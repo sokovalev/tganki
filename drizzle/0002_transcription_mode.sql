@@ -1,0 +1,2 @@
+CREATE TYPE "public"."transcription_mode" AS ENUM('always', 'answer', 'never');--> statement-breakpoint
+ALTER TABLE "users" ADD COLUMN "transcription_mode" "transcription_mode" DEFAULT 'answer' NOT NULL;

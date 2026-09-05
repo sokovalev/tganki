@@ -18,7 +18,7 @@ import {
 } from "../core/scheduler.js";
 import { endOfLearningDay, recordActivity, startOfLearningDay } from "../core/streak.js";
 import { type UndoRepo, undoLastReview } from "../core/undo.js";
-import type { CardMode, Session, SessionStats, User } from "../db/schema.js";
+import type { CardMode, Session, SessionStats, TranscriptionMode, User } from "../db/schema.js";
 
 /** Reviews per session before the rest is pushed to a "Продолжить" tap (SPEC §3.1). */
 export const SESSION_REVIEW_CAP = 20;
@@ -109,6 +109,8 @@ export interface SessionView {
   canUndo: boolean;
   /** Set when new cards were held back because of the review backlog. */
   snowball: boolean;
+  /** Where the transcription is shown (user setting). */
+  transcriptionMode: TranscriptionMode;
 }
 
 export interface SessionSummary {
@@ -218,6 +220,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       previews,
       canUndo: extras.canUndo ?? session.stats.reviewed > 0,
       snowball: extras.snowball ?? false,
+      transcriptionMode: user.transcriptionMode,
     };
   }
 
