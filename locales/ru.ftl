@@ -327,6 +327,8 @@ admin-activity = Сегодня: сессий { $sessions }, оценок { $rev
 admin-reports = Жалоб открыто: { $n }
 admin-grant-usage = Использование: /admin pro <tg_id> [дней]
 admin-granted = Выдал Pro для { $tgId } до { $until }.
+admin-reset-usage = Использование: /admin reset <tg_id>. Удаляет карточки, историю повторений, сессии и стрик; настройки, деки и свои слова остаются.
+admin-reset-done = Сбросил прогресс для { $tgId }.
 
 ## Команды Telegram
 

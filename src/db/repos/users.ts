@@ -1,7 +1,7 @@
 import { and, eq, gte, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import type { StreakUpdate } from "../../core/streak.js";
 import type { Database } from "../index.js";
-import { type NewUser, type PendingPayload, type User, users } from "../schema.js";
+import { cards, type NewUser, type PendingPayload, sessions, type User, users } from "../schema.js";
 
 export function createUsersRepo(db: Database) {
   return {
@@ -99,6 +99,29 @@ export function createUsersRepo(db: Database) {
 
     async deleteById(id: number): Promise<void> {
       await db.delete(users).where(eq(users.id, id));
+    },
+
+    /**
+     * Wipes learning progress but keeps the account, its settings, deck
+     * subscriptions and own notes: cards (review logs cascade), sessions,
+     * streak and the reminder marker.
+     */
+    async resetProgress(id: number): Promise<void> {
+      await db.transaction(async (tx) => {
+        await tx.delete(sessions).where(eq(sessions.userId, id));
+        await tx.delete(cards).where(eq(cards.userId, id));
+        await tx
+          .update(users)
+          .set({
+            streak: 0,
+            streakBest: 0,
+            streakLastDay: null,
+            streakFreezeDay: null,
+            lastRemindedDay: null,
+            updatedAt: new Date(),
+          })
+          .where(eq(users.id, id));
+      });
     },
 
     async countAll(): Promise<number> {

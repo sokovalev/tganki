@@ -11,7 +11,7 @@ export function isAdmin(deps: BotDeps, tgId: number): boolean {
   return deps.config.ADMIN_TG_IDS.includes(tgId);
 }
 
-/** `/admin` and `/admin pro <tgId> [days]` (SPEC §13). */
+/** `/admin`, `/admin pro <tgId> [days]` and `/admin reset <tgId>` (SPEC §13). */
 export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
   bot.command("admin", async (ctx) => {
     if (!isAdmin(deps, ctx.user.tgId)) return;
@@ -28,6 +28,18 @@ export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
       const until = new Date(deps.now().getTime() + days * 24 * 60 * 60 * 1000);
       await deps.repos.users.update(target.id, { plan: "pro", planUntil: until });
       await ctx.reply(ctx.t("admin-granted", { tgId, until: until.toISOString().slice(0, 10) }));
+      return;
+    }
+
+    if (args[0] === "reset") {
+      const tgId = Number(args[1]);
+      const target = Number.isSafeInteger(tgId) ? await deps.repos.users.findByTgId(tgId) : null;
+      if (!target) {
+        await ctx.reply(ctx.t("admin-reset-usage"));
+        return;
+      }
+      await deps.repos.users.resetProgress(target.id);
+      await ctx.reply(ctx.t("admin-reset-done", { tgId }));
       return;
     }
 

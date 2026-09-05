@@ -310,6 +310,8 @@ admin-activity = Today: { $sessions } sessions, { $reviews } reviews
 admin-reports = Open reports: { $n }
 admin-grant-usage = Usage: /admin pro <tg_id> [days]
 admin-granted = Granted Pro to { $tgId } until { $until }.
+admin-reset-usage = Usage: /admin reset <tg_id>. Deletes cards, review history, sessions and the streak; settings, decks and own words stay.
+admin-reset-done = Reset progress for { $tgId }.
 
 ## Telegram commands
 
