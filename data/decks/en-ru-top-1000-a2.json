@@ -27,6 +27,16 @@
       ]
     },
     {
+      "front": "taxi",
+      "back": "такси",
+      "transcription": "ˈtæksi",
+      "example": "We took a taxi to the airport.",
+      "example_tr": "Мы поехали в аэропорт на такси.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
       "front": "must",
       "back": "должен",
       "transcription": "mʌst",
@@ -37,286 +47,6 @@
       ]
     },
     {
-      "front": "should",
-      "back": "следует, должен",
-      "transcription": "ʃʊd",
-      "example": "You should see a doctor.",
-      "example_tr": "Тебе следует показаться врачу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "would",
-      "back": "бы (условное)",
-      "transcription": "wʊd",
-      "example": "I would like a coffee.",
-      "example_tr": "Я бы хотел кофе.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "may",
-      "back": "мочь (разрешение)",
-      "transcription": "meɪ",
-      "example": "May I come in?",
-      "example_tr": "Можно войти?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "might",
-      "back": "может быть",
-      "transcription": "maɪt",
-      "example": "It might rain today.",
-      "example_tr": "Сегодня, возможно, пойдёт дождь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "will",
-      "back": "буду (будущее время)",
-      "transcription": "wɪl",
-      "example": "I will call you tomorrow.",
-      "example_tr": "Я позвоню тебе завтра.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "have to",
-      "back": "быть должным",
-      "transcription": "hæv tuː",
-      "example": "I have to go now.",
-      "example_tr": "Мне нужно идти.",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "some",
-      "back": "несколько, немного",
-      "transcription": "sʌm",
-      "example": "I need some sugar.",
-      "example_tr": "Мне нужно немного сахара.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "any",
-      "back": "какой-нибудь, любой",
-      "transcription": "ˈeni",
-      "example": "Do you have any questions?",
-      "example_tr": "У тебя есть вопросы?",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "much",
-      "back": "много (с неисч.)",
-      "transcription": "mʌtʃ",
-      "example": "I don't have much time.",
-      "example_tr": "У меня немного времени.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "many",
-      "back": "много (с исч.)",
-      "transcription": "ˈmeni",
-      "example": "There are many people here.",
-      "example_tr": "Здесь много людей.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "a lot of",
-      "back": "много",
-      "transcription": "ə lɒt əv",
-      "example": "She has a lot of friends.",
-      "example_tr": "У неё много друзей.",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "few",
-      "back": "мало (немного, с исч.)",
-      "transcription": "fjuː",
-      "example": "I have few close friends.",
-      "example_tr": "У меня мало близких друзей.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "little",
-      "back": "мало (с неисч.)",
-      "transcription": "ˈlɪtəl",
-      "example": "We have little time left.",
-      "example_tr": "У нас осталось мало времени.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "all",
-      "back": "весь, все",
-      "transcription": "ɔːl",
-      "example": "All my friends came to the party.",
-      "example_tr": "Все мои друзья пришли на вечеринку.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "every",
-      "back": "каждый",
-      "transcription": "ˈevri",
-      "example": "I go for a walk every day.",
-      "example_tr": "Я гуляю каждый день.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "each",
-      "back": "каждый (по отдельности)",
-      "transcription": "iːtʃ",
-      "example": "Each student has a book.",
-      "example_tr": "У каждого студента есть книга.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "more",
-      "back": "больше",
-      "transcription": "mɔːr",
-      "example": "I need more time.",
-      "example_tr": "Мне нужно больше времени.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "less",
-      "back": "меньше",
-      "transcription": "les",
-      "example": "Try to eat less sugar.",
-      "example_tr": "Старайся есть меньше сахара.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "most",
-      "back": "большинство, самый",
-      "transcription": "moʊst",
-      "example": "Most people like music.",
-      "example_tr": "Большинству людей нравится музыка.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "enough",
-      "back": "достаточно",
-      "transcription": "ɪˈnʌf",
-      "example": "We have enough food.",
-      "example_tr": "У нас достаточно еды.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "both",
-      "back": "оба",
-      "transcription": "boʊθ",
-      "example": "Both books are interesting.",
-      "example_tr": "Обе книги интересные.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "either",
-      "back": "любой из двух",
-      "transcription": "ˈaɪðər",
-      "example": "You can take either seat.",
-      "example_tr": "Можешь взять любое из двух мест.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "neither",
-      "back": "ни тот ни другой",
-      "transcription": "ˈnaɪðər",
-      "example": "Neither answer is correct.",
-      "example_tr": "Ни один из ответов неверен.",
-      "tags": [
-        "determiner"
-      ]
-    },
-    {
-      "front": "how much",
-      "back": "сколько (по цене/количеству)",
-      "transcription": "haʊ mʌtʃ",
-      "example": "How much is this shirt?",
-      "example_tr": "Сколько стоит эта рубашка?",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "how many",
-      "back": "сколько (штук)",
-      "transcription": "haʊ ˈmeni",
-      "example": "How many brothers do you have?",
-      "example_tr": "Сколько у тебя братьев?",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "how often",
-      "back": "как часто",
-      "transcription": "haʊ ˈɒfən",
-      "example": "How often do you exercise?",
-      "example_tr": "Как часто ты занимаешься спортом?",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "how long",
-      "back": "как долго",
-      "transcription": "haʊ lɒŋ",
-      "example": "How long is the flight?",
-      "example_tr": "Сколько длится перелёт?",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "what time",
-      "back": "во сколько",
-      "transcription": "wɒt taɪm",
-      "example": "What time does the film start?",
-      "example_tr": "Во сколько начинается фильм?",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
       "front": "better",
       "back": "лучше",
       "transcription": "ˈbetər",
@@ -324,896 +54,6 @@
       "example_tr": "Этот план лучше старого.",
       "tags": [
         "adjective"
-      ]
-    },
-    {
-      "front": "worse",
-      "back": "хуже",
-      "transcription": "wɜːrs",
-      "example": "The weather is worse today.",
-      "example_tr": "Сегодня погода хуже.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "best",
-      "back": "лучший",
-      "transcription": "best",
-      "example": "This is the best restaurant in town.",
-      "example_tr": "Это лучший ресторан в городе.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "worst",
-      "back": "худший",
-      "transcription": "wɜːrst",
-      "example": "It was the worst day of my life.",
-      "example_tr": "Это был худший день в моей жизни.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "bigger",
-      "back": "больше (сравн.)",
-      "transcription": "ˈbɪɡər",
-      "example": "Our new flat is bigger.",
-      "example_tr": "Наша новая квартира больше.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "smaller",
-      "back": "меньше (сравн.)",
-      "transcription": "ˈsmɔːlər",
-      "example": "This bag is smaller than mine.",
-      "example_tr": "Эта сумка меньше моей.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "arrive",
-      "back": "прибывать",
-      "transcription": "əˈraɪv",
-      "example": "The train arrives at ten.",
-      "example_tr": "Поезд прибывает в десять.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "enter",
-      "back": "входить",
-      "transcription": "ˈentər",
-      "example": "Please enter the room quietly.",
-      "example_tr": "Пожалуйста, войди в комнату тихо.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "continue",
-      "back": "продолжать",
-      "transcription": "kənˈtɪnjuː",
-      "example": "Please continue your story.",
-      "example_tr": "Пожалуйста, продолжай свой рассказ.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "finish",
-      "back": "заканчивать",
-      "transcription": "ˈfɪnɪʃ",
-      "example": "I finish work at six.",
-      "example_tr": "Я заканчиваю работу в шесть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "begin",
-      "back": "начинать",
-      "transcription": "bɪˈɡɪn",
-      "example": "The film begins soon.",
-      "example_tr": "Фильм скоро начинается.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "change",
-      "back": "менять(ся)",
-      "transcription": "tʃeɪndʒ",
-      "example": "I want to change my job.",
-      "example_tr": "Я хочу сменить работу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "decide",
-      "back": "решать",
-      "transcription": "dɪˈsaɪd",
-      "example": "We decided to travel by train.",
-      "example_tr": "Мы решили путешествовать поездом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "agree",
-      "back": "соглашаться",
-      "transcription": "əˈɡriː",
-      "example": "I agree with you.",
-      "example_tr": "Я с тобой согласен.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "disagree",
-      "back": "не соглашаться",
-      "transcription": "ˌdɪsəˈɡriː",
-      "example": "I disagree with this plan.",
-      "example_tr": "Я не согласен с этим планом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "believe",
-      "back": "верить, полагать",
-      "transcription": "bɪˈliːv",
-      "example": "I believe you.",
-      "example_tr": "Я тебе верю.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "hope",
-      "back": "надеяться",
-      "transcription": "hoʊp",
-      "example": "I hope you feel better soon.",
-      "example_tr": "Надеюсь, ты скоро поправишься.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "worry",
-      "back": "беспокоиться",
-      "transcription": "ˈwʌri",
-      "example": "Don't worry about it.",
-      "example_tr": "Не беспокойся об этом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "promise",
-      "back": "обещать",
-      "transcription": "ˈprɒmɪs",
-      "example": "I promise to call you.",
-      "example_tr": "Обещаю тебе позвонить.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "invite",
-      "back": "приглашать",
-      "transcription": "ɪnˈvaɪt",
-      "example": "We invited our neighbours to dinner.",
-      "example_tr": "Мы пригласили соседей на ужин.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "thank",
-      "back": "благодарить",
-      "transcription": "θæŋk",
-      "example": "I want to thank you for your help.",
-      "example_tr": "Хочу поблагодарить тебя за помощь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "save",
-      "back": "экономить, сохранять",
-      "transcription": "seɪv",
-      "example": "I save money every month.",
-      "example_tr": "Я экономлю деньги каждый месяц.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "spend",
-      "back": "тратить",
-      "transcription": "spend",
-      "example": "We spent a lot of money on holiday.",
-      "example_tr": "Мы потратили много денег на отпуск.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "borrow",
-      "back": "брать взаймы",
-      "transcription": "ˈbɒroʊ",
-      "example": "Can I borrow your pen?",
-      "example_tr": "Можно взять твою ручку?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "lend",
-      "back": "давать взаймы",
-      "transcription": "lend",
-      "example": "Can you lend me some money?",
-      "example_tr": "Можешь одолжить мне денег?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "lose",
-      "back": "терять, проигрывать",
-      "transcription": "luːz",
-      "example": "I always lose my keys.",
-      "example_tr": "Я всегда теряю ключи.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "win",
-      "back": "выигрывать",
-      "transcription": "wɪn",
-      "example": "Our team won the match.",
-      "example_tr": "Наша команда выиграла матч.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "check",
-      "back": "проверять",
-      "transcription": "tʃek",
-      "example": "Please check your email.",
-      "example_tr": "Пожалуйста, проверь свою почту.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "fix",
-      "back": "чинить, исправлять",
-      "transcription": "fɪks",
-      "example": "Can you fix my computer?",
-      "example_tr": "Можешь починить мой компьютер?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "break",
-      "back": "ломать",
-      "transcription": "breɪk",
-      "example": "He broke his phone.",
-      "example_tr": "Он сломал свой телефон.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "build",
-      "back": "строить",
-      "transcription": "bɪld",
-      "example": "They are building a new house.",
-      "example_tr": "Они строят новый дом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "grow",
-      "back": "расти, выращивать",
-      "transcription": "ɡroʊ",
-      "example": "This plant grows fast.",
-      "example_tr": "Это растение быстро растёт.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "prepare",
-      "back": "готовить, готовиться",
-      "transcription": "prɪˈpeər",
-      "example": "I need to prepare for the exam.",
-      "example_tr": "Мне нужно подготовиться к экзамену.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "explain",
-      "back": "объяснять",
-      "transcription": "ɪkˈspleɪn",
-      "example": "Can you explain this rule?",
-      "example_tr": "Можешь объяснить это правило?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "describe",
-      "back": "описывать",
-      "transcription": "dɪˈskraɪb",
-      "example": "Describe your best friend.",
-      "example_tr": "Опиши своего лучшего друга.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "compare",
-      "back": "сравнивать",
-      "transcription": "kəmˈpeər",
-      "example": "Let's compare the two prices.",
-      "example_tr": "Давай сравним две цены.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "suggest",
-      "back": "предлагать",
-      "transcription": "səˈdʒest",
-      "example": "I suggest we go by train.",
-      "example_tr": "Я предлагаю поехать на поезде.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "offer",
-      "back": "предлагать",
-      "transcription": "ˈɒfər",
-      "example": "They offered me a job.",
-      "example_tr": "Мне предложили работу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "allow",
-      "back": "разрешать",
-      "transcription": "əˈlaʊ",
-      "example": "My parents allow me to go out.",
-      "example_tr": "Родители разрешают мне гулять.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "refuse",
-      "back": "отказываться",
-      "transcription": "rɪˈfjuːz",
-      "example": "He refused to help.",
-      "example_tr": "Он отказался помочь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "accept",
-      "back": "принимать",
-      "transcription": "əkˈsept",
-      "example": "She accepted the invitation.",
-      "example_tr": "Она приняла приглашение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "reply",
-      "back": "отвечать",
-      "transcription": "rɪˈplaɪ",
-      "example": "Please reply to my message.",
-      "example_tr": "Пожалуйста, ответь на моё сообщение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "shout",
-      "back": "кричать",
-      "transcription": "ʃaʊt",
-      "example": "Don't shout, I can hear you.",
-      "example_tr": "Не кричи, я тебя слышу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "whisper",
-      "back": "шептать",
-      "transcription": "ˈwɪspər",
-      "example": "She whispered the answer.",
-      "example_tr": "Она прошептала ответ.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "push",
-      "back": "толкать",
-      "transcription": "pʊʃ",
-      "example": "Push the door to open it.",
-      "example_tr": "Толкни дверь, чтобы открыть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "pull",
-      "back": "тянуть",
-      "transcription": "pʊl",
-      "example": "Pull the door to open it.",
-      "example_tr": "Потяни дверь, чтобы открыть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "throw",
-      "back": "бросать",
-      "transcription": "θroʊ",
-      "example": "He threw the ball to me.",
-      "example_tr": "Он бросил мне мяч.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "catch",
-      "back": "ловить",
-      "transcription": "kætʃ",
-      "example": "Catch the ball!",
-      "example_tr": "Лови мяч!",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "kick",
-      "back": "пинать",
-      "transcription": "kɪk",
-      "example": "He kicked the ball hard.",
-      "example_tr": "Он сильно ударил по мячу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "hit",
-      "back": "ударять",
-      "transcription": "hɪt",
-      "example": "The car hit a tree.",
-      "example_tr": "Машина врезалась в дерево.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "hold",
-      "back": "держать",
-      "transcription": "hoʊld",
-      "example": "Hold my hand.",
-      "example_tr": "Держи меня за руку.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "touch",
-      "back": "трогать, касаться",
-      "transcription": "tʌtʃ",
-      "example": "Don't touch the paintings.",
-      "example_tr": "Не трогай картины.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "point",
-      "back": "указывать",
-      "transcription": "pɔɪnt",
-      "example": "She pointed at the map.",
-      "example_tr": "Она указала на карту.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "share",
-      "back": "делиться",
-      "transcription": "ʃeər",
-      "example": "Let's share this pizza.",
-      "example_tr": "Давай поделим эту пиццу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "join",
-      "back": "присоединяться",
-      "transcription": "dʒɔɪn",
-      "example": "Do you want to join us?",
-      "example_tr": "Хочешь присоединиться к нам?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "belong",
-      "back": "принадлежать",
-      "transcription": "bɪˈlɒŋ",
-      "example": "This book belongs to me.",
-      "example_tr": "Эта книга принадлежит мне.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "own",
-      "back": "владеть",
-      "transcription": "oʊn",
-      "example": "They own a small shop.",
-      "example_tr": "Они владеют небольшим магазином.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "rent",
-      "back": "арендовать",
-      "transcription": "rent",
-      "example": "We rent a flat in the city.",
-      "example_tr": "Мы арендуем квартиру в городе.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "sell",
-      "back": "продавать",
-      "transcription": "sel",
-      "example": "They sell fresh bread here.",
-      "example_tr": "Здесь продают свежий хлеб.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "deliver",
-      "back": "доставлять",
-      "transcription": "dɪˈlɪvər",
-      "example": "They deliver food to your home.",
-      "example_tr": "Они доставляют еду на дом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "order",
-      "back": "заказывать",
-      "transcription": "ˈɔːrdər",
-      "example": "Let's order pizza tonight.",
-      "example_tr": "Давай закажем пиццу сегодня вечером.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "reserve",
-      "back": "бронировать",
-      "transcription": "rɪˈzɜːrv",
-      "example": "I reserved a hotel room.",
-      "example_tr": "Я забронировал номер в отеле.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "cancel",
-      "back": "отменять",
-      "transcription": "ˈkænsəl",
-      "example": "We had to cancel our trip.",
-      "example_tr": "Нам пришлось отменить поездку.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "miss",
-      "back": "скучать, пропускать",
-      "transcription": "mɪs",
-      "example": "I miss my family.",
-      "example_tr": "Я скучаю по своей семье.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "hurry",
-      "back": "торопиться",
-      "transcription": "ˈhʌri",
-      "example": "Hurry up, we're late!",
-      "example_tr": "Поторопись, мы опаздываем!",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "relax",
-      "back": "расслабляться",
-      "transcription": "rɪˈlæks",
-      "example": "I relax by reading books.",
-      "example_tr": "Я расслабляюсь, читая книги.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "rest",
-      "back": "отдыхать",
-      "transcription": "rest",
-      "example": "You need to rest.",
-      "example_tr": "Тебе нужно отдохнуть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "exercise",
-      "back": "заниматься спортом",
-      "transcription": "ˈeksərsaɪz",
-      "example": "I exercise every morning.",
-      "example_tr": "Я занимаюсь спортом каждое утро.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "practise",
-      "back": "тренироваться, практиковать",
-      "transcription": "ˈpræktɪs",
-      "example": "I practise English every day.",
-      "example_tr": "Я практикую английский каждый день.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "improve",
-      "back": "улучшать(ся)",
-      "transcription": "ɪmˈpruːv",
-      "example": "My English is improving.",
-      "example_tr": "Мой английский улучшается.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "repeat",
-      "back": "повторять",
-      "transcription": "rɪˈpiːt",
-      "example": "Can you repeat that, please?",
-      "example_tr": "Можешь повторить, пожалуйста?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "guess",
-      "back": "угадывать, предполагать",
-      "transcription": "ɡes",
-      "example": "Guess what happened!",
-      "example_tr": "Угадай, что случилось!",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "imagine",
-      "back": "представлять себе",
-      "transcription": "ɪˈmædʒɪn",
-      "example": "Imagine a life without phones.",
-      "example_tr": "Представь жизнь без телефонов.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "recognise",
-      "back": "узнавать",
-      "transcription": "ˈrekəɡnaɪz",
-      "example": "I didn't recognise you at first.",
-      "example_tr": "Я тебя сначала не узнал.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "notice",
-      "back": "замечать",
-      "transcription": "ˈnoʊtɪs",
-      "example": "I noticed a new shop nearby.",
-      "example_tr": "Я заметил новый магазин рядом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "discover",
-      "back": "обнаруживать",
-      "transcription": "dɪˈskʌvər",
-      "example": "Scientists discovered a new planet.",
-      "example_tr": "Учёные открыли новую планету.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "solve",
-      "back": "решать (проблему)",
-      "transcription": "sɒlv",
-      "example": "We solved the problem together.",
-      "example_tr": "Мы вместе решили проблему.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "regret",
-      "back": "сожалеть",
-      "transcription": "rɪˈɡret",
-      "example": "I regret saying that.",
-      "example_tr": "Я сожалею, что сказал это.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "complain",
-      "back": "жаловаться",
-      "transcription": "kəmˈpleɪn",
-      "example": "He always complains about the weather.",
-      "example_tr": "Он всегда жалуется на погоду.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "apologise",
-      "back": "извиняться",
-      "transcription": "əˈpɒlədʒaɪz",
-      "example": "I want to apologise for being late.",
-      "example_tr": "Я хочу извиниться за опоздание.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "celebrate",
-      "back": "праздновать",
-      "transcription": "ˈselɪbreɪt",
-      "example": "We celebrate my birthday every year.",
-      "example_tr": "Мы каждый год празднуем мой день рождения.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "marry",
-      "back": "жениться, выходить замуж",
-      "transcription": "ˈmæri",
-      "example": "They got married last year.",
-      "example_tr": "Они поженились в прошлом году.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "die",
-      "back": "умирать",
-      "transcription": "daɪ",
-      "example": "Plants die without water.",
-      "example_tr": "Растения умирают без воды.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "kill",
-      "back": "убивать",
-      "transcription": "kɪl",
-      "example": "The cold weather killed the plants.",
-      "example_tr": "Холодная погода погубила растения.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "burn",
-      "back": "гореть, жечь",
-      "transcription": "bɜːrn",
-      "example": "Be careful, the pan is hot and can burn you.",
-      "example_tr": "Осторожно, сковорода горячая, можно обжечься.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "fall",
-      "back": "падать",
-      "transcription": "fɔːl",
-      "example": "Be careful not to fall.",
-      "example_tr": "Осторожно, не упади.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "hurt",
-      "back": "причинять боль, ранить",
-      "transcription": "hɜːrt",
-      "example": "My back hurts.",
-      "example_tr": "У меня болит спина.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "shine",
-      "back": "сиять, светить",
-      "transcription": "ʃaɪn",
-      "example": "The sun shines brightly today.",
-      "example_tr": "Сегодня ярко светит солнце.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "float",
-      "back": "плавать (на поверхности)",
-      "transcription": "floʊt",
-      "example": "Wood floats on water.",
-      "example_tr": "Дерево плавает на поверхности воды.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "taxi",
-      "back": "такси",
-      "transcription": "ˈtæksi",
-      "example": "We took a taxi to the airport.",
-      "example_tr": "Мы поехали в аэропорт на такси.",
-      "tags": [
-        "noun"
       ]
     },
     {
@@ -1237,6 +77,16 @@
       ]
     },
     {
+      "front": "should",
+      "back": "следует, должен",
+      "transcription": "ʃʊd",
+      "example": "You should see a doctor.",
+      "example_tr": "Тебе следует показаться врачу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "motorbike",
       "back": "мотоцикл",
       "transcription": "ˈmoʊtərbaɪk",
@@ -1244,6 +94,36 @@
       "example_tr": "У него быстрый мотоцикл.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "worse",
+      "back": "хуже",
+      "transcription": "wɜːrs",
+      "example": "The weather is worse today.",
+      "example_tr": "Сегодня погода хуже.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "would",
+      "back": "бы (условное)",
+      "transcription": "wʊd",
+      "example": "I would like a coffee.",
+      "example_tr": "Я бы хотел кофе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "more",
+      "back": "больше",
+      "transcription": "mɔːr",
+      "example": "I need more time.",
+      "example_tr": "Мне нужно больше времени.",
+      "tags": [
+        "adverb"
       ]
     },
     {
@@ -1267,6 +147,36 @@
       ]
     },
     {
+      "front": "some",
+      "back": "несколько, немного",
+      "transcription": "sʌm",
+      "example": "I need some sugar.",
+      "example_tr": "Мне нужно немного сахара.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "may",
+      "back": "мочь (разрешение)",
+      "transcription": "meɪ",
+      "example": "May I come in?",
+      "example_tr": "Можно войти?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "best",
+      "back": "лучший",
+      "transcription": "best",
+      "example": "This is the best restaurant in town.",
+      "example_tr": "Это лучший ресторан в городе.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "platform",
       "back": "платформа (на вокзале)",
       "transcription": "ˈplætfɔːrm",
@@ -1287,6 +197,16 @@
       ]
     },
     {
+      "front": "might",
+      "back": "может быть",
+      "transcription": "maɪt",
+      "example": "It might rain today.",
+      "example_tr": "Сегодня, возможно, пойдёт дождь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "luggage",
       "back": "багаж",
       "transcription": "ˈlʌɡɪdʒ",
@@ -1294,6 +214,26 @@
       "example_tr": "Мой багаж тяжёлый.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "worst",
+      "back": "худший",
+      "transcription": "wɜːrst",
+      "example": "It was the worst day of my life.",
+      "example_tr": "Это был худший день в моей жизни.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "will",
+      "back": "буду (будущее время)",
+      "transcription": "wɪl",
+      "example": "I will call you tomorrow.",
+      "example_tr": "Я позвоню тебе завтра.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1317,6 +257,36 @@
       ]
     },
     {
+      "front": "have to",
+      "back": "быть должным",
+      "transcription": "hæv tuː",
+      "example": "I have to go now.",
+      "example_tr": "Мне нужно идти.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "arrive",
+      "back": "прибывать",
+      "transcription": "əˈraɪv",
+      "example": "The train arrives at ten.",
+      "example_tr": "Поезд прибывает в десять.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "bigger",
+      "back": "больше (сравн.)",
+      "transcription": "ˈbɪɡər",
+      "example": "Our new flat is bigger.",
+      "example_tr": "Наша новая квартира больше.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "trip",
       "back": "поездка",
       "transcription": "trɪp",
@@ -1337,6 +307,36 @@
       ]
     },
     {
+      "front": "above",
+      "back": "выше, над",
+      "transcription": "əˈbʌv",
+      "example": "The plane flew above the clouds.",
+      "example_tr": "Самолёт летел над облаками.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "enter",
+      "back": "входить",
+      "transcription": "ˈentər",
+      "example": "Please enter the room quietly.",
+      "example_tr": "Пожалуйста, войди в комнату тихо.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "less",
+      "back": "меньше",
+      "transcription": "les",
+      "example": "Try to eat less sugar.",
+      "example_tr": "Старайся есть меньше сахара.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "mountain",
       "back": "гора",
       "transcription": "ˈmaʊntən",
@@ -1344,6 +344,26 @@
       "example_tr": "Мы поднялись на гору.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "smaller",
+      "back": "меньше (сравн.)",
+      "transcription": "ˈsmɔːlər",
+      "example": "This bag is smaller than mine.",
+      "example_tr": "Эта сумка меньше моей.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "continue",
+      "back": "продолжать",
+      "transcription": "kənˈtɪnjuː",
+      "example": "Please continue your story.",
+      "example_tr": "Пожалуйста, продолжай свой рассказ.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1367,6 +387,16 @@
       ]
     },
     {
+      "front": "finish",
+      "back": "заканчивать",
+      "transcription": "ˈfɪnɪʃ",
+      "example": "I finish work at six.",
+      "example_tr": "Я заканчиваю работу в шесть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "ocean",
       "back": "океан",
       "transcription": "ˈoʊʃən",
@@ -1374,6 +404,26 @@
       "example_tr": "Атлантический океан огромен.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "healthy",
+      "back": "здоровый",
+      "transcription": "ˈhelθi",
+      "example": "Eat healthy food.",
+      "example_tr": "Ешь здоровую еду.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "any",
+      "back": "какой-нибудь, любой",
+      "transcription": "ˈeni",
+      "example": "Do you have any questions?",
+      "example_tr": "У тебя есть вопросы?",
+      "tags": [
+        "determiner"
       ]
     },
     {
@@ -1387,6 +437,16 @@
       ]
     },
     {
+      "front": "begin",
+      "back": "начинать",
+      "transcription": "bɪˈɡɪn",
+      "example": "The film begins soon.",
+      "example_tr": "Фильм скоро начинается.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "forest",
       "back": "лес",
       "transcription": "ˈfɒrɪst",
@@ -1394,6 +454,36 @@
       "example_tr": "Мы прошли через лес.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "until",
+      "back": "до (тех пор пока)",
+      "transcription": "ənˈtɪl",
+      "example": "Wait here until I come back.",
+      "example_tr": "Жди здесь, пока я не вернусь.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "ill",
+      "back": "больной",
+      "transcription": "ɪl",
+      "example": "She feels ill today.",
+      "example_tr": "Сегодня она плохо себя чувствует.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "change",
+      "back": "менять(ся)",
+      "transcription": "tʃeɪndʒ",
+      "example": "I want to change my job.",
+      "example_tr": "Я хочу сменить работу.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1417,6 +507,16 @@
       ]
     },
     {
+      "front": "decide",
+      "back": "решать",
+      "transcription": "dɪˈsaɪd",
+      "example": "We decided to travel by train.",
+      "example_tr": "Мы решили путешествовать поездом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "star",
       "back": "звезда",
       "transcription": "stɑːr",
@@ -1424,6 +524,26 @@
       "example_tr": "Ночью видны звёзды.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "comfortable",
+      "back": "удобный",
+      "transcription": "ˈkʌmftəbəl",
+      "example": "This chair is very comfortable.",
+      "example_tr": "Этот стул очень удобный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "enough",
+      "back": "достаточно",
+      "transcription": "ɪˈnʌf",
+      "example": "We have enough food.",
+      "example_tr": "У нас достаточно еды.",
+      "tags": [
+        "adverb"
       ]
     },
     {
@@ -1437,6 +557,16 @@
       ]
     },
     {
+      "front": "agree",
+      "back": "соглашаться",
+      "transcription": "əˈɡriː",
+      "example": "I agree with you.",
+      "example_tr": "Я с тобой согласен.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "wind",
       "back": "ветер",
       "transcription": "wɪnd",
@@ -1444,6 +574,26 @@
       "example_tr": "Сегодня очень сильный ветер.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "polite",
+      "back": "вежливый",
+      "transcription": "pəˈlaɪt",
+      "example": "The waiter was very polite.",
+      "example_tr": "Официант был очень вежливым.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "disagree",
+      "back": "не соглашаться",
+      "transcription": "ˌdɪsəˈɡriː",
+      "example": "I disagree with this plan.",
+      "example_tr": "Я не согласен с этим планом.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1457,6 +607,16 @@
       ]
     },
     {
+      "front": "fourth",
+      "back": "четвёртый",
+      "transcription": "fɔːrθ",
+      "example": "This is the fourth time I've called you.",
+      "example_tr": "Это уже четвёртый раз, когда я тебе звоню.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
       "front": "ice",
       "back": "лёд",
       "transcription": "aɪs",
@@ -1464,6 +624,16 @@
       "example_tr": "Осторожно, на дороге лёд.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "believe",
+      "back": "верить, полагать",
+      "transcription": "bɪˈliːv",
+      "example": "I believe you.",
+      "example_tr": "Я тебе верю.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1477,6 +647,16 @@
       ]
     },
     {
+      "front": "rude",
+      "back": "грубый",
+      "transcription": "ruːd",
+      "example": "It's rude to interrupt.",
+      "example_tr": "Перебивать невежливо.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "spring",
       "back": "весна",
       "transcription": "sprɪŋ",
@@ -1487,6 +667,16 @@
       ]
     },
     {
+      "front": "hope",
+      "back": "надеяться",
+      "transcription": "hoʊp",
+      "example": "I hope you feel better soon.",
+      "example_tr": "Надеюсь, ты скоро поправишься.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "summer",
       "back": "лето",
       "transcription": "ˈsʌmər",
@@ -1494,6 +684,36 @@
       "example_tr": "Летом мы много купаемся.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "much",
+      "back": "много (с неисч.)",
+      "transcription": "mʌtʃ",
+      "example": "I don't have much time.",
+      "example_tr": "У меня немного времени.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "careful",
+      "back": "осторожный, внимательный",
+      "transcription": "ˈkeərfəl",
+      "example": "Be careful on the road.",
+      "example_tr": "Будь осторожен на дороге.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "worry",
+      "back": "беспокоиться",
+      "transcription": "ˈwʌri",
+      "example": "Don't worry about it.",
+      "example_tr": "Не беспокойся об этом.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1517,6 +737,26 @@
       ]
     },
     {
+      "front": "usually",
+      "back": "обычно",
+      "transcription": "ˈjuːʒuəli",
+      "example": "I usually wake up at seven.",
+      "example_tr": "Я обычно просыпаюсь в семь.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "promise",
+      "back": "обещать",
+      "transcription": "ˈprɒmɪs",
+      "example": "I promise to call you.",
+      "example_tr": "Обещаю тебе позвонить.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "health",
       "back": "здоровье",
       "transcription": "helθ",
@@ -1524,6 +764,26 @@
       "example_tr": "Здоровье важнее денег.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "careless",
+      "back": "небрежный, неосторожный",
+      "transcription": "ˈkeərləs",
+      "example": "He made a careless mistake.",
+      "example_tr": "Он сделал небрежную ошибку.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "a lot of",
+      "back": "много",
+      "transcription": "ə lɒt əv",
+      "example": "She has a lot of friends.",
+      "example_tr": "У неё много друзей.",
+      "tags": [
+        "phrase"
       ]
     },
     {
@@ -1537,6 +797,16 @@
       ]
     },
     {
+      "front": "invite",
+      "back": "приглашать",
+      "transcription": "ɪnˈvaɪt",
+      "example": "We invited our neighbours to dinner.",
+      "example_tr": "Мы пригласили соседей на ужин.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "headache",
       "back": "головная боль",
       "transcription": "ˈhedeɪk",
@@ -1544,6 +814,16 @@
       "example_tr": "У меня сильно болит голова.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "lazy",
+      "back": "ленивый",
+      "transcription": "ˈleɪzi",
+      "example": "Don't be lazy, help me.",
+      "example_tr": "Не ленись, помоги мне.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -1557,6 +837,16 @@
       ]
     },
     {
+      "front": "thank",
+      "back": "благодарить",
+      "transcription": "θæŋk",
+      "example": "I want to thank you for your help.",
+      "example_tr": "Хочу поблагодарить тебя за помощь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "medicine",
       "back": "лекарство",
       "transcription": "ˈmedsən",
@@ -1564,6 +854,16 @@
       "example_tr": "Принимай это лекарство дважды в день.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "save",
+      "back": "экономить, сохранять",
+      "transcription": "seɪv",
+      "example": "I save money every month.",
+      "example_tr": "Я экономлю деньги каждый месяц.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1577,6 +877,16 @@
       ]
     },
     {
+      "front": "brave",
+      "back": "смелый",
+      "transcription": "breɪv",
+      "example": "The firefighter was very brave.",
+      "example_tr": "Пожарный был очень смелым.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "pain",
       "back": "боль",
       "transcription": "peɪn",
@@ -1584,6 +894,26 @@
       "example_tr": "У меня болит спина.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "below",
+      "back": "ниже, под",
+      "transcription": "bɪˈloʊ",
+      "example": "The temperature is below zero.",
+      "example_tr": "Температура ниже нуля.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "spend",
+      "back": "тратить",
+      "transcription": "spend",
+      "example": "We spent a lot of money on holiday.",
+      "example_tr": "Мы потратили много денег на отпуск.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1597,6 +927,16 @@
       ]
     },
     {
+      "front": "shy",
+      "back": "застенчивый",
+      "transcription": "ʃaɪ",
+      "example": "My little sister is shy.",
+      "example_tr": "Моя младшая сестра застенчивая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "injury",
       "back": "травма",
       "transcription": "ˈɪndʒəri",
@@ -1607,23 +947,33 @@
       ]
     },
     {
-      "front": "healthy",
-      "back": "здоровый",
-      "transcription": "ˈhelθi",
-      "example": "Eat healthy food.",
-      "example_tr": "Ешь здоровую еду.",
+      "front": "borrow",
+      "back": "брать взаймы",
+      "transcription": "ˈbɒroʊ",
+      "example": "Can I borrow your pen?",
+      "example_tr": "Можно взять твою ручку?",
       "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
-      "front": "ill",
-      "back": "больной",
-      "transcription": "ɪl",
-      "example": "She feels ill today.",
-      "example_tr": "Сегодня она плохо себя чувствует.",
+      "front": "rarely",
+      "back": "редко",
+      "transcription": "ˈreərli",
+      "example": "He rarely calls me.",
+      "example_tr": "Он редко мне звонит.",
       "tags": [
-        "adjective"
+        "adverb"
+      ]
+    },
+    {
+      "front": "many",
+      "back": "много (с исч.)",
+      "transcription": "ˈmeni",
+      "example": "There are many people here.",
+      "example_tr": "Здесь много людей.",
+      "tags": [
+        "determiner"
       ]
     },
     {
@@ -1637,6 +987,16 @@
       ]
     },
     {
+      "front": "lend",
+      "back": "давать взаймы",
+      "transcription": "lend",
+      "example": "Can you lend me some money?",
+      "example_tr": "Можешь одолжить мне денег?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "discount",
       "back": "скидка",
       "transcription": "ˈdɪskaʊnt",
@@ -1644,6 +1004,16 @@
       "example_tr": "Сегодня большая скидка.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "honest",
+      "back": "честный",
+      "transcription": "ˈɒnɪst",
+      "example": "He is an honest man.",
+      "example_tr": "Он честный человек.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -1657,6 +1027,16 @@
       ]
     },
     {
+      "front": "lose",
+      "back": "терять, проигрывать",
+      "transcription": "luːz",
+      "example": "I always lose my keys.",
+      "example_tr": "Я всегда теряю ключи.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "receipt",
       "back": "чек",
       "transcription": "rɪˈsiːt",
@@ -1664,6 +1044,16 @@
       "example_tr": "Сохрани чек, пожалуйста.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "famous",
+      "back": "известный",
+      "transcription": "ˈfeɪməs",
+      "example": "She is a famous singer.",
+      "example_tr": "Она известная певица.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -1677,6 +1067,16 @@
       ]
     },
     {
+      "front": "win",
+      "back": "выигрывать",
+      "transcription": "wɪn",
+      "example": "Our team won the match.",
+      "example_tr": "Наша команда выиграла матч.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "credit card",
       "back": "кредитная карта",
       "transcription": "ˈkredɪt kɑːrd",
@@ -1684,6 +1084,16 @@
       "example_tr": "Можно расплатиться картой?",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "check",
+      "back": "проверять",
+      "transcription": "tʃek",
+      "example": "Please check your email.",
+      "example_tr": "Пожалуйста, проверь свою почту.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1697,6 +1107,16 @@
       ]
     },
     {
+      "front": "popular",
+      "back": "популярный",
+      "transcription": "ˈpɒpjələr",
+      "example": "This song is very popular.",
+      "example_tr": "Эта песня очень популярна.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "supermarket",
       "back": "супермаркет",
       "transcription": "ˈsuːpərmɑːrkɪt",
@@ -1704,6 +1124,16 @@
       "example_tr": "Я покупаю продукты в супермаркете.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "fix",
+      "back": "чинить, исправлять",
+      "transcription": "fɪks",
+      "example": "Can you fix my computer?",
+      "example_tr": "Можешь починить мой компьютер?",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1717,6 +1147,16 @@
       ]
     },
     {
+      "front": "suddenly",
+      "back": "внезапно",
+      "transcription": "ˈsʌdənli",
+      "example": "Suddenly it started to rain.",
+      "example_tr": "Внезапно пошёл дождь.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "manager",
       "back": "менеджер, руководитель",
       "transcription": "ˈmænɪdʒər",
@@ -1724,6 +1164,26 @@
       "example_tr": "Она менеджер магазина.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "modern",
+      "back": "современный",
+      "transcription": "ˈmɒdərn",
+      "example": "We live in a modern flat.",
+      "example_tr": "Мы живём в современной квартире.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "break",
+      "back": "ломать",
+      "transcription": "breɪk",
+      "example": "He broke his phone.",
+      "example_tr": "Он сломал свой телефон.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1737,6 +1197,16 @@
       ]
     },
     {
+      "front": "build",
+      "back": "строить",
+      "transcription": "bɪld",
+      "example": "They are building a new house.",
+      "example_tr": "Они строят новый дом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "chef",
       "back": "шеф-повар",
       "transcription": "ʃef",
@@ -1744,6 +1214,26 @@
       "example_tr": "Шеф-повар приготовил вкусное блюдо.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "few",
+      "back": "мало (немного, с исч.)",
+      "transcription": "fjuː",
+      "example": "I have few close friends.",
+      "example_tr": "У меня мало близких друзей.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "traditional",
+      "back": "традиционный",
+      "transcription": "trəˈdɪʃənəl",
+      "example": "This is a traditional dish.",
+      "example_tr": "Это традиционное блюдо.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -1757,6 +1247,16 @@
       ]
     },
     {
+      "front": "grow",
+      "back": "расти, выращивать",
+      "transcription": "ɡroʊ",
+      "example": "This plant grows fast.",
+      "example_tr": "Это растение быстро растёт.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "actor",
       "back": "актёр",
       "transcription": "ˈæktər",
@@ -1764,6 +1264,16 @@
       "example_tr": "Он известный актёр.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "how much",
+      "back": "сколько (по цене/количеству)",
+      "transcription": "haʊ mʌtʃ",
+      "example": "How much is this shirt?",
+      "example_tr": "Сколько стоит эта рубашка?",
+      "tags": [
+        "phrase"
       ]
     },
     {
@@ -1777,6 +1287,26 @@
       ]
     },
     {
+      "front": "dangerous",
+      "back": "опасный",
+      "transcription": "ˈdeɪndʒərəs",
+      "example": "Swimming here is dangerous.",
+      "example_tr": "Здесь опасно плавать.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "prepare",
+      "back": "готовить, готовиться",
+      "transcription": "prɪˈpeər",
+      "example": "I need to prepare for the exam.",
+      "example_tr": "Мне нужно подготовиться к экзамену.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "writer",
       "back": "писатель",
       "transcription": "ˈraɪtər",
@@ -1784,6 +1314,26 @@
       "example_tr": "Мой любимый писатель — русский.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "since",
+      "back": "с (какого-то момента), так как",
+      "transcription": "sɪns",
+      "example": "I have lived here since 2020.",
+      "example_tr": "Я живу здесь с 2020 года.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
+      "front": "explain",
+      "back": "объяснять",
+      "transcription": "ɪkˈspleɪn",
+      "example": "Can you explain this rule?",
+      "example_tr": "Можешь объяснить это правило?",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1797,6 +1347,26 @@
       ]
     },
     {
+      "front": "safe",
+      "back": "безопасный",
+      "transcription": "seɪf",
+      "example": "This area is very safe.",
+      "example_tr": "Этот район очень безопасный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "finally",
+      "back": "наконец",
+      "transcription": "ˈfaɪnəli",
+      "example": "Finally, the bus arrived.",
+      "example_tr": "Наконец приехал автобус.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "lawyer",
       "back": "юрист, адвокат",
       "transcription": "ˈlɔɪər",
@@ -1804,6 +1374,16 @@
       "example_tr": "Моя сестра хочет стать юристом.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "describe",
+      "back": "описывать",
+      "transcription": "dɪˈskraɪb",
+      "example": "Describe your best friend.",
+      "example_tr": "Опиши своего лучшего друга.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1827,6 +1407,26 @@
       ]
     },
     {
+      "front": "crowded",
+      "back": "переполненный",
+      "transcription": "ˈkraʊdɪd",
+      "example": "The bus was very crowded.",
+      "example_tr": "Автобус был переполнен.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "compare",
+      "back": "сравнивать",
+      "transcription": "kəmˈpeər",
+      "example": "Let's compare the two prices.",
+      "example_tr": "Давай сравним две цены.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "secretary",
       "back": "секретарь",
       "transcription": "ˈsekrətri",
@@ -1847,6 +1447,26 @@
       ]
     },
     {
+      "front": "suggest",
+      "back": "предлагать",
+      "transcription": "səˈdʒest",
+      "example": "I suggest we go by train.",
+      "example_tr": "Я предлагаю поехать на поезде.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "noisy",
+      "back": "шумный",
+      "transcription": "ˈnɔɪzi",
+      "example": "The city is very noisy.",
+      "example_tr": "Город очень шумный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "soldier",
       "back": "солдат",
       "transcription": "ˈsoʊldʒər",
@@ -1854,6 +1474,36 @@
       "example_tr": "Солдат вернулся домой.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "across",
+      "back": "через, напротив",
+      "transcription": "əˈkrɒs",
+      "example": "The shop is across the street.",
+      "example_tr": "Магазин через дорогу.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "offer",
+      "back": "предлагать",
+      "transcription": "ˈɒfər",
+      "example": "They offered me a job.",
+      "example_tr": "Мне предложили работу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "little",
+      "back": "мало (с неисч.)",
+      "transcription": "ˈlɪtəl",
+      "example": "We have little time left.",
+      "example_tr": "У нас осталось мало времени.",
+      "tags": [
+        "determiner"
       ]
     },
     {
@@ -1877,6 +1527,26 @@
       ]
     },
     {
+      "front": "calm",
+      "back": "спокойный",
+      "transcription": "kɑːm",
+      "example": "The sea is calm today.",
+      "example_tr": "Сегодня море спокойное.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "allow",
+      "back": "разрешать",
+      "transcription": "əˈlaʊ",
+      "example": "My parents allow me to go out.",
+      "example_tr": "Родители разрешают мне гулять.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "basketball",
       "back": "баскетбол",
       "transcription": "ˈbæskɪtbɔːl",
@@ -1884,6 +1554,16 @@
       "example_tr": "Он играет в баскетбол в школе.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "probably",
+      "back": "вероятно",
+      "transcription": "ˈprɒbəbli",
+      "example": "It will probably rain tomorrow.",
+      "example_tr": "Завтра, вероятно, будет дождь.",
+      "tags": [
+        "adverb"
       ]
     },
     {
@@ -1897,6 +1577,26 @@
       ]
     },
     {
+      "front": "refuse",
+      "back": "отказываться",
+      "transcription": "rɪˈfjuːz",
+      "example": "He refused to help.",
+      "example_tr": "Он отказался помочь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "nervous",
+      "back": "нервный",
+      "transcription": "ˈnɜːrvəs",
+      "example": "I feel nervous before exams.",
+      "example_tr": "Перед экзаменами я нервничаю.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "team",
       "back": "команда",
       "transcription": "tiːm",
@@ -1904,6 +1604,16 @@
       "example_tr": "Наша команда выиграла игру.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "accept",
+      "back": "принимать",
+      "transcription": "əkˈsept",
+      "example": "She accepted the invitation.",
+      "example_tr": "Она приняла приглашение.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1927,6 +1637,26 @@
       ]
     },
     {
+      "front": "excited",
+      "back": "взволнованный, воодушевлённый",
+      "transcription": "ɪkˈsaɪtɪd",
+      "example": "We are excited about the trip.",
+      "example_tr": "Мы очень рады предстоящей поездке.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "reply",
+      "back": "отвечать",
+      "transcription": "rɪˈplaɪ",
+      "example": "Please reply to my message.",
+      "example_tr": "Пожалуйста, ответь на моё сообщение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "hobby",
       "back": "хобби",
       "transcription": "ˈhɒbi",
@@ -1947,6 +1677,26 @@
       ]
     },
     {
+      "front": "shout",
+      "back": "кричать",
+      "transcription": "ʃaʊt",
+      "example": "Don't shout, I can hear you.",
+      "example_tr": "Не кричи, я тебя слышу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "worried",
+      "back": "обеспокоенный",
+      "transcription": "ˈwʌrid",
+      "example": "She looks worried.",
+      "example_tr": "Она выглядит обеспокоенной.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "guitar",
       "back": "гитара",
       "transcription": "ɡɪˈtɑːr",
@@ -1954,6 +1704,16 @@
       "example_tr": "Он хорошо играет на гитаре.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "whisper",
+      "back": "шептать",
+      "transcription": "ˈwɪspər",
+      "example": "She whispered the answer.",
+      "example_tr": "Она прошептала ответ.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -1977,6 +1737,66 @@
       ]
     },
     {
+      "front": "all",
+      "back": "весь, все",
+      "transcription": "ɔːl",
+      "example": "All my friends came to the party.",
+      "example_tr": "Все мои друзья пришли на вечеринку.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "how many",
+      "back": "сколько (штук)",
+      "transcription": "haʊ ˈmeni",
+      "example": "How many brothers do you have?",
+      "example_tr": "Сколько у тебя братьев?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "push",
+      "back": "толкать",
+      "transcription": "pʊʃ",
+      "example": "Push the door to open it.",
+      "example_tr": "Толкни дверь, чтобы открыть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "surprised",
+      "back": "удивлённый",
+      "transcription": "sərˈpraɪzd",
+      "example": "I was surprised by the news.",
+      "example_tr": "Я был удивлён этой новостью.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "actually",
+      "back": "на самом деле",
+      "transcription": "ˈæktʃuəli",
+      "example": "Actually, I don't like coffee.",
+      "example_tr": "На самом деле мне не нравится кофе.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "fifth",
+      "back": "пятый",
+      "transcription": "fɪfθ",
+      "example": "Today is the fifth of May.",
+      "example_tr": "Сегодня пятое мая.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
       "front": "internet",
       "back": "интернет",
       "transcription": "ˈɪntərnet",
@@ -1997,6 +1817,16 @@
       ]
     },
     {
+      "front": "pull",
+      "back": "тянуть",
+      "transcription": "pʊl",
+      "example": "Pull the door to open it.",
+      "example_tr": "Потяни дверь, чтобы открыть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "website",
       "back": "сайт",
       "transcription": "ˈwebsaɪt",
@@ -2004,6 +1834,26 @@
       "example_tr": "Этот сайт очень полезный.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "proud",
+      "back": "гордый",
+      "transcription": "praʊd",
+      "example": "I am proud of you.",
+      "example_tr": "Я горжусь тобой.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "throw",
+      "back": "бросать",
+      "transcription": "θroʊ",
+      "example": "He threw the ball to me.",
+      "example_tr": "Он бросил мне мяч.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2027,6 +1877,26 @@
       ]
     },
     {
+      "front": "catch",
+      "back": "ловить",
+      "transcription": "kætʃ",
+      "example": "Catch the ball!",
+      "example_tr": "Лови мяч!",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "disappointed",
+      "back": "разочарованный",
+      "transcription": "ˌdɪsəˈpɔɪntɪd",
+      "example": "He was disappointed with the result.",
+      "example_tr": "Он был разочарован результатом.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "screen",
       "back": "экран",
       "transcription": "skriːn",
@@ -2047,6 +1917,16 @@
       ]
     },
     {
+      "front": "kick",
+      "back": "пинать",
+      "transcription": "kɪk",
+      "example": "He kicked the ball hard.",
+      "example_tr": "Он сильно ударил по мячу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "camera",
       "back": "камера, фотоаппарат",
       "transcription": "ˈkæmərə",
@@ -2054,6 +1934,26 @@
       "example_tr": "Этот фотоаппарат делает отличные снимки.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "jealous",
+      "back": "ревнивый, завистливый",
+      "transcription": "ˈdʒeləs",
+      "example": "Don't be jealous of your friends.",
+      "example_tr": "Не завидуй своим друзьям.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "hit",
+      "back": "ударять",
+      "transcription": "hɪt",
+      "example": "The car hit a tree.",
+      "example_tr": "Машина врезалась в дерево.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2067,6 +1967,16 @@
       ]
     },
     {
+      "front": "especially",
+      "back": "особенно",
+      "transcription": "ɪˈspeʃəli",
+      "example": "I love fruit, especially apples.",
+      "example_tr": "Я люблю фрукты, особенно яблоки.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "century",
       "back": "век, столетие",
       "transcription": "ˈsentʃəri",
@@ -2074,6 +1984,26 @@
       "example_tr": "Этому зданию сто лет.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "hold",
+      "back": "держать",
+      "transcription": "hoʊld",
+      "example": "Hold my hand.",
+      "example_tr": "Держи меня за руку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "confident",
+      "back": "уверенный (в себе)",
+      "transcription": "ˈkɒnfɪdənt",
+      "example": "She feels confident before the exam.",
+      "example_tr": "Перед экзаменом она чувствует себя уверенно.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -2097,6 +2027,26 @@
       ]
     },
     {
+      "front": "every",
+      "back": "каждый",
+      "transcription": "ˈevri",
+      "example": "I go for a walk every day.",
+      "example_tr": "Я гуляю каждый день.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "touch",
+      "back": "трогать, касаться",
+      "transcription": "tʌtʃ",
+      "example": "Don't touch the paintings.",
+      "example_tr": "Не трогай картины.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "chance",
       "back": "шанс, возможность",
       "transcription": "tʃæns",
@@ -2104,6 +2054,36 @@
       "example_tr": "Дай мне шанс объяснить.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "along",
+      "back": "вдоль",
+      "transcription": "əˈlɒŋ",
+      "example": "We walked along the river.",
+      "example_tr": "Мы шли вдоль реки.",
+      "tags": [
+        "preposition"
+      ]
+    },
+    {
+      "front": "patient",
+      "back": "терпеливый",
+      "transcription": "ˈpeɪʃənt",
+      "example": "Please be patient with me.",
+      "example_tr": "Пожалуйста, будь ко мне терпелив.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "point",
+      "back": "указывать",
+      "transcription": "pɔɪnt",
+      "example": "She pointed at the map.",
+      "example_tr": "Она указала на карту.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2127,6 +2107,26 @@
       ]
     },
     {
+      "front": "share",
+      "back": "делиться",
+      "transcription": "ʃeər",
+      "example": "Let's share this pizza.",
+      "example_tr": "Давай поделим эту пиццу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "generous",
+      "back": "щедрый",
+      "transcription": "ˈdʒenərəs",
+      "example": "He is very generous with his time.",
+      "example_tr": "Он очень щедро делится своим временем.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "mistake",
       "back": "ошибка",
       "transcription": "mɪˈsteɪk",
@@ -2147,6 +2147,16 @@
       ]
     },
     {
+      "front": "join",
+      "back": "присоединяться",
+      "transcription": "dʒɔɪn",
+      "example": "Do you want to join us?",
+      "example_tr": "Хочешь присоединиться к нам?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "difference",
       "back": "разница",
       "transcription": "ˈdɪfərəns",
@@ -2154,836 +2164,6 @@
       "example_tr": "В чём разница между этими двумя?",
       "tags": [
         "noun"
-      ]
-    },
-    {
-      "front": "opinion",
-      "back": "мнение",
-      "transcription": "əˈpɪnjən",
-      "example": "What is your opinion?",
-      "example_tr": "Каково твоё мнение?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "decision",
-      "back": "решение",
-      "transcription": "dɪˈsɪʒən",
-      "example": "It was a difficult decision.",
-      "example_tr": "Это было трудное решение.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "experience",
-      "back": "опыт",
-      "transcription": "ɪkˈspɪəriəns",
-      "example": "She has a lot of experience.",
-      "example_tr": "У неё большой опыт.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "information",
-      "back": "информация",
-      "transcription": "ˌɪnfərˈmeɪʃən",
-      "example": "I need more information.",
-      "example_tr": "Мне нужно больше информации.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "news",
-      "back": "новости",
-      "transcription": "njuːz",
-      "example": "Have you heard the news?",
-      "example_tr": "Ты слышал новости?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "subject",
-      "back": "предмет, тема",
-      "transcription": "ˈsʌbdʒɪkt",
-      "example": "My favourite subject is history.",
-      "example_tr": "Мой любимый предмет — история.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "result",
-      "back": "результат",
-      "transcription": "rɪˈzʌlt",
-      "example": "The result of the test was good.",
-      "example_tr": "Результат теста был хорошим.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "noise",
-      "back": "шум",
-      "transcription": "nɔɪz",
-      "example": "What is that noise?",
-      "example_tr": "Что это за шум?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "smell",
-      "back": "запах",
-      "transcription": "smel",
-      "example": "This flower has a nice smell.",
-      "example_tr": "У этого цветка приятный запах.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "taste",
-      "back": "вкус",
-      "transcription": "teɪst",
-      "example": "This soup has a good taste.",
-      "example_tr": "У этого супа хороший вкус.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "shape",
-      "back": "форма",
-      "transcription": "ʃeɪp",
-      "example": "The table has a round shape.",
-      "example_tr": "Стол круглой формы.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "wall",
-      "back": "стена",
-      "transcription": "wɔːl",
-      "example": "There is a picture on the wall.",
-      "example_tr": "На стене висит картина.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "floor",
-      "back": "пол, этаж",
-      "transcription": "flɔːr",
-      "example": "My flat is on the third floor.",
-      "example_tr": "Моя квартира на третьем этаже.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "roof",
-      "back": "крыша",
-      "transcription": "ruːf",
-      "example": "The roof is red.",
-      "example_tr": "Крыша красная.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "garden",
-      "back": "сад",
-      "transcription": "ˈɡɑːrdən",
-      "example": "We have a small garden.",
-      "example_tr": "У нас небольшой сад.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "flat",
-      "back": "квартира",
-      "transcription": "flæt",
-      "example": "They live in a small flat.",
-      "example_tr": "Они живут в маленькой квартире.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "building",
-      "back": "здание",
-      "transcription": "ˈbɪldɪŋ",
-      "example": "This is a very tall building.",
-      "example_tr": "Это очень высокое здание.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "village",
-      "back": "деревня",
-      "transcription": "ˈvɪlɪdʒ",
-      "example": "My grandparents live in a village.",
-      "example_tr": "Мои бабушка и дедушка живут в деревне.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "company",
-      "back": "компания",
-      "transcription": "ˈkʌmpəni",
-      "example": "He works for a big company.",
-      "example_tr": "Он работает в большой компании.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "meeting",
-      "back": "встреча, собрание",
-      "transcription": "ˈmiːtɪŋ",
-      "example": "We have a meeting at ten.",
-      "example_tr": "У нас встреча в десять.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "interview",
-      "back": "собеседование, интервью",
-      "transcription": "ˈɪntərvjuː",
-      "example": "I have a job interview tomorrow.",
-      "example_tr": "Завтра у меня собеседование.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "salary",
-      "back": "зарплата",
-      "transcription": "ˈsæləri",
-      "example": "The salary is quite good.",
-      "example_tr": "Зарплата довольно хорошая.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "colleague",
-      "back": "коллега",
-      "transcription": "ˈkɒliːɡ",
-      "example": "My colleague helped me with the report.",
-      "example_tr": "Мой коллега помог мне с отчётом.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "boss",
-      "back": "начальник",
-      "transcription": "bɒs",
-      "example": "My boss is very strict.",
-      "example_tr": "Мой начальник очень строгий.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "customer service",
-      "back": "обслуживание клиентов",
-      "transcription": "ˈkʌstəmər ˈsɜːrvɪs",
-      "example": "The customer service was excellent.",
-      "example_tr": "Обслуживание клиентов было превосходным.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "comfortable",
-      "back": "удобный",
-      "transcription": "ˈkʌmftəbəl",
-      "example": "This chair is very comfortable.",
-      "example_tr": "Этот стул очень удобный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "polite",
-      "back": "вежливый",
-      "transcription": "pəˈlaɪt",
-      "example": "The waiter was very polite.",
-      "example_tr": "Официант был очень вежливым.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "rude",
-      "back": "грубый",
-      "transcription": "ruːd",
-      "example": "It's rude to interrupt.",
-      "example_tr": "Перебивать невежливо.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "careful",
-      "back": "осторожный, внимательный",
-      "transcription": "ˈkeərfəl",
-      "example": "Be careful on the road.",
-      "example_tr": "Будь осторожен на дороге.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "careless",
-      "back": "небрежный, неосторожный",
-      "transcription": "ˈkeərləs",
-      "example": "He made a careless mistake.",
-      "example_tr": "Он сделал небрежную ошибку.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "lazy",
-      "back": "ленивый",
-      "transcription": "ˈleɪzi",
-      "example": "Don't be lazy, help me.",
-      "example_tr": "Не ленись, помоги мне.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "brave",
-      "back": "смелый",
-      "transcription": "breɪv",
-      "example": "The firefighter was very brave.",
-      "example_tr": "Пожарный был очень смелым.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "shy",
-      "back": "застенчивый",
-      "transcription": "ʃaɪ",
-      "example": "My little sister is shy.",
-      "example_tr": "Моя младшая сестра застенчивая.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "honest",
-      "back": "честный",
-      "transcription": "ˈɒnɪst",
-      "example": "He is an honest man.",
-      "example_tr": "Он честный человек.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "famous",
-      "back": "известный",
-      "transcription": "ˈfeɪməs",
-      "example": "She is a famous singer.",
-      "example_tr": "Она известная певица.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "popular",
-      "back": "популярный",
-      "transcription": "ˈpɒpjələr",
-      "example": "This song is very popular.",
-      "example_tr": "Эта песня очень популярна.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "modern",
-      "back": "современный",
-      "transcription": "ˈmɒdərn",
-      "example": "We live in a modern flat.",
-      "example_tr": "Мы живём в современной квартире.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "traditional",
-      "back": "традиционный",
-      "transcription": "trəˈdɪʃənəl",
-      "example": "This is a traditional dish.",
-      "example_tr": "Это традиционное блюдо.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "dangerous",
-      "back": "опасный",
-      "transcription": "ˈdeɪndʒərəs",
-      "example": "Swimming here is dangerous.",
-      "example_tr": "Здесь опасно плавать.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "safe",
-      "back": "безопасный",
-      "transcription": "seɪf",
-      "example": "This area is very safe.",
-      "example_tr": "Этот район очень безопасный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "crowded",
-      "back": "переполненный",
-      "transcription": "ˈkraʊdɪd",
-      "example": "The bus was very crowded.",
-      "example_tr": "Автобус был переполнен.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "noisy",
-      "back": "шумный",
-      "transcription": "ˈnɔɪzi",
-      "example": "The city is very noisy.",
-      "example_tr": "Город очень шумный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "calm",
-      "back": "спокойный",
-      "transcription": "kɑːm",
-      "example": "The sea is calm today.",
-      "example_tr": "Сегодня море спокойное.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "nervous",
-      "back": "нервный",
-      "transcription": "ˈnɜːrvəs",
-      "example": "I feel nervous before exams.",
-      "example_tr": "Перед экзаменами я нервничаю.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "excited",
-      "back": "взволнованный, воодушевлённый",
-      "transcription": "ɪkˈsaɪtɪd",
-      "example": "We are excited about the trip.",
-      "example_tr": "Мы очень рады предстоящей поездке.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "worried",
-      "back": "обеспокоенный",
-      "transcription": "ˈwʌrid",
-      "example": "She looks worried.",
-      "example_tr": "Она выглядит обеспокоенной.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "surprised",
-      "back": "удивлённый",
-      "transcription": "sərˈpraɪzd",
-      "example": "I was surprised by the news.",
-      "example_tr": "Я был удивлён этой новостью.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "proud",
-      "back": "гордый",
-      "transcription": "praʊd",
-      "example": "I am proud of you.",
-      "example_tr": "Я горжусь тобой.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "disappointed",
-      "back": "разочарованный",
-      "transcription": "ˌdɪsəˈpɔɪntɪd",
-      "example": "He was disappointed with the result.",
-      "example_tr": "Он был разочарован результатом.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "jealous",
-      "back": "ревнивый, завистливый",
-      "transcription": "ˈdʒeləs",
-      "example": "Don't be jealous of your friends.",
-      "example_tr": "Не завидуй своим друзьям.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "confident",
-      "back": "уверенный (в себе)",
-      "transcription": "ˈkɒnfɪdənt",
-      "example": "She feels confident before the exam.",
-      "example_tr": "Перед экзаменом она чувствует себя уверенно.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "patient",
-      "back": "терпеливый",
-      "transcription": "ˈpeɪʃənt",
-      "example": "Please be patient with me.",
-      "example_tr": "Пожалуйста, будь ко мне терпелив.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "generous",
-      "back": "щедрый",
-      "transcription": "ˈdʒenərəs",
-      "example": "He is very generous with his time.",
-      "example_tr": "Он очень щедро делится своим временем.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "selfish",
-      "back": "эгоистичный",
-      "transcription": "ˈselfɪʃ",
-      "example": "It was a selfish thing to do.",
-      "example_tr": "Это был эгоистичный поступок.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "similar",
-      "back": "похожий",
-      "transcription": "ˈsɪmɪlər",
-      "example": "Our opinions are similar.",
-      "example_tr": "Наши мнения похожи.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "normal",
-      "back": "нормальный, обычный",
-      "transcription": "ˈnɔːrməl",
-      "example": "It's normal to feel tired.",
-      "example_tr": "Уставать — это нормально.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "special",
-      "back": "особенный",
-      "transcription": "ˈspeʃəl",
-      "example": "Today is a special day for us.",
-      "example_tr": "Сегодня для нас особенный день.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "main",
-      "back": "главный, основной",
-      "transcription": "meɪn",
-      "example": "What is the main idea of the text?",
-      "example_tr": "Какова главная идея текста?",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "whole",
-      "back": "весь, целый",
-      "transcription": "hoʊl",
-      "example": "I read the whole book in one day.",
-      "example_tr": "Я прочитал всю книгу за один день.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "wide",
-      "back": "широкий",
-      "transcription": "waɪd",
-      "example": "The street is very wide.",
-      "example_tr": "Улица очень широкая.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "narrow",
-      "back": "узкий",
-      "transcription": "ˈnæroʊ",
-      "example": "This is a narrow street.",
-      "example_tr": "Это узкая улица.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "deep",
-      "back": "глубокий",
-      "transcription": "diːp",
-      "example": "The lake is very deep.",
-      "example_tr": "Озеро очень глубокое.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "round",
-      "back": "круглый",
-      "transcription": "raʊnd",
-      "example": "The table is round.",
-      "example_tr": "Стол круглый.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "straight",
-      "back": "прямой",
-      "transcription": "streɪt",
-      "example": "Go straight, then turn left.",
-      "example_tr": "Иди прямо, потом поверни налево.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "even",
-      "back": "ровный, гладкий",
-      "transcription": "ˈiːvən",
-      "example": "The ground here is even.",
-      "example_tr": "Земля здесь ровная.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "fresh",
-      "back": "свежий",
-      "transcription": "freʃ",
-      "example": "These vegetables are fresh.",
-      "example_tr": "Эти овощи свежие.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "delicious",
-      "back": "вкусный",
-      "transcription": "dɪˈlɪʃəs",
-      "example": "The dinner was delicious.",
-      "example_tr": "Ужин был очень вкусным.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "terrible",
-      "back": "ужасный",
-      "transcription": "ˈterəbəl",
-      "example": "The weather was terrible.",
-      "example_tr": "Погода была ужасной.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "wonderful",
-      "back": "чудесный",
-      "transcription": "ˈwʌndərfəl",
-      "example": "We had a wonderful holiday.",
-      "example_tr": "У нас был чудесный отпуск.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "amazing",
-      "back": "потрясающий",
-      "transcription": "əˈmeɪzɪŋ",
-      "example": "The view from the mountain is amazing.",
-      "example_tr": "Вид с горы потрясающий.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "perfect",
-      "back": "идеальный",
-      "transcription": "ˈpɜːrfɪkt",
-      "example": "This is a perfect day for a picnic.",
-      "example_tr": "Это идеальный день для пикника.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "common",
-      "back": "распространённый, общий",
-      "transcription": "ˈkɒmən",
-      "example": "This is a common mistake.",
-      "example_tr": "Это распространённая ошибка.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "recent",
-      "back": "недавний",
-      "transcription": "ˈriːsənt",
-      "example": "This is a recent photo of us.",
-      "example_tr": "Это наша недавняя фотография.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "local",
-      "back": "местный",
-      "transcription": "ˈloʊkəl",
-      "example": "We shop at the local market.",
-      "example_tr": "Мы делаем покупки на местном рынке.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "foreign",
-      "back": "иностранный",
-      "transcription": "ˈfɒrən",
-      "example": "He speaks two foreign languages.",
-      "example_tr": "Он говорит на двух иностранных языках.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "international",
-      "back": "международный",
-      "transcription": "ˌɪntərˈnæʃənəl",
-      "example": "It's an international company.",
-      "example_tr": "Это международная компания.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "usually",
-      "back": "обычно",
-      "transcription": "ˈjuːʒuəli",
-      "example": "I usually wake up at seven.",
-      "example_tr": "Я обычно просыпаюсь в семь.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "rarely",
-      "back": "редко",
-      "transcription": "ˈreərli",
-      "example": "He rarely calls me.",
-      "example_tr": "Он редко мне звонит.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "suddenly",
-      "back": "внезапно",
-      "transcription": "ˈsʌdənli",
-      "example": "Suddenly it started to rain.",
-      "example_tr": "Внезапно пошёл дождь.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "finally",
-      "back": "наконец",
-      "transcription": "ˈfaɪnəli",
-      "example": "Finally, the bus arrived.",
-      "example_tr": "Наконец приехал автобус.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "probably",
-      "back": "вероятно",
-      "transcription": "ˈprɒbəbli",
-      "example": "It will probably rain tomorrow.",
-      "example_tr": "Завтра, вероятно, будет дождь.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "actually",
-      "back": "на самом деле",
-      "transcription": "ˈæktʃuəli",
-      "example": "Actually, I don't like coffee.",
-      "example_tr": "На самом деле мне не нравится кофе.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "especially",
-      "back": "особенно",
-      "transcription": "ɪˈspeʃəli",
-      "example": "I love fruit, especially apples.",
-      "example_tr": "Я люблю фрукты, особенно яблоки.",
-      "tags": [
-        "adverb"
       ]
     },
     {
@@ -2997,133 +2177,33 @@
       ]
     },
     {
-      "front": "quite",
-      "back": "довольно",
-      "transcription": "kwaɪt",
-      "example": "The film was quite good.",
-      "example_tr": "Фильм был довольно хорошим.",
+      "front": "selfish",
+      "back": "эгоистичный",
+      "transcription": "ˈselfɪʃ",
+      "example": "It was a selfish thing to do.",
+      "example_tr": "Это был эгоистичный поступок.",
       "tags": [
-        "adverb"
+        "adjective"
       ]
     },
     {
-      "front": "really",
-      "back": "действительно, очень",
-      "transcription": "ˈriːəli",
-      "example": "This is really important.",
-      "example_tr": "Это действительно важно.",
+      "front": "opinion",
+      "back": "мнение",
+      "transcription": "əˈpɪnjən",
+      "example": "What is your opinion?",
+      "example_tr": "Каково твоё мнение?",
       "tags": [
-        "adverb"
+        "noun"
       ]
     },
     {
-      "front": "together",
-      "back": "вместе",
-      "transcription": "təˈɡeðər",
-      "example": "Let's do it together.",
-      "example_tr": "Давай сделаем это вместе.",
+      "front": "belong",
+      "back": "принадлежать",
+      "transcription": "bɪˈlɒŋ",
+      "example": "This book belongs to me.",
+      "example_tr": "Эта книга принадлежит мне.",
       "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "alone",
-      "back": "один, в одиночестве",
-      "transcription": "əˈloʊn",
-      "example": "She lives alone.",
-      "example_tr": "Она живёт одна.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "outside",
-      "back": "снаружи, на улице",
-      "transcription": "ˌaʊtˈsaɪd",
-      "example": "The children are playing outside.",
-      "example_tr": "Дети играют на улице.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "inside",
-      "back": "внутри",
-      "transcription": "ˌɪnˈsaɪd",
-      "example": "Let's go inside, it's cold.",
-      "example_tr": "Давай зайдём внутрь, холодно.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "above",
-      "back": "выше, над",
-      "transcription": "əˈbʌv",
-      "example": "The plane flew above the clouds.",
-      "example_tr": "Самолёт летел над облаками.",
-      "tags": [
-        "preposition"
-      ]
-    },
-    {
-      "front": "below",
-      "back": "ниже, под",
-      "transcription": "bɪˈloʊ",
-      "example": "The temperature is below zero.",
-      "example_tr": "Температура ниже нуля.",
-      "tags": [
-        "preposition"
-      ]
-    },
-    {
-      "front": "across",
-      "back": "через, напротив",
-      "transcription": "əˈkrɒs",
-      "example": "The shop is across the street.",
-      "example_tr": "Магазин через дорогу.",
-      "tags": [
-        "preposition"
-      ]
-    },
-    {
-      "front": "along",
-      "back": "вдоль",
-      "transcription": "əˈlɒŋ",
-      "example": "We walked along the river.",
-      "example_tr": "Мы шли вдоль реки.",
-      "tags": [
-        "preposition"
-      ]
-    },
-    {
-      "front": "towards",
-      "back": "по направлению к",
-      "transcription": "təˈwɔːrdz",
-      "example": "She walked towards the door.",
-      "example_tr": "Она пошла к двери.",
-      "tags": [
-        "preposition"
-      ]
-    },
-    {
-      "front": "until",
-      "back": "до (тех пор пока)",
-      "transcription": "ənˈtɪl",
-      "example": "Wait here until I come back.",
-      "example_tr": "Жди здесь, пока я не вернусь.",
-      "tags": [
-        "conjunction"
-      ]
-    },
-    {
-      "front": "since",
-      "back": "с (какого-то момента), так как",
-      "transcription": "sɪns",
-      "example": "I have lived here since 2020.",
-      "example_tr": "Я живу здесь с 2020 года.",
-      "tags": [
-        "conjunction"
+        "verb"
       ]
     },
     {
@@ -3137,53 +2217,553 @@
       ]
     },
     {
-      "front": "although",
-      "back": "хотя",
-      "transcription": "ɔːlˈðoʊ",
-      "example": "Although it was cold, we went out.",
-      "example_tr": "Хотя было холодно, мы вышли на улицу.",
+      "front": "decision",
+      "back": "решение",
+      "transcription": "dɪˈsɪʒən",
+      "example": "It was a difficult decision.",
+      "example_tr": "Это было трудное решение.",
       "tags": [
-        "conjunction"
+        "noun"
       ]
     },
     {
-      "front": "beside",
-      "back": "рядом с",
-      "transcription": "bɪˈsaɪd",
-      "example": "Sit beside me.",
-      "example_tr": "Сядь рядом со мной.",
+      "front": "own",
+      "back": "владеть",
+      "transcription": "oʊn",
+      "example": "They own a small shop.",
+      "example_tr": "Они владеют небольшим магазином.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "similar",
+      "back": "похожий",
+      "transcription": "ˈsɪmɪlər",
+      "example": "Our opinions are similar.",
+      "example_tr": "Наши мнения похожи.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "experience",
+      "back": "опыт",
+      "transcription": "ɪkˈspɪəriəns",
+      "example": "She has a lot of experience.",
+      "example_tr": "У неё большой опыт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "how often",
+      "back": "как часто",
+      "transcription": "haʊ ˈɒfən",
+      "example": "How often do you exercise?",
+      "example_tr": "Как часто ты занимаешься спортом?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "information",
+      "back": "информация",
+      "transcription": "ˌɪnfərˈmeɪʃən",
+      "example": "I need more information.",
+      "example_tr": "Мне нужно больше информации.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "rent",
+      "back": "арендовать",
+      "transcription": "rent",
+      "example": "We rent a flat in the city.",
+      "example_tr": "Мы арендуем квартиру в городе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "news",
+      "back": "новости",
+      "transcription": "njuːz",
+      "example": "Have you heard the news?",
+      "example_tr": "Ты слышал новости?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "normal",
+      "back": "нормальный, обычный",
+      "transcription": "ˈnɔːrməl",
+      "example": "It's normal to feel tired.",
+      "example_tr": "Уставать — это нормально.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "each",
+      "back": "каждый (по отдельности)",
+      "transcription": "iːtʃ",
+      "example": "Each student has a book.",
+      "example_tr": "У каждого студента есть книга.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "subject",
+      "back": "предмет, тема",
+      "transcription": "ˈsʌbdʒɪkt",
+      "example": "My favourite subject is history.",
+      "example_tr": "Мой любимый предмет — история.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "sell",
+      "back": "продавать",
+      "transcription": "sel",
+      "example": "They sell fresh bread here.",
+      "example_tr": "Здесь продают свежий хлеб.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "result",
+      "back": "результат",
+      "transcription": "rɪˈzʌlt",
+      "example": "The result of the test was good.",
+      "example_tr": "Результат теста был хорошим.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "deliver",
+      "back": "доставлять",
+      "transcription": "dɪˈlɪvər",
+      "example": "They deliver food to your home.",
+      "example_tr": "Они доставляют еду на дом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "special",
+      "back": "особенный",
+      "transcription": "ˈspeʃəl",
+      "example": "Today is a special day for us.",
+      "example_tr": "Сегодня для нас особенный день.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "noise",
+      "back": "шум",
+      "transcription": "nɔɪz",
+      "example": "What is that noise?",
+      "example_tr": "Что это за шум?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "quite",
+      "back": "довольно",
+      "transcription": "kwaɪt",
+      "example": "The film was quite good.",
+      "example_tr": "Фильм был довольно хорошим.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "smell",
+      "back": "запах",
+      "transcription": "smel",
+      "example": "This flower has a nice smell.",
+      "example_tr": "У этого цветка приятный запах.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "order",
+      "back": "заказывать",
+      "transcription": "ˈɔːrdər",
+      "example": "Let's order pizza tonight.",
+      "example_tr": "Давай закажем пиццу сегодня вечером.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "taste",
+      "back": "вкус",
+      "transcription": "teɪst",
+      "example": "This soup has a good taste.",
+      "example_tr": "У этого супа хороший вкус.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "main",
+      "back": "главный, основной",
+      "transcription": "meɪn",
+      "example": "What is the main idea of the text?",
+      "example_tr": "Какова главная идея текста?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "shape",
+      "back": "форма",
+      "transcription": "ʃeɪp",
+      "example": "The table has a round shape.",
+      "example_tr": "Стол круглой формы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "reserve",
+      "back": "бронировать",
+      "transcription": "rɪˈzɜːrv",
+      "example": "I reserved a hotel room.",
+      "example_tr": "Я забронировал номер в отеле.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "wall",
+      "back": "стена",
+      "transcription": "wɔːl",
+      "example": "There is a picture on the wall.",
+      "example_tr": "На стене висит картина.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "cancel",
+      "back": "отменять",
+      "transcription": "ˈkænsəl",
+      "example": "We had to cancel our trip.",
+      "example_tr": "Нам пришлось отменить поездку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "floor",
+      "back": "пол, этаж",
+      "transcription": "flɔːr",
+      "example": "My flat is on the third floor.",
+      "example_tr": "Моя квартира на третьем этаже.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "whole",
+      "back": "весь, целый",
+      "transcription": "hoʊl",
+      "example": "I read the whole book in one day.",
+      "example_tr": "Я прочитал всю книгу за один день.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "roof",
+      "back": "крыша",
+      "transcription": "ruːf",
+      "example": "The roof is red.",
+      "example_tr": "Крыша красная.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "miss",
+      "back": "скучать, пропускать",
+      "transcription": "mɪs",
+      "example": "I miss my family.",
+      "example_tr": "Я скучаю по своей семье.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "garden",
+      "back": "сад",
+      "transcription": "ˈɡɑːrdən",
+      "example": "We have a small garden.",
+      "example_tr": "У нас небольшой сад.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "wide",
+      "back": "широкий",
+      "transcription": "waɪd",
+      "example": "The street is very wide.",
+      "example_tr": "Улица очень широкая.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "flat",
+      "back": "квартира",
+      "transcription": "flæt",
+      "example": "They live in a small flat.",
+      "example_tr": "Они живут в маленькой квартире.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "hurry",
+      "back": "торопиться",
+      "transcription": "ˈhʌri",
+      "example": "Hurry up, we're late!",
+      "example_tr": "Поторопись, мы опаздываем!",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "building",
+      "back": "здание",
+      "transcription": "ˈbɪldɪŋ",
+      "example": "This is a very tall building.",
+      "example_tr": "Это очень высокое здание.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "most",
+      "back": "большинство, самый",
+      "transcription": "moʊst",
+      "example": "Most people like music.",
+      "example_tr": "Большинству людей нравится музыка.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "really",
+      "back": "действительно, очень",
+      "transcription": "ˈriːəli",
+      "example": "This is really important.",
+      "example_tr": "Это действительно важно.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "relax",
+      "back": "расслабляться",
+      "transcription": "rɪˈlæks",
+      "example": "I relax by reading books.",
+      "example_tr": "Я расслабляюсь, читая книги.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "village",
+      "back": "деревня",
+      "transcription": "ˈvɪlɪdʒ",
+      "example": "My grandparents live in a village.",
+      "example_tr": "Мои бабушка и дедушка живут в деревне.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "narrow",
+      "back": "узкий",
+      "transcription": "ˈnæroʊ",
+      "example": "This is a narrow street.",
+      "example_tr": "Это узкая улица.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "company",
+      "back": "компания",
+      "transcription": "ˈkʌmpəni",
+      "example": "He works for a big company.",
+      "example_tr": "Он работает в большой компании.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "rest",
+      "back": "отдыхать",
+      "transcription": "rest",
+      "example": "You need to rest.",
+      "example_tr": "Тебе нужно отдохнуть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "meeting",
+      "back": "встреча, собрание",
+      "transcription": "ˈmiːtɪŋ",
+      "example": "We have a meeting at ten.",
+      "example_tr": "У нас встреча в десять.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "towards",
+      "back": "по направлению к",
+      "transcription": "təˈwɔːrdz",
+      "example": "She walked towards the door.",
+      "example_tr": "Она пошла к двери.",
       "tags": [
         "preposition"
       ]
     },
     {
-      "front": "fourth",
-      "back": "четвёртый",
-      "transcription": "fɔːrθ",
-      "example": "This is the fourth time I've called you.",
-      "example_tr": "Это уже четвёртый раз, когда я тебе звоню.",
+      "front": "deep",
+      "back": "глубокий",
+      "transcription": "diːp",
+      "example": "The lake is very deep.",
+      "example_tr": "Озеро очень глубокое.",
       "tags": [
-        "numeral"
+        "adjective"
       ]
     },
     {
-      "front": "fifth",
-      "back": "пятый",
-      "transcription": "fɪfθ",
-      "example": "Today is the fifth of May.",
-      "example_tr": "Сегодня пятое мая.",
+      "front": "interview",
+      "back": "собеседование, интервью",
+      "transcription": "ˈɪntərvjuː",
+      "example": "I have a job interview tomorrow.",
+      "example_tr": "Завтра у меня собеседование.",
       "tags": [
-        "numeral"
+        "noun"
       ]
     },
     {
-      "front": "tenth",
-      "back": "десятый",
-      "transcription": "tenθ",
-      "example": "It's our tenth wedding anniversary.",
-      "example_tr": "Это наша десятая годовщина свадьбы.",
+      "front": "exercise",
+      "back": "заниматься спортом",
+      "transcription": "ˈeksərsaɪz",
+      "example": "I exercise every morning.",
+      "example_tr": "Я занимаюсь спортом каждое утро.",
       "tags": [
-        "numeral"
+        "verb"
+      ]
+    },
+    {
+      "front": "salary",
+      "back": "зарплата",
+      "transcription": "ˈsæləri",
+      "example": "The salary is quite good.",
+      "example_tr": "Зарплата довольно хорошая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "practise",
+      "back": "тренироваться, практиковать",
+      "transcription": "ˈpræktɪs",
+      "example": "I practise English every day.",
+      "example_tr": "Я практикую английский каждый день.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "colleague",
+      "back": "коллега",
+      "transcription": "ˈkɒliːɡ",
+      "example": "My colleague helped me with the report.",
+      "example_tr": "Мой коллега помог мне с отчётом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "round",
+      "back": "круглый",
+      "transcription": "raʊnd",
+      "example": "The table is round.",
+      "example_tr": "Стол круглый.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "boss",
+      "back": "начальник",
+      "transcription": "bɒs",
+      "example": "My boss is very strict.",
+      "example_tr": "Мой начальник очень строгий.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "improve",
+      "back": "улучшать(ся)",
+      "transcription": "ɪmˈpruːv",
+      "example": "My English is improving.",
+      "example_tr": "Мой английский улучшается.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "customer service",
+      "back": "обслуживание клиентов",
+      "transcription": "ˈkʌstəmər ˈsɜːrvɪs",
+      "example": "The customer service was excellent.",
+      "example_tr": "Обслуживание клиентов было превосходным.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "how long",
+      "back": "как долго",
+      "transcription": "haʊ lɒŋ",
+      "example": "How long is the flight?",
+      "example_tr": "Сколько длится перелёт?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "straight",
+      "back": "прямой",
+      "transcription": "streɪt",
+      "example": "Go straight, then turn left.",
+      "example_tr": "Иди прямо, потом поверни налево.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -3194,6 +2774,26 @@
       "example_tr": "Надень куртку, холодно.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "repeat",
+      "back": "повторять",
+      "transcription": "rɪˈpiːt",
+      "example": "Can you repeat that, please?",
+      "example_tr": "Можешь повторить, пожалуйста?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "together",
+      "back": "вместе",
+      "transcription": "təˈɡeðər",
+      "example": "Let's do it together.",
+      "example_tr": "Давай сделаем это вместе.",
+      "tags": [
+        "adverb"
       ]
     },
     {
@@ -3217,6 +2817,36 @@
       ]
     },
     {
+      "front": "guess",
+      "back": "угадывать, предполагать",
+      "transcription": "ɡes",
+      "example": "Guess what happened!",
+      "example_tr": "Угадай, что случилось!",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "even",
+      "back": "ровный, гладкий",
+      "transcription": "ˈiːvən",
+      "example": "The ground here is even.",
+      "example_tr": "Земля здесь ровная.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "both",
+      "back": "оба",
+      "transcription": "boʊθ",
+      "example": "Both books are interesting.",
+      "example_tr": "Обе книги интересные.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
       "front": "skirt",
       "back": "юбка",
       "transcription": "skɜːrt",
@@ -3224,6 +2854,16 @@
       "example_tr": "Она купила новую юбку.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "imagine",
+      "back": "представлять себе",
+      "transcription": "ɪˈmædʒɪn",
+      "example": "Imagine a life without phones.",
+      "example_tr": "Представь жизнь без телефонов.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3237,6 +2877,16 @@
       ]
     },
     {
+      "front": "fresh",
+      "back": "свежий",
+      "transcription": "freʃ",
+      "example": "These vegetables are fresh.",
+      "example_tr": "Эти овощи свежие.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "glasses",
       "back": "очки",
       "transcription": "ˈɡlæsɪz",
@@ -3244,6 +2894,16 @@
       "example_tr": "Он носит очки для чтения.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "recognise",
+      "back": "узнавать",
+      "transcription": "ˈrekəɡnaɪz",
+      "example": "I didn't recognise you at first.",
+      "example_tr": "Я тебя сначала не узнал.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3257,6 +2917,16 @@
       ]
     },
     {
+      "front": "tenth",
+      "back": "десятый",
+      "transcription": "tenθ",
+      "example": "It's our tenth wedding anniversary.",
+      "example_tr": "Это наша десятая годовщина свадьбы.",
+      "tags": [
+        "numeral"
+      ]
+    },
+    {
       "front": "feeling",
       "back": "чувство",
       "transcription": "ˈfiːlɪŋ",
@@ -3264,6 +2934,26 @@
       "example_tr": "У меня странное чувство по этому поводу.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "notice",
+      "back": "замечать",
+      "transcription": "ˈnoʊtɪs",
+      "example": "I noticed a new shop nearby.",
+      "example_tr": "Я заметил новый магазин рядом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "delicious",
+      "back": "вкусный",
+      "transcription": "dɪˈlɪʃəs",
+      "example": "The dinner was delicious.",
+      "example_tr": "Ужин был очень вкусным.",
+      "tags": [
+        "adjective"
       ]
     },
     {
@@ -3277,6 +2967,16 @@
       ]
     },
     {
+      "front": "discover",
+      "back": "обнаруживать",
+      "transcription": "dɪˈskʌvər",
+      "example": "Scientists discovered a new planet.",
+      "example_tr": "Учёные открыли новую планету.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "laughter",
       "back": "смех",
       "transcription": "ˈlæftər",
@@ -3287,6 +2987,26 @@
       ]
     },
     {
+      "front": "alone",
+      "back": "один, в одиночестве",
+      "transcription": "əˈloʊn",
+      "example": "She lives alone.",
+      "example_tr": "Она живёт одна.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "terrible",
+      "back": "ужасный",
+      "transcription": "ˈterəbəl",
+      "example": "The weather was terrible.",
+      "example_tr": "Погода была ужасной.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "routine",
       "back": "распорядок дня",
       "transcription": "ruːˈtiːn",
@@ -3294,6 +3014,16 @@
       "example_tr": "Мой утренний распорядок простой.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "solve",
+      "back": "решать (проблему)",
+      "transcription": "sɒlv",
+      "example": "We solved the problem together.",
+      "example_tr": "Мы вместе решили проблему.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3317,6 +3047,36 @@
       ]
     },
     {
+      "front": "regret",
+      "back": "сожалеть",
+      "transcription": "rɪˈɡret",
+      "example": "I regret saying that.",
+      "example_tr": "Я сожалею, что сказал это.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "wonderful",
+      "back": "чудесный",
+      "transcription": "ˈwʌndərfəl",
+      "example": "We had a wonderful holiday.",
+      "example_tr": "У нас был чудесный отпуск.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "although",
+      "back": "хотя",
+      "transcription": "ɔːlˈðoʊ",
+      "example": "Although it was cold, we went out.",
+      "example_tr": "Хотя было холодно, мы вышли на улицу.",
+      "tags": [
+        "conjunction"
+      ]
+    },
+    {
       "front": "schedule",
       "back": "расписание",
       "transcription": "ˈʃedjuːl",
@@ -3324,6 +3084,16 @@
       "example_tr": "Проверь расписание поездов.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "complain",
+      "back": "жаловаться",
+      "transcription": "kəmˈpleɪn",
+      "example": "He always complains about the weather.",
+      "example_tr": "Он всегда жалуется на погоду.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3337,6 +3107,26 @@
       ]
     },
     {
+      "front": "either",
+      "back": "любой из двух",
+      "transcription": "ˈaɪðər",
+      "example": "You can take either seat.",
+      "example_tr": "Можешь взять любое из двух мест.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
+      "front": "amazing",
+      "back": "потрясающий",
+      "transcription": "əˈmeɪzɪŋ",
+      "example": "The view from the mountain is amazing.",
+      "example_tr": "Вид с горы потрясающий.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "environment",
       "back": "окружающая среда",
       "transcription": "ɪnˈvaɪərənmənt",
@@ -3344,6 +3134,16 @@
       "example_tr": "Мы должны беречь окружающую среду.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "apologise",
+      "back": "извиняться",
+      "transcription": "əˈpɒlədʒaɪz",
+      "example": "I want to apologise for being late.",
+      "example_tr": "Я хочу извиниться за опоздание.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3367,6 +3167,26 @@
       ]
     },
     {
+      "front": "celebrate",
+      "back": "праздновать",
+      "transcription": "ˈselɪbreɪt",
+      "example": "We celebrate my birthday every year.",
+      "example_tr": "Мы каждый год празднуем мой день рождения.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "perfect",
+      "back": "идеальный",
+      "transcription": "ˈpɜːrfɪkt",
+      "example": "This is a perfect day for a picnic.",
+      "example_tr": "Это идеальный день для пикника.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "culture",
       "back": "культура",
       "transcription": "ˈkʌltʃər",
@@ -3374,6 +3194,36 @@
       "example_tr": "Мне интересны другие культуры.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "outside",
+      "back": "снаружи, на улице",
+      "transcription": "ˌaʊtˈsaɪd",
+      "example": "The children are playing outside.",
+      "example_tr": "Дети играют на улице.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "marry",
+      "back": "жениться, выходить замуж",
+      "transcription": "ˈmæri",
+      "example": "They got married last year.",
+      "example_tr": "Они поженились в прошлом году.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "beside",
+      "back": "рядом с",
+      "transcription": "bɪˈsaɪd",
+      "example": "Sit beside me.",
+      "example_tr": "Сядь рядом со мной.",
+      "tags": [
+        "preposition"
       ]
     },
     {
@@ -3397,6 +3247,36 @@
       ]
     },
     {
+      "front": "common",
+      "back": "распространённый, общий",
+      "transcription": "ˈkɒmən",
+      "example": "This is a common mistake.",
+      "example_tr": "Это распространённая ошибка.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "die",
+      "back": "умирать",
+      "transcription": "daɪ",
+      "example": "Plants die without water.",
+      "example_tr": "Растения умирают без воды.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "what time",
+      "back": "во сколько",
+      "transcription": "wɒt taɪm",
+      "example": "What time does the film start?",
+      "example_tr": "Во сколько начинается фильм?",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
       "front": "government",
       "back": "правительство",
       "transcription": "ˈɡʌvərnmənt",
@@ -3417,6 +3297,26 @@
       ]
     },
     {
+      "front": "kill",
+      "back": "убивать",
+      "transcription": "kɪl",
+      "example": "The cold weather killed the plants.",
+      "example_tr": "Холодная погода погубила растения.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "recent",
+      "back": "недавний",
+      "transcription": "ˈriːsənt",
+      "example": "This is a recent photo of us.",
+      "example_tr": "Это наша недавняя фотография.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "crime",
       "back": "преступление",
       "transcription": "kraɪm",
@@ -3424,6 +3324,16 @@
       "example_tr": "В этом районе низкий уровень преступности.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "burn",
+      "back": "гореть, жечь",
+      "transcription": "bɜːrn",
+      "example": "Be careful, the pan is hot and can burn you.",
+      "example_tr": "Осторожно, сковорода горячая, можно обжечься.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3447,6 +3357,36 @@
       ]
     },
     {
+      "front": "local",
+      "back": "местный",
+      "transcription": "ˈloʊkəl",
+      "example": "We shop at the local market.",
+      "example_tr": "Мы делаем покупки на местном рынке.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "fall",
+      "back": "падать",
+      "transcription": "fɔːl",
+      "example": "Be careful not to fall.",
+      "example_tr": "Осторожно, не упади.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "neither",
+      "back": "ни тот ни другой",
+      "transcription": "ˈnaɪðər",
+      "example": "Neither answer is correct.",
+      "example_tr": "Ни один из ответов неверен.",
+      "tags": [
+        "determiner"
+      ]
+    },
+    {
       "front": "knowledge",
       "back": "знание",
       "transcription": "ˈnɒlɪdʒ",
@@ -3467,6 +3407,36 @@
       ]
     },
     {
+      "front": "inside",
+      "back": "внутри",
+      "transcription": "ˌɪnˈsaɪd",
+      "example": "Let's go inside, it's cold.",
+      "example_tr": "Давай зайдём внутрь, холодно.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "hurt",
+      "back": "причинять боль, ранить",
+      "transcription": "hɜːrt",
+      "example": "My back hurts.",
+      "example_tr": "У меня болит спина.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "foreign",
+      "back": "иностранный",
+      "transcription": "ˈfɒrən",
+      "example": "He speaks two foreign languages.",
+      "example_tr": "Он говорит на двух иностранных языках.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "university",
       "back": "университет",
       "transcription": "ˌjuːnɪˈvɜːrsəti",
@@ -3474,6 +3444,16 @@
       "example_tr": "Моя сестра учится в университете.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "shine",
+      "back": "сиять, светить",
+      "transcription": "ʃaɪn",
+      "example": "The sun shines brightly today.",
+      "example_tr": "Сегодня ярко светит солнце.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -3494,6 +3474,26 @@
       "example_tr": "Экзамен был трудным.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "international",
+      "back": "международный",
+      "transcription": "ˌɪntərˈnæʃənəl",
+      "example": "It's an international company.",
+      "example_tr": "Это международная компания.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "float",
+      "back": "плавать (на поверхности)",
+      "transcription": "floʊt",
+      "example": "Wood floats on water.",
+      "example_tr": "Дерево плавает на поверхности воды.",
+      "tags": [
+        "verb"
       ]
     },
     {

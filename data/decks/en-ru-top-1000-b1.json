@@ -27,996 +27,6 @@
       ]
     },
     {
-      "front": "afford",
-      "back": "позволить себе (по средствам)",
-      "transcription": "əˈfɔːrd",
-      "example": "We can't afford a new car.",
-      "example_tr": "Мы не можем позволить себе новую машину.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "admit",
-      "back": "признавать(ся)",
-      "transcription": "ədˈmɪt",
-      "example": "He admitted his mistake.",
-      "example_tr": "Он признал свою ошибку.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "advise",
-      "back": "советовать",
-      "transcription": "ədˈvaɪz",
-      "example": "The doctor advised me to rest.",
-      "example_tr": "Врач посоветовал мне отдохнуть.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "analyse",
-      "back": "анализировать",
-      "transcription": "ˈænəlaɪz",
-      "example": "We need to analyse the results.",
-      "example_tr": "Нам нужно проанализировать результаты.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "announce",
-      "back": "объявлять",
-      "transcription": "əˈnaʊns",
-      "example": "They announced the winner.",
-      "example_tr": "Они объявили победителя.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "appear",
-      "back": "появляться, казаться",
-      "transcription": "əˈpɪər",
-      "example": "She appears confident.",
-      "example_tr": "Она кажется уверенной.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "apply",
-      "back": "подавать заявку, применять",
-      "transcription": "əˈplaɪ",
-      "example": "I applied for a new job.",
-      "example_tr": "Я подал заявку на новую работу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "argue",
-      "back": "спорить",
-      "transcription": "ˈɑːrɡjuː",
-      "example": "They argue about small things.",
-      "example_tr": "Они спорят по мелочам.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "arrange",
-      "back": "устраивать, организовывать",
-      "transcription": "əˈreɪndʒ",
-      "example": "Let's arrange a meeting.",
-      "example_tr": "Давай организуем встречу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "assume",
-      "back": "предполагать",
-      "transcription": "əˈsjuːm",
-      "example": "I assumed you knew already.",
-      "example_tr": "Я предполагал, что ты уже знаешь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "attach",
-      "back": "прикреплять",
-      "transcription": "əˈtætʃ",
-      "example": "I attached the file to the email.",
-      "example_tr": "Я прикрепил файл к письму.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "attempt",
-      "back": "пытаться",
-      "transcription": "əˈtempt",
-      "example": "He attempted to fix the car.",
-      "example_tr": "Он попытался починить машину.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "attend",
-      "back": "посещать",
-      "transcription": "əˈtend",
-      "example": "I attend classes every day.",
-      "example_tr": "Я хожу на занятия каждый день.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "avoid",
-      "back": "избегать",
-      "transcription": "əˈvɔɪd",
-      "example": "Try to avoid stress.",
-      "example_tr": "Старайся избегать стресса.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "bear",
-      "back": "выносить, терпеть",
-      "transcription": "beər",
-      "example": "I can't bear this noise.",
-      "example_tr": "Я не выношу этот шум.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "blame",
-      "back": "винить",
-      "transcription": "bleɪm",
-      "example": "Don't blame me for that.",
-      "example_tr": "Не вини меня за это.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "cause",
-      "back": "вызывать, быть причиной",
-      "transcription": "kɔːz",
-      "example": "Heavy rain caused the flood.",
-      "example_tr": "Сильный дождь вызвал наводнение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "combine",
-      "back": "соединять, объединять",
-      "transcription": "kəmˈbaɪn",
-      "example": "Combine the eggs and flour.",
-      "example_tr": "Соедини яйца и муку.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "complete",
-      "back": "завершать",
-      "transcription": "kəmˈpliːt",
-      "example": "I completed the project on time.",
-      "example_tr": "Я завершил проект вовремя.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "concentrate",
-      "back": "концентрироваться",
-      "transcription": "ˈkɒnsəntreɪt",
-      "example": "It's hard to concentrate with this noise.",
-      "example_tr": "Трудно сосредоточиться при таком шуме.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "consider",
-      "back": "рассматривать, считать",
-      "transcription": "kənˈsɪdər",
-      "example": "We should consider all options.",
-      "example_tr": "Нам следует рассмотреть все варианты.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "contain",
-      "back": "содержать",
-      "transcription": "kənˈteɪn",
-      "example": "This drink contains sugar.",
-      "example_tr": "Этот напиток содержит сахар.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "contact",
-      "back": "связываться с",
-      "transcription": "ˈkɒntækt",
-      "example": "Please contact me tomorrow.",
-      "example_tr": "Пожалуйста, свяжись со мной завтра.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "convince",
-      "back": "убеждать",
-      "transcription": "kənˈvɪns",
-      "example": "She convinced me to stay.",
-      "example_tr": "Она убедила меня остаться.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "cope",
-      "back": "справляться",
-      "transcription": "koʊp",
-      "example": "It's hard to cope with stress.",
-      "example_tr": "Трудно справляться со стрессом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "count",
-      "back": "считать, рассчитывать",
-      "transcription": "kaʊnt",
-      "example": "You can count on me.",
-      "example_tr": "Ты можешь на меня рассчитывать.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "cover",
-      "back": "покрывать",
-      "transcription": "ˈkʌvər",
-      "example": "Snow covered the streets.",
-      "example_tr": "Снег покрыл улицы.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "create",
-      "back": "создавать",
-      "transcription": "kriˈeɪt",
-      "example": "The company created new jobs.",
-      "example_tr": "Компания создала новые рабочие места.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "deal with",
-      "back": "иметь дело с, справляться",
-      "transcription": "diːl wɪð",
-      "example": "I have to deal with this problem now.",
-      "example_tr": "Мне нужно разобраться с этой проблемой сейчас.",
-      "tags": [
-        "phrase"
-      ]
-    },
-    {
-      "front": "defend",
-      "back": "защищать",
-      "transcription": "dɪˈfend",
-      "example": "He defended his opinion.",
-      "example_tr": "Он отстаивал своё мнение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "define",
-      "back": "определять",
-      "transcription": "dɪˈfaɪn",
-      "example": "Can you define this word?",
-      "example_tr": "Можешь дать определение этому слову?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "depend",
-      "back": "зависеть",
-      "transcription": "dɪˈpend",
-      "example": "It depends on the weather.",
-      "example_tr": "Это зависит от погоды.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "develop",
-      "back": "развивать(ся)",
-      "transcription": "dɪˈveləp",
-      "example": "The town has developed quickly.",
-      "example_tr": "Город быстро развивался.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "disappear",
-      "back": "исчезать",
-      "transcription": "ˌdɪsəˈpɪər",
-      "example": "The sun disappeared behind the clouds.",
-      "example_tr": "Солнце скрылось за облаками.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "discuss",
-      "back": "обсуждать",
-      "transcription": "dɪˈskʌs",
-      "example": "Let's discuss the plan.",
-      "example_tr": "Давай обсудим план.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "divide",
-      "back": "делить",
-      "transcription": "dɪˈvaɪd",
-      "example": "Divide the cake into six pieces.",
-      "example_tr": "Раздели торт на шесть кусков.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "earn",
-      "back": "зарабатывать",
-      "transcription": "ɜːrn",
-      "example": "He earns a good salary.",
-      "example_tr": "Он зарабатывает хорошую зарплату.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "employ",
-      "back": "нанимать",
-      "transcription": "ɪmˈplɔɪ",
-      "example": "The company employs fifty people.",
-      "example_tr": "В компании работает пятьдесят человек.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "encourage",
-      "back": "поощрять, поддерживать",
-      "transcription": "ɪnˈkʌrɪdʒ",
-      "example": "My parents encourage me to study.",
-      "example_tr": "Мои родители поддерживают моё обучение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ensure",
-      "back": "обеспечивать, гарантировать",
-      "transcription": "ɪnˈʃʊər",
-      "example": "Please ensure the door is locked.",
-      "example_tr": "Пожалуйста, убедись, что дверь заперта.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "establish",
-      "back": "устанавливать, основывать",
-      "transcription": "ɪˈstæblɪʃ",
-      "example": "The company was established in 1990.",
-      "example_tr": "Компания была основана в 1990 году.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "estimate",
-      "back": "оценивать, подсчитывать",
-      "transcription": "ˈestɪmeɪt",
-      "example": "We estimate the cost at 500 dollars.",
-      "example_tr": "Мы оцениваем стоимость в 500 долларов.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "exist",
-      "back": "существовать",
-      "transcription": "ɪɡˈzɪst",
-      "example": "This problem has existed for years.",
-      "example_tr": "Эта проблема существует уже много лет.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "expand",
-      "back": "расширять(ся)",
-      "transcription": "ɪkˈspænd",
-      "example": "The city is expanding fast.",
-      "example_tr": "Город быстро расширяется.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "expect",
-      "back": "ожидать",
-      "transcription": "ɪkˈspekt",
-      "example": "I expect good news soon.",
-      "example_tr": "Я ожидаю хороших новостей в ближайшее время.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "undergo",
-      "back": "переживать, подвергаться",
-      "transcription": "ˌʌndərˈɡoʊ",
-      "example": "The company is undergoing big changes.",
-      "example_tr": "Компания переживает большие перемены.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "fail",
-      "back": "терпеть неудачу, проваливать",
-      "transcription": "feɪl",
-      "example": "He failed the exam.",
-      "example_tr": "Он провалил экзамен.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "focus",
-      "back": "сосредотачиваться",
-      "transcription": "ˈfoʊkəs",
-      "example": "Try to focus on your work.",
-      "example_tr": "Постарайся сосредоточиться на работе.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "force",
-      "back": "заставлять",
-      "transcription": "fɔːrs",
-      "example": "Nobody forced her to come.",
-      "example_tr": "Никто не заставлял её приходить.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "gain",
-      "back": "получать, приобретать",
-      "transcription": "ɡeɪn",
-      "example": "She gained experience abroad.",
-      "example_tr": "Она получила опыт за границей.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "handle",
-      "back": "справляться, обращаться с",
-      "transcription": "ˈhændəl",
-      "example": "He handles stress well.",
-      "example_tr": "Он хорошо справляется со стрессом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "identify",
-      "back": "определять, опознавать",
-      "transcription": "aɪˈdentɪfaɪ",
-      "example": "Can you identify the man in this photo?",
-      "example_tr": "Можешь опознать человека на этом фото?",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "ignore",
-      "back": "игнорировать",
-      "transcription": "ɪɡˈnɔːr",
-      "example": "Don't ignore my message.",
-      "example_tr": "Не игнорируй моё сообщение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "include",
-      "back": "включать",
-      "transcription": "ɪnˈkluːd",
-      "example": "The price includes breakfast.",
-      "example_tr": "Цена включает завтрак.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "increase",
-      "back": "увеличивать(ся)",
-      "transcription": "ɪnˈkriːs",
-      "example": "Prices increased last year.",
-      "example_tr": "В прошлом году цены выросли.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "indicate",
-      "back": "указывать, свидетельствовать",
-      "transcription": "ˈɪndɪkeɪt",
-      "example": "The results indicate a problem.",
-      "example_tr": "Результаты указывают на проблему.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "influence",
-      "back": "влиять",
-      "transcription": "ˈɪnfluəns",
-      "example": "Friends influence our choices.",
-      "example_tr": "Друзья влияют на наш выбор.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "inform",
-      "back": "информировать",
-      "transcription": "ɪnˈfɔːrm",
-      "example": "Please inform us of any changes.",
-      "example_tr": "Пожалуйста, сообщайте нам об изменениях.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "insist",
-      "back": "настаивать",
-      "transcription": "ɪnˈsɪst",
-      "example": "She insisted on paying.",
-      "example_tr": "Она настояла на том, чтобы заплатить.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "intend",
-      "back": "намереваться",
-      "transcription": "ɪnˈtend",
-      "example": "We intend to move next year.",
-      "example_tr": "Мы намерены переехать в следующем году.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "invest",
-      "back": "инвестировать",
-      "transcription": "ɪnˈvest",
-      "example": "They invested in a new business.",
-      "example_tr": "Они инвестировали в новый бизнес.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "involve",
-      "back": "вовлекать, включать в себя",
-      "transcription": "ɪnˈvɒlv",
-      "example": "The job involves a lot of travel.",
-      "example_tr": "Работа предполагает много поездок.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "last",
-      "back": "длиться",
-      "transcription": "læst",
-      "example": "The meeting lasted an hour.",
-      "example_tr": "Встреча длилась час.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "restrict",
-      "back": "ограничивать",
-      "transcription": "rɪˈstrɪkt",
-      "example": "We must restrict our spending.",
-      "example_tr": "Нам нужно ограничить расходы.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "maintain",
-      "back": "поддерживать, содержать",
-      "transcription": "meɪnˈteɪn",
-      "example": "It's hard to maintain a healthy diet.",
-      "example_tr": "Трудно поддерживать здоровое питание.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "manage",
-      "back": "справляться, руководить",
-      "transcription": "ˈmænɪdʒ",
-      "example": "She manages a small team.",
-      "example_tr": "Она руководит небольшой командой.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "mention",
-      "back": "упоминать",
-      "transcription": "ˈmenʃən",
-      "example": "She mentioned your name.",
-      "example_tr": "Она упомянула твоё имя.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "mix",
-      "back": "смешивать",
-      "transcription": "mɪks",
-      "example": "Mix the flour with the water.",
-      "example_tr": "Смешай муку с водой.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "obtain",
-      "back": "получать, приобретать",
-      "transcription": "əbˈteɪn",
-      "example": "You need to obtain a visa.",
-      "example_tr": "Тебе нужно получить визу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "occur",
-      "back": "происходить, случаться",
-      "transcription": "əˈkɜːr",
-      "example": "The accident occurred at night.",
-      "example_tr": "Авария произошла ночью.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "operate",
-      "back": "работать, действовать",
-      "transcription": "ˈɒpəreɪt",
-      "example": "The machine operates automatically.",
-      "example_tr": "Машина работает автоматически.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "perform",
-      "back": "выполнять, выступать",
-      "transcription": "pərˈfɔːrm",
-      "example": "The band performed well last night.",
-      "example_tr": "Группа хорошо выступила вчера вечером.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "persuade",
-      "back": "убеждать (склонять)",
-      "transcription": "pərˈsweɪd",
-      "example": "I persuaded him to come with us.",
-      "example_tr": "Я убедил его пойти с нами.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "prefer",
-      "back": "предпочитать",
-      "transcription": "prɪˈfɜːr",
-      "example": "I prefer tea to coffee.",
-      "example_tr": "Я предпочитаю чай кофе.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "prevent",
-      "back": "предотвращать",
-      "transcription": "prɪˈvent",
-      "example": "Exercise can prevent illness.",
-      "example_tr": "Физические упражнения могут предотвратить болезнь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "produce",
-      "back": "производить",
-      "transcription": "prəˈdjuːs",
-      "example": "This factory produces cars.",
-      "example_tr": "Этот завод производит автомобили.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "protect",
-      "back": "защищать",
-      "transcription": "prəˈtekt",
-      "example": "Sunscreen protects your skin.",
-      "example_tr": "Солнцезащитный крем защищает кожу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "provide",
-      "back": "предоставлять",
-      "transcription": "prəˈvaɪd",
-      "example": "The hotel provides free breakfast.",
-      "example_tr": "Отель предоставляет бесплатный завтрак.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "publish",
-      "back": "публиковать",
-      "transcription": "ˈpʌblɪʃ",
-      "example": "She published her first book.",
-      "example_tr": "Она опубликовала свою первую книгу.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "realise",
-      "back": "осознавать, понимать",
-      "transcription": "ˈrɪəlaɪz",
-      "example": "I realised my mistake too late.",
-      "example_tr": "Я слишком поздно осознал свою ошибку.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "receive",
-      "back": "получать",
-      "transcription": "rɪˈsiːv",
-      "example": "I received your letter yesterday.",
-      "example_tr": "Я получил твоё письмо вчера.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "reduce",
-      "back": "уменьшать, сокращать",
-      "transcription": "rɪˈdjuːs",
-      "example": "We should reduce our plastic use.",
-      "example_tr": "Нам следует сократить использование пластика.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "reflect",
-      "back": "отражать, размышлять",
-      "transcription": "rɪˈflekt",
-      "example": "The lake reflects the mountains.",
-      "example_tr": "Озеро отражает горы.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "relate",
-      "back": "относиться, связывать",
-      "transcription": "rɪˈleɪt",
-      "example": "This problem relates to money.",
-      "example_tr": "Эта проблема связана с деньгами.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "release",
-      "back": "выпускать, освобождать",
-      "transcription": "rɪˈliːs",
-      "example": "They released a new album.",
-      "example_tr": "Они выпустили новый альбом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "remain",
-      "back": "оставаться",
-      "transcription": "rɪˈmeɪn",
-      "example": "The situation remains difficult.",
-      "example_tr": "Ситуация остаётся сложной.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "remove",
-      "back": "удалять, убирать",
-      "transcription": "rɪˈmuːv",
-      "example": "Please remove your shoes.",
-      "example_tr": "Пожалуйста, снимите обувь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "replace",
-      "back": "заменять",
-      "transcription": "rɪˈpleɪs",
-      "example": "We need to replace this old chair.",
-      "example_tr": "Нам нужно заменить этот старый стул.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "represent",
-      "back": "представлять",
-      "transcription": "ˌreprɪˈzent",
-      "example": "This flag represents our country.",
-      "example_tr": "Этот флаг представляет нашу страну.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "require",
-      "back": "требовать(ся)",
-      "transcription": "rɪˈkwaɪər",
-      "example": "This job requires experience.",
-      "example_tr": "Эта работа требует опыта.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "respond",
-      "back": "отвечать, реагировать",
-      "transcription": "rɪˈspɒnd",
-      "example": "He didn't respond to my message.",
-      "example_tr": "Он не ответил на моё сообщение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "reveal",
-      "back": "раскрывать, обнаруживать",
-      "transcription": "rɪˈviːl",
-      "example": "She revealed the secret.",
-      "example_tr": "Она раскрыла секрет.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "satisfy",
-      "back": "удовлетворять",
-      "transcription": "ˈsætɪsfaɪ",
-      "example": "The answer didn't satisfy me.",
-      "example_tr": "Ответ меня не удовлетворил.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "seek",
-      "back": "искать, стремиться",
-      "transcription": "siːk",
-      "example": "They are seeking a solution.",
-      "example_tr": "Они ищут решение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "select",
-      "back": "выбирать",
-      "transcription": "sɪˈlekt",
-      "example": "Select the correct answer.",
-      "example_tr": "Выбери правильный ответ.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "survive",
-      "back": "выживать",
-      "transcription": "sərˈvaɪv",
-      "example": "Few animals survive in the desert.",
-      "example_tr": "Немногие животные выживают в пустыне.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "tend",
-      "back": "иметь тенденцию",
-      "transcription": "tend",
-      "example": "People tend to work more in summer.",
-      "example_tr": "Люди, как правило, больше работают летом.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "treat",
-      "back": "относиться, лечить",
-      "transcription": "triːt",
-      "example": "The doctor treated her illness.",
-      "example_tr": "Врач вылечил её болезнь.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "warn",
-      "back": "предупреждать",
-      "transcription": "wɔːrn",
-      "example": "She warned me about the storm.",
-      "example_tr": "Она предупредила меня о буре.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
       "front": "ability",
       "back": "способность",
       "transcription": "əˈbɪləti",
@@ -1027,993 +37,13 @@
       ]
     },
     {
-      "front": "achievement",
-      "back": "достижение",
-      "transcription": "əˈtʃiːvmənt",
-      "example": "Getting this job is a big achievement.",
-      "example_tr": "Получить эту работу — большое достижение.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "advantage",
-      "back": "преимущество",
-      "transcription": "ədˈvæntɪdʒ",
-      "example": "Speaking English is a big advantage.",
-      "example_tr": "Знание английского — большое преимущество.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "disadvantage",
-      "back": "недостаток, минус",
-      "transcription": "ˌdɪsədˈvæntɪdʒ",
-      "example": "The main disadvantage is the price.",
-      "example_tr": "Главный недостаток — цена.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "agreement",
-      "back": "соглашение",
-      "transcription": "əˈɡriːmənt",
-      "example": "They signed an agreement.",
-      "example_tr": "Они подписали соглашение.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "amount",
-      "back": "количество, сумма",
-      "transcription": "əˈmaʊnt",
-      "example": "A large amount of money was spent.",
-      "example_tr": "Была потрачена большая сумма денег.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "approach",
-      "back": "подход",
-      "transcription": "əˈproʊtʃ",
-      "example": "We need a new approach to the problem.",
-      "example_tr": "Нам нужен новый подход к проблеме.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "area",
-      "back": "область, район",
-      "transcription": "ˈeəriə",
-      "example": "This area is very quiet.",
-      "example_tr": "Этот район очень тихий.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "aspect",
-      "back": "аспект",
-      "transcription": "ˈæspekt",
-      "example": "Consider every aspect of the plan.",
-      "example_tr": "Рассмотри каждый аспект плана.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "attention",
-      "back": "внимание",
-      "transcription": "əˈtenʃən",
-      "example": "Pay attention to the road.",
-      "example_tr": "Обращай внимание на дорогу.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "attitude",
-      "back": "отношение, позиция",
-      "transcription": "ˈætɪtjuːd",
-      "example": "He has a positive attitude.",
-      "example_tr": "У него позитивный настрой.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "authority",
-      "back": "власть, орган власти",
-      "transcription": "əˈθɒrəti",
-      "example": "The local authority closed the road.",
-      "example_tr": "Местные власти закрыли дорогу.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "background",
-      "back": "происхождение, фон",
-      "transcription": "ˈbækɡraʊnd",
-      "example": "She has a strong academic background.",
-      "example_tr": "У неё сильная академическая база.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "balance",
-      "back": "баланс, равновесие",
-      "transcription": "ˈbæləns",
-      "example": "It's important to keep a work-life balance.",
-      "example_tr": "Важно поддерживать баланс между работой и жизнью.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "behaviour",
-      "back": "поведение",
-      "transcription": "bɪˈheɪvjər",
-      "example": "His behaviour surprised everyone.",
-      "example_tr": "Его поведение всех удивило.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "benefit",
-      "back": "польза, выгода",
-      "transcription": "ˈbenɪfɪt",
-      "example": "Exercise has many benefits.",
-      "example_tr": "Физические упражнения приносят много пользы.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "budget",
-      "back": "бюджет",
-      "transcription": "ˈbʌdʒɪt",
-      "example": "We need to plan our budget.",
-      "example_tr": "Нам нужно спланировать бюджет.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "career",
-      "back": "карьера",
-      "transcription": "kəˈrɪər",
-      "example": "She started her career as a teacher.",
-      "example_tr": "Она начала карьеру учителем.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "outcome",
-      "back": "результат, исход",
-      "transcription": "ˈaʊtkʌm",
-      "example": "We are happy with the outcome.",
-      "example_tr": "Мы довольны результатом.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "challenge",
-      "back": "вызов, трудная задача",
-      "transcription": "ˈtʃælɪndʒ",
-      "example": "Learning a language is a real challenge.",
-      "example_tr": "Изучение языка — настоящий вызов.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "circumstance",
-      "back": "обстоятельство",
-      "transcription": "ˈsɜːrkəmstæns",
-      "example": "Under these circumstances, we must wait.",
-      "example_tr": "При таких обстоятельствах нам нужно подождать.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "comment",
-      "back": "комментарий",
-      "transcription": "ˈkɒment",
-      "example": "He made an interesting comment.",
-      "example_tr": "Он сделал интересный комментарий.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "condition",
-      "back": "условие, состояние",
-      "transcription": "kənˈdɪʃən",
-      "example": "The car is in good condition.",
-      "example_tr": "Машина в хорошем состоянии.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "connection",
-      "back": "связь, соединение",
-      "transcription": "kəˈnekʃən",
-      "example": "There's a strong connection between diet and health.",
-      "example_tr": "Есть тесная связь между питанием и здоровьем.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "consequence",
-      "back": "последствие",
-      "transcription": "ˈkɒnsɪkwəns",
-      "example": "Every action has a consequence.",
-      "example_tr": "У каждого действия есть последствие.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "context",
-      "back": "контекст",
-      "transcription": "ˈkɒntekst",
-      "example": "You need to understand the context.",
-      "example_tr": "Тебе нужно понять контекст.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "contract",
-      "back": "контракт, договор",
-      "transcription": "ˈkɒntrækt",
-      "example": "She signed a two-year contract.",
-      "example_tr": "Она подписала двухлетний контракт.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "contribution",
-      "back": "вклад",
-      "transcription": "ˌkɒntrɪˈbjuːʃən",
-      "example": "Thank you for your contribution.",
-      "example_tr": "Спасибо за твой вклад.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "crisis",
-      "back": "кризис",
-      "transcription": "ˈkraɪsɪs",
-      "example": "The company faced a financial crisis.",
-      "example_tr": "Компания столкнулась с финансовым кризисом.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "debate",
-      "back": "дебаты, спор",
-      "transcription": "dɪˈbeɪt",
-      "example": "There was a long debate about the plan.",
-      "example_tr": "Были долгие дебаты по поводу плана.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "demand",
-      "back": "спрос, требование",
-      "transcription": "dɪˈmɑːnd",
-      "example": "There is a high demand for this product.",
-      "example_tr": "На этот товар высокий спрос.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "detail",
-      "back": "деталь, подробность",
-      "transcription": "ˈdiːteɪl",
-      "example": "Tell me all the details.",
-      "example_tr": "Расскажи мне все подробности.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "device",
-      "back": "устройство",
-      "transcription": "dɪˈvaɪs",
-      "example": "This device measures temperature.",
-      "example_tr": "Это устройство измеряет температуру.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "distance",
-      "back": "расстояние",
-      "transcription": "ˈdɪstəns",
-      "example": "The distance is about ten kilometres.",
-      "example_tr": "Расстояние около десяти километров.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "economy",
-      "back": "экономика",
-      "transcription": "ɪˈkɒnəmi",
-      "example": "The economy is growing slowly.",
-      "example_tr": "Экономика медленно растёт.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "effect",
-      "back": "эффект, воздействие",
-      "transcription": "ɪˈfekt",
-      "example": "The medicine had a good effect.",
-      "example_tr": "Лекарство оказало хороший эффект.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "effort",
-      "back": "усилие",
-      "transcription": "ˈefərt",
-      "example": "It took a lot of effort to finish.",
-      "example_tr": "Потребовалось много усилий, чтобы закончить.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "element",
-      "back": "элемент",
-      "transcription": "ˈelɪmənt",
-      "example": "Trust is a key element of friendship.",
-      "example_tr": "Доверие — ключевой элемент дружбы.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "emotion",
-      "back": "эмоция",
-      "transcription": "ɪˈmoʊʃən",
-      "example": "It's normal to show your emotions.",
-      "example_tr": "Нормально проявлять свои эмоции.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "employee",
-      "back": "сотрудник",
-      "transcription": "ɪmˈplɔɪiː",
-      "example": "The company has fifty employees.",
-      "example_tr": "В компании пятьдесят сотрудников.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "employer",
-      "back": "работодатель",
-      "transcription": "ɪmˈplɔɪər",
-      "example": "My employer is very understanding.",
-      "example_tr": "Мой работодатель очень понимающий.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "energy",
-      "back": "энергия",
-      "transcription": "ˈenərdʒi",
-      "example": "Solar energy is clean and renewable.",
-      "example_tr": "Солнечная энергия чистая и возобновляемая.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "equipment",
-      "back": "оборудование",
-      "transcription": "ɪˈkwɪpmənt",
-      "example": "We need new sports equipment.",
-      "example_tr": "Нам нужно новое спортивное оборудование.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "evidence",
-      "back": "доказательство",
-      "transcription": "ˈevɪdəns",
-      "example": "There is no evidence for this theory.",
-      "example_tr": "У этой теории нет доказательств.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "factor",
-      "back": "фактор",
-      "transcription": "ˈfæktər",
-      "example": "Price is an important factor.",
-      "example_tr": "Цена — важный фактор.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "fault",
-      "back": "вина, недостаток",
-      "transcription": "fɔːlt",
-      "example": "It's not your fault.",
-      "example_tr": "Это не твоя вина.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "feature",
-      "back": "особенность, черта",
-      "transcription": "ˈfiːtʃər",
-      "example": "This phone has many useful features.",
-      "example_tr": "У этого телефона много полезных функций.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "figure",
-      "back": "цифра, фигура",
-      "transcription": "ˈfɪɡjər",
-      "example": "Look at the sales figures.",
-      "example_tr": "Посмотри на цифры продаж.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "goal",
-      "back": "цель",
-      "transcription": "ɡoʊl",
-      "example": "My goal is to speak fluent English.",
-      "example_tr": "Моя цель — свободно говорить по-английски.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "growth",
-      "back": "рост",
-      "transcription": "ɡroʊθ",
-      "example": "The company had strong growth this year.",
-      "example_tr": "В этом году у компании был сильный рост.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "impact",
-      "back": "влияние, воздействие",
-      "transcription": "ˈɪmpækt",
-      "example": "The film had a big impact on me.",
-      "example_tr": "Фильм произвёл на меня большое впечатление.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "income",
-      "back": "доход",
-      "transcription": "ˈɪnkʌm",
-      "example": "Their income increased last year.",
-      "example_tr": "В прошлом году их доход вырос.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "industry",
-      "back": "промышленность, отрасль",
-      "transcription": "ˈɪndəstri",
-      "example": "He works in the tourism industry.",
-      "example_tr": "Он работает в туристической отрасли.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "issue",
-      "back": "проблема, вопрос",
-      "transcription": "ˈɪʃuː",
-      "example": "We need to talk about this issue.",
-      "example_tr": "Нам нужно обсудить этот вопрос.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "lack",
-      "back": "недостаток, нехватка",
-      "transcription": "læk",
-      "example": "There is a lack of information.",
-      "example_tr": "Ощущается нехватка информации.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "level",
-      "back": "уровень",
-      "transcription": "ˈlevəl",
-      "example": "My English level is intermediate.",
-      "example_tr": "Мой уровень английского — средний.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "majority",
-      "back": "большинство",
-      "transcription": "məˈdʒɒrəti",
-      "example": "The majority agreed with the plan.",
-      "example_tr": "Большинство согласилось с планом.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "material",
-      "back": "материал",
-      "transcription": "məˈtɪəriəl",
-      "example": "This bag is made of recycled material.",
-      "example_tr": "Эта сумка сделана из переработанного материала.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "method",
-      "back": "метод",
-      "transcription": "ˈmeθəd",
-      "example": "This is an effective teaching method.",
-      "example_tr": "Это эффективный метод обучения.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "minority",
-      "back": "меньшинство",
-      "transcription": "maɪˈnɒrəti",
-      "example": "Only a minority disagreed.",
-      "example_tr": "Не согласилось лишь меньшинство.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "nature",
-      "back": "природа, характер",
-      "transcription": "ˈneɪtʃər",
-      "example": "I love spending time in nature.",
-      "example_tr": "Я люблю проводить время на природе.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "object",
-      "back": "объект, предмет",
-      "transcription": "ˈɒbdʒɪkt",
-      "example": "There is a strange object on the table.",
-      "example_tr": "На столе странный предмет.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "opportunity",
-      "back": "возможность",
-      "transcription": "ˌɒpərˈtjuːnəti",
-      "example": "This job is a great opportunity.",
-      "example_tr": "Эта работа — отличная возможность.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "organisation",
-      "back": "организация",
-      "transcription": "ˌɔːrɡənaɪˈzeɪʃən",
-      "example": "She works for a charity organisation.",
-      "example_tr": "Она работает в благотворительной организации.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "percentage",
-      "back": "процент",
-      "transcription": "pərˈsentɪdʒ",
-      "example": "A large percentage of students passed.",
-      "example_tr": "Большой процент студентов сдал экзамен.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "period",
-      "back": "период",
-      "transcription": "ˈpɪəriəd",
-      "example": "This was a difficult period for us.",
-      "example_tr": "Это был трудный период для нас.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "policy",
-      "back": "политика, курс",
-      "transcription": "ˈpɒləsi",
-      "example": "The company changed its policy.",
-      "example_tr": "Компания изменила свою политику.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "process",
-      "back": "процесс",
-      "transcription": "ˈproʊses",
-      "example": "Learning a language is a slow process.",
-      "example_tr": "Изучение языка — медленный процесс.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "progress",
-      "back": "прогресс",
-      "transcription": "ˈproʊɡres",
-      "example": "You are making good progress.",
-      "example_tr": "Ты делаешь хорошие успехи.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "project",
-      "back": "проект",
-      "transcription": "ˈprɒdʒekt",
-      "example": "We finished the project on time.",
-      "example_tr": "Мы завершили проект вовремя.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "proportion",
-      "back": "доля, пропорция",
-      "transcription": "prəˈpɔːrʃən",
-      "example": "A small proportion of people voted.",
-      "example_tr": "Проголосовала лишь небольшая доля людей.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "purpose",
-      "back": "цель, намерение",
-      "transcription": "ˈpɜːrpəs",
-      "example": "What is the purpose of your visit?",
-      "example_tr": "Какова цель твоего визита?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "quality",
-      "back": "качество",
-      "transcription": "ˈkwɒləti",
-      "example": "This shop sells high quality clothes.",
-      "example_tr": "В этом магазине продают качественную одежду.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "quantity",
-      "back": "количество",
-      "transcription": "ˈkwɒntəti",
-      "example": "We need a large quantity of paper.",
-      "example_tr": "Нам нужно большое количество бумаги.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "range",
-      "back": "диапазон, ассортимент",
-      "transcription": "reɪndʒ",
-      "example": "The shop has a wide range of products.",
-      "example_tr": "В магазине широкий ассортимент товаров.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "rate",
-      "back": "ставка, показатель",
-      "transcription": "reɪt",
-      "example": "The interest rate went up.",
-      "example_tr": "Процентная ставка выросла.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "relationship",
-      "back": "отношения",
-      "transcription": "rɪˈleɪʃənʃɪp",
-      "example": "They have a good relationship.",
-      "example_tr": "У них хорошие отношения.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "resource",
-      "back": "ресурс",
-      "transcription": "rɪˈsɔːrs",
-      "example": "Water is a valuable resource.",
-      "example_tr": "Вода — ценный ресурс.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "role",
-      "back": "роль",
-      "transcription": "roʊl",
-      "example": "She plays an important role in the team.",
-      "example_tr": "Она играет важную роль в команде.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "rule",
-      "back": "правило",
-      "transcription": "ruːl",
-      "example": "You must follow the rules.",
-      "example_tr": "Ты должен соблюдать правила.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "scale",
-      "back": "масштаб, шкала",
-      "transcription": "skeɪl",
-      "example": "The project is large in scale.",
-      "example_tr": "Проект масштабный.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "section",
-      "back": "раздел, часть",
-      "transcription": "ˈsekʃən",
-      "example": "Read the first section carefully.",
-      "example_tr": "Внимательно прочитай первый раздел.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "sector",
-      "back": "сектор",
-      "transcription": "ˈsektər",
-      "example": "He works in the public sector.",
-      "example_tr": "Он работает в государственном секторе.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "situation",
-      "back": "ситуация",
-      "transcription": "ˌsɪtʃuˈeɪʃən",
-      "example": "It's a difficult situation.",
-      "example_tr": "Это трудная ситуация.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "solution",
-      "back": "решение",
-      "transcription": "səˈluːʃən",
-      "example": "We found a good solution.",
-      "example_tr": "Мы нашли хорошее решение.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "source",
-      "back": "источник",
-      "transcription": "sɔːrs",
-      "example": "What is the source of this information?",
-      "example_tr": "Каков источник этой информации?",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "standard",
-      "back": "стандарт, норма",
-      "transcription": "ˈstændərd",
-      "example": "This hotel has a high standard.",
-      "example_tr": "У этого отеля высокий стандарт.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "strategy",
-      "back": "стратегия",
-      "transcription": "ˈstrætədʒi",
-      "example": "We need a new marketing strategy.",
-      "example_tr": "Нам нужна новая маркетинговая стратегия.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "structure",
-      "back": "структура",
-      "transcription": "ˈstrʌktʃər",
-      "example": "The structure of the essay is clear.",
-      "example_tr": "Структура эссе понятна.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "survey",
-      "back": "опрос",
-      "transcription": "ˈsɜːrveɪ",
-      "example": "We did a survey among customers.",
-      "example_tr": "Мы провели опрос среди клиентов.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "target",
-      "back": "цель, мишень",
-      "transcription": "ˈtɑːrɡɪt",
-      "example": "We set a sales target.",
-      "example_tr": "Мы установили цель по продажам.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "technique",
-      "back": "техника, приём",
-      "transcription": "tekˈniːk",
-      "example": "She uses a special painting technique.",
-      "example_tr": "Она использует особую технику живописи.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "theory",
-      "back": "теория",
-      "transcription": "ˈθɪəri",
-      "example": "It's just a theory, not a fact.",
-      "example_tr": "Это всего лишь теория, а не факт.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "tool",
-      "back": "инструмент",
-      "transcription": "tuːl",
-      "example": "A hammer is a useful tool.",
-      "example_tr": "Молоток — полезный инструмент.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "trend",
-      "back": "тенденция, тренд",
-      "transcription": "trend",
-      "example": "This is a new fashion trend.",
-      "example_tr": "Это новая модная тенденция.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "value",
-      "back": "ценность, значение",
-      "transcription": "ˈvæljuː",
-      "example": "Family has great value for me.",
-      "example_tr": "Семья имеет для меня большую ценность.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "variety",
-      "back": "разнообразие",
-      "transcription": "vəˈraɪəti",
-      "example": "The shop offers a variety of products.",
-      "example_tr": "Магазин предлагает разнообразие товаров.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "version",
-      "back": "версия",
-      "transcription": "ˈvɜːrʒən",
-      "example": "This is the new version of the app.",
-      "example_tr": "Это новая версия приложения.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "view",
-      "back": "взгляд, вид, мнение",
-      "transcription": "vjuː",
-      "example": "In my view, this is a good idea.",
-      "example_tr": "На мой взгляд, это хорошая идея.",
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "front": "volume",
-      "back": "объём, громкость",
-      "transcription": "ˈvɒljuːm",
-      "example": "Please turn down the volume.",
-      "example_tr": "Пожалуйста, убавь громкость.",
-      "tags": [
-        "noun"
+      "front": "afford",
+      "back": "позволить себе (по средствам)",
+      "transcription": "əˈfɔːrd",
+      "example": "We can't afford a new car.",
+      "example_tr": "Мы не можем позволить себе новую машину.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2027,503 +57,23 @@
       ]
     },
     {
-      "front": "available",
-      "back": "доступный, свободный",
-      "transcription": "əˈveɪləbəl",
-      "example": "Is this seat available?",
-      "example_tr": "Это место свободно?",
+      "front": "achievement",
+      "back": "достижение",
+      "transcription": "əˈtʃiːvmənt",
+      "example": "Getting this job is a big achievement.",
+      "example_tr": "Получить эту работу — большое достижение.",
       "tags": [
-        "adjective"
+        "noun"
       ]
     },
     {
-      "front": "basic",
-      "back": "базовый, основной",
-      "transcription": "ˈbeɪsɪk",
-      "example": "I have basic knowledge of French.",
-      "example_tr": "У меня базовые знания французского.",
+      "front": "admit",
+      "back": "признавать(ся)",
+      "transcription": "ədˈmɪt",
+      "example": "He admitted his mistake.",
+      "example_tr": "Он признал свою ошибку.",
       "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "complex",
-      "back": "сложный",
-      "transcription": "ˈkɒmpleks",
-      "example": "This is a complex problem.",
-      "example_tr": "Это сложная проблема.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "consistent",
-      "back": "последовательный, стабильный",
-      "transcription": "kənˈsɪstənt",
-      "example": "Her results are very consistent.",
-      "example_tr": "Её результаты очень стабильны.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "constant",
-      "back": "постоянный",
-      "transcription": "ˈkɒnstənt",
-      "example": "There is constant noise from the street.",
-      "example_tr": "С улицы доносится постоянный шум.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "convenient",
-      "back": "удобный",
-      "transcription": "kənˈviːniənt",
-      "example": "Is this time convenient for you?",
-      "example_tr": "Тебе удобно это время?",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "critical",
-      "back": "критический, важный",
-      "transcription": "ˈkrɪtɪkəl",
-      "example": "This decision is critical for the company.",
-      "example_tr": "Это решение критически важно для компании.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "crucial",
-      "back": "решающий, важнейший",
-      "transcription": "ˈkruːʃəl",
-      "example": "Sleep is crucial for your health.",
-      "example_tr": "Сон крайне важен для здоровья.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "effective",
-      "back": "эффективный",
-      "transcription": "ɪˈfektɪv",
-      "example": "This method is very effective.",
-      "example_tr": "Этот метод очень эффективный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "efficient",
-      "back": "эффективный, продуктивный",
-      "transcription": "ɪˈfɪʃənt",
-      "example": "The new system is more efficient.",
-      "example_tr": "Новая система более эффективна.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "essential",
-      "back": "необходимый, важнейший",
-      "transcription": "ɪˈsenʃəl",
-      "example": "Water is essential for life.",
-      "example_tr": "Вода необходима для жизни.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "extreme",
-      "back": "крайний, экстремальный",
-      "transcription": "ɪkˈstriːm",
-      "example": "They live in extreme conditions.",
-      "example_tr": "Они живут в экстремальных условиях.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "financial",
-      "back": "финансовый",
-      "transcription": "faɪˈnænʃəl",
-      "example": "We are having financial problems.",
-      "example_tr": "У нас финансовые проблемы.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "flexible",
-      "back": "гибкий",
-      "transcription": "ˈfleksəbəl",
-      "example": "My work schedule is flexible.",
-      "example_tr": "Мой рабочий график гибкий.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "global",
-      "back": "глобальный, мировой",
-      "transcription": "ˈɡloʊbəl",
-      "example": "Climate change is a global problem.",
-      "example_tr": "Изменение климата — глобальная проблема.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "independent",
-      "back": "независимый",
-      "transcription": "ˌɪndɪˈpendənt",
-      "example": "She is very independent.",
-      "example_tr": "Она очень независима.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "individual",
-      "back": "индивидуальный, отдельный",
-      "transcription": "ˌɪndɪˈvɪdʒuəl",
-      "example": "Every individual case is different.",
-      "example_tr": "Каждый отдельный случай отличается.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "initial",
-      "back": "начальный, первоначальный",
-      "transcription": "ɪˈnɪʃəl",
-      "example": "The initial results look good.",
-      "example_tr": "Первоначальные результаты выглядят хорошо.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "logical",
-      "back": "логичный",
-      "transcription": "ˈlɒdʒɪkəl",
-      "example": "That's a logical explanation.",
-      "example_tr": "Это логичное объяснение.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "mental",
-      "back": "умственный, психический",
-      "transcription": "ˈmentəl",
-      "example": "Sport is good for your mental health.",
-      "example_tr": "Спорт полезен для психического здоровья.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "moral",
-      "back": "моральный, нравственный",
-      "transcription": "ˈmɒrəl",
-      "example": "It's a moral question.",
-      "example_tr": "Это моральный вопрос.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "negative",
-      "back": "отрицательный",
-      "transcription": "ˈneɡətɪv",
-      "example": "Try not to think negative thoughts.",
-      "example_tr": "Старайся не думать негативно.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "obvious",
-      "back": "очевидный",
-      "transcription": "ˈɒbviəs",
-      "example": "It's obvious that she is tired.",
-      "example_tr": "Очевидно, что она устала.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "official",
-      "back": "официальный",
-      "transcription": "əˈfɪʃəl",
-      "example": "This is the official website.",
-      "example_tr": "Это официальный сайт.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "original",
-      "back": "оригинальный, первоначальный",
-      "transcription": "əˈrɪdʒənəl",
-      "example": "This is the original recipe.",
-      "example_tr": "Это оригинальный рецепт.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "particular",
-      "back": "особый, конкретный",
-      "transcription": "pərˈtɪkjələr",
-      "example": "Is there a particular reason for this?",
-      "example_tr": "Есть ли особая причина для этого?",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "positive",
-      "back": "положительный",
-      "transcription": "ˈpɒzətɪv",
-      "example": "Try to stay positive.",
-      "example_tr": "Старайся сохранять позитивный настрой.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "potential",
-      "back": "потенциальный",
-      "transcription": "pəˈtenʃəl",
-      "example": "This is a potential problem.",
-      "example_tr": "Это потенциальная проблема.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "practical",
-      "back": "практичный, практический",
-      "transcription": "ˈpræktɪkəl",
-      "example": "That's a practical solution.",
-      "example_tr": "Это практичное решение.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "previous",
-      "back": "предыдущий",
-      "transcription": "ˈpriːviəs",
-      "example": "In the previous lesson we learned verbs.",
-      "example_tr": "На предыдущем уроке мы изучали глаголы.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "primary",
-      "back": "первичный, основной",
-      "transcription": "ˈpraɪməri",
-      "example": "Our primary goal is safety.",
-      "example_tr": "Наша главная цель — безопасность.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "private",
-      "back": "частный, личный",
-      "transcription": "ˈpraɪvɪt",
-      "example": "This is private property.",
-      "example_tr": "Это частная собственность.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "professional",
-      "back": "профессиональный",
-      "transcription": "prəˈfeʃənəl",
-      "example": "She gave very professional advice.",
-      "example_tr": "Она дала очень профессиональный совет.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "realistic",
-      "back": "реалистичный",
-      "transcription": "ˌrɪəˈlɪstɪk",
-      "example": "Let's set a realistic goal.",
-      "example_tr": "Давай поставим реалистичную цель.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "relevant",
-      "back": "уместный, актуальный",
-      "transcription": "ˈreləvənt",
-      "example": "This information is not relevant now.",
-      "example_tr": "Эта информация сейчас неактуальна.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "reliable",
-      "back": "надёжный",
-      "transcription": "rɪˈlaɪəbəl",
-      "example": "He is a reliable friend.",
-      "example_tr": "Он надёжный друг.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "responsible",
-      "back": "ответственный",
-      "transcription": "rɪˈspɒnsəbəl",
-      "example": "She is responsible for the project.",
-      "example_tr": "Она отвечает за проект.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "secure",
-      "back": "безопасный, надёжный",
-      "transcription": "sɪˈkjʊər",
-      "example": "Make sure the password is secure.",
-      "example_tr": "Убедись, что пароль надёжный.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "separate",
-      "back": "отдельный",
-      "transcription": "ˈsepərət",
-      "example": "They have separate rooms.",
-      "example_tr": "У них отдельные комнаты.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "significant",
-      "back": "значительный, существенный",
-      "transcription": "sɪɡˈnɪfɪkənt",
-      "example": "There was a significant change in the plan.",
-      "example_tr": "В плане произошло значительное изменение.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "social",
-      "back": "социальный",
-      "transcription": "ˈsoʊʃəl",
-      "example": "Humans are social animals.",
-      "example_tr": "Люди — социальные существа.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "specific",
-      "back": "конкретный, определённый",
-      "transcription": "spəˈsɪfɪk",
-      "example": "Can you be more specific?",
-      "example_tr": "Можешь выразиться конкретнее?",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "stable",
-      "back": "стабильный",
-      "transcription": "ˈsteɪbəl",
-      "example": "The economy is stable now.",
-      "example_tr": "Экономика сейчас стабильна.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "sufficient",
-      "back": "достаточный",
-      "transcription": "səˈfɪʃənt",
-      "example": "We have sufficient time.",
-      "example_tr": "У нас достаточно времени.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "technical",
-      "back": "технический",
-      "transcription": "ˈteknɪkəl",
-      "example": "This is a technical issue.",
-      "example_tr": "Это техническая проблема.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "temporary",
-      "back": "временный",
-      "transcription": "ˈtempəreri",
-      "example": "This is only a temporary solution.",
-      "example_tr": "Это лишь временное решение.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "typical",
-      "back": "типичный",
-      "transcription": "ˈtɪpɪkəl",
-      "example": "That's a typical mistake for beginners.",
-      "example_tr": "Это типичная ошибка новичков.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "unique",
-      "back": "уникальный",
-      "transcription": "juˈniːk",
-      "example": "Every person is unique.",
-      "example_tr": "Каждый человек уникален.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "urban",
-      "back": "городской",
-      "transcription": "ˈɜːrbən",
-      "example": "Urban life can be stressful.",
-      "example_tr": "Городская жизнь может быть напряжённой.",
-      "tags": [
-        "adjective"
-      ]
-    },
-    {
-      "front": "valuable",
-      "back": "ценный",
-      "transcription": "ˈvæljuəbəl",
-      "example": "Your advice was very valuable.",
-      "example_tr": "Твой совет был очень ценным.",
-      "tags": [
-        "adjective"
+        "verb"
       ]
     },
     {
@@ -2537,6 +87,76 @@
       ]
     },
     {
+      "front": "advantage",
+      "back": "преимущество",
+      "transcription": "ədˈvæntɪdʒ",
+      "example": "Speaking English is a big advantage.",
+      "example_tr": "Знание английского — большое преимущество.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "advise",
+      "back": "советовать",
+      "transcription": "ədˈvaɪz",
+      "example": "The doctor advised me to rest.",
+      "example_tr": "Врач посоветовал мне отдохнуть.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "available",
+      "back": "доступный, свободный",
+      "transcription": "əˈveɪləbəl",
+      "example": "Is this seat available?",
+      "example_tr": "Это место свободно?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "disadvantage",
+      "back": "недостаток, минус",
+      "transcription": "ˌdɪsədˈvæntɪdʒ",
+      "example": "The main disadvantage is the price.",
+      "example_tr": "Главный недостаток — цена.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "analyse",
+      "back": "анализировать",
+      "transcription": "ˈænəlaɪz",
+      "example": "We need to analyse the results.",
+      "example_tr": "Нам нужно проанализировать результаты.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "agreement",
+      "back": "соглашение",
+      "transcription": "əˈɡriːmənt",
+      "example": "They signed an agreement.",
+      "example_tr": "Они подписали соглашение.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "announce",
+      "back": "объявлять",
+      "transcription": "əˈnaʊns",
+      "example": "They announced the winner.",
+      "example_tr": "Они объявили победителя.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "however",
       "back": "однако",
       "transcription": "haʊˈevər",
@@ -2544,6 +164,96 @@
       "example_tr": "Мне нравится план, однако он дорогой.",
       "tags": [
         "adverb"
+      ]
+    },
+    {
+      "front": "basic",
+      "back": "базовый, основной",
+      "transcription": "ˈbeɪsɪk",
+      "example": "I have basic knowledge of French.",
+      "example_tr": "У меня базовые знания французского.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "amount",
+      "back": "количество, сумма",
+      "transcription": "əˈmaʊnt",
+      "example": "A large amount of money was spent.",
+      "example_tr": "Была потрачена большая сумма денег.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "appear",
+      "back": "появляться, казаться",
+      "transcription": "əˈpɪər",
+      "example": "She appears confident.",
+      "example_tr": "Она кажется уверенной.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "approach",
+      "back": "подход",
+      "transcription": "əˈproʊtʃ",
+      "example": "We need a new approach to the problem.",
+      "example_tr": "Нам нужен новый подход к проблеме.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "apply",
+      "back": "подавать заявку, применять",
+      "transcription": "əˈplaɪ",
+      "example": "I applied for a new job.",
+      "example_tr": "Я подал заявку на новую работу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "complex",
+      "back": "сложный",
+      "transcription": "ˈkɒmpleks",
+      "example": "This is a complex problem.",
+      "example_tr": "Это сложная проблема.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "area",
+      "back": "область, район",
+      "transcription": "ˈeəriə",
+      "example": "This area is very quiet.",
+      "example_tr": "Этот район очень тихий.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "argue",
+      "back": "спорить",
+      "transcription": "ˈɑːrɡjuː",
+      "example": "They argue about small things.",
+      "example_tr": "Они спорят по мелочам.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "aspect",
+      "back": "аспект",
+      "transcription": "ˈæspekt",
+      "example": "Consider every aspect of the plan.",
+      "example_tr": "Рассмотри каждый аспект плана.",
+      "tags": [
+        "noun"
       ]
     },
     {
@@ -2557,6 +267,86 @@
       ]
     },
     {
+      "front": "arrange",
+      "back": "устраивать, организовывать",
+      "transcription": "əˈreɪndʒ",
+      "example": "Let's arrange a meeting.",
+      "example_tr": "Давай организуем встречу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "attention",
+      "back": "внимание",
+      "transcription": "əˈtenʃən",
+      "example": "Pay attention to the road.",
+      "example_tr": "Обращай внимание на дорогу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "consistent",
+      "back": "последовательный, стабильный",
+      "transcription": "kənˈsɪstənt",
+      "example": "Her results are very consistent.",
+      "example_tr": "Её результаты очень стабильны.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "assume",
+      "back": "предполагать",
+      "transcription": "əˈsjuːm",
+      "example": "I assumed you knew already.",
+      "example_tr": "Я предполагал, что ты уже знаешь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "attitude",
+      "back": "отношение, позиция",
+      "transcription": "ˈætɪtjuːd",
+      "example": "He has a positive attitude.",
+      "example_tr": "У него позитивный настрой.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "attach",
+      "back": "прикреплять",
+      "transcription": "əˈtætʃ",
+      "example": "I attached the file to the email.",
+      "example_tr": "Я прикрепил файл к письму.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "authority",
+      "back": "власть, орган власти",
+      "transcription": "əˈθɒrəti",
+      "example": "The local authority closed the road.",
+      "example_tr": "Местные власти закрыли дорогу.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "constant",
+      "back": "постоянный",
+      "transcription": "ˈkɒnstənt",
+      "example": "There is constant noise from the street.",
+      "example_tr": "С улицы доносится постоянный шум.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
       "front": "nevertheless",
       "back": "тем не менее",
       "transcription": "ˌnevərðəˈles",
@@ -2564,6 +354,76 @@
       "example_tr": "Было поздно, тем не менее мы вышли.",
       "tags": [
         "adverb"
+      ]
+    },
+    {
+      "front": "attempt",
+      "back": "пытаться",
+      "transcription": "əˈtempt",
+      "example": "He attempted to fix the car.",
+      "example_tr": "Он попытался починить машину.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "background",
+      "back": "происхождение, фон",
+      "transcription": "ˈbækɡraʊnd",
+      "example": "She has a strong academic background.",
+      "example_tr": "У неё сильная академическая база.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "attend",
+      "back": "посещать",
+      "transcription": "əˈtend",
+      "example": "I attend classes every day.",
+      "example_tr": "Я хожу на занятия каждый день.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "balance",
+      "back": "баланс, равновесие",
+      "transcription": "ˈbæləns",
+      "example": "It's important to keep a work-life balance.",
+      "example_tr": "Важно поддерживать баланс между работой и жизнью.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "convenient",
+      "back": "удобный",
+      "transcription": "kənˈviːniənt",
+      "example": "Is this time convenient for you?",
+      "example_tr": "Тебе удобно это время?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "avoid",
+      "back": "избегать",
+      "transcription": "əˈvɔɪd",
+      "example": "Try to avoid stress.",
+      "example_tr": "Старайся избегать стресса.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "behaviour",
+      "back": "поведение",
+      "transcription": "bɪˈheɪvjər",
+      "example": "His behaviour surprised everyone.",
+      "example_tr": "Его поведение всех удивило.",
+      "tags": [
+        "noun"
       ]
     },
     {
@@ -2577,6 +437,106 @@
       ]
     },
     {
+      "front": "bear",
+      "back": "выносить, терпеть",
+      "transcription": "beər",
+      "example": "I can't bear this noise.",
+      "example_tr": "Я не выношу этот шум.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "benefit",
+      "back": "польза, выгода",
+      "transcription": "ˈbenɪfɪt",
+      "example": "Exercise has many benefits.",
+      "example_tr": "Физические упражнения приносят много пользы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "critical",
+      "back": "критический, важный",
+      "transcription": "ˈkrɪtɪkəl",
+      "example": "This decision is critical for the company.",
+      "example_tr": "Это решение критически важно для компании.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "budget",
+      "back": "бюджет",
+      "transcription": "ˈbʌdʒɪt",
+      "example": "We need to plan our budget.",
+      "example_tr": "Нам нужно спланировать бюджет.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "blame",
+      "back": "винить",
+      "transcription": "bleɪm",
+      "example": "Don't blame me for that.",
+      "example_tr": "Не вини меня за это.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "career",
+      "back": "карьера",
+      "transcription": "kəˈrɪər",
+      "example": "She started her career as a teacher.",
+      "example_tr": "Она начала карьеру учителем.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "cause",
+      "back": "вызывать, быть причиной",
+      "transcription": "kɔːz",
+      "example": "Heavy rain caused the flood.",
+      "example_tr": "Сильный дождь вызвал наводнение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "crucial",
+      "back": "решающий, важнейший",
+      "transcription": "ˈkruːʃəl",
+      "example": "Sleep is crucial for your health.",
+      "example_tr": "Сон крайне важен для здоровья.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "outcome",
+      "back": "результат, исход",
+      "transcription": "ˈaʊtkʌm",
+      "example": "We are happy with the outcome.",
+      "example_tr": "Мы довольны результатом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "combine",
+      "back": "соединять, объединять",
+      "transcription": "kəmˈbaɪn",
+      "example": "Combine the eggs and flour.",
+      "example_tr": "Соедини яйца и муку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "gradually",
       "back": "постепенно",
       "transcription": "ˈɡrædʒuəli",
@@ -2584,6 +544,76 @@
       "example_tr": "Её английский постепенно улучшался.",
       "tags": [
         "adverb"
+      ]
+    },
+    {
+      "front": "challenge",
+      "back": "вызов, трудная задача",
+      "transcription": "ˈtʃælɪndʒ",
+      "example": "Learning a language is a real challenge.",
+      "example_tr": "Изучение языка — настоящий вызов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "complete",
+      "back": "завершать",
+      "transcription": "kəmˈpliːt",
+      "example": "I completed the project on time.",
+      "example_tr": "Я завершил проект вовремя.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "effective",
+      "back": "эффективный",
+      "transcription": "ɪˈfektɪv",
+      "example": "This method is very effective.",
+      "example_tr": "Этот метод очень эффективный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "circumstance",
+      "back": "обстоятельство",
+      "transcription": "ˈsɜːrkəmstæns",
+      "example": "Under these circumstances, we must wait.",
+      "example_tr": "При таких обстоятельствах нам нужно подождать.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "concentrate",
+      "back": "концентрироваться",
+      "transcription": "ˈkɒnsəntreɪt",
+      "example": "It's hard to concentrate with this noise.",
+      "example_tr": "Трудно сосредоточиться при таком шуме.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "comment",
+      "back": "комментарий",
+      "transcription": "ˈkɒment",
+      "example": "He made an interesting comment.",
+      "example_tr": "Он сделал интересный комментарий.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "consider",
+      "back": "рассматривать, считать",
+      "transcription": "kənˈsɪdər",
+      "example": "We should consider all options.",
+      "example_tr": "Нам следует рассмотреть все варианты.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2597,6 +627,96 @@
       ]
     },
     {
+      "front": "efficient",
+      "back": "эффективный, продуктивный",
+      "transcription": "ɪˈfɪʃənt",
+      "example": "The new system is more efficient.",
+      "example_tr": "Новая система более эффективна.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "condition",
+      "back": "условие, состояние",
+      "transcription": "kənˈdɪʃən",
+      "example": "The car is in good condition.",
+      "example_tr": "Машина в хорошем состоянии.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "contain",
+      "back": "содержать",
+      "transcription": "kənˈteɪn",
+      "example": "This drink contains sugar.",
+      "example_tr": "Этот напиток содержит сахар.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "connection",
+      "back": "связь, соединение",
+      "transcription": "kəˈnekʃən",
+      "example": "There's a strong connection between diet and health.",
+      "example_tr": "Есть тесная связь между питанием и здоровьем.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "contact",
+      "back": "связываться с",
+      "transcription": "ˈkɒntækt",
+      "example": "Please contact me tomorrow.",
+      "example_tr": "Пожалуйста, свяжись со мной завтра.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "consequence",
+      "back": "последствие",
+      "transcription": "ˈkɒnsɪkwəns",
+      "example": "Every action has a consequence.",
+      "example_tr": "У каждого действия есть последствие.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "essential",
+      "back": "необходимый, важнейший",
+      "transcription": "ɪˈsenʃəl",
+      "example": "Water is essential for life.",
+      "example_tr": "Вода необходима для жизни.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "convince",
+      "back": "убеждать",
+      "transcription": "kənˈvɪns",
+      "example": "She convinced me to stay.",
+      "example_tr": "Она убедила меня остаться.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "context",
+      "back": "контекст",
+      "transcription": "ˈkɒntekst",
+      "example": "You need to understand the context.",
+      "example_tr": "Тебе нужно понять контекст.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
       "front": "immediately",
       "back": "немедленно, сразу",
       "transcription": "ɪˈmiːdiətli",
@@ -2607,243 +727,43 @@
       ]
     },
     {
-      "front": "recently",
-      "back": "недавно",
-      "transcription": "ˈriːsəntli",
-      "example": "I recently changed my job.",
-      "example_tr": "Недавно я сменил работу.",
+      "front": "cope",
+      "back": "справляться",
+      "transcription": "koʊp",
+      "example": "It's hard to cope with stress.",
+      "example_tr": "Трудно справляться со стрессом.",
       "tags": [
-        "adverb"
+        "verb"
       ]
     },
     {
-      "front": "currently",
-      "back": "в настоящее время",
-      "transcription": "ˈkʌrəntli",
-      "example": "I am currently working on a project.",
-      "example_tr": "Сейчас я работаю над проектом.",
+      "front": "contract",
+      "back": "контракт, договор",
+      "transcription": "ˈkɒntrækt",
+      "example": "She signed a two-year contract.",
+      "example_tr": "Она подписала двухлетний контракт.",
       "tags": [
-        "adverb"
+        "noun"
       ]
     },
     {
-      "front": "simply",
-      "back": "просто",
-      "transcription": "ˈsɪmpli",
-      "example": "It's simply not possible.",
-      "example_tr": "Это просто невозможно.",
+      "front": "extreme",
+      "back": "крайний, экстремальный",
+      "transcription": "ɪkˈstriːm",
+      "example": "They live in extreme conditions.",
+      "example_tr": "Они живут в экстремальных условиях.",
       "tags": [
-        "adverb"
+        "adjective"
       ]
     },
     {
-      "front": "clearly",
-      "back": "ясно, очевидно",
-      "transcription": "ˈklɪərli",
-      "example": "Clearly, we need more time.",
-      "example_tr": "Очевидно, нам нужно больше времени.",
+      "front": "count",
+      "back": "считать, рассчитывать",
+      "transcription": "kaʊnt",
+      "example": "You can count on me.",
+      "example_tr": "Ты можешь на меня рассчитывать.",
       "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "directly",
-      "back": "напрямую, прямо",
-      "transcription": "dəˈrektli",
-      "example": "Please contact me directly.",
-      "example_tr": "Пожалуйста, свяжись со мной напрямую.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "extremely",
-      "back": "чрезвычайно, крайне",
-      "transcription": "ɪkˈstriːmli",
-      "example": "It's extremely hot today.",
-      "example_tr": "Сегодня чрезвычайно жарко.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "fairly",
-      "back": "довольно, достаточно",
-      "transcription": "ˈfeərli",
-      "example": "The exam was fairly easy.",
-      "example_tr": "Экзамен был довольно лёгким.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "hardly",
-      "back": "едва, вряд ли",
-      "transcription": "ˈhɑːrdli",
-      "example": "I hardly know him.",
-      "example_tr": "Я его почти не знаю.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "nearly",
-      "back": "почти",
-      "transcription": "ˈnɪərli",
-      "example": "It's nearly midnight.",
-      "example_tr": "Уже почти полночь.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "particularly",
-      "back": "особенно",
-      "transcription": "pərˈtɪkjələrli",
-      "example": "I particularly enjoyed the music.",
-      "example_tr": "Мне особенно понравилась музыка.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "apparently",
-      "back": "очевидно, по-видимому",
-      "transcription": "əˈpærəntli",
-      "example": "Apparently, the shop is closed today.",
-      "example_tr": "По-видимому, сегодня магазин закрыт.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "basically",
-      "back": "по сути, в основном",
-      "transcription": "ˈbeɪsɪkli",
-      "example": "Basically, we agree with the plan.",
-      "example_tr": "По сути, мы согласны с планом.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "generally",
-      "back": "в целом, обычно",
-      "transcription": "ˈdʒenərəli",
-      "example": "Generally, I wake up early.",
-      "example_tr": "Обычно я просыпаюсь рано.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "mainly",
-      "back": "в основном",
-      "transcription": "ˈmeɪnli",
-      "example": "We mainly speak English at work.",
-      "example_tr": "На работе мы в основном говорим по-английски.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "regularly",
-      "back": "регулярно",
-      "transcription": "ˈreɡjələrli",
-      "example": "I go to the gym regularly.",
-      "example_tr": "Я регулярно хожу в спортзал.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "roughly",
-      "back": "примерно, приблизительно",
-      "transcription": "ˈrʌfli",
-      "example": "It costs roughly a hundred dollars.",
-      "example_tr": "Это стоит примерно сто долларов.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "slightly",
-      "back": "слегка, немного",
-      "transcription": "ˈslaɪtli",
-      "example": "The price went up slightly.",
-      "example_tr": "Цена слегка выросла.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "totally",
-      "back": "полностью, совершенно",
-      "transcription": "ˈtoʊtəli",
-      "example": "I totally agree with you.",
-      "example_tr": "Я полностью с тобой согласен.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "unfortunately",
-      "back": "к сожалению",
-      "transcription": "ʌnˈfɔːrtʃənətli",
-      "example": "Unfortunately, I can't come.",
-      "example_tr": "К сожалению, я не смогу прийти.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "fortunately",
-      "back": "к счастью",
-      "transcription": "ˈfɔːrtʃənətli",
-      "example": "Fortunately, no one was hurt.",
-      "example_tr": "К счастью, никто не пострадал.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "indeed",
-      "back": "действительно, в самом деле",
-      "transcription": "ɪnˈdiːd",
-      "example": "It was indeed a good idea.",
-      "example_tr": "Это действительно была хорошая идея.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "instead",
-      "back": "вместо этого",
-      "transcription": "ɪnˈsted",
-      "example": "Let's take the bus instead.",
-      "example_tr": "Давай вместо этого поедем на автобусе.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "meanwhile",
-      "back": "тем временем",
-      "transcription": "ˈmiːnwaɪl",
-      "example": "I'll cook; meanwhile, you can rest.",
-      "example_tr": "Я приготовлю, а ты пока отдохни.",
-      "tags": [
-        "adverb"
-      ]
-    },
-    {
-      "front": "besides",
-      "back": "кроме того",
-      "transcription": "bɪˈsaɪdz",
-      "example": "Besides, it's too late to change plans.",
-      "example_tr": "Кроме того, уже поздно менять планы.",
-      "tags": [
-        "adverb"
+        "verb"
       ]
     },
     {
@@ -2867,6 +787,1486 @@
       ]
     },
     {
+      "front": "contribution",
+      "back": "вклад",
+      "transcription": "ˌkɒntrɪˈbjuːʃən",
+      "example": "Thank you for your contribution.",
+      "example_tr": "Спасибо за твой вклад.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "cover",
+      "back": "покрывать",
+      "transcription": "ˈkʌvər",
+      "example": "Snow covered the streets.",
+      "example_tr": "Снег покрыл улицы.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "crisis",
+      "back": "кризис",
+      "transcription": "ˈkraɪsɪs",
+      "example": "The company faced a financial crisis.",
+      "example_tr": "Компания столкнулась с финансовым кризисом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "financial",
+      "back": "финансовый",
+      "transcription": "faɪˈnænʃəl",
+      "example": "We are having financial problems.",
+      "example_tr": "У нас финансовые проблемы.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "recently",
+      "back": "недавно",
+      "transcription": "ˈriːsəntli",
+      "example": "I recently changed my job.",
+      "example_tr": "Недавно я сменил работу.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "create",
+      "back": "создавать",
+      "transcription": "kriˈeɪt",
+      "example": "The company created new jobs.",
+      "example_tr": "Компания создала новые рабочие места.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "debate",
+      "back": "дебаты, спор",
+      "transcription": "dɪˈbeɪt",
+      "example": "There was a long debate about the plan.",
+      "example_tr": "Были долгие дебаты по поводу плана.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "defend",
+      "back": "защищать",
+      "transcription": "dɪˈfend",
+      "example": "He defended his opinion.",
+      "example_tr": "Он отстаивал своё мнение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "demand",
+      "back": "спрос, требование",
+      "transcription": "dɪˈmɑːnd",
+      "example": "There is a high demand for this product.",
+      "example_tr": "На этот товар высокий спрос.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "flexible",
+      "back": "гибкий",
+      "transcription": "ˈfleksəbəl",
+      "example": "My work schedule is flexible.",
+      "example_tr": "Мой рабочий график гибкий.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "detail",
+      "back": "деталь, подробность",
+      "transcription": "ˈdiːteɪl",
+      "example": "Tell me all the details.",
+      "example_tr": "Расскажи мне все подробности.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "define",
+      "back": "определять",
+      "transcription": "dɪˈfaɪn",
+      "example": "Can you define this word?",
+      "example_tr": "Можешь дать определение этому слову?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "currently",
+      "back": "в настоящее время",
+      "transcription": "ˈkʌrəntli",
+      "example": "I am currently working on a project.",
+      "example_tr": "Сейчас я работаю над проектом.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "device",
+      "back": "устройство",
+      "transcription": "dɪˈvaɪs",
+      "example": "This device measures temperature.",
+      "example_tr": "Это устройство измеряет температуру.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "depend",
+      "back": "зависеть",
+      "transcription": "dɪˈpend",
+      "example": "It depends on the weather.",
+      "example_tr": "Это зависит от погоды.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "global",
+      "back": "глобальный, мировой",
+      "transcription": "ˈɡloʊbəl",
+      "example": "Climate change is a global problem.",
+      "example_tr": "Изменение климата — глобальная проблема.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "distance",
+      "back": "расстояние",
+      "transcription": "ˈdɪstəns",
+      "example": "The distance is about ten kilometres.",
+      "example_tr": "Расстояние около десяти километров.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "develop",
+      "back": "развивать(ся)",
+      "transcription": "dɪˈveləp",
+      "example": "The town has developed quickly.",
+      "example_tr": "Город быстро развивался.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "economy",
+      "back": "экономика",
+      "transcription": "ɪˈkɒnəmi",
+      "example": "The economy is growing slowly.",
+      "example_tr": "Экономика медленно растёт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "disappear",
+      "back": "исчезать",
+      "transcription": "ˌdɪsəˈpɪər",
+      "example": "The sun disappeared behind the clouds.",
+      "example_tr": "Солнце скрылось за облаками.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "independent",
+      "back": "независимый",
+      "transcription": "ˌɪndɪˈpendənt",
+      "example": "She is very independent.",
+      "example_tr": "Она очень независима.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "effect",
+      "back": "эффект, воздействие",
+      "transcription": "ɪˈfekt",
+      "example": "The medicine had a good effect.",
+      "example_tr": "Лекарство оказало хороший эффект.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "simply",
+      "back": "просто",
+      "transcription": "ˈsɪmpli",
+      "example": "It's simply not possible.",
+      "example_tr": "Это просто невозможно.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "discuss",
+      "back": "обсуждать",
+      "transcription": "dɪˈskʌs",
+      "example": "Let's discuss the plan.",
+      "example_tr": "Давай обсудим план.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "effort",
+      "back": "усилие",
+      "transcription": "ˈefərt",
+      "example": "It took a lot of effort to finish.",
+      "example_tr": "Потребовалось много усилий, чтобы закончить.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "divide",
+      "back": "делить",
+      "transcription": "dɪˈvaɪd",
+      "example": "Divide the cake into six pieces.",
+      "example_tr": "Раздели торт на шесть кусков.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "individual",
+      "back": "индивидуальный, отдельный",
+      "transcription": "ˌɪndɪˈvɪdʒuəl",
+      "example": "Every individual case is different.",
+      "example_tr": "Каждый отдельный случай отличается.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "element",
+      "back": "элемент",
+      "transcription": "ˈelɪmənt",
+      "example": "Trust is a key element of friendship.",
+      "example_tr": "Доверие — ключевой элемент дружбы.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "earn",
+      "back": "зарабатывать",
+      "transcription": "ɜːrn",
+      "example": "He earns a good salary.",
+      "example_tr": "Он зарабатывает хорошую зарплату.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "emotion",
+      "back": "эмоция",
+      "transcription": "ɪˈmoʊʃən",
+      "example": "It's normal to show your emotions.",
+      "example_tr": "Нормально проявлять свои эмоции.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "employ",
+      "back": "нанимать",
+      "transcription": "ɪmˈplɔɪ",
+      "example": "The company employs fifty people.",
+      "example_tr": "В компании работает пятьдесят человек.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "clearly",
+      "back": "ясно, очевидно",
+      "transcription": "ˈklɪərli",
+      "example": "Clearly, we need more time.",
+      "example_tr": "Очевидно, нам нужно больше времени.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "employee",
+      "back": "сотрудник",
+      "transcription": "ɪmˈplɔɪiː",
+      "example": "The company has fifty employees.",
+      "example_tr": "В компании пятьдесят сотрудников.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "initial",
+      "back": "начальный, первоначальный",
+      "transcription": "ɪˈnɪʃəl",
+      "example": "The initial results look good.",
+      "example_tr": "Первоначальные результаты выглядят хорошо.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "encourage",
+      "back": "поощрять, поддерживать",
+      "transcription": "ɪnˈkʌrɪdʒ",
+      "example": "My parents encourage me to study.",
+      "example_tr": "Мои родители поддерживают моё обучение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "employer",
+      "back": "работодатель",
+      "transcription": "ɪmˈplɔɪər",
+      "example": "My employer is very understanding.",
+      "example_tr": "Мой работодатель очень понимающий.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "ensure",
+      "back": "обеспечивать, гарантировать",
+      "transcription": "ɪnˈʃʊər",
+      "example": "Please ensure the door is locked.",
+      "example_tr": "Пожалуйста, убедись, что дверь заперта.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "energy",
+      "back": "энергия",
+      "transcription": "ˈenərdʒi",
+      "example": "Solar energy is clean and renewable.",
+      "example_tr": "Солнечная энергия чистая и возобновляемая.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "logical",
+      "back": "логичный",
+      "transcription": "ˈlɒdʒɪkəl",
+      "example": "That's a logical explanation.",
+      "example_tr": "Это логичное объяснение.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "establish",
+      "back": "устанавливать, основывать",
+      "transcription": "ɪˈstæblɪʃ",
+      "example": "The company was established in 1990.",
+      "example_tr": "Компания была основана в 1990 году.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "equipment",
+      "back": "оборудование",
+      "transcription": "ɪˈkwɪpmənt",
+      "example": "We need new sports equipment.",
+      "example_tr": "Нам нужно новое спортивное оборудование.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "directly",
+      "back": "напрямую, прямо",
+      "transcription": "dəˈrektli",
+      "example": "Please contact me directly.",
+      "example_tr": "Пожалуйста, свяжись со мной напрямую.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "estimate",
+      "back": "оценивать, подсчитывать",
+      "transcription": "ˈestɪmeɪt",
+      "example": "We estimate the cost at 500 dollars.",
+      "example_tr": "Мы оцениваем стоимость в 500 долларов.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "evidence",
+      "back": "доказательство",
+      "transcription": "ˈevɪdəns",
+      "example": "There is no evidence for this theory.",
+      "example_tr": "У этой теории нет доказательств.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "mental",
+      "back": "умственный, психический",
+      "transcription": "ˈmentəl",
+      "example": "Sport is good for your mental health.",
+      "example_tr": "Спорт полезен для психического здоровья.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "exist",
+      "back": "существовать",
+      "transcription": "ɪɡˈzɪst",
+      "example": "This problem has existed for years.",
+      "example_tr": "Эта проблема существует уже много лет.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "factor",
+      "back": "фактор",
+      "transcription": "ˈfæktər",
+      "example": "Price is an important factor.",
+      "example_tr": "Цена — важный фактор.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "expand",
+      "back": "расширять(ся)",
+      "transcription": "ɪkˈspænd",
+      "example": "The city is expanding fast.",
+      "example_tr": "Город быстро расширяется.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fault",
+      "back": "вина, недостаток",
+      "transcription": "fɔːlt",
+      "example": "It's not your fault.",
+      "example_tr": "Это не твоя вина.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "moral",
+      "back": "моральный, нравственный",
+      "transcription": "ˈmɒrəl",
+      "example": "It's a moral question.",
+      "example_tr": "Это моральный вопрос.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "extremely",
+      "back": "чрезвычайно, крайне",
+      "transcription": "ɪkˈstriːmli",
+      "example": "It's extremely hot today.",
+      "example_tr": "Сегодня чрезвычайно жарко.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "expect",
+      "back": "ожидать",
+      "transcription": "ɪkˈspekt",
+      "example": "I expect good news soon.",
+      "example_tr": "Я ожидаю хороших новостей в ближайшее время.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "feature",
+      "back": "особенность, черта",
+      "transcription": "ˈfiːtʃər",
+      "example": "This phone has many useful features.",
+      "example_tr": "У этого телефона много полезных функций.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "figure",
+      "back": "цифра, фигура",
+      "transcription": "ˈfɪɡjər",
+      "example": "Look at the sales figures.",
+      "example_tr": "Посмотри на цифры продаж.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "undergo",
+      "back": "переживать, подвергаться",
+      "transcription": "ˌʌndərˈɡoʊ",
+      "example": "The company is undergoing big changes.",
+      "example_tr": "Компания переживает большие перемены.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "negative",
+      "back": "отрицательный",
+      "transcription": "ˈneɡətɪv",
+      "example": "Try not to think negative thoughts.",
+      "example_tr": "Старайся не думать негативно.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "goal",
+      "back": "цель",
+      "transcription": "ɡoʊl",
+      "example": "My goal is to speak fluent English.",
+      "example_tr": "Моя цель — свободно говорить по-английски.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "fail",
+      "back": "терпеть неудачу, проваливать",
+      "transcription": "feɪl",
+      "example": "He failed the exam.",
+      "example_tr": "Он провалил экзамен.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fairly",
+      "back": "довольно, достаточно",
+      "transcription": "ˈfeərli",
+      "example": "The exam was fairly easy.",
+      "example_tr": "Экзамен был довольно лёгким.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "growth",
+      "back": "рост",
+      "transcription": "ɡroʊθ",
+      "example": "The company had strong growth this year.",
+      "example_tr": "В этом году у компании был сильный рост.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "focus",
+      "back": "сосредотачиваться",
+      "transcription": "ˈfoʊkəs",
+      "example": "Try to focus on your work.",
+      "example_tr": "Постарайся сосредоточиться на работе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "obvious",
+      "back": "очевидный",
+      "transcription": "ˈɒbviəs",
+      "example": "It's obvious that she is tired.",
+      "example_tr": "Очевидно, что она устала.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "impact",
+      "back": "влияние, воздействие",
+      "transcription": "ˈɪmpækt",
+      "example": "The film had a big impact on me.",
+      "example_tr": "Фильм произвёл на меня большое впечатление.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "force",
+      "back": "заставлять",
+      "transcription": "fɔːrs",
+      "example": "Nobody forced her to come.",
+      "example_tr": "Никто не заставлял её приходить.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "income",
+      "back": "доход",
+      "transcription": "ˈɪnkʌm",
+      "example": "Their income increased last year.",
+      "example_tr": "В прошлом году их доход вырос.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "gain",
+      "back": "получать, приобретать",
+      "transcription": "ɡeɪn",
+      "example": "She gained experience abroad.",
+      "example_tr": "Она получила опыт за границей.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "official",
+      "back": "официальный",
+      "transcription": "əˈfɪʃəl",
+      "example": "This is the official website.",
+      "example_tr": "Это официальный сайт.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "industry",
+      "back": "промышленность, отрасль",
+      "transcription": "ˈɪndəstri",
+      "example": "He works in the tourism industry.",
+      "example_tr": "Он работает в туристической отрасли.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "hardly",
+      "back": "едва, вряд ли",
+      "transcription": "ˈhɑːrdli",
+      "example": "I hardly know him.",
+      "example_tr": "Я его почти не знаю.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "handle",
+      "back": "справляться, обращаться с",
+      "transcription": "ˈhændəl",
+      "example": "He handles stress well.",
+      "example_tr": "Он хорошо справляется со стрессом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "issue",
+      "back": "проблема, вопрос",
+      "transcription": "ˈɪʃuː",
+      "example": "We need to talk about this issue.",
+      "example_tr": "Нам нужно обсудить этот вопрос.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "identify",
+      "back": "определять, опознавать",
+      "transcription": "aɪˈdentɪfaɪ",
+      "example": "Can you identify the man in this photo?",
+      "example_tr": "Можешь опознать человека на этом фото?",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "deal with",
+      "back": "иметь дело с, справляться",
+      "transcription": "diːl wɪð",
+      "example": "I have to deal with this problem now.",
+      "example_tr": "Мне нужно разобраться с этой проблемой сейчас.",
+      "tags": [
+        "phrase"
+      ]
+    },
+    {
+      "front": "lack",
+      "back": "недостаток, нехватка",
+      "transcription": "læk",
+      "example": "There is a lack of information.",
+      "example_tr": "Ощущается нехватка информации.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "original",
+      "back": "оригинальный, первоначальный",
+      "transcription": "əˈrɪdʒənəl",
+      "example": "This is the original recipe.",
+      "example_tr": "Это оригинальный рецепт.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "ignore",
+      "back": "игнорировать",
+      "transcription": "ɪɡˈnɔːr",
+      "example": "Don't ignore my message.",
+      "example_tr": "Не игнорируй моё сообщение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "level",
+      "back": "уровень",
+      "transcription": "ˈlevəl",
+      "example": "My English level is intermediate.",
+      "example_tr": "Мой уровень английского — средний.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "include",
+      "back": "включать",
+      "transcription": "ɪnˈkluːd",
+      "example": "The price includes breakfast.",
+      "example_tr": "Цена включает завтрак.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "nearly",
+      "back": "почти",
+      "transcription": "ˈnɪərli",
+      "example": "It's nearly midnight.",
+      "example_tr": "Уже почти полночь.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "majority",
+      "back": "большинство",
+      "transcription": "məˈdʒɒrəti",
+      "example": "The majority agreed with the plan.",
+      "example_tr": "Большинство согласилось с планом.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "particular",
+      "back": "особый, конкретный",
+      "transcription": "pərˈtɪkjələr",
+      "example": "Is there a particular reason for this?",
+      "example_tr": "Есть ли особая причина для этого?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "increase",
+      "back": "увеличивать(ся)",
+      "transcription": "ɪnˈkriːs",
+      "example": "Prices increased last year.",
+      "example_tr": "В прошлом году цены выросли.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "material",
+      "back": "материал",
+      "transcription": "məˈtɪəriəl",
+      "example": "This bag is made of recycled material.",
+      "example_tr": "Эта сумка сделана из переработанного материала.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "indicate",
+      "back": "указывать, свидетельствовать",
+      "transcription": "ˈɪndɪkeɪt",
+      "example": "The results indicate a problem.",
+      "example_tr": "Результаты указывают на проблему.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "method",
+      "back": "метод",
+      "transcription": "ˈmeθəd",
+      "example": "This is an effective teaching method.",
+      "example_tr": "Это эффективный метод обучения.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "positive",
+      "back": "положительный",
+      "transcription": "ˈpɒzətɪv",
+      "example": "Try to stay positive.",
+      "example_tr": "Старайся сохранять позитивный настрой.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "influence",
+      "back": "влиять",
+      "transcription": "ˈɪnfluəns",
+      "example": "Friends influence our choices.",
+      "example_tr": "Друзья влияют на наш выбор.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "minority",
+      "back": "меньшинство",
+      "transcription": "maɪˈnɒrəti",
+      "example": "Only a minority disagreed.",
+      "example_tr": "Не согласилось лишь меньшинство.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "particularly",
+      "back": "особенно",
+      "transcription": "pərˈtɪkjələrli",
+      "example": "I particularly enjoyed the music.",
+      "example_tr": "Мне особенно понравилась музыка.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "inform",
+      "back": "информировать",
+      "transcription": "ɪnˈfɔːrm",
+      "example": "Please inform us of any changes.",
+      "example_tr": "Пожалуйста, сообщайте нам об изменениях.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "nature",
+      "back": "природа, характер",
+      "transcription": "ˈneɪtʃər",
+      "example": "I love spending time in nature.",
+      "example_tr": "Я люблю проводить время на природе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "potential",
+      "back": "потенциальный",
+      "transcription": "pəˈtenʃəl",
+      "example": "This is a potential problem.",
+      "example_tr": "Это потенциальная проблема.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "insist",
+      "back": "настаивать",
+      "transcription": "ɪnˈsɪst",
+      "example": "She insisted on paying.",
+      "example_tr": "Она настояла на том, чтобы заплатить.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "object",
+      "back": "объект, предмет",
+      "transcription": "ˈɒbdʒɪkt",
+      "example": "There is a strange object on the table.",
+      "example_tr": "На столе странный предмет.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "opportunity",
+      "back": "возможность",
+      "transcription": "ˌɒpərˈtjuːnəti",
+      "example": "This job is a great opportunity.",
+      "example_tr": "Эта работа — отличная возможность.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "intend",
+      "back": "намереваться",
+      "transcription": "ɪnˈtend",
+      "example": "We intend to move next year.",
+      "example_tr": "Мы намерены переехать в следующем году.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "apparently",
+      "back": "очевидно, по-видимому",
+      "transcription": "əˈpærəntli",
+      "example": "Apparently, the shop is closed today.",
+      "example_tr": "По-видимому, сегодня магазин закрыт.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "practical",
+      "back": "практичный, практический",
+      "transcription": "ˈpræktɪkəl",
+      "example": "That's a practical solution.",
+      "example_tr": "Это практичное решение.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "organisation",
+      "back": "организация",
+      "transcription": "ˌɔːrɡənaɪˈzeɪʃən",
+      "example": "She works for a charity organisation.",
+      "example_tr": "Она работает в благотворительной организации.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "invest",
+      "back": "инвестировать",
+      "transcription": "ɪnˈvest",
+      "example": "They invested in a new business.",
+      "example_tr": "Они инвестировали в новый бизнес.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "percentage",
+      "back": "процент",
+      "transcription": "pərˈsentɪdʒ",
+      "example": "A large percentage of students passed.",
+      "example_tr": "Большой процент студентов сдал экзамен.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "involve",
+      "back": "вовлекать, включать в себя",
+      "transcription": "ɪnˈvɒlv",
+      "example": "The job involves a lot of travel.",
+      "example_tr": "Работа предполагает много поездок.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "previous",
+      "back": "предыдущий",
+      "transcription": "ˈpriːviəs",
+      "example": "In the previous lesson we learned verbs.",
+      "example_tr": "На предыдущем уроке мы изучали глаголы.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "period",
+      "back": "период",
+      "transcription": "ˈpɪəriəd",
+      "example": "This was a difficult period for us.",
+      "example_tr": "Это был трудный период для нас.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "last",
+      "back": "длиться",
+      "transcription": "læst",
+      "example": "The meeting lasted an hour.",
+      "example_tr": "Встреча длилась час.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "basically",
+      "back": "по сути, в основном",
+      "transcription": "ˈbeɪsɪkli",
+      "example": "Basically, we agree with the plan.",
+      "example_tr": "По сути, мы согласны с планом.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "policy",
+      "back": "политика, курс",
+      "transcription": "ˈpɒləsi",
+      "example": "The company changed its policy.",
+      "example_tr": "Компания изменила свою политику.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "restrict",
+      "back": "ограничивать",
+      "transcription": "rɪˈstrɪkt",
+      "example": "We must restrict our spending.",
+      "example_tr": "Нам нужно ограничить расходы.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "primary",
+      "back": "первичный, основной",
+      "transcription": "ˈpraɪməri",
+      "example": "Our primary goal is safety.",
+      "example_tr": "Наша главная цель — безопасность.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "process",
+      "back": "процесс",
+      "transcription": "ˈproʊses",
+      "example": "Learning a language is a slow process.",
+      "example_tr": "Изучение языка — медленный процесс.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "maintain",
+      "back": "поддерживать, содержать",
+      "transcription": "meɪnˈteɪn",
+      "example": "It's hard to maintain a healthy diet.",
+      "example_tr": "Трудно поддерживать здоровое питание.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "progress",
+      "back": "прогресс",
+      "transcription": "ˈproʊɡres",
+      "example": "You are making good progress.",
+      "example_tr": "Ты делаешь хорошие успехи.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "manage",
+      "back": "справляться, руководить",
+      "transcription": "ˈmænɪdʒ",
+      "example": "She manages a small team.",
+      "example_tr": "Она руководит небольшой командой.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "private",
+      "back": "частный, личный",
+      "transcription": "ˈpraɪvɪt",
+      "example": "This is private property.",
+      "example_tr": "Это частная собственность.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "project",
+      "back": "проект",
+      "transcription": "ˈprɒdʒekt",
+      "example": "We finished the project on time.",
+      "example_tr": "Мы завершили проект вовремя.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "generally",
+      "back": "в целом, обычно",
+      "transcription": "ˈdʒenərəli",
+      "example": "Generally, I wake up early.",
+      "example_tr": "Обычно я просыпаюсь рано.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "mention",
+      "back": "упоминать",
+      "transcription": "ˈmenʃən",
+      "example": "She mentioned your name.",
+      "example_tr": "Она упомянула твоё имя.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "proportion",
+      "back": "доля, пропорция",
+      "transcription": "prəˈpɔːrʃən",
+      "example": "A small proportion of people voted.",
+      "example_tr": "Проголосовала лишь небольшая доля людей.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "mix",
+      "back": "смешивать",
+      "transcription": "mɪks",
+      "example": "Mix the flour with the water.",
+      "example_tr": "Смешай муку с водой.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "purpose",
+      "back": "цель, намерение",
+      "transcription": "ˈpɜːrpəs",
+      "example": "What is the purpose of your visit?",
+      "example_tr": "Какова цель твоего визита?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "professional",
+      "back": "профессиональный",
+      "transcription": "prəˈfeʃənəl",
+      "example": "She gave very professional advice.",
+      "example_tr": "Она дала очень профессиональный совет.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "obtain",
+      "back": "получать, приобретать",
+      "transcription": "əbˈteɪn",
+      "example": "You need to obtain a visa.",
+      "example_tr": "Тебе нужно получить визу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "quality",
+      "back": "качество",
+      "transcription": "ˈkwɒləti",
+      "example": "This shop sells high quality clothes.",
+      "example_tr": "В этом магазине продают качественную одежду.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "occur",
+      "back": "происходить, случаться",
+      "transcription": "əˈkɜːr",
+      "example": "The accident occurred at night.",
+      "example_tr": "Авария произошла ночью.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "mainly",
+      "back": "в основном",
+      "transcription": "ˈmeɪnli",
+      "example": "We mainly speak English at work.",
+      "example_tr": "На работе мы в основном говорим по-английски.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "quantity",
+      "back": "количество",
+      "transcription": "ˈkwɒntəti",
+      "example": "We need a large quantity of paper.",
+      "example_tr": "Нам нужно большое количество бумаги.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "realistic",
+      "back": "реалистичный",
+      "transcription": "ˌrɪəˈlɪstɪk",
+      "example": "Let's set a realistic goal.",
+      "example_tr": "Давай поставим реалистичную цель.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "operate",
+      "back": "работать, действовать",
+      "transcription": "ˈɒpəreɪt",
+      "example": "The machine operates automatically.",
+      "example_tr": "Машина работает автоматически.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "range",
+      "back": "диапазон, ассортимент",
+      "transcription": "reɪndʒ",
+      "example": "The shop has a wide range of products.",
+      "example_tr": "В магазине широкий ассортимент товаров.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "perform",
+      "back": "выполнять, выступать",
+      "transcription": "pərˈfɔːrm",
+      "example": "The band performed well last night.",
+      "example_tr": "Группа хорошо выступила вчера вечером.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "rate",
+      "back": "ставка, показатель",
+      "transcription": "reɪt",
+      "example": "The interest rate went up.",
+      "example_tr": "Процентная ставка выросла.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "relevant",
+      "back": "уместный, актуальный",
+      "transcription": "ˈreləvənt",
+      "example": "This information is not relevant now.",
+      "example_tr": "Эта информация сейчас неактуальна.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "persuade",
+      "back": "убеждать (склонять)",
+      "transcription": "pərˈsweɪd",
+      "example": "I persuaded him to come with us.",
+      "example_tr": "Я убедил его пойти с нами.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "relationship",
+      "back": "отношения",
+      "transcription": "rɪˈleɪʃənʃɪp",
+      "example": "They have a good relationship.",
+      "example_tr": "У них хорошие отношения.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "regularly",
+      "back": "регулярно",
+      "transcription": "ˈreɡjələrli",
+      "example": "I go to the gym regularly.",
+      "example_tr": "Я регулярно хожу в спортзал.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "prefer",
+      "back": "предпочитать",
+      "transcription": "prɪˈfɜːr",
+      "example": "I prefer tea to coffee.",
+      "example_tr": "Я предпочитаю чай кофе.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "resource",
+      "back": "ресурс",
+      "transcription": "rɪˈsɔːrs",
+      "example": "Water is a valuable resource.",
+      "example_tr": "Вода — ценный ресурс.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "reliable",
+      "back": "надёжный",
+      "transcription": "rɪˈlaɪəbəl",
+      "example": "He is a reliable friend.",
+      "example_tr": "Он надёжный друг.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "role",
+      "back": "роль",
+      "transcription": "roʊl",
+      "example": "She plays an important role in the team.",
+      "example_tr": "Она играет важную роль в команде.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "prevent",
+      "back": "предотвращать",
+      "transcription": "prɪˈvent",
+      "example": "Exercise can prevent illness.",
+      "example_tr": "Физические упражнения могут предотвратить болезнь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "rule",
+      "back": "правило",
+      "transcription": "ruːl",
+      "example": "You must follow the rules.",
+      "example_tr": "Ты должен соблюдать правила.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "produce",
+      "back": "производить",
+      "transcription": "prəˈdjuːs",
+      "example": "This factory produces cars.",
+      "example_tr": "Этот завод производит автомобили.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "roughly",
+      "back": "примерно, приблизительно",
+      "transcription": "ˈrʌfli",
+      "example": "It costs roughly a hundred dollars.",
+      "example_tr": "Это стоит примерно сто долларов.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "responsible",
+      "back": "ответственный",
+      "transcription": "rɪˈspɒnsəbəl",
+      "example": "She is responsible for the project.",
+      "example_tr": "Она отвечает за проект.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "scale",
+      "back": "масштаб, шкала",
+      "transcription": "skeɪl",
+      "example": "The project is large in scale.",
+      "example_tr": "Проект масштабный.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "protect",
+      "back": "защищать",
+      "transcription": "prəˈtekt",
+      "example": "Sunscreen protects your skin.",
+      "example_tr": "Солнцезащитный крем защищает кожу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "section",
+      "back": "раздел, часть",
+      "transcription": "ˈsekʃən",
+      "example": "Read the first section carefully.",
+      "example_tr": "Внимательно прочитай первый раздел.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "provide",
+      "back": "предоставлять",
+      "transcription": "prəˈvaɪd",
+      "example": "The hotel provides free breakfast.",
+      "example_tr": "Отель предоставляет бесплатный завтрак.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "whereas",
       "back": "тогда как, в то время как",
       "transcription": "weərˈæz",
@@ -2887,6 +2287,506 @@
       ]
     },
     {
+      "front": "secure",
+      "back": "безопасный, надёжный",
+      "transcription": "sɪˈkjʊər",
+      "example": "Make sure the password is secure.",
+      "example_tr": "Убедись, что пароль надёжный.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "sector",
+      "back": "сектор",
+      "transcription": "ˈsektər",
+      "example": "He works in the public sector.",
+      "example_tr": "Он работает в государственном секторе.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "publish",
+      "back": "публиковать",
+      "transcription": "ˈpʌblɪʃ",
+      "example": "She published her first book.",
+      "example_tr": "Она опубликовала свою первую книгу.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "slightly",
+      "back": "слегка, немного",
+      "transcription": "ˈslaɪtli",
+      "example": "The price went up slightly.",
+      "example_tr": "Цена слегка выросла.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "situation",
+      "back": "ситуация",
+      "transcription": "ˌsɪtʃuˈeɪʃən",
+      "example": "It's a difficult situation.",
+      "example_tr": "Это трудная ситуация.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "realise",
+      "back": "осознавать, понимать",
+      "transcription": "ˈrɪəlaɪz",
+      "example": "I realised my mistake too late.",
+      "example_tr": "Я слишком поздно осознал свою ошибку.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "separate",
+      "back": "отдельный",
+      "transcription": "ˈsepərət",
+      "example": "They have separate rooms.",
+      "example_tr": "У них отдельные комнаты.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "solution",
+      "back": "решение",
+      "transcription": "səˈluːʃən",
+      "example": "We found a good solution.",
+      "example_tr": "Мы нашли хорошее решение.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "receive",
+      "back": "получать",
+      "transcription": "rɪˈsiːv",
+      "example": "I received your letter yesterday.",
+      "example_tr": "Я получил твоё письмо вчера.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "source",
+      "back": "источник",
+      "transcription": "sɔːrs",
+      "example": "What is the source of this information?",
+      "example_tr": "Каков источник этой информации?",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "reduce",
+      "back": "уменьшать, сокращать",
+      "transcription": "rɪˈdjuːs",
+      "example": "We should reduce our plastic use.",
+      "example_tr": "Нам следует сократить использование пластика.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "standard",
+      "back": "стандарт, норма",
+      "transcription": "ˈstændərd",
+      "example": "This hotel has a high standard.",
+      "example_tr": "У этого отеля высокий стандарт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "significant",
+      "back": "значительный, существенный",
+      "transcription": "sɪɡˈnɪfɪkənt",
+      "example": "There was a significant change in the plan.",
+      "example_tr": "В плане произошло значительное изменение.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "totally",
+      "back": "полностью, совершенно",
+      "transcription": "ˈtoʊtəli",
+      "example": "I totally agree with you.",
+      "example_tr": "Я полностью с тобой согласен.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "reflect",
+      "back": "отражать, размышлять",
+      "transcription": "rɪˈflekt",
+      "example": "The lake reflects the mountains.",
+      "example_tr": "Озеро отражает горы.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "strategy",
+      "back": "стратегия",
+      "transcription": "ˈstrætədʒi",
+      "example": "We need a new marketing strategy.",
+      "example_tr": "Нам нужна новая маркетинговая стратегия.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "relate",
+      "back": "относиться, связывать",
+      "transcription": "rɪˈleɪt",
+      "example": "This problem relates to money.",
+      "example_tr": "Эта проблема связана с деньгами.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "structure",
+      "back": "структура",
+      "transcription": "ˈstrʌktʃər",
+      "example": "The structure of the essay is clear.",
+      "example_tr": "Структура эссе понятна.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "social",
+      "back": "социальный",
+      "transcription": "ˈsoʊʃəl",
+      "example": "Humans are social animals.",
+      "example_tr": "Люди — социальные существа.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "release",
+      "back": "выпускать, освобождать",
+      "transcription": "rɪˈliːs",
+      "example": "They released a new album.",
+      "example_tr": "Они выпустили новый альбом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "survey",
+      "back": "опрос",
+      "transcription": "ˈsɜːrveɪ",
+      "example": "We did a survey among customers.",
+      "example_tr": "Мы провели опрос среди клиентов.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "unfortunately",
+      "back": "к сожалению",
+      "transcription": "ʌnˈfɔːrtʃənətli",
+      "example": "Unfortunately, I can't come.",
+      "example_tr": "К сожалению, я не смогу прийти.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "remain",
+      "back": "оставаться",
+      "transcription": "rɪˈmeɪn",
+      "example": "The situation remains difficult.",
+      "example_tr": "Ситуация остаётся сложной.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "target",
+      "back": "цель, мишень",
+      "transcription": "ˈtɑːrɡɪt",
+      "example": "We set a sales target.",
+      "example_tr": "Мы установили цель по продажам.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "specific",
+      "back": "конкретный, определённый",
+      "transcription": "spəˈsɪfɪk",
+      "example": "Can you be more specific?",
+      "example_tr": "Можешь выразиться конкретнее?",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "remove",
+      "back": "удалять, убирать",
+      "transcription": "rɪˈmuːv",
+      "example": "Please remove your shoes.",
+      "example_tr": "Пожалуйста, снимите обувь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "technique",
+      "back": "техника, приём",
+      "transcription": "tekˈniːk",
+      "example": "She uses a special painting technique.",
+      "example_tr": "Она использует особую технику живописи.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "replace",
+      "back": "заменять",
+      "transcription": "rɪˈpleɪs",
+      "example": "We need to replace this old chair.",
+      "example_tr": "Нам нужно заменить этот старый стул.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "theory",
+      "back": "теория",
+      "transcription": "ˈθɪəri",
+      "example": "It's just a theory, not a fact.",
+      "example_tr": "Это всего лишь теория, а не факт.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "stable",
+      "back": "стабильный",
+      "transcription": "ˈsteɪbəl",
+      "example": "The economy is stable now.",
+      "example_tr": "Экономика сейчас стабильна.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "tool",
+      "back": "инструмент",
+      "transcription": "tuːl",
+      "example": "A hammer is a useful tool.",
+      "example_tr": "Молоток — полезный инструмент.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "represent",
+      "back": "представлять",
+      "transcription": "ˌreprɪˈzent",
+      "example": "This flag represents our country.",
+      "example_tr": "Этот флаг представляет нашу страну.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "fortunately",
+      "back": "к счастью",
+      "transcription": "ˈfɔːrtʃənətli",
+      "example": "Fortunately, no one was hurt.",
+      "example_tr": "К счастью, никто не пострадал.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "trend",
+      "back": "тенденция, тренд",
+      "transcription": "trend",
+      "example": "This is a new fashion trend.",
+      "example_tr": "Это новая модная тенденция.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "require",
+      "back": "требовать(ся)",
+      "transcription": "rɪˈkwaɪər",
+      "example": "This job requires experience.",
+      "example_tr": "Эта работа требует опыта.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "sufficient",
+      "back": "достаточный",
+      "transcription": "səˈfɪʃənt",
+      "example": "We have sufficient time.",
+      "example_tr": "У нас достаточно времени.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "value",
+      "back": "ценность, значение",
+      "transcription": "ˈvæljuː",
+      "example": "Family has great value for me.",
+      "example_tr": "Семья имеет для меня большую ценность.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "respond",
+      "back": "отвечать, реагировать",
+      "transcription": "rɪˈspɒnd",
+      "example": "He didn't respond to my message.",
+      "example_tr": "Он не ответил на моё сообщение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "variety",
+      "back": "разнообразие",
+      "transcription": "vəˈraɪəti",
+      "example": "The shop offers a variety of products.",
+      "example_tr": "Магазин предлагает разнообразие товаров.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "reveal",
+      "back": "раскрывать, обнаруживать",
+      "transcription": "rɪˈviːl",
+      "example": "She revealed the secret.",
+      "example_tr": "Она раскрыла секрет.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "indeed",
+      "back": "действительно, в самом деле",
+      "transcription": "ɪnˈdiːd",
+      "example": "It was indeed a good idea.",
+      "example_tr": "Это действительно была хорошая идея.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "technical",
+      "back": "технический",
+      "transcription": "ˈteknɪkəl",
+      "example": "This is a technical issue.",
+      "example_tr": "Это техническая проблема.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "version",
+      "back": "версия",
+      "transcription": "ˈvɜːrʒən",
+      "example": "This is the new version of the app.",
+      "example_tr": "Это новая версия приложения.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "satisfy",
+      "back": "удовлетворять",
+      "transcription": "ˈsætɪsfaɪ",
+      "example": "The answer didn't satisfy me.",
+      "example_tr": "Ответ меня не удовлетворил.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "view",
+      "back": "взгляд, вид, мнение",
+      "transcription": "vjuː",
+      "example": "In my view, this is a good idea.",
+      "example_tr": "На мой взгляд, это хорошая идея.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "seek",
+      "back": "искать, стремиться",
+      "transcription": "siːk",
+      "example": "They are seeking a solution.",
+      "example_tr": "Они ищут решение.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "temporary",
+      "back": "временный",
+      "transcription": "ˈtempəreri",
+      "example": "This is only a temporary solution.",
+      "example_tr": "Это лишь временное решение.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "volume",
+      "back": "объём, громкость",
+      "transcription": "ˈvɒljuːm",
+      "example": "Please turn down the volume.",
+      "example_tr": "Пожалуйста, убавь громкость.",
+      "tags": [
+        "noun"
+      ]
+    },
+    {
+      "front": "select",
+      "back": "выбирать",
+      "transcription": "sɪˈlekt",
+      "example": "Select the correct answer.",
+      "example_tr": "Выбери правильный ответ.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
+      "front": "instead",
+      "back": "вместо этого",
+      "transcription": "ɪnˈsted",
+      "example": "Let's take the bus instead.",
+      "example_tr": "Давай вместо этого поедем на автобусе.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
       "front": "competition",
       "back": "конкуренция, соревнование",
       "transcription": "ˌkɒmpəˈtɪʃən",
@@ -2894,6 +2794,16 @@
       "example_tr": "На этом рынке сильная конкуренция.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "survive",
+      "back": "выживать",
+      "transcription": "sərˈvaɪv",
+      "example": "Few animals survive in the desert.",
+      "example_tr": "Немногие животные выживают в пустыне.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2907,6 +2817,26 @@
       ]
     },
     {
+      "front": "typical",
+      "back": "типичный",
+      "transcription": "ˈtɪpɪkəl",
+      "example": "That's a typical mistake for beginners.",
+      "example_tr": "Это типичная ошибка новичков.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "tend",
+      "back": "иметь тенденцию",
+      "transcription": "tend",
+      "example": "People tend to work more in summer.",
+      "example_tr": "Люди, как правило, больше работают летом.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "debt",
       "back": "долг",
       "transcription": "det",
@@ -2917,6 +2847,16 @@
       ]
     },
     {
+      "front": "treat",
+      "back": "относиться, лечить",
+      "transcription": "triːt",
+      "example": "The doctor treated her illness.",
+      "example_tr": "Врач вылечил её болезнь.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "investment",
       "back": "инвестиция",
       "transcription": "ɪnˈvestmənt",
@@ -2924,6 +2864,36 @@
       "example_tr": "Это хорошая инвестиция.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "unique",
+      "back": "уникальный",
+      "transcription": "juˈniːk",
+      "example": "Every person is unique.",
+      "example_tr": "Каждый человек уникален.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "meanwhile",
+      "back": "тем временем",
+      "transcription": "ˈmiːnwaɪl",
+      "example": "I'll cook; meanwhile, you can rest.",
+      "example_tr": "Я приготовлю, а ты пока отдохни.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "warn",
+      "back": "предупреждать",
+      "transcription": "wɔːrn",
+      "example": "She warned me about the storm.",
+      "example_tr": "Она предупредила меня о буре.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2947,36 +2917,6 @@
       ]
     },
     {
-      "front": "state",
-      "back": "заявлять, констатировать",
-      "transcription": "steɪt",
-      "example": "She stated her opinion clearly.",
-      "example_tr": "Она чётко изложила своё мнение.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "assist",
-      "back": "помогать, содействовать",
-      "transcription": "əˈsɪst",
-      "example": "The staff will assist you.",
-      "example_tr": "Персонал вам поможет.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
-      "front": "adapt",
-      "back": "приспосабливаться",
-      "transcription": "əˈdæpt",
-      "example": "It took time to adapt to the new job.",
-      "example_tr": "Потребовалось время, чтобы приспособиться к новой работе.",
-      "tags": [
-        "verb"
-      ]
-    },
-    {
       "front": "shortage",
       "back": "нехватка, дефицит",
       "transcription": "ˈʃɔːrtɪdʒ",
@@ -2984,6 +2924,26 @@
       "example_tr": "Ощущается нехватка рабочих.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "urban",
+      "back": "городской",
+      "transcription": "ˈɜːrbən",
+      "example": "Urban life can be stressful.",
+      "example_tr": "Городская жизнь может быть напряжённой.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "state",
+      "back": "заявлять, констатировать",
+      "transcription": "steɪt",
+      "example": "She stated her opinion clearly.",
+      "example_tr": "Она чётко изложила своё мнение.",
+      "tags": [
+        "verb"
       ]
     },
     {
@@ -2997,6 +2957,26 @@
       ]
     },
     {
+      "front": "besides",
+      "back": "кроме того",
+      "transcription": "bɪˈsaɪdz",
+      "example": "Besides, it's too late to change plans.",
+      "example_tr": "Кроме того, уже поздно менять планы.",
+      "tags": [
+        "adverb"
+      ]
+    },
+    {
+      "front": "assist",
+      "back": "помогать, содействовать",
+      "transcription": "əˈsɪst",
+      "example": "The staff will assist you.",
+      "example_tr": "Персонал вам поможет.",
+      "tags": [
+        "verb"
+      ]
+    },
+    {
       "front": "estate",
       "back": "недвижимость, имущество",
       "transcription": "ɪˈsteɪt",
@@ -3004,6 +2984,26 @@
       "example_tr": "Она работает в сфере недвижимости.",
       "tags": [
         "noun"
+      ]
+    },
+    {
+      "front": "valuable",
+      "back": "ценный",
+      "transcription": "ˈvæljuəbəl",
+      "example": "Your advice was very valuable.",
+      "example_tr": "Твой совет был очень ценным.",
+      "tags": [
+        "adjective"
+      ]
+    },
+    {
+      "front": "adapt",
+      "back": "приспосабливаться",
+      "transcription": "əˈdæpt",
+      "example": "It took time to adapt to the new job.",
+      "example_tr": "Потребовалось время, чтобы приспособиться к новой работе.",
+      "tags": [
+        "verb"
       ]
     },
     {
