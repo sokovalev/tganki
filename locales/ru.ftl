@@ -52,6 +52,7 @@ card-actions-title = Что сделать с «{ $word }»?
 
 # Выбор из четырёх (§3.2)
 choice-question = Что это значит?
+choice-right = ✅ Верно
 choice-wrong = ❌ Неверно. Правильно: { $answer }
 
 rating-again = Снова
@@ -115,8 +116,6 @@ toast-deleted = Удалено
 toast-undone = Откатил
 toast-nothing-to-undo = Нечего отменять
 toast-freeze = 🧊 Заморозка спасла стрик
-toast-choice-right = ✅ Верно
-toast-choice-wrong = ❌ Неверно
 toast-cancelled = Отменил
 toast-enriching = ✨ Дополняю карточку…
 toast-unsubscribed = Отписался

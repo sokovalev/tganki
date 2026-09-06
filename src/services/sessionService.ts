@@ -165,7 +165,8 @@ export interface SessionView {
   /** The four «выбор из четырёх» options; null = the plain reveal flow. */
   choices: ChoiceOption[] | null;
   /** Answer screen shown right after a wrong option was tapped (SPEC §3.2). */
-  choiceMiss: boolean;
+  /** Result of a «выбор из четырёх» tap shown on the answer screen; null otherwise. */
+  choiceResult: "hit" | "miss" | null;
 }
 
 export interface SessionSummary {
@@ -424,7 +425,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       snowball: extras.snowball ?? false,
       transcriptionMode: user.transcriptionMode,
       choices,
-      choiceMiss: false,
+      choiceResult: null,
     };
   }
 
@@ -661,9 +662,8 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
     /**
      * «Выбор из четырёх» (SPEC §3.2): the tapped option grades itself — right
      * is «Хорошо», wrong is «Снова» — and goes through the very same path as a
-     * rating button, undo included. A hit moves straight on to the next card; a
-     * miss stops on the answer screen, so the right translation is actually
-     * read before «Дальше».
+     * rating button, undo included. Both outcomes stop on the answer screen
+     * («✅ Верно» / «❌ Неверно. Правильно: …») before «Дальше».
      */
     async choose(input: {
       user: User;
@@ -696,12 +696,11 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
         freezeUsed: applied.freezeUsed,
         streakExtended: applied.streakExtended,
       };
-      if (correct) return { ...(await afterRating(applied, user, now)), ...meta };
-
-      // The rating is already saved and the card is already back in the queue
-      // for its learning step; this screen only names the right answer. The
-      // session is finished by «Дальше», not here, so the queue can drain
-      // without swallowing the correction.
+      // The rating is already saved and, on a miss, the card is already back in
+      // the queue for its learning step. Both outcomes stop on the answer
+      // screen so the translation and the example get read; the session is
+      // finished by «Дальше», not here, so the queue can drain without
+      // swallowing the last card.
       return {
         kind: "card",
         session: applied.session,
@@ -716,7 +715,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
         snowball: false,
         transcriptionMode: user.transcriptionMode,
         choices: null,
-        choiceMiss: true,
+        choiceResult: correct ? "hit" : "miss",
         ...meta,
       };
     },

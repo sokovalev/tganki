@@ -110,7 +110,8 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
   const text = [
     // A missed «выбор из четырёх» names the right answer above everything else
     // (SPEC §3.2) — that line is the whole point of stopping here.
-    ...(view.choiceMiss ? [t("choice-wrong", { answer: esc(view.card.back) })] : []),
+    ...(view.choiceResult === "hit" ? [t("choice-right")] : []),
+    ...(view.choiceResult === "miss" ? [t("choice-wrong", { answer: esc(view.card.back) })] : []),
     ...header(t, view),
     SEPARATOR,
     ...questionLines(view),
@@ -120,7 +121,7 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
   ].join("\n");
 
   const keyboard = new InlineKeyboard();
-  if (view.choiceMiss) {
+  if (view.choiceResult !== null) {
     // The rating was applied by the tap, so there is nothing left to grade:
     // one button moves on, «Отменить» takes the automatic «Снова» back. No
     // ✏️ here — the queue has already moved on, so the card menu would act on
@@ -456,8 +457,7 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
 
     const rating = result.correct ? CHOICE_RIGHT : CHOICE_WRONG;
     deps.events.record(ctx.user.id, "review", { rating, via: "choice" });
-    const toast = result.correct ? "toast-choice-right" : "toast-choice-wrong";
-    await answer(ctx, result.freezeUsed ? ctx.t("toast-freeze") : ctx.t(toast));
+    await answer(ctx, result.freezeUsed ? ctx.t("toast-freeze") : undefined);
     if (result.kind === "summary") {
       await finishAndRender(ctx, deps, result);
       return;

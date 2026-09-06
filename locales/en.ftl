@@ -47,6 +47,7 @@ card-actions-title = What should I do with "{ $word }"?
 
 # Pick one of four (§3.2)
 choice-question = What does it mean?
+choice-right = ✅ Correct
 choice-wrong = ❌ Wrong. The answer is: { $answer }
 
 rating-again = Again
@@ -105,8 +106,6 @@ toast-deleted = Deleted
 toast-undone = Undone
 toast-nothing-to-undo = Nothing to undo
 toast-freeze = 🧊 A freeze saved your streak
-toast-choice-right = ✅ Correct
-toast-choice-wrong = ❌ Wrong
 toast-cancelled = Cancelled
 toast-enriching = ✨ Filling the card in…
 toast-unsubscribed = Unsubscribed

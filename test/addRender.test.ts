@@ -195,7 +195,7 @@ function view(card: Partial<SessionView["card"]> = {}): SessionView {
     snowball: false,
     transcriptionMode: "answer",
     choices: null,
-    choiceMiss: false,
+    choiceResult: null,
   };
 }
 

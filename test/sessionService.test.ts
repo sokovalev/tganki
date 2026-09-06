@@ -584,7 +584,7 @@ describe("choice question", () => {
     expect(again?.choices).toEqual(view.choices);
   });
 
-  it("rates the right option Хорошо and shows the next card at once", async () => {
+  it("rates the right option Хорошо and stops on the answer screen with «Верно»", async () => {
     const fixture = setup();
     const view = await open(fixture);
     const right = view.choices?.findIndex((option) => option.noteId === 101) ?? -1;
@@ -601,8 +601,21 @@ describe("choice question", () => {
     expect(result.correct).toBe(true);
     expect(fixture.fake.state.logs.map((log) => log.rating)).toEqual([3]);
     expect(result.session.stats).toMatchObject({ reviewed: 1, good: 1, newLearned: 1 });
-    expect(result.stage).toBe("question");
-    expect(result.card.cardId).toBe(2);
+    // The tap already rated the card; the answer stays on screen to be read.
+    expect(result.stage).toBe("answer");
+    expect(result.card.cardId).toBe(1);
+    expect(result.choiceResult).toBe("hit");
+    expect(result.session.position).toBe(1);
+
+    const next = await fixture.service.next({
+      user: fixture.user,
+      session: result.session,
+      position: 1,
+      now: NOW,
+    });
+    if (next.kind !== "card") throw new Error("expected the next card");
+    expect(next.card.cardId).toBe(2);
+    expect(next.stage).toBe("question");
   });
 
   it("rates a wrong option Снова and stops on the answer with the right one", async () => {
@@ -620,7 +633,7 @@ describe("choice question", () => {
     if (result.kind !== "card") throw new Error("expected a card");
     expect(result.correct).toBe(false);
     expect(result.stage).toBe("answer");
-    expect(result.choiceMiss).toBe(true);
+    expect(result.choiceResult).toBe("miss");
     expect(result.card.cardId).toBe(1);
     expect(result.card.back).toBe("неохотный");
     expect(result.canUndo).toBe(true);
@@ -703,7 +716,7 @@ describe("choice question", () => {
 
   it("counts an automatic rating in the session summary", async () => {
     // A card that is already in review: «Хорошо» schedules it days out, so it
-    // leaves the session and the summary is what the tap leads to.
+    // leaves the session; the tap stops on the answer and «Дальше» summarizes.
     const reviewed = makeCard(1, NOW, {
       noteId: 101,
       front: "reluctant",
@@ -729,8 +742,16 @@ describe("choice question", () => {
       option: right,
       now: NOW,
     });
-    if (result.kind !== "summary") throw new Error("expected the summary");
-    expect(result.stats).toMatchObject({ reviewed: 1, good: 1 });
+    if (result.kind !== "card") throw new Error("expected the answer screen");
+    expect(result.choiceResult).toBe("hit");
+    const summary = await fixture.service.next({
+      user: fixture.user,
+      session: result.session,
+      position: result.session.position,
+      now: NOW,
+    });
+    if (summary.kind !== "summary") throw new Error("expected the summary");
+    expect(summary.stats).toMatchObject({ reviewed: 1, good: 1 });
     expect(fixture.fake.state.sessions[0]?.status).toBe("finished");
   });
 

@@ -66,7 +66,7 @@ function view(overrides: Partial<SessionView> = {}): SessionView {
     snowball: false,
     transcriptionMode: "answer",
     choices: null,
-    choiceMiss: false,
+    choiceResult: null,
     ...overrides,
   };
 }
@@ -521,7 +521,7 @@ describe("choice screen (SPEC §3.2)", () => {
 });
 
 describe("answer screen after a wrong choice", () => {
-  const missed = view({ stage: "answer", choiceMiss: true, canUndo: true, position: 12 });
+  const missed = view({ stage: "answer", choiceResult: "miss", canUndo: true, position: 12 });
 
   it("names the right translation above the card", () => {
     const screen = renderCard(ru, missed);
@@ -531,6 +531,17 @@ describe("answer screen after a wrong choice", () => {
     expect(renderCard(en, missed).text.split("\n")[0]).toBe(
       "❌ Wrong. The answer is: неохотный, сопротивляющийся",
     );
+  });
+
+  it("names a hit above the answer and offers only «Дальше»", () => {
+    const hit = view({ stage: "answer", choiceResult: "hit", canUndo: true, position: 12 });
+    const screen = renderCard(ru, hit);
+    expect(screen.text.startsWith("✅ Верно")).toBe(true);
+    expect(screen.text).toContain("неохотный, сопротивляющийся");
+    const data = buttons(screen.keyboard).map((b) => ("callback_data" in b ? b.callback_data : ""));
+    expect(data).toContain("s:next:12");
+    expect(data.some((d) => d.startsWith("r:"))).toBe(false);
+    expect(renderCard(en, hit).text.startsWith("✅ Correct")).toBe(true);
   });
 
   it("replaces the four ratings with a single «Дальше»", () => {
