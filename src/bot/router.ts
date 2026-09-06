@@ -3,6 +3,8 @@ import type { User } from "../db/schema.js";
 import { handleAddInput, handleFreeText } from "./add.js";
 import type { BotContext, BotDeps } from "./context.js";
 import { handleDeckInput } from "./decks.js";
+import { clearDraft } from "./draft.js";
+import { handleExtractInput } from "./extract.js";
 import { handleOnboardingInput, isOnboarding, showStep } from "./onboarding.js";
 import { handleSettingsInput } from "./settings.js";
 
@@ -36,12 +38,11 @@ export function installTextRouter(bot: Bot<BotContext>, deps: BotDeps): void {
       if (await handleOnboardingInput(ctx, deps, pending, text)) return;
       if (await handleSettingsInput(ctx, deps, pending, text)) return;
       if (await handleDeckInput(ctx, deps, pending, text)) return;
+      if (await handleExtractInput(ctx, deps, pending, text)) return;
       if (await handleAddInput(ctx, deps, pending, text)) return;
       // Unclaimed state: forget it instead of leaving it to intercept the next
       // message too, and let the text fall through as a new word.
-      if (ctx.user.pendingInput !== null) {
-        ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
-      }
+      if (ctx.user.pendingInput !== null) await clearDraft(ctx, deps);
     }
 
     if (isOnboarding(ctx.user)) {
@@ -50,6 +51,9 @@ export function installTextRouter(bot: Bot<BotContext>, deps: BotDeps): void {
       return;
     }
 
-    await handleFreeText(ctx, deps, text);
+    // A forwarded message is read as a text to mine for words, however short
+    // it is: nobody forwards an article to add it as one flashcard (§4.3).
+    const forwarded = ctx.message.forward_origin !== undefined;
+    await handleFreeText(ctx, deps, text, null, { forwarded });
   });
 }

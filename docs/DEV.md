@@ -33,7 +33,7 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `WEBHOOK_SECRET` | нет | — | секрет в пути вебхука и в заголовке `X-Telegram-Bot-Api-Secret-Token` |
 | `ADMIN_TG_IDS` | нет | — | Telegram-id через запятую, кому доступна `/admin` |
 | `PRO_ENABLED` | нет | `false` | включает лимиты бесплатного плана (`true`/`1`/`yes`/`on`) |
-| `OPENROUTER_API_KEY` | нет | — | ключ OpenRouter. Задан → работает AI-заполнение карточек (§4.1a спеки), пуст → только ручной ввод |
+| `OPENROUTER_API_KEY` | нет | — | ключ OpenRouter. Задан → работают AI-заполнение карточек (§4.1a спеки) и «слова из текста» (§4.3), пуст → только ручной ввод |
 | `LLM_MODEL` | нет | `google/gemini-3.7-flash` | id модели в OpenRouter |
 | `LLM_REASONING_EFFORT` | нет | — | `low`/`medium`/`high`; отправляется только если задан (нужно моделям с рассуждением) |
 | `LLM_TIMEOUT_MS` | нет | `15000` | таймаут одной попытки генерации |
@@ -97,10 +97,13 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 
 ```
 src/llm/
-  types.ts       контракт с ботом: GenerateCardInput, GeneratedCard, GenerationError, CardGenerator
-  prompt.ts      системный промпт, JSON Schema, zod-схема, постобработка, таблица IPA грузинского
+  types.ts       контракт с ботом: GenerateCardInput, GeneratedCard, GenerationError, CardGenerator,
+                 ExtractWordsInput, ExtractedWords, WordExtractor
+  prompt.ts      оба системных промпта (карточка и «слова из текста»), JSON Schema, zod-схемы,
+                 постобработка, таблица IPA грузинского, проверка письменности языка
   openrouter.ts  клиент: json_schema + fallback на json_object, ретраи, Retry-After, таймаут, лимитер
   generator.ts   createOpenRouterCardGenerator(): промпт + клиент → CardGenerator
+  extractor.ts   createOpenRouterWordExtractor(): §4.3, max_tokens 4000, без кэша
   cache.ts       withCache(): чтение-сквозь-кэш поверх generated_cache, generateWithMeta → { card, cached }
 ```
 
@@ -110,8 +113,11 @@ src/llm/
 
 Собирается всё в `createBot()` (`src/bot/index.ts`): при наличии `OPENROUTER_API_KEY`
 создаётся `createOpenRouterCardGenerator(...)`, оборачивается в `withCache(..., createDbCacheStore(db))`
-и передаётся в `createAddService(port, limits, llm)`. Без ключа `llm === null`, и бот работает
-по ручному пути §4.1 — ни один экран не меняется.
+и передаётся в `createAddService(port, limits, llm)`. Тот же ключ и та же модель включают §4.3:
+`createOpenRouterWordExtractor(...)` едет вместе с кэшируемым генератором в
+`createExtractService({port, limits, add, llm})`. Без ключа оба сервиса получают `null`: бот
+работает по ручному пути §4.1, а длинный текст отвечает «нужен подключённый ИИ» — ни один
+экран больше не меняется.
 
 **Как поменять модель.** Обычно достаточно `LLM_MODEL=<id>` (список — `GET /models` OpenRouter);
 для моделей с рассуждением добавьте `LLM_REASONING_EFFORT=low`, иначе они тратят все токены на
@@ -131,7 +137,7 @@ src/
   main.ts            точка входа
   bot/               слой Telegram (см. ниже)
   i18n/              Fluent-обёртка и таблица языков
-  llm/               генерация карточек: контракт, промпт, клиент OpenRouter, кэш
+  llm/               генерация карточек и разбор текста: контракт, промпты, клиент OpenRouter, кэш
   services/          оркестрация поверх репозиториев (сессия, /add, лимиты, напоминания)
   reminders/         крон напоминаний и отправка
   core/
@@ -163,6 +169,9 @@ bot/
   ui.ts              answer/show/send, распознавание ошибок Telegram
   format.ts          HTML-экранирование, интервалы, проценты
   time.ts            «сколько у тебя сейчас времени» → фиксированное смещение
+  draft.ts           ревизии черновиков: `pending_payload` один на пользователя, поэтому каждая
+                     кнопка везёт ревизию и тап по старому экрану отбивается тостом (§4.1, §11)
+  extract.ts         «Слова из текста» (§4.3): чек-лист, переключатели, итог
   onboarding.ts menu.ts session.ts add.ts decks.ts stats.ts settings.ts admin.ts misc.ts
   router.ts          обычный текст: ожидаемый ввод важнее «добавить слово»
 ```
@@ -219,10 +228,14 @@ git add drizzle src/db/schema.ts
 генерацию карточек (кэш: попадание/промах/нормализация ключа/битый payload, маппинг ошибок
 генератора на `GenerationError` через фейковый `fetch`, превью → сохранение, обратное направление,
 дубликаты до и после генерации, откат на ручной ввод, дневной лимит и рендер превью),
+ревизии черновиков (тап по старой кнопке ничего не делает, теряет клавиатуру и отвечает тостом),
+«слова из текста» (§4.3: промпт и схема через фейковый `fetch`, постобработка и письменность,
+длинный текст → чек-лист, переключатели, добавление выбранного с фейковым генератором, отсев
+известных слов, чужой язык, вырезание ссылок, дневной лимит, поведение без ключа),
 выбор пользователей для напоминаний и крон с фейковыми таймерами.
 
 Доступ к БД спрятан за интерфейсами (`QueueRepo`, `UndoRepo`, `SessionPort`, `AddPort`,
-`ReminderPort`), в тестах используются in-memory фейки — Postgres для `pnpm test` не нужен.
+`ExtractPort`, `ReminderPort`), в тестах используются in-memory фейки — Postgres для `pnpm test` не нужен.
 
 ## Деплой
 

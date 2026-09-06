@@ -10,6 +10,8 @@ export interface MenuData {
   fresh: number;
   streak: number;
   deckTitles: string[];
+  /** «📝 Слова из текста» is offered only when the LLM is configured (§4.3). */
+  extract?: boolean;
 }
 
 /** Main menu (SPEC §2) — pure, so both locales can be asserted in tests. */
@@ -24,7 +26,10 @@ export function renderMenu(t: Translate, data: MenuData): Screen {
       ? t("menu-decks", { decks: data.deckTitles.join(", ") })
       : t("menu-no-decks"),
   );
-  return { text: lines.join("\n"), keyboard: menuKeyboard(t, data.due + data.fresh) };
+  return {
+    text: lines.join("\n"),
+    keyboard: menuKeyboard(t, data.due + data.fresh, data.extract ?? false),
+  };
 }
 
 export async function loadMenu(deps: BotDeps, ctx: BotContext): Promise<MenuData> {
@@ -44,6 +49,7 @@ export async function loadMenu(deps: BotDeps, ctx: BotContext): Promise<MenuData
     fresh: counters.newAvailable,
     streak: user.streak,
     deckTitles: decks.map((row) => row.deck.title),
+    extract: deps.extract.llm !== null,
   };
 }
 

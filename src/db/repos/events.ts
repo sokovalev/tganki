@@ -10,6 +10,8 @@ export type EventName =
   | "review"
   | "session_end"
   | "word_added"
+  | "text_extracted"
+  | "text_words_added"
   | "word_generated"
   | "word_generation_failed"
   | "deck_subscribed"
@@ -58,6 +60,15 @@ export function createEventsRepo(db: Database) {
             sql`coalesce(${events.props} ->> 'cached', 'false') = 'false'`,
           ),
         );
+      return row?.count ?? 0;
+    },
+
+    /** How many events of one kind this user produced since `since` (SPEC §9.1). */
+    async countUserEventsSince(userId: number, name: EventName, since: Date): Promise<number> {
+      const [row] = await db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(events)
+        .where(and(eq(events.userId, userId), eq(events.name, name), gte(events.at, since)));
       return row?.count ?? 0;
     },
 

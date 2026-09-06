@@ -36,7 +36,7 @@ function buttons(keyboard: { inline_keyboard: InlineKeyboardButton[][] } | undef
 
 describe("generated card preview (SPEC §4.1a)", () => {
   it("shows the word, the IPA, the part of speech, the meaning and the example", () => {
-    const screen = renderGenerated(ru, { card: PENDING, deckTitle: "Мои слова · EN" });
+    const screen = renderGenerated(ru, { card: PENDING, deckTitle: "Мои слова · EN", rev: 1 });
     expect(screen.text).toBe(
       [
         "<b>reluctant</b>  <i>/rɪˈlʌktənt/</i> · прил.",
@@ -48,13 +48,13 @@ describe("generated card preview (SPEC §4.1a)", () => {
   });
 
   it("offers add / another deck / own translation / close", () => {
-    const screen = renderGenerated(ru, { card: PENDING, deckTitle: "Мои слова · EN" });
-    expect(buttons(screen.keyboard)).toEqual(["a:g", "a:decks", "a:own", "a:cancel"]);
+    const screen = renderGenerated(ru, { card: PENDING, deckTitle: "Мои слова · EN", rev: 1 });
+    expect(buttons(screen.keyboard)).toEqual(["a:g:1", "a:decks:1", "a:own:1", "a:cancel:1"]);
     expect(screen.keyboard?.inline_keyboard).toHaveLength(2);
   });
 
   it("renders in English too", () => {
-    const screen = renderGenerated(en, { card: PENDING, deckTitle: "My words · EN" });
+    const screen = renderGenerated(en, { card: PENDING, deckTitle: "My words · EN", rev: 1 });
     expect(screen.text).toContain("adj.");
     expect(screen.text).toContain('→ into "My words · EN"');
   });
@@ -70,10 +70,10 @@ describe("generated card preview (SPEC §4.1a)", () => {
     ];
     for (const [pos, ru_, en_] of cases) {
       const card = { ...PENDING, pos, transcription: "" };
-      expect(renderGenerated(ru, { card, deckTitle: "d" }).text.split("\n")[0]).toBe(
+      expect(renderGenerated(ru, { card, deckTitle: "d", rev: 1 }).text.split("\n")[0]).toBe(
         `<b>reluctant</b>  ${ru_}`,
       );
-      expect(renderGenerated(en, { card, deckTitle: "d" }).text.split("\n")[0]).toBe(
+      expect(renderGenerated(en, { card, deckTitle: "d", rev: 1 }).text.split("\n")[0]).toBe(
         `<b>reluctant</b>  ${en_}`,
       );
     }
@@ -83,6 +83,7 @@ describe("generated card preview (SPEC §4.1a)", () => {
     const screen = renderGenerated(ru, {
       card: { ...PENDING, pos: "gerundive" },
       deckTitle: "Мои слова · EN",
+      rev: 1,
     });
     expect(screen.text.split("\n")[0]).toBe("<b>reluctant</b>  <i>/rɪˈlʌktənt/</i>");
   });
@@ -91,6 +92,7 @@ describe("generated card preview (SPEC §4.1a)", () => {
     const screen = renderGenerated(ru, {
       card: { ...PENDING, transcription: "", example: "", exampleTr: "" },
       deckTitle: "Мои слова · EN",
+      rev: 1,
     });
     expect(screen.text).toBe(
       ["<b>reluctant</b>  прил.", "неохотный, сопротивляющийся", "→ в деку «Мои слова · EN»"].join(
@@ -103,6 +105,7 @@ describe("generated card preview (SPEC §4.1a)", () => {
     const screen = renderGenerated(ru, {
       card: { ...PENDING, front: "<b>x</b>", example: "", exampleTr: "" },
       deckTitle: "Мои слова · EN",
+      rev: 1,
     });
     expect(screen.text).toContain("&lt;b&gt;x&lt;/b&gt;");
   });
@@ -121,9 +124,9 @@ describe("generated card preview (SPEC §4.1a)", () => {
 
 describe("manual question", () => {
   it("is the plain SPEC §4.1 screen without a reason", () => {
-    const screen = askScreen(ru, { front: "reluctant", deckTitle: "Мои слова · EN" });
+    const screen = askScreen(ru, { front: "reluctant", deckTitle: "Мои слова · EN", rev: 1 });
     expect(screen.text.split("\n")[0]).toBe("Перевод для «reluctant»?");
-    expect(buttons(screen.keyboard)).toEqual(["a:cancel", "a:decks"]);
+    expect(buttons(screen.keyboard)).toEqual(["a:cancel:1", "a:decks:1"]);
   });
 
   it("explains a failed generation on the first line", () => {
@@ -131,18 +134,19 @@ describe("manual question", () => {
       const screen = askScreen(t, {
         front: "reluctant",
         deckTitle: "Мои слова · EN",
+        rev: 1,
         reason: "failed",
       });
       expect(screen.text.split("\n")).toHaveLength(4);
       expect(screen.text).not.toContain("{");
     }
-    expect(askScreen(ru, { front: "x", deckTitle: "d", reason: "failed" }).text).toContain(
+    expect(askScreen(ru, { front: "x", deckTitle: "d", rev: 1, reason: "failed" }).text).toContain(
       "Не удалось подобрать перевод автоматически",
     );
   });
 
   it("explains a spent daily budget", () => {
-    const screen = askScreen(ru, { front: "x", deckTitle: "d", reason: "limit" });
+    const screen = askScreen(ru, { front: "x", deckTitle: "d", rev: 1, reason: "limit" });
     expect(screen.text.split("\n")[0]).toContain("10");
   });
 });

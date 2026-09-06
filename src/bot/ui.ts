@@ -67,6 +67,20 @@ export async function show(ctx: BotContext, screen: Screen): Promise<void> {
   await ctx.reply(screen.text, options);
 }
 
+/**
+ * Takes the keyboard off the message a tap came from, so a screen that no
+ * longer means anything stops inviting taps (SPEC §4.1, stale drafts). Every
+ * failure is ignored: the message may be gone, or already keyboard-less.
+ */
+export async function dropKeyboard(ctx: BotContext): Promise<void> {
+  if (!ctx.callbackQuery?.message) return;
+  try {
+    await ctx.editMessageReplyMarkup({ reply_markup: { inline_keyboard: [] } });
+  } catch {
+    // Nothing to do: the keyboard is either gone or unreachable.
+  }
+}
+
 /** Where a message we may want to edit later ended up. */
 export interface MessageRef {
   chatId: number;

@@ -198,7 +198,7 @@ export function installDecks(bot: Bot<BotContext>, deps: BotDeps): void {
     await showList(ctx, deps);
   });
 
-  bot.callbackQuery("x", (ctx) => answer(ctx));
+  bot.callbackQuery(cb(NS.noop), (ctx) => answer(ctx));
 
   bot.callbackQuery("d", async (ctx) => {
     await answer(ctx);

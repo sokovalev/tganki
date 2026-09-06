@@ -104,6 +104,7 @@ toast-freeze = 🧊 A freeze saved your streak
 toast-cancelled = Cancelled
 toast-enriching = ✨ Filling the card in…
 toast-unsubscribed = Unsubscribed
+toast-stale = That message is outdated — send the word again
 
 ## Adding words
 
@@ -119,7 +120,6 @@ add-bulk-done = ✅ Added { $added ->
        *[other] { $added } words
     }, skipped { $skipped } (already there).
 add-bulk-invalid = Lines I could not parse: { $n }.
-add-too-long = For now I only add short words and phrases — up to 40 characters.
 add-cancelled = Fine, nothing added.
 add-expired = The word got lost, send it again.
 add-choose-deck = Which deck should it go to?
@@ -144,6 +144,39 @@ pos-label = { $pos ->
         [letter] letter
        *[other] { "" }
     }
+## Words from a text (§4.3)
+
+extract-ask = Send me a text and I will find the words you do not know yet.
+extract-searching = 🔎 Looking for unknown words…
+extract-found = 📝 Found { $n ->
+        [one] { $n } word
+       *[other] { $n } words
+    }
+extract-dropped = { $n ->
+        [one] { $n } more word is one you already know.
+       *[other] { $n } more words are ones you already know.
+    }
+extract-none = No unknown words in there.
+extract-truncated = That is a long text — I took the first { $n } characters.
+extract-native = That is your own language ({ $langTo }). Send me a text in the language you are learning: { $lang }.
+extract-wrong-lang = This does not look like { $lang }. Send me a text in the language you are learning.
+extract-wrong-lang-detected = This does not look like { $lang }, it looks like { $detected }. Send me a text in the language you are learning: { $lang }.
+extract-no-llm = Finding words in a text needs the AI to be connected.
+extract-limit = No text analysis left for today ({ $limit } per day). You can still add words one by one.
+extract-failed = I could not read that text. Try again.
+extract-adding = ⏳ Adding the words…
+extract-nothing-selected = Nothing selected
+extract-added = ✅ Added { $n ->
+        [one] { $n } word
+       *[other] { $n } words
+    } to "{ $deck }": { $words }
+extract-added-none = Nothing added.
+extract-skipped = Skipped { $n } (already there).
+extract-budget-skipped = { $n ->
+        [one] { $n } more word
+       *[other] { $n } more words
+    } left out: today's AI budget is spent.
+
 add-limit-notes = The free plan holds { $limit ->
         [one] { $limit } word
        *[other] { $limit } words
@@ -248,6 +281,7 @@ help-text =
 
     /learn — study
     /add — add a word (or send a pair: word - translation)
+    /extract — find unknown words in a text
     /decks — decks and catalog
     /stats — statistics
     /settings — settings
@@ -307,6 +341,11 @@ btn-delete-note = 🗑 Delete
 btn-keep = Keep it
 btn-other-lang = Other…
 btn-other-deck = 📚 Another deck
+btn-extract = 📝 Words from a text
+btn-extract-add = ✅ Add selected ({ $n })
+btn-select-all = Select all
+btn-select-none = Clear all
+btn-learn-new = ▶️ Learn the new ones
 btn-level-a0 = Start with the alphabet
 btn-level-a1 = Just starting (A1)
 btn-level-a2 = Some basics (A2)

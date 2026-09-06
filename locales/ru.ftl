@@ -114,6 +114,7 @@ toast-freeze = 🧊 Заморозка спасла стрик
 toast-cancelled = Отменил
 toast-enriching = ✨ Дополняю карточку…
 toast-unsubscribed = Отписался
+toast-stale = Это старое сообщение, отправь слово ещё раз
 
 ## Добавление слов
 
@@ -130,7 +131,6 @@ add-bulk-done = ✅ Добавил { $added ->
        *[other] { $added } слов
     }, пропустил { $skipped } (уже есть).
 add-bulk-invalid = Не разобрал строк: { $n }.
-add-too-long = Пока умею добавлять только короткие слова и фразы — до 40 символов.
 add-cancelled = Ок, ничего не добавляю.
 add-expired = Слово потерялось, напиши его ещё раз.
 add-choose-deck = В какую деку добавить?
@@ -155,6 +155,44 @@ pos-label = { $pos ->
         [letter] буква
        *[other] { "" }
     }
+
+## Слова из текста (§4.3)
+
+extract-ask = Пришли текст — найду в нём незнакомые слова.
+extract-searching = 🔎 Ищу незнакомые слова…
+extract-found = 📝 Нашёл { $n ->
+        [one] { $n } слово
+        [few] { $n } слова
+       *[other] { $n } слов
+    }
+extract-dropped = { $n ->
+        [one] Ещё { $n } слово ты уже знаешь.
+        [few] Ещё { $n } слова ты уже знаешь.
+       *[other] Ещё { $n } слов ты уже знаешь.
+    }
+extract-none = Незнакомых слов не нашёл.
+extract-truncated = Текст длинный — взял первые { $n } символов.
+extract-native = Это твой родной язык ({ $langTo }). Нужен текст на языке, который ты учишь: { $lang }.
+extract-wrong-lang = Похоже, это текст не на том языке. Нужен текст на языке, который ты учишь: { $lang }.
+extract-wrong-lang-detected = Похоже, это не { $lang }, а { $detected }. Нужен текст на языке, который ты учишь: { $lang }.
+extract-no-llm = Чтобы находить слова в тексте, нужен подключённый ИИ.
+extract-limit = Разбор текста на сегодня закончился ({ $limit } в день). Слова можно добавлять по одному.
+extract-failed = Не получилось разобрать текст. Попробуй ещё раз.
+extract-adding = ⏳ Добавляю слова…
+extract-nothing-selected = Ничего не выбрано
+extract-added = ✅ Добавил { $n ->
+        [one] { $n } слово
+        [few] { $n } слова
+       *[other] { $n } слов
+    } в «{ $deck }»: { $words }
+extract-added-none = Ничего не добавил.
+extract-skipped = Пропустил { $n } (уже есть).
+extract-budget-skipped = { $n ->
+        [one] Ещё { $n } слово
+        [few] Ещё { $n } слова
+       *[other] Ещё { $n } слов
+    } не добавил: на сегодня закончился лимит ИИ.
+
 add-limit-notes = На бесплатном плане { $limit ->
         [one] { $limit } слово
         [few] { $limit } слова
@@ -263,6 +301,7 @@ help-text =
 
     /learn — учить
     /add — добавить слово (можно сразу парой: слово - перевод)
+    /extract — найти незнакомые слова в тексте
     /decks — деки и каталог
     /stats — статистика
     /settings — настройки
@@ -325,6 +364,11 @@ btn-delete-note = 🗑 Удалить
 btn-keep = Оставить
 btn-other-lang = Другой…
 btn-other-deck = 📚 Другая дека
+btn-extract = 📝 Слова из текста
+btn-extract-add = ✅ Добавить выбранные ({ $n })
+btn-select-all = Выбрать все
+btn-select-none = Снять все
+btn-learn-new = ▶️ Учить новые
 btn-level-a0 = Начинаю с алфавита
 btn-level-a1 = Начинаю (A1)
 btn-level-a2 = Немного знаю (A2)

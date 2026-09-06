@@ -2,13 +2,22 @@ import { type Bot, InlineKeyboard } from "grammy";
 import type { DuplicateNote } from "../db/repos/notes.js";
 import type { Deck, Note, PendingCard } from "../db/schema.js";
 import type { Translate } from "../i18n/index.js";
-import { languageTag } from "../i18n/languages.js";
 import type { GeneratedCard } from "../llm/types.js";
 import type { AddPreview, AskReason, BulkResult, SaveResult } from "../services/addService.js";
 import { isAddCandidate, parsePairs } from "../services/addService.js";
+import { stripUrls } from "../services/extractService.js";
 import { FREE_LIMITS } from "../services/limits.js";
 import { argInt, parseCallback } from "./callbacks.js";
 import type { BotContext, BotDeps } from "./context.js";
+import {
+  clearDraft,
+  freshRev,
+  nextRev,
+  personalTitle,
+  saveDraft,
+  saveDraftAsking,
+} from "./draft.js";
+import { runExtraction } from "./extract.js";
 import { bold, esc, italic } from "./format.js";
 import { cb, NS } from "./keyboards.js";
 import { openSession, renderCard, renderSession } from "./session.js";
@@ -26,21 +35,19 @@ export const ADD_BACK = "add_back";
  *
  * | pending_input | payload                   | a text message means                              | buttons |
  * |---------------|---------------------------|---------------------------------------------------|---------|
- * | null          | the draft, if any         | a new word, or `слово - перевод` pairs             | ➕ Добавить / ✏️ Свой перевод / 📚 Другая дека / ➕ Добавить всё равно / ▶️ Учить сейчас — all act on the payload |
- * | add_word      | { deckId? }               | the word to add (pairs still win)                  | ✖ Отмена, 📚 Другая дека |
- * | add_back      | { front, deckId?, card? } | the translation for `front` — unless it parses as `слово - перевод`, which wins | ✖ Отмена, 📚 Другая дека |
+ * | null          | the draft, if any         | a new word, a `слово - перевод` pair, or a text (§4.3) | ➕ Добавить / ✏️ Свой перевод / 📚 Другая дека / ➕ Добавить всё равно / ▶️ Учить сейчас — all act on the payload |
+ * | add_word      | { rev, deckId? }          | the word to add (pairs still win)                  | ✖ Отмена, 📚 Другая дека |
+ * | add_back      | { rev, front, deckId?, card? } | the translation for `front` — unless it parses as `слово - перевод`, which wins | ✖ Отмена, 📚 Другая дека |
  * | anything else | —                         | not ours: the router drops the state and the text becomes a new word | — |
  *
- * Two rules keep screens and state in sync:
+ * Three rules keep screens and state in sync:
  * - every screen that parks a draft (the generated preview, the duplicate
- *   screen) goes through `rememberDraft`, which clears `pending_input`: the
+ *   screen) goes through `saveDraft`, which clears `pending_input`: the
  *   next message is a new word, never an answer to a question nobody asked;
- * - free text is never routed into a state that is not in the table above.
+ * - free text is never routed into a state that is not in the table above;
+ * - every draft carries a revision and every button repeats it, so a tap on a
+ *   screen the user has since moved past changes nothing (`src/bot/draft.ts`).
  */
-
-function personalTitle(ctx: BotContext): string {
-  return ctx.t("deck-personal", { lang: languageTag(ctx.user.langFrom ?? "en") });
-}
 
 /** Only the fields a preview needs; `pos` is shown but never stored on a note. */
 export function toPendingCard(card: GeneratedCard): PendingCard {
@@ -61,7 +68,7 @@ function manualCard(front: string, back: string): PendingCard {
 
 export function askScreen(
   t: Translate,
-  input: { front: string; deckTitle: string; reason?: AskReason },
+  input: { front: string; deckTitle: string; rev: number; reason?: AskReason },
 ): Screen {
   const lines: string[] = [];
   if (input.reason === "failed") lines.push(t("add-generate-failed"));
@@ -76,8 +83,8 @@ export function askScreen(
   return {
     text: lines.join("\n"),
     keyboard: new InlineKeyboard()
-      .text(t("btn-cancel"), cb(NS.add, "cancel"))
-      .text(t("btn-other-deck"), cb(NS.add, "decks")),
+      .text(t("btn-cancel"), cb(NS.add, "cancel", input.rev))
+      .text(t("btn-other-deck"), cb(NS.add, "decks", input.rev)),
   };
 }
 
@@ -89,7 +96,7 @@ function posLabel(t: Translate, pos: string): string {
 /** The generated card, waiting for a tap (SPEC §4.1a). */
 export function renderGenerated(
   t: Translate,
-  input: { card: PendingCard; deckTitle: string },
+  input: { card: PendingCard; deckTitle: string; rev: number },
 ): Screen {
   const { card } = input;
   const meta = [
@@ -113,15 +120,20 @@ export function renderGenerated(
   return {
     text: lines.join("\n"),
     keyboard: new InlineKeyboard()
-      .text(t("btn-add-generated"), cb(NS.add, "g"))
-      .text(t("btn-other-deck"), cb(NS.add, "decks"))
+      .text(t("btn-add-generated"), cb(NS.add, "g", input.rev))
+      .text(t("btn-other-deck"), cb(NS.add, "decks", input.rev))
       .row()
-      .text(t("btn-own-translation"), cb(NS.add, "own"))
-      .text(t("btn-close"), cb(NS.add, "cancel")),
+      .text(t("btn-own-translation"), cb(NS.add, "own", input.rev))
+      .text(t("btn-close"), cb(NS.add, "cancel", input.rev)),
   };
 }
 
-function duplicateScreen(t: Translate, duplicate: DuplicateNote, own: boolean): Screen {
+function duplicateScreen(
+  t: Translate,
+  duplicate: DuplicateNote,
+  own: boolean,
+  rev: number,
+): Screen {
   if (own) {
     return {
       text: t("add-duplicate-own", {
@@ -129,7 +141,7 @@ function duplicateScreen(t: Translate, duplicate: DuplicateNote, own: boolean): 
         word: esc(duplicate.front),
         translation: esc(duplicate.back),
       }),
-      keyboard: new InlineKeyboard().text(t("btn-add-anyway"), cb(NS.add, "force")),
+      keyboard: new InlineKeyboard().text(t("btn-add-anyway"), cb(NS.add, "force", rev)),
     };
   }
   return {
@@ -139,9 +151,9 @@ function duplicateScreen(t: Translate, duplicate: DuplicateNote, own: boolean): 
       translation: esc(duplicate.back),
     }),
     keyboard: new InlineKeyboard()
-      .text(t("btn-learn-now"), cb(NS.add, "now", duplicate.noteId))
+      .text(t("btn-learn-now"), cb(NS.add, "now", rev, duplicate.noteId))
       .row()
-      .text(t("btn-add-anyway"), cb(NS.add, "force")),
+      .text(t("btn-add-anyway"), cb(NS.add, "force", rev)),
   };
 }
 
@@ -196,16 +208,6 @@ function recordGenerated(
   });
 }
 
-/** Parks the draft between the preview and the «Добавить» tap. */
-async function rememberDraft(
-  ctx: BotContext,
-  deps: BotDeps,
-  payload: { front: string; deckId?: number | null; card?: PendingCard; force?: boolean },
-): Promise<void> {
-  ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
-  ctx.setUser(await deps.repos.users.update(ctx.user.id, { pendingPayload: payload }));
-}
-
 /**
  * §4.1a: «⏳ Подбираю перевод…» goes out first, the same message is then edited
  * into the card preview — or, when the model fails, into the manual question.
@@ -215,6 +217,7 @@ async function generateAndShow(
   deps: BotDeps,
   front: string,
   deck: Deck,
+  rev: number,
   options: { force?: boolean } = {},
 ): Promise<void> {
   const t = ctx.t.bind(ctx);
@@ -229,7 +232,7 @@ async function generateAndShow(
     // "reluctant" the user has. The card is parked either way, so «Добавить
     // всё равно» shows it instead of falling back to the manual question.
     const duplicate = result.kind === "duplicate" && !force;
-    await rememberDraft(ctx, deps, {
+    await saveDraft(ctx, deps, rev, {
       front: card.front,
       deckId: deck.id,
       card,
@@ -239,20 +242,23 @@ async function generateAndShow(
       ctx,
       ref,
       duplicate
-        ? duplicateScreen(t, result.duplicate, result.own)
-        : renderGenerated(t, { card, deckTitle: deck.title }),
+        ? duplicateScreen(t, result.duplicate, result.own, rev)
+        : renderGenerated(t, { card, deckTitle: deck.title, rev }),
     );
     return;
   }
 
   deps.events.record(ctx.user.id, "word_generation_failed", { reason: result.reason });
-  ctx.setUser(
-    await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
-      now: deps.now(),
-      payload: { front, deckId: deck.id, ...(force ? { force: true } : {}) },
-    }),
+  await saveDraftAsking(ctx, deps, ADD_BACK, rev, {
+    front,
+    deckId: deck.id,
+    ...(force ? { force: true } : {}),
+  });
+  await editTracked(
+    ctx,
+    ref,
+    askScreen(t, { front, deckTitle: deck.title, rev, reason: "failed" }),
   );
-  await editTracked(ctx, ref, askScreen(t, { front, deckTitle: deck.title, reason: "failed" }));
 }
 
 async function renderPreview(
@@ -261,6 +267,7 @@ async function renderPreview(
   preview: AddPreview,
   front: string,
   deckId: number | null,
+  rev: number,
 ): Promise<void> {
   const t = ctx.t.bind(ctx);
   if (preview.kind === "limit") {
@@ -270,25 +277,24 @@ async function renderPreview(
   if (preview.kind === "duplicate") {
     // No card yet: the word the user typed is already known, so the model has
     // not run. «Добавить всё равно» picks the flow back up from here.
-    await rememberDraft(ctx, deps, { front, deckId });
-    await show(ctx, duplicateScreen(t, preview.duplicate, preview.own));
+    await saveDraft(ctx, deps, rev, { front, deckId });
+    await show(ctx, duplicateScreen(t, preview.duplicate, preview.own, rev));
     return;
   }
   if (preview.kind === "generate") {
-    await generateAndShow(ctx, deps, preview.front, preview.deck);
+    await generateAndShow(ctx, deps, preview.front, preview.deck, rev);
     return;
   }
-  ctx.setUser(
-    await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
-      now: deps.now(),
-      payload: { front: preview.front, deckId: preview.deck.id },
-    }),
-  );
+  await saveDraftAsking(ctx, deps, ADD_BACK, rev, {
+    front: preview.front,
+    deckId: preview.deck.id,
+  });
   await show(
     ctx,
     askScreen(t, {
       front: preview.front,
       deckTitle: preview.deck.title,
+      rev,
       ...(preview.reason ? { reason: preview.reason } : {}),
     }),
   );
@@ -317,6 +323,7 @@ async function saveDirect(
   deps: BotDeps,
   text: string,
   deckId: number | null,
+  rev: number,
 ): Promise<boolean> {
   const parsed = parsePairs(text);
   if (parsed.pairs.length === 0) return false;
@@ -332,19 +339,22 @@ async function saveDirect(
       personalTitle: personalTitle(ctx),
       now: deps.now(),
     });
-    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await clearDraft(ctx, deps);
     if (result.kind === "limit") {
       await send(ctx, limitScreen(ctx, result.check.limit));
       return true;
     }
     if (result.kind === "duplicate") {
       // The pair is kept as a draft so «Добавить всё равно» can still save it.
-      await rememberDraft(ctx, deps, {
+      await saveDraft(ctx, deps, rev, {
         front: pair.front,
         deckId,
         card: manualCard(pair.front, pair.back),
       });
-      await send(ctx, duplicateScreen(t, result.duplicate, result.duplicate.deckOwnerId !== null));
+      await send(
+        ctx,
+        duplicateScreen(t, result.duplicate, result.duplicate.deckOwnerId !== null, rev),
+      );
       return true;
     }
     deps.events.record(ctx.user.id, "word_added", { deckId: result.deck.id, via: "inline" });
@@ -361,7 +371,7 @@ async function saveDirect(
     personalTitle: personalTitle(ctx),
     now: deps.now(),
   });
-  ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+  await clearDraft(ctx, deps);
   if (result.kind === "limit") {
     await send(ctx, limitScreen(ctx, result.check.limit));
     return true;
@@ -374,7 +384,8 @@ async function saveDirect(
 /**
  * Free text that is not a pending answer: `word - перевод` saves straight
  * away, a short bare word gets an AI-filled preview (or, without a key, the
- * manual question), anything longer gets a hint.
+ * manual question), and anything longer — or anything forwarded — is read as a
+ * text to find words in (SPEC §4.3).
  */
 export async function handleFreeText(
   ctx: BotContext,
@@ -382,21 +393,25 @@ export async function handleFreeText(
   text: string,
   /** Only set while a deck is actually pending («📚 Другая дека» → «Какое слово?»). */
   deckId: number | null = null,
+  options: { forwarded?: boolean } = {},
 ): Promise<void> {
-  if (await saveDirect(ctx, deps, text, deckId)) return;
-  if (!isAddCandidate(text)) {
-    await send(ctx, { text: ctx.t("add-too-long") });
+  const rev = nextRev(ctx.user);
+  if (await saveDirect(ctx, deps, text, deckId, rev)) return;
+  // Links carry no vocabulary; what is left decides whether this is a word.
+  const stripped = stripUrls(text);
+  if (!options.forwarded && isAddCandidate(stripped)) {
+    const preview = await deps.add.preview({
+      user: ctx.user,
+      text: stripped,
+      deckId,
+      personalTitle: personalTitle(ctx),
+      now: deps.now(),
+      generate: true,
+    });
+    await renderPreview(ctx, deps, preview, stripped.trim(), deckId, rev);
     return;
   }
-  const preview = await deps.add.preview({
-    user: ctx.user,
-    text,
-    deckId,
-    personalTitle: personalTitle(ctx),
-    now: deps.now(),
-    generate: true,
-  });
-  await renderPreview(ctx, deps, preview, text.trim(), deckId);
+  await runExtraction(ctx, deps, stripped, { deckId });
 }
 
 /** Text that answers a question this feature asked. Returns true when consumed. */
@@ -416,19 +431,20 @@ export async function handleAddInput(
   const front = payload?.front;
   const deckId = payload?.deckId ?? null;
   if (!front) {
-    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await clearDraft(ctx, deps);
     return false;
   }
   // The question itself says «можно сразу парой: слово - перевод», so a pair
   // is a new word, not the translation of the word we asked about.
   if (parsePairs(text).pairs.length > 0) {
-    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await clearDraft(ctx, deps);
     await handleFreeText(ctx, deps, text, deckId);
     return true;
   }
   // «Свой перевод»: the user's wording wins, the generated transcription and
   // example are kept — they belong to the same word.
   const card = payload?.card?.front === front ? payload.card : undefined;
+  const rev = nextRev(ctx.user);
   const result = await deps.add.save({
     user: ctx.user,
     front,
@@ -445,20 +461,25 @@ export async function handleAddInput(
         }
       : {}),
   });
-  ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+  await clearDraft(ctx, deps);
   if (result.kind === "limit") {
     await send(ctx, limitScreen(ctx, result.check.limit));
     return true;
   }
   if (result.kind === "duplicate") {
-    await rememberDraft(ctx, deps, {
+    await saveDraft(ctx, deps, rev, {
       front,
       deckId,
       card: card ? { ...card, back: text.trim() } : manualCard(front, text.trim()),
     });
     await send(
       ctx,
-      duplicateScreen(ctx.t.bind(ctx), result.duplicate, result.duplicate.deckOwnerId !== null),
+      duplicateScreen(
+        ctx.t.bind(ctx),
+        result.duplicate,
+        result.duplicate.deckOwnerId !== null,
+        rev,
+      ),
     );
     return true;
   }
@@ -476,20 +497,24 @@ async function promptForWord(
   deps: BotDeps,
   deckId?: number | null,
 ): Promise<void> {
-  ctx.setUser(
-    await deps.repos.users.setPendingInput(ctx.user.id, ADD_WORD, {
-      now: deps.now(),
-      ...(deckId !== undefined && deckId !== null ? { payload: { deckId } } : {}),
-    }),
-  );
+  const rev = nextRev(ctx.user);
+  await saveDraftAsking(ctx, deps, ADD_WORD, rev, {
+    ...(deckId !== undefined && deckId !== null ? { deckId } : {}),
+  });
   await show(ctx, {
     text: [ctx.t("add-prompt"), ctx.t("add-ask-hint")].join("\n"),
     keyboard: new InlineKeyboard()
-      .text(ctx.t("btn-cancel"), cb(NS.add, "cancel"))
-      .text(ctx.t("btn-other-deck"), cb(NS.add, "decks")),
+      .text(ctx.t("btn-cancel"), cb(NS.add, "cancel", rev))
+      .text(ctx.t("btn-other-deck"), cb(NS.add, "decks", rev)),
   });
 }
 
+/**
+ * Every button of this feature is matched with `(?::|$)`, so a keyboard left on
+ * screen by an older build — one whose callbacks carry no revision at all —
+ * still reaches its handler and gets the «это старое сообщение» toast instead
+ * of silently doing nothing.
+ */
 export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
   bot.command("add", async (ctx) => {
     await promptForWord(ctx, deps);
@@ -500,14 +525,17 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
     await promptForWord(ctx, deps);
   });
 
-  bot.callbackQuery("a:cancel", async (ctx) => {
+  bot.callbackQuery(/^a:cancel(?::|$)/u, async (ctx) => {
+    if ((await freshRev(ctx, ctx.callbackQuery.data)) === null) return;
     await answer(ctx, ctx.t("toast-cancelled"));
-    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await clearDraft(ctx, deps);
     await show(ctx, { text: ctx.t("add-cancelled") });
   });
 
   /** «➕ Добавить всё равно» under a duplicate screen. */
-  bot.callbackQuery("a:force", async (ctx) => {
+  bot.callbackQuery(/^a:force(?::|$)/u, async (ctx) => {
+    const rev = await freshRev(ctx, ctx.callbackQuery.data);
+    if (rev === null) return;
     await answer(ctx);
     const payload = ctx.user.pendingPayload;
     const front = payload?.front;
@@ -518,27 +546,32 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
     // The card is already there (generated, or typed as `слово - перевод`):
     // show it, so the user sees what «➕ Добавить» is about to save.
     if (card) {
-      await rememberDraft(ctx, deps, { front: card.front, deckId: deck.id, card, force: true });
-      await show(ctx, renderGenerated(t, { card, deckTitle: deck.title }));
+      await saveDraft(ctx, deps, rev, {
+        front: card.front,
+        deckId: deck.id,
+        card,
+        force: true,
+      });
+      await show(ctx, renderGenerated(t, { card, deckTitle: deck.title, rev }));
       return;
     }
     // The duplicate was found on the typed word, before the model ran. The
     // user wants the word anyway, so continue into §4.1a instead of asking.
     if (deps.add.llm) {
-      await generateAndShow(ctx, deps, front, deck, { force: true });
+      await generateAndShow(ctx, deps, front, deck, rev, { force: true });
       return;
     }
-    ctx.setUser(
-      await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
-        now: deps.now(),
-        payload: { front, deckId: deck.id, force: true },
-      }),
-    );
-    await show(ctx, askScreen(t, { front, deckTitle: deck.title }));
+    await saveDraftAsking(ctx, deps, ADD_BACK, rev, {
+      front,
+      deckId: deck.id,
+      force: true,
+    });
+    await show(ctx, askScreen(t, { front, deckTitle: deck.title, rev }));
   });
 
   /** «➕ Добавить» under a generated preview. */
-  bot.callbackQuery("a:g", async (ctx) => {
+  bot.callbackQuery(/^a:g(?::|$)/u, async (ctx) => {
+    if ((await freshRev(ctx, ctx.callbackQuery.data)) === null) return;
     await answer(ctx);
     const payload = ctx.user.pendingPayload;
     const card = payload?.card;
@@ -556,12 +589,19 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
       // Already past the duplicate screen — asking again would be a dead end.
       ...(payload.force ? { force: true } : {}),
     });
-    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    const rev = nextRev(ctx.user);
+    await clearDraft(ctx, deps);
     if (result.kind === "limit") return show(ctx, limitScreen(ctx, result.check.limit));
     if (result.kind === "duplicate") {
+      await saveDraft(ctx, deps, rev, { front: card.front, deckId: payload?.deckId ?? null, card });
       return show(
         ctx,
-        duplicateScreen(ctx.t.bind(ctx), result.duplicate, result.duplicate.deckOwnerId !== null),
+        duplicateScreen(
+          ctx.t.bind(ctx),
+          result.duplicate,
+          result.duplicate.deckOwnerId !== null,
+          rev,
+        ),
       );
     }
     deps.events.record(ctx.user.id, "word_added", { deckId: result.deck.id, via: "generated" });
@@ -569,29 +609,27 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
   });
 
   /** «✏️ Свой перевод»: keep the generated extras, ask for the translation. */
-  bot.callbackQuery("a:own", async (ctx) => {
+  bot.callbackQuery(/^a:own(?::|$)/u, async (ctx) => {
+    const rev = await freshRev(ctx, ctx.callbackQuery.data);
+    if (rev === null) return;
     await answer(ctx);
     const payload = ctx.user.pendingPayload;
     const card = payload?.card;
     if (!card) return show(ctx, { text: ctx.t("add-expired") });
     const deck = await deps.add.resolveDeck(ctx.user, payload?.deckId ?? null, personalTitle(ctx));
-    ctx.setUser(
-      await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
-        now: deps.now(),
-        payload: {
-          front: card.front,
-          deckId: deck.id,
-          card,
-          ...(payload.force ? { force: true } : {}),
-        },
-      }),
-    );
-    await show(ctx, askScreen(ctx.t.bind(ctx), { front: card.front, deckTitle: deck.title }));
+    await saveDraftAsking(ctx, deps, ADD_BACK, rev, {
+      front: card.front,
+      deckId: deck.id,
+      card,
+      ...(payload.force ? { force: true } : {}),
+    });
+    await show(ctx, askScreen(ctx.t.bind(ctx), { front: card.front, deckTitle: deck.title, rev }));
   });
 
-  bot.callbackQuery(/^a:now:/u, async (ctx) => {
+  bot.callbackQuery(/^a:now(?::|$)/u, async (ctx) => {
+    if ((await freshRev(ctx, ctx.callbackQuery.data)) === null) return;
     await answer(ctx);
-    const noteId = argInt(parseCallback(ctx.callbackQuery.data)!, 0);
+    const noteId = argInt(parseCallback(ctx.callbackQuery.data)!, 1);
     if (noteId === null) return;
     const cardId = await deps.repos.cards.createCard({
       userId: ctx.user.id,
@@ -610,20 +648,24 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
     else await openSession(ctx, deps);
   });
 
-  bot.callbackQuery("a:decks", async (ctx) => {
+  bot.callbackQuery(/^a:decks(?::|$)/u, async (ctx) => {
+    const rev = await freshRev(ctx, ctx.callbackQuery.data);
+    if (rev === null) return;
     await answer(ctx);
     const decks = await deps.add.listOwnDecks(ctx.user.id);
     const keyboard = new InlineKeyboard();
     for (const deck of decks) {
-      keyboard.text(deck.title, cb(NS.add, "deck", deck.id)).row();
+      keyboard.text(deck.title, cb(NS.add, "deck", rev, deck.id)).row();
     }
-    keyboard.text(ctx.t("btn-cancel"), cb(NS.add, "cancel"));
+    keyboard.text(ctx.t("btn-cancel"), cb(NS.add, "cancel", rev));
     await show(ctx, { text: ctx.t("add-choose-deck"), keyboard });
   });
 
-  bot.callbackQuery(/^a:deck:/u, async (ctx) => {
+  bot.callbackQuery(/^a:deck(?::|$)/u, async (ctx) => {
+    const rev = await freshRev(ctx, ctx.callbackQuery.data);
+    if (rev === null) return;
     await answer(ctx);
-    const deckId = argInt(parseCallback(ctx.callbackQuery.data)!, 0);
+    const deckId = argInt(parseCallback(ctx.callbackQuery.data)!, 1);
     if (deckId === null) return;
     const payload = ctx.user.pendingPayload;
     const front = payload?.front;
@@ -636,17 +678,17 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
       // question and only the target deck is changing.
       const force = payload?.force ?? false;
       if (card && ctx.user.pendingInput !== ADD_BACK) {
-        await rememberDraft(ctx, deps, { front, deckId, card, ...(force ? { force } : {}) });
-        await show(ctx, renderGenerated(t, { card, deckTitle: deck?.title ?? "" }));
+        await saveDraft(ctx, deps, rev, { front, deckId, card, ...(force ? { force } : {}) });
+        await show(ctx, renderGenerated(t, { card, deckTitle: deck?.title ?? "", rev }));
         return;
       }
-      ctx.setUser(
-        await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
-          now: deps.now(),
-          payload: { front, deckId, ...(card ? { card } : {}), ...(force ? { force } : {}) },
-        }),
-      );
-      await show(ctx, askScreen(t, { front, deckTitle: deck?.title ?? "" }));
+      await saveDraftAsking(ctx, deps, ADD_BACK, rev, {
+        front,
+        deckId,
+        ...(card ? { card } : {}),
+        ...(force ? { force } : {}),
+      });
+      await show(ctx, askScreen(t, { front, deckTitle: deck?.title ?? "", rev }));
       return;
     }
     await promptForWord(ctx, deps, deckId);

@@ -10,7 +10,7 @@
  */
 
 import { z } from "zod";
-import type { GeneratedCard } from "./types.js";
+import type { ExtractedWord, ExtractedWords, GeneratedCard } from "./types.js";
 
 /** Part-of-speech vocabulary. Mirrors the `tags` used by the builtin decks. */
 export const ALLOWED_POS = [
@@ -294,4 +294,180 @@ export function postProcess(raw: unknown): GeneratedCard {
 /** Parse + validate + post-process in one step. Throws on anything unusable. */
 export function parseCard(text: string): GeneratedCard {
   return postProcess(extractJson(text));
+}
+
+/**
+ * Prompt for §4.3 "words from a text".
+ *
+ * Same shape as the card prompt above: a stable system prompt, the JSON schema
+ * sent as `response_format`, a zod schema for the reply and the
+ * post-processing production applies before the checklist is drawn.
+ */
+
+/** Hard cap on the checklist; the prompt asks for it and the parser enforces it. */
+export const MAX_EXTRACTED_WORDS = 25;
+
+/** Levels the extraction prompt understands; anything else falls back to A2. */
+export const EXTRACT_LEVELS = ["A1", "A2", "B1"] as const;
+export type ExtractLevel = (typeof EXTRACT_LEVELS)[number];
+export const DEFAULT_EXTRACT_LEVEL: ExtractLevel = "A2";
+
+export const EXTRACT_SCHEMA_NAME = "unknown_words";
+
+/**
+ * System prompt. Keep it stable — the same reason as `SYSTEM_PROMPT`: a change
+ * makes runs from different days incomparable. Nothing here is cached per
+ * text, so a wording change costs nothing but comparability.
+ */
+export const EXTRACT_SYSTEM_PROMPT = `You pick the words worth learning out of a text for a language-learning bot.
+
+You are given langFrom (the language the user is learning), langTo (the user's native language), the user's approximate level (A1, A2 or B1) and the text they sent.
+
+Return one JSON object with exactly these fields:
+- detectedLang: ISO 639-1 code of the language the TEXT is written in — not the language you answer in. Use "und" when the text is not running text in any language.
+- words: an array of at most ${MAX_EXTRACTED_WORDS} entries, ordered by usefulness (the words that unlock the most of this text first).
+
+Each entry has exactly these fields:
+- front: the dictionary form IN langFrom, exactly as a flashcard headword: English verbs in the bare infinitive ("give up" keeps its particle), German nouns with their article and a capital letter ("der Tisch"), Spanish nouns with their article ("la mesa"), Georgian verbs as the masdar ("კითხვა") and nouns in the nominative ("სახლი").
+- back: a short gloss in langTo, one or two meanings, comma-separated, lowercase. The meaning the word carries IN THIS TEXT comes first. No parentheses, no grammar notes.
+- inText: the word exactly as it appears in the text, in the form it appears in.
+
+Rules:
+- Only words that really occur in the text. Never invent vocabulary to pad the list.
+- Skip proper nouns (people, places, brands), numbers, dates, units and interjections.
+- Skip words the learner already knows at their level: at A1 skip only greetings and the most basic function words; at A2 also skip roughly the 1000 most frequent words of langFrom; at B1 skip roughly the 2000 most frequent.
+- One entry per dictionary form: no duplicates, even if the word occurs several times or in several forms.
+- A multi-word expression is allowed when the phrase is what has to be learned ("give up", "სახლში ვარ").
+- If detectedLang is not langFrom, return an empty words array — do not translate the text.
+- If everything in the text is below the level, return an empty words array. An empty list is a perfectly good answer.
+
+Examples.
+
+langFrom=en langTo=ru level=A2, input "The tenant was reluctant to sign the lease, so the landlord offered a discount.":
+{"detectedLang":"en","words":[{"front":"reluctant","back":"неохотный, нежелающий","inText":"reluctant"},{"front":"tenant","back":"арендатор, квартирант","inText":"tenant"},{"front":"landlord","back":"арендодатель, хозяин квартиры","inText":"landlord"},{"front":"lease","back":"договор аренды","inText":"lease"},{"front":"discount","back":"скидка","inText":"discount"}]}
+
+langFrom=ka langTo=ru level=A1, input "დღეს ბაზარში წავედი და ხილი ვიყიდე. გამყიდველი ძალიან თავაზიანი იყო.":
+{"detectedLang":"ka","words":[{"front":"ბაზარი","back":"рынок, базар","inText":"ბაზარში"},{"front":"ხილი","back":"фрукты","inText":"ხილი"},{"front":"ყიდვა","back":"покупать","inText":"ვიყიდე"},{"front":"გამყიდველი","back":"продавец","inText":"გამყიდველი"},{"front":"თავაზიანი","back":"вежливый","inText":"თავაზიანი"}]}
+
+langFrom=en langTo=ru level=A2, input "Привет, как дела?":
+{"detectedLang":"ru","words":[]}`;
+
+export const EXTRACT_JSON_SCHEMA: JsonSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["detectedLang", "words"],
+  properties: {
+    detectedLang: { type: "string", description: "ISO 639-1 of the language of the text." },
+    words: {
+      type: "array",
+      description: `Up to ${MAX_EXTRACTED_WORDS} unknown words, most useful first.`,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["front", "back", "inText"],
+        properties: {
+          front: { type: "string", description: "Dictionary form in langFrom." },
+          back: { type: "string", description: "Short gloss in langTo." },
+          inText: { type: "string", description: "The form used in the text." },
+        },
+      },
+    },
+  },
+};
+
+export const extractedWordsSchema = z.object({
+  detectedLang: z.string(),
+  words: z.array(
+    z.object({
+      front: z.string(),
+      back: z.string(),
+      // Some providers drop a field the schema marks as required.
+      inText: z.string().optional(),
+    }),
+  ),
+});
+
+export interface ExtractRequestInput {
+  text: string;
+  langFrom: string;
+  langTo: string;
+  level: string;
+}
+
+export function buildExtractUserMessage(input: ExtractRequestInput): string {
+  return `langFrom=${input.langFrom}\nlangTo=${input.langTo}\nlevel=${input.level}\ntext:\n${input.text}`;
+}
+
+/**
+ * Which script a language is written in. Used to drop words the model made up
+ * in the wrong alphabet — for langFrom=ka a "front" in Latin letters is not a
+ * Georgian word, whatever the model thought (SPEC §4.3).
+ */
+const SCRIPTS: Record<string, RegExp> = {
+  ka: /\p{Script=Georgian}/u,
+  hy: /\p{Script=Armenian}/u,
+  el: /\p{Script=Greek}/u,
+  he: /\p{Script=Hebrew}/u,
+  ar: /\p{Script=Arabic}/u,
+  fa: /\p{Script=Arabic}/u,
+  ur: /\p{Script=Arabic}/u,
+  hi: /\p{Script=Devanagari}/u,
+  th: /\p{Script=Thai}/u,
+  ko: /\p{Script=Hangul}/u,
+  zh: /\p{Script=Han}/u,
+  ja: /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u,
+  ru: /\p{Script=Cyrillic}/u,
+  uk: /\p{Script=Cyrillic}/u,
+  be: /\p{Script=Cyrillic}/u,
+  bg: /\p{Script=Cyrillic}/u,
+  sr: /\p{Script=Cyrillic}/u,
+  mk: /\p{Script=Cyrillic}/u,
+  kk: /\p{Script=Cyrillic}/u,
+};
+
+const LATIN = /\p{Script=Latin}/u;
+
+/** The script `lang` is written in; Latin for everything we do not list. */
+export function scriptOf(lang: string): RegExp {
+  return SCRIPTS[lang.toLowerCase()] ?? LATIN;
+}
+
+/**
+ * True when most of the letters in `text` belong to the script of `lang`.
+ * "Most", not "all": a Georgian phrase may carry a Latin abbreviation.
+ */
+export function matchesScript(text: string, lang: string): boolean {
+  const script = scriptOf(lang);
+  const letters = [...text].filter((char) => /\p{L}/u.test(char));
+  if (letters.length === 0) return false;
+  const hits = letters.filter((char) => script.test(char)).length;
+  return hits * 2 >= letters.length;
+}
+
+/**
+ * Exactly what production does between the raw reply and the checklist:
+ * whitespace collapsed, junk and duplicates dropped, words that are not in the
+ * script of langFrom dropped, and the list capped.
+ */
+export function postProcessExtraction(raw: unknown, langFrom: string): ExtractedWords {
+  const parsed = extractedWordsSchema.parse(raw);
+  const seen = new Set<string>();
+  const words: ExtractedWord[] = [];
+  for (const entry of parsed.words) {
+    const front = collapseWhitespace(entry.front);
+    const back = collapseWhitespace(entry.back);
+    if (front === "" || back === "") continue;
+    if (!matchesScript(front, langFrom)) continue;
+    const key = front.normalize("NFC").toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    words.push({ front, back, inText: collapseWhitespace(entry.inText ?? "") || front });
+    if (words.length >= MAX_EXTRACTED_WORDS) break;
+  }
+  return { detectedLang: collapseWhitespace(parsed.detectedLang).toLowerCase(), words };
+}
+
+/** Parse + validate + post-process in one step. Throws on anything unusable. */
+export function parseExtraction(text: string, langFrom: string): ExtractedWords {
+  return postProcessExtraction(extractJson(text), langFrom);
 }

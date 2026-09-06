@@ -1,6 +1,7 @@
 import { and, asc, eq, inArray, notInArray, or, sql } from "drizzle-orm";
 import type { Database } from "../index.js";
-import { decks, type NewNote, type Note, notes, userDecks } from "../schema.js";
+import { decks, knownWords, type NewNote, type Note, notes, userDecks } from "../schema.js";
+import { frontNorm, normalizeFrontValue } from "../sql.js";
 
 export interface DuplicateNote {
   noteId: number;
@@ -190,6 +191,55 @@ export function createNotesRepo(db: Database) {
           ),
         )
         .orderBy(asc(notes.id));
+    },
+
+    /**
+     * Which of these words the user already has (SPEC §3.7 + §4.1), returned as
+     * normalized fronts. A word counts as known when it carries a `known_words`
+     * row, when the user has a card for a note with the same normalized front,
+     * or when such a note sits in a deck they own or are subscribed to — the
+     * same three rules the queue builder uses, so «Слова из текста» never
+     * offers something the user is already learning.
+     */
+    async findKnownFronts(input: {
+      userId: number;
+      langFrom: string;
+      fronts: string[];
+    }): Promise<string[]> {
+      const wanted = [...new Set(input.fronts.map(normalizeFrontValue))].filter(
+        (front) => front !== "",
+      );
+      if (wanted.length === 0) return [];
+      const [known, owned] = await Promise.all([
+        db
+          .select({ front: knownWords.frontNorm })
+          .from(knownWords)
+          .where(
+            and(
+              eq(knownWords.userId, input.userId),
+              eq(knownWords.langFrom, input.langFrom),
+              inArray(knownWords.frontNorm, wanted),
+            ),
+          ),
+        db
+          .selectDistinct({ front: frontNorm(sql`${notes.front}`) })
+          .from(notes)
+          .innerJoin(decks, eq(decks.id, notes.deckId))
+          .where(
+            and(
+              eq(decks.langFrom, input.langFrom),
+              inArray(frontNorm(sql`${notes.front}`), wanted),
+              or(
+                eq(decks.ownerId, input.userId),
+                sql`exists (select 1 from user_decks ud
+                             where ud.deck_id = ${decks.id} and ud.user_id = ${input.userId})`,
+                sql`exists (select 1 from cards c
+                             where c.note_id = ${notes.id} and c.user_id = ${input.userId})`,
+              ),
+            ),
+          ),
+      ]);
+      return [...new Set([...known, ...owned].map((row) => String(row.front)))];
     },
 
     /** Removes notes of a deck whose front is no longer present in the source. */

@@ -9,6 +9,7 @@ import { Bot } from "grammy";
 import type { Update, UserFromGetMe } from "grammy/types";
 import { installAdd } from "../../src/bot/add.js";
 import type { BotContext, BotDeps } from "../../src/bot/context.js";
+import { installExtract } from "../../src/bot/extract.js";
 import { installOnboarding } from "../../src/bot/onboarding.js";
 import { installTextRouter } from "../../src/bot/router.js";
 import { installSettings } from "../../src/bot/settings.js";
@@ -17,9 +18,15 @@ import type { DuplicateNote } from "../../src/db/repos/notes.js";
 import type { Deck, NewUser, Note, PendingPayload, User } from "../../src/db/schema.js";
 import { createI18n } from "../../src/i18n/index.js";
 import type { CachedCardGenerator } from "../../src/llm/cache.js";
-import type { GenerateCardInput, GeneratedCard } from "../../src/llm/types.js";
+import type {
+  ExtractedWords,
+  ExtractWordsInput,
+  GenerateCardInput,
+  GeneratedCard,
+} from "../../src/llm/types.js";
 import { type AddPort, createAddService, type LlmSupport } from "../../src/services/addService.js";
-import { nullEventRecorder } from "../../src/services/events.js";
+import type { EventName, EventRecorder } from "../../src/services/events.js";
+import { createExtractService, type ExtractLlm } from "../../src/services/extractService.js";
 import { createLimits } from "../../src/services/limits.js";
 import { makeUser } from "./fakeSession.js";
 
@@ -47,6 +54,11 @@ export interface ApiCall {
   payload: Record<string, unknown>;
 }
 
+export interface RecordedEvent {
+  name: EventName;
+  props: Record<string, unknown>;
+}
+
 export interface FakeBot {
   bot: Bot<BotContext>;
   deps: BotDeps;
@@ -59,8 +71,14 @@ export interface FakeBot {
   duplicates: DuplicateNote[];
   /** Inputs the generator was called with. */
   generations: GenerateCardInput[];
+  /** Inputs the word extractor was called with (SPEC §4.3). */
+  extractions: ExtractWordsInput[];
+  /** Analytics written during the run (SPEC §12). */
+  events: RecordedEvent[];
   /** Sends a plain text message from the user. */
   text(text: string): Promise<void>;
+  /** Sends a message the user forwarded from somewhere else (SPEC §4.3). */
+  forward(text: string): Promise<void>;
   /** Taps an inline button. */
   tap(data: string): Promise<void>;
   /** Texts the bot sent or edited, oldest first. */
@@ -68,6 +86,12 @@ export interface FakeBot {
   lastText(): string;
   /** Callback data of the buttons on the last screen. */
   lastButtons(): string[];
+  /** Labels of the buttons on the last screen. */
+  lastLabels(): string[];
+  /** Texts of the toasts (`answerCallbackQuery`) the bot showed. */
+  toasts(): string[];
+  /** Raw `reply_markup` of every message the bot sent or edited. */
+  markups(): unknown[];
 }
 
 export interface FakeBotOptions {
@@ -76,6 +100,16 @@ export interface FakeBotOptions {
   card?: GeneratedCard | ((input: GenerateCardInput) => GeneratedCard) | null;
   decks?: Deck[];
   duplicates?: DuplicateNote[];
+  /** What the word extractor answers; a function may throw to fail the call. */
+  extract?: ExtractedWords | ((input: ExtractWordsInput) => ExtractedWords);
+  /** Words the user already has, as `findKnownFronts` would report them. */
+  knownFronts?: string[];
+  /** Free-plan gating; off by default, as in the default deployment. */
+  proEnabled?: boolean;
+  /** `word_generated` events already recorded today (SPEC §9.1). */
+  generationsUsed?: number;
+  /** `text_extracted` events already recorded today (SPEC §9.1). */
+  extractionsUsed?: number;
 }
 
 export function makeDeck(id: number, ownerId: number | null, title: string): Deck {
@@ -116,6 +150,11 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   };
   const duplicates = [...(options.duplicates ?? [])];
   const generations: GenerateCardInput[] = [];
+  const extractions: ExtractWordsInput[] = [];
+  const recorded: RecordedEvent[] = [];
+  const knownFronts = new Set(
+    (options.knownFronts ?? []).map((front) => front.normalize("NFC").trim().toLowerCase()),
+  );
   let nextNoteId = 1;
   let nextDeckId = 10;
 
@@ -175,9 +214,10 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     {
       countOwnDecks: async () => 0,
       countOwnNotes: async () => 0,
-      countGenerationsSince: async () => 0,
+      countGenerationsSince: async () => options.generationsUsed ?? 0,
+      countExtractionsSince: async () => options.extractionsUsed ?? 0,
     },
-    { proEnabled: false },
+    { proEnabled: options.proEnabled ?? false },
   );
 
   let llm: LlmSupport | null = null;
@@ -194,6 +234,46 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     llm = { model: "test/model", generator };
   }
 
+  const add = createAddService(port, limits, llm);
+
+  let extractLlm: ExtractLlm | null = null;
+  if (options.extract && llm) {
+    const reply = options.extract;
+    extractLlm = {
+      ...llm,
+      extractor: {
+        async extract(input: ExtractWordsInput): Promise<ExtractedWords> {
+          extractions.push(input);
+          return typeof reply === "function" ? reply(input) : reply;
+        },
+      },
+    };
+  }
+  const extract = createExtractService({
+    port: {
+      async findKnownFronts({ fronts }) {
+        return fronts
+          .map((front) => front.normalize("NFC").trim().toLowerCase())
+          .filter((front) => knownFronts.has(front));
+      },
+      async listSubscribedDecks() {
+        return state.decks;
+      },
+    },
+    limits,
+    add,
+    llm: extractLlm,
+  });
+
+  const events: EventRecorder = {
+    record(_userId, name, props) {
+      recorded.push({ name, props: props ?? {} });
+    },
+    async recordAsync(_userId, name, props) {
+      recorded.push({ name, props: props ?? {} });
+    },
+  };
+
   const users = {
     async update(_id: number, patch: Partial<NewUser>): Promise<User> {
       state.user = { ...state.user, ...patch } as User;
@@ -209,7 +289,9 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
       return users.update(id, {
         pendingInput: input,
         pendingInputExpiresAt: input === null ? null : new Date(now.getTime() + ttl),
-        pendingPayload: input === null ? null : (opts.payload ?? null),
+        // Mirrors the repo: an explicit payload survives even when the pending
+        // question is cleared, which is how the draft revision stays monotonic.
+        pendingPayload: opts.payload ?? null,
       });
     },
   };
@@ -236,10 +318,11 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     db: {},
     repos,
     logger: { debug() {}, info() {}, warn() {}, error() {} },
-    events: nullEventRecorder(),
+    events,
     i18n,
     sessions: {},
-    add: createAddService(port, limits, llm),
+    add,
+    extract,
     limits,
     now: () => NOW,
     botUsername: () => "tganki_bot",
@@ -279,6 +362,7 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
 
   installOnboarding(bot, deps);
   installAdd(bot, deps);
+  installExtract(bot, deps);
   installSettings(bot, deps);
   installTextRouter(bot, deps);
   bot.on("callback_query", (ctx) => answer(ctx));
@@ -290,12 +374,33 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   const messages = (): ApiCall[] =>
     calls.filter((call) => call.method === "sendMessage" || call.method === "editMessageText");
 
+  interface FakeButton {
+    text?: string;
+    callback_data?: string;
+  }
+
+  /** Buttons of the last screen — whatever the bot most recently drew. */
+  const lastKeyboard = (): FakeButton[] => {
+    const drawn = calls.filter(
+      (call) =>
+        call.method === "sendMessage" ||
+        call.method === "editMessageText" ||
+        call.method === "editMessageReplyMarkup",
+    );
+    const markup = drawn[drawn.length - 1]?.payload.reply_markup as
+      | { inline_keyboard: FakeButton[][] }
+      | undefined;
+    return (markup?.inline_keyboard ?? []).flat();
+  };
+
   return {
     bot,
     deps,
     calls,
     duplicates,
     generations,
+    extractions,
+    events: recorded,
     user: () => state.user,
     setUser: (patch) => {
       state.user = { ...state.user, ...patch };
@@ -304,9 +409,35 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     decks: () => state.decks,
 
     async text(text: string) {
+      // grammY matches commands on the entity, not on the leading slash.
+      const command = text.startsWith("/")
+        ? [{ type: "bot_command", offset: 0, length: text.split(/\s/u)[0]!.length }]
+        : undefined;
       const update = {
         update_id: updateId++,
-        message: { message_id: updateId + 500, date: 0, chat, from, text },
+        message: {
+          message_id: updateId + 500,
+          date: 0,
+          chat,
+          from,
+          text,
+          ...(command ? { entities: command } : {}),
+        },
+      } as Update;
+      await bot.handleUpdate(update);
+    },
+
+    async forward(text: string) {
+      const update = {
+        update_id: updateId++,
+        message: {
+          message_id: updateId + 500,
+          date: 0,
+          chat,
+          from,
+          text,
+          forward_origin: { type: "hidden_user", date: 0, sender_user_name: "Someone" },
+        },
       } as Update;
       await bot.handleUpdate(update);
     },
@@ -330,12 +461,12 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
       const sent = messages();
       return String(sent[sent.length - 1]?.payload.text ?? "");
     },
-    lastButtons: () => {
-      const sent = messages();
-      const markup = sent[sent.length - 1]?.payload.reply_markup as
-        | { inline_keyboard: { callback_data?: string }[][] }
-        | undefined;
-      return (markup?.inline_keyboard ?? []).flat().map((button) => button.callback_data ?? "");
-    },
+    lastButtons: () => lastKeyboard().map((button) => button.callback_data ?? ""),
+    lastLabels: () => lastKeyboard().map((button) => button.text ?? ""),
+    toasts: () =>
+      calls
+        .filter((call) => call.method === "answerCallbackQuery")
+        .map((call) => String(call.payload.text ?? "")),
+    markups: () => messages().map((call) => call.payload.reply_markup),
   };
 }

@@ -7,6 +7,8 @@ export const FREE_LIMITS = {
   ownNotes: 300,
   /** AI card generations per learning day; cache hits are free (§4.1a). */
   generationsPerDay: 10,
+  /** Texts run through «Слова из текста» per learning day (§4.3, §9.1). */
+  textsPerDay: 1,
 } as const;
 
 export interface LimitCheck {
@@ -21,6 +23,8 @@ export interface LimitsPort {
   countOwnNotes(userId: number): Promise<number>;
   /** `word_generated` events with `cached: false` since the given instant. */
   countGenerationsSince(userId: number, since: Date): Promise<number>;
+  /** `text_extracted` events since the given instant — one per text (§4.3). */
+  countExtractionsSince(userId: number, since: Date): Promise<number>;
 }
 
 /** A paying user: any non-free plan whose `planUntil` has not passed. */
@@ -40,6 +44,8 @@ export interface Limits {
   canAddNotes(user: User, count: number, now: Date): Promise<LimitCheck>;
   /** AI generations left in the current learning day (04:00 boundary, §9.1). */
   canGenerate(user: User, now: Date): Promise<LimitCheck>;
+  /** Texts left to run through word extraction today (§4.3, §9.1). */
+  canExtract(user: User, now: Date): Promise<LimitCheck>;
 }
 
 /**
@@ -69,6 +75,13 @@ export function createLimits(port: LimitsPort, options: { proEnabled: boolean })
         limit: FREE_LIMITS.generationsPerDay,
         used,
       };
+    },
+
+    async canExtract(user, now) {
+      if (!options.proEnabled || isPro(user, now)) return unlimited();
+      const since = startOfLearningDay(now, user.tz);
+      const used = await port.countExtractionsSince(user.id, since);
+      return { allowed: used < FREE_LIMITS.textsPerDay, limit: FREE_LIMITS.textsPerDay, used };
     },
   };
 }

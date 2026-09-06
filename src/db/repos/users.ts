@@ -69,7 +69,10 @@ export function createUsersRepo(db: Database) {
       return this.update(id, {
         pendingInput: input,
         pendingInputExpiresAt: input === null ? null : new Date(now.getTime() + ttl),
-        pendingPayload: input === null ? null : (options.payload ?? null),
+        // Clearing the question drops the draft with it, unless the caller
+        // passes a payload of its own — the add flow keeps its revision
+        // counter there, and that counter has to stay monotonic (SPEC §4.1).
+        pendingPayload: options.payload ?? null,
       });
     },
 

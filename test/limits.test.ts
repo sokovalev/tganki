@@ -5,7 +5,7 @@ import { makeUser } from "./helpers/fakeSession.js";
 const NOW = new Date("2026-01-10T12:00:00.000Z");
 
 function limits(
-  counts: { decks: number; notes: number; generations?: number },
+  counts: { decks: number; notes: number; generations?: number; extractions?: number },
   proEnabled: boolean,
   onCount?: (since: Date) => void,
 ) {
@@ -16,6 +16,10 @@ function limits(
       countGenerationsSince: async (_userId, since) => {
         onCount?.(since);
         return counts.generations ?? 0;
+      },
+      countExtractionsSince: async (_userId, since) => {
+        onCount?.(since);
+        return counts.extractions ?? 0;
       },
     },
     { proEnabled },
@@ -52,6 +56,10 @@ describe("free-plan limits", () => {
           return 999;
         },
         countGenerationsSince: async () => {
+          queried = true;
+          return 999;
+        },
+        countExtractionsSince: async () => {
           queried = true;
           return 999;
         },

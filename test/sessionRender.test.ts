@@ -390,6 +390,14 @@ describe("main menu", () => {
     expect(buttons(screen.keyboard)[0]?.text).toBe("▶️ Учить (22)");
   });
 
+  it("offers «Слова из текста» only when the LLM is configured (SPEC §4.3)", () => {
+    const data = { due: 1, fresh: 1, streak: 0, deckTitles: [] };
+    const labels = (extract: boolean) =>
+      buttons(renderMenu(ru, { ...data, extract }).keyboard).map((button) => button.text);
+    expect(labels(false)).not.toContain("📝 Слова из текста");
+    expect(labels(true)).toContain("📝 Слова из текста");
+  });
+
   it("nudges users without decks", () => {
     const screen = renderMenu(en, { due: 0, fresh: 0, streak: 0, deckTitles: [] });
     expect(screen.text).toContain("No decks yet");
@@ -403,6 +411,7 @@ describe("main menu", () => {
         fresh: 1,
         streak: 1,
         deckTitles: [],
+        extract: true,
       });
       for (const button of buttons(screen.keyboard)) {
         if ("callback_data" in button) {

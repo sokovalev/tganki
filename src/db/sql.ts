@@ -50,3 +50,12 @@ export function notKnownOrDuplicate(input: { userId: number; note: string; deck:
          and ${frontNorm(sql`dupn.front`)} = ${front}
     ))`;
 }
+
+/**
+ * JS twin of `frontNorm`, for the values we normalize in code before sending
+ * them to a query (SPEC §3.7). Must stay character-for-character equivalent to
+ * the SQL above, or the two sides stop agreeing on what "the same word" is.
+ */
+export function normalizeFrontValue(value: string): string {
+  return value.normalize("NFC").replace(/\s+/gu, " ").trim().toLowerCase();
+}

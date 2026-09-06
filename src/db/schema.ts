@@ -40,8 +40,35 @@ export type PendingCard = {
   pos: string;
 };
 
+/**
+ * One word found in a text, waiting on the §4.3 checklist. `on` is the
+ * checkbox: everything starts selected.
+ */
+export type PendingExtractWord = {
+  front: string;
+  back: string;
+  /** The form the word had in the text; shown nowhere, kept for analytics. */
+  inText?: string;
+  on: boolean;
+};
+
+/** The «Слова из текста» checklist parked between the taps (SPEC §4.3). */
+export type PendingExtract = {
+  words: PendingExtractWord[];
+  /** Words the extraction found and we dropped as already known. */
+  dropped: number;
+  /** The text was longer than the cap and got cut. */
+  truncated?: boolean;
+};
+
 /** Free-form draft attached to `users.pending_input` (and to `/start deck_x` deep links). */
 export type PendingPayload = {
+  /**
+   * Revision of this draft: every button on its screen carries it, so a tap on
+   * an older screen can be told apart from a tap on the current one
+   * (SPEC §4.1, `src/bot/draft.ts`). Only ever grows.
+   */
+  rev?: number;
   /** Draft note waiting for its translation. */
   front?: string;
   /** Generated card waiting for confirmation. */
@@ -54,6 +81,10 @@ export type PendingPayload = {
   deckRef?: string;
   /** Deck whose new-per-day is being typed. */
   settingDeckId?: number;
+  /** Words found in a text, waiting for «✅ Добавить выбранные» (SPEC §4.3). */
+  extract?: PendingExtract;
+  /** Notes just added from a text; «▶️ Учить новые» starts a session over them. */
+  learn?: number[];
 };
 
 export const users = pgTable(

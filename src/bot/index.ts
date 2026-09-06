@@ -4,11 +4,13 @@ import type { Database } from "../db/index.js";
 import { createRepos } from "../db/repos/index.js";
 import { createI18n } from "../i18n/index.js";
 import { createDbCacheStore, withCache } from "../llm/cache.js";
+import { createOpenRouterWordExtractor } from "../llm/extractor.js";
 import { createOpenRouterCardGenerator } from "../llm/generator.js";
 import type { Logger } from "../logger.js";
 import { createReminderSender } from "../reminders/sender.js";
 import { createAddService, type LlmSupport } from "../services/addService.js";
 import { createEventRecorder } from "../services/events.js";
+import { createExtractService, type ExtractLlm } from "../services/extractService.js";
 import { createLimits } from "../services/limits.js";
 import { createReminderService, type ReminderRunStats } from "../services/reminderService.js";
 import { createSessionPort } from "../services/sessionPort.js";
@@ -18,6 +20,7 @@ import { installAdmin } from "./admin.js";
 import { registerCommands } from "./commands.js";
 import type { BotContext, BotDeps } from "./context.js";
 import { installDecks } from "./decks.js";
+import { installExtract } from "./extract.js";
 import { installMenu } from "./menu.js";
 import { userMiddleware } from "./middleware/user.js";
 import { installMisc } from "./misc.js";
@@ -63,6 +66,8 @@ export function createBot(options: CreateBotOptions): BotHandle {
       countOwnDecks: (userId) => repos.decks.countOwnedBy(userId),
       countOwnNotes: (userId) => repos.notes.countOwnedBy(userId),
       countGenerationsSince: (userId, since) => repos.events.countGenerationsSince(userId, since),
+      countExtractionsSince: (userId, since) =>
+        repos.events.countUserEventsSince(userId, "text_extracted", since),
     },
     { proEnabled: config.PRO_ENABLED },
   );
@@ -87,6 +92,24 @@ export function createBot(options: CreateBotOptions): BotHandle {
         ),
       }
     : null;
+  // §4.3 rides on the same key and the same model as §4.1a: the extractor
+  // finds the words, the cached card generator fills each of them in.
+  const extractLlm: ExtractLlm | null =
+    config.OPENROUTER_API_KEY && llm
+      ? {
+          ...llm,
+          extractor: createOpenRouterWordExtractor({
+            apiKey: config.OPENROUTER_API_KEY,
+            model: config.LLM_MODEL,
+            timeoutMs: config.LLM_TIMEOUT_MS,
+            ...(config.LLM_BASE_URL ? { baseUrl: config.LLM_BASE_URL } : {}),
+            ...(config.LLM_REASONING_EFFORT
+              ? { reasoningEffort: config.LLM_REASONING_EFFORT }
+              : {}),
+            logger,
+          }),
+        }
+      : null;
   const add = createAddService(
     {
       findDuplicates: (input) => repos.notes.findDuplicates(input),
@@ -103,6 +126,17 @@ export function createBot(options: CreateBotOptions): BotHandle {
     llm,
   );
 
+  const extract = createExtractService({
+    port: {
+      findKnownFronts: (input) => repos.notes.findKnownFronts(input),
+      listSubscribedDecks: async (userId) =>
+        (await repos.decks.listSubscribed(userId)).map((row) => row.deck),
+    },
+    limits,
+    add,
+    llm: extractLlm,
+  });
+
   let username = "";
   const deps: BotDeps = {
     config,
@@ -113,6 +147,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
     i18n,
     sessions,
     add,
+    extract,
     limits,
     now,
     botUsername: () => username,
@@ -125,6 +160,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
   installMenu(bot, deps);
   installSession(bot, deps);
   installAdd(bot, deps);
+  installExtract(bot, deps);
   installDecks(bot, deps);
   installStats(bot, deps);
   installSettings(bot, deps);

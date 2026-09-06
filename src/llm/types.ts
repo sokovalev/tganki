@@ -56,3 +56,36 @@ export interface LanguageResolver {
   /** Maps a free-text language name in any language ("грузинский", "Georgian") to a code; null if unrecognized. */
   resolve(input: { text: string; uiLang: string }): Promise<ResolvedLanguage | null>;
 }
+
+/** Input for §4.3 "words from a text". */
+export interface ExtractWordsInput {
+  /** The text to look through, already stripped of URLs and capped in length. */
+  text: string;
+  /** ISO 639-1 code of the language being learned. */
+  langFrom: string;
+  /** ISO 639-1 code of the user's native language. */
+  langTo: string;
+  /** CEFR level guess ("A1" | "A2" | "B1"): words below it are skipped. */
+  level: string;
+}
+
+export interface ExtractedWord {
+  /** Dictionary form in langFrom. */
+  front: string;
+  /** Short gloss in langTo. */
+  back: string;
+  /** The form as it appears in the text. */
+  inText: string;
+}
+
+export interface ExtractedWords {
+  /** ISO 639-1 code of the language the text is written in, "und" when unclear. */
+  detectedLang: string;
+  /** Unknown words, most useful first. */
+  words: ExtractedWord[];
+}
+
+export interface WordExtractor {
+  /** Throws GenerationError on failure. Never cached: every text is different. */
+  extract(input: ExtractWordsInput): Promise<ExtractedWords>;
+}

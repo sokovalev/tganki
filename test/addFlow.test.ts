@@ -6,7 +6,7 @@
 
 import { beforeEach, describe, expect, it } from "vitest";
 import { ADD_BACK, ADD_WORD } from "../src/bot/add.js";
-import type { GeneratedCard } from "../src/llm/types.js";
+import type { ExtractedWords, GeneratedCard } from "../src/llm/types.js";
 import { createFakeBot, duplicateNote, type FakeBot, makeDeck } from "./helpers/fakeBot.js";
 
 const CARD: GeneratedCard = {
@@ -26,22 +26,22 @@ describe("«➕ Добавить всё равно» after a duplicate (SPEC §4
     const bot = createFakeBot({ card: CARD, duplicates: [duplicateNote()] });
     await bot.text("ვკითხულობ");
     expect(bot.lastText()).toContain("Есть в «Грузинский Top 500 · A1»");
-    expect(bot.lastButtons()).toEqual(["a:now:7", "a:force"]);
+    expect(bot.lastButtons()).toEqual(["a:now:1:7", "a:force:1"]);
     // The card is parked, not thrown away.
     expect(bot.user().pendingPayload?.card?.front).toBe("კითხვა");
     expect(bot.user().pendingInput).toBeNull();
 
-    await bot.tap("a:force");
+    await bot.tap("a:force:1");
     expect(bot.lastText()).toContain("чтение, вопрос");
-    expect(bot.lastButtons()).toEqual(["a:g", "a:decks", "a:own", "a:cancel"]);
+    expect(bot.lastButtons()).toEqual(["a:g:1", "a:decks:1", "a:own:1", "a:cancel:1"]);
     expect(bot.lastText()).not.toContain("Перевод для");
   });
 
   it("saves the forced card past the duplicate check", async () => {
     const bot = createFakeBot({ card: CARD, duplicates: [duplicateNote()] });
     await bot.text("ვკითხულობ");
-    await bot.tap("a:force");
-    await bot.tap("a:g");
+    await bot.tap("a:force:1");
+    await bot.tap("a:g:1");
     expect(bot.notes()).toHaveLength(1);
     expect(bot.notes()[0]).toMatchObject({ front: "კითხვა", back: "чтение, вопрос" });
     expect(bot.lastText()).toContain("Добавил");
@@ -57,16 +57,16 @@ describe("«➕ Добавить всё равно» after a duplicate (SPEC §4
     expect(bot.generations).toHaveLength(0);
     expect(bot.lastText()).toContain("Уже есть в «Мои слова · KA»");
 
-    await bot.tap("a:force");
+    await bot.tap("a:force:1");
     expect(bot.generations).toHaveLength(1);
     expect(bot.lastText()).toContain("чтение, вопрос");
-    expect(bot.lastButtons()).toContain("a:g");
+    expect(bot.lastButtons()).toContain("a:g:1");
   });
 
   it("falls back to the manual question when generation is off", async () => {
     const bot = createFakeBot({ card: null, duplicates: [duplicateNote()] });
     await bot.text("კითხვა");
-    await bot.tap("a:force");
+    await bot.tap("a:force:1");
     expect(bot.lastText()).toContain("Перевод для «კითხვა»?");
     expect(bot.user().pendingInput).toBe(ADD_BACK);
 
@@ -79,19 +79,20 @@ describe("«➕ Добавить всё равно» after a duplicate (SPEC §4
     const bot = createFakeBot({ card: null, duplicates: [duplicateNote()] });
     await bot.text("კითხვა - чтение");
     expect(bot.notes()).toHaveLength(0);
-    expect(bot.lastButtons()).toContain("a:force");
+    expect(bot.lastButtons()).toContain("a:force:1");
 
-    await bot.tap("a:force");
+    await bot.tap("a:force:1");
     expect(bot.lastText()).toContain("чтение");
-    await bot.tap("a:g");
+    await bot.tap("a:g:1");
     expect(bot.notes()).toHaveLength(1);
     expect(bot.notes()[0]).toMatchObject({ front: "კითხვა", back: "чтение" });
   });
 
-  it("says the word got lost when nothing is parked any more", async () => {
+  it("tells the user the message is stale when nothing is parked any more", async () => {
     const bot = createFakeBot({ card: CARD });
-    await bot.tap("a:force");
-    expect(bot.lastText()).toContain("Слово потерялось");
+    await bot.tap("a:force:1");
+    expect(bot.toasts()).toEqual(["Это старое сообщение, отправь слово ещё раз"]);
+    expect(bot.notes()).toHaveLength(0);
   });
 });
 
@@ -131,7 +132,8 @@ describe("free text is always a new word (SPEC §11)", () => {
     // «გამარჯობა» is already known, so it never reached the model; the new
     // word did, as a word of its own.
     expect(bot.generations.map((call) => call.text)).toEqual(["სახლში ვარ"]);
-    expect(bot.lastButtons()).toContain("a:g");
+    // Second draft of this chat, so the buttons carry revision 2.
+    expect(bot.lastButtons()).toContain("a:g:2");
   });
 
   it("saves a pair sent after a duplicate screen instead of opening a picker", async () => {
@@ -151,7 +153,7 @@ describe("free text is always a new word (SPEC §11)", () => {
     await bot.text("asdfgh");
     expect(bot.user().pendingInput).toBeNull();
     expect(bot.generations.map((call) => call.text)).toEqual(["asdfgh"]);
-    expect(bot.lastButtons()).toContain("a:g");
+    expect(bot.lastButtons()).toContain("a:g:1");
   });
 
   it("ignores the deck of an expired draft", async () => {
@@ -198,5 +200,255 @@ describe("the manual question (SPEC §4.1)", () => {
     await bot.text("კითხვა");
     await bot.text("чтение");
     expect(bot.notes()[0]).toMatchObject({ front: "კითხვა", back: "чтение" });
+  });
+});
+
+describe("draft revisions (SPEC §4.1)", () => {
+  const echo = (input: { text: string }): GeneratedCard => ({ ...CARD, front: input.text });
+
+  it("ignores a button from an older draft and takes its keyboard away", async () => {
+    const bot = createFakeBot({ card: echo });
+    await bot.text("სახლი");
+    expect(bot.lastButtons()).toContain("a:g:1");
+    await bot.text("წიგნი");
+    expect(bot.lastButtons()).toContain("a:g:2");
+
+    // «➕ Добавить» on the first preview, which is two messages up by now.
+    await bot.tap("a:g:1");
+    expect(bot.notes()).toHaveLength(0);
+    expect(bot.toasts()).toEqual(["Это старое сообщение, отправь слово ещё раз"]);
+    const stripped = bot.calls.filter((call) => call.method === "editMessageReplyMarkup");
+    expect(stripped).toHaveLength(1);
+    expect(stripped[0]?.payload.reply_markup).toEqual({ inline_keyboard: [] });
+  });
+
+  it("still acts on the button of the draft that is current", async () => {
+    const bot = createFakeBot({ card: echo });
+    await bot.text("სახლი");
+    await bot.text("წიგნი");
+    await bot.tap("a:g:2");
+    expect(bot.notes()).toHaveLength(1);
+    expect(bot.notes()[0]).toMatchObject({ front: "წიგნი" });
+    expect(bot.toasts()).not.toContain("Это старое сообщение, отправь слово ещё раз");
+  });
+
+  it("keeps counting up after a draft is saved, so revisions never repeat", async () => {
+    const bot = createFakeBot({ card: echo });
+    await bot.text("სახლი");
+    await bot.tap("a:g:1");
+    expect(bot.notes()).toHaveLength(1);
+    // The saved draft is gone but its number is not reused.
+    await bot.text("წიგნი");
+    expect(bot.lastButtons()).toContain("a:g:2");
+    await bot.tap("a:g:1");
+    expect(bot.notes()).toHaveLength(1);
+    expect(bot.toasts()).toContain("Это старое сообщение, отправь слово ещё раз");
+  });
+
+  it("refuses a stale ✖ instead of cancelling the current draft", async () => {
+    const bot = createFakeBot({ card: echo });
+    await bot.text("სახლი");
+    await bot.text("წიგნი");
+    await bot.tap("a:cancel:1");
+    expect(bot.user().pendingPayload?.card?.front).toBe("წიგნი");
+    expect(bot.texts().some((text) => text.includes("Ок, ничего не добавляю"))).toBe(false);
+  });
+});
+
+describe("words from a text (SPEC §4.3)", () => {
+  const TEXT = "დღეს ბაზარში წავედი და ხილი ვიყიდე, გამყიდველი ძალიან თავაზიანი იყო.";
+
+  const FOUND: ExtractedWords = {
+    detectedLang: "ka",
+    words: [
+      { front: "ბაზარი", back: "рынок", inText: "ბაზარში" },
+      { front: "ხილი", back: "фрукты", inText: "ხილი" },
+    ],
+  };
+
+  /** A generator that answers about the very word it was asked about. */
+  const filler = (input: { text: string }): GeneratedCard => ({
+    ...CARD,
+    front: input.text,
+    back: "перевод от модели",
+    transcription: `ipa-${input.text}`,
+    example: "მაგალითი.",
+    exampleTr: "Пример.",
+  });
+
+  function textBot(options: Partial<Parameters<typeof createFakeBot>[0]> = {}): FakeBot {
+    return createFakeBot({ card: filler, extract: FOUND, ...options });
+  }
+
+  it("turns a long message into a checklist of unknown words", async () => {
+    const bot = textBot();
+    await bot.text(TEXT);
+    expect(bot.texts()[0]).toBe("🔎 Ищу незнакомые слова…");
+    expect(bot.lastText()).toContain("📝 Нашёл 2 слова");
+    expect(bot.lastText()).toContain("1. <b>ბაზარი</b> — рынок");
+    expect(bot.lastText()).toContain("2. <b>ხილი</b> — фрукты");
+    expect(bot.lastText()).toContain("→ в деку «Мои слова · KA»");
+    expect(bot.lastButtons()).toEqual([
+      "x:t:1:0",
+      "x:t:1:1",
+      "x:add:1",
+      "x:all:1",
+      "x:none:1",
+      "x:decks:1",
+      "x:cancel:1",
+    ]);
+    expect(bot.lastLabels()).toContain("☑ 1");
+    expect(bot.lastLabels()).toContain("✅ Добавить выбранные (2)");
+    // The model is asked about the text, in the pair the user is learning.
+    expect(bot.extractions).toEqual([{ text: TEXT, langFrom: "ka", langTo: "ru", level: "A2" }]);
+    expect(bot.events.map((event) => event.name)).toContain("text_extracted");
+    expect(bot.events.find((event) => event.name === "text_extracted")?.props).toMatchObject({
+      words: 2,
+      dropped: 0,
+      model: "test/model",
+      chars: TEXT.length,
+    });
+  });
+
+  it("also reads a forwarded message, however short it is", async () => {
+    const bot = textBot();
+    await bot.forward("ბაზარი და ხილი");
+    expect(bot.extractions).toHaveLength(1);
+    expect(bot.lastText()).toContain("📝 Нашёл 2 слова");
+  });
+
+  it("ticks and unticks a line, keeping the same draft", async () => {
+    const bot = textBot();
+    await bot.text(TEXT);
+    await bot.tap("x:t:1:0");
+    expect(bot.lastLabels()).toEqual([
+      "☐ 1",
+      "☑ 2",
+      "✅ Добавить выбранные (1)",
+      "Выбрать все",
+      "Снять все",
+      "📚 Другая дека",
+      "✖",
+    ]);
+    await bot.tap("x:none:1");
+    expect(bot.lastLabels().slice(0, 3)).toEqual(["☐ 1", "☐ 2", "✅ Добавить выбранные (0)"]);
+    await bot.tap("x:add:1");
+    expect(bot.toasts()).toContain("Ничего не выбрано");
+    expect(bot.notes()).toHaveLength(0);
+
+    await bot.tap("x:all:1");
+    expect(bot.lastLabels().slice(0, 3)).toEqual(["☑ 1", "☑ 2", "✅ Добавить выбранные (2)"]);
+  });
+
+  it("generates a card per ticked word and reports what it added", async () => {
+    const bot = textBot();
+    await bot.text(TEXT);
+    await bot.tap("x:add:1");
+    expect(bot.generations.map((call) => call.text)).toEqual(["ბაზარი", "ხილი"]);
+    // The user approved «слово — перевод», so those two are saved as shown;
+    // the model only fills the transcription and the example in.
+    expect(bot.notes()).toHaveLength(2);
+    expect(bot.notes()[0]).toMatchObject({
+      front: "ბაზარი",
+      back: "рынок",
+      transcription: "ipa-ბაზარი",
+      example: "მაგალითი.",
+      exampleTr: "Пример.",
+    });
+    expect(bot.lastText()).toContain("✅ Добавил 2 слова в «Мои слова · KA»");
+    expect(bot.lastText()).toContain("<b>ბაზარი</b> — рынок, <b>ხილი</b> — фрукты");
+    expect(bot.lastButtons()).toEqual(["x:learn:1", "m"]);
+    expect(bot.events.filter((event) => event.name === "word_generated")).toHaveLength(2);
+    expect(bot.events.find((event) => event.name === "text_words_added")?.props).toEqual({ n: 2 });
+  });
+
+  it("drops the words the user already knows and says how many", async () => {
+    const bot = textBot({ knownFronts: ["ხილი"] });
+    await bot.text(TEXT);
+    expect(bot.lastText()).toContain("📝 Нашёл 1 слово");
+    expect(bot.lastText()).toContain("Ещё 1 слово ты уже знаешь.");
+    expect(bot.lastText()).not.toContain("ხილი");
+  });
+
+  it("says so when there is nothing new in the text", async () => {
+    const bot = textBot({ extract: { detectedLang: "ka", words: [] } });
+    await bot.text(TEXT);
+    expect(bot.lastText()).toBe("Незнакомых слов не нашёл.");
+    expect(bot.lastButtons()).toEqual([]);
+  });
+
+  it("refuses a text in another language, naming what it saw", async () => {
+    const bot = textBot({ extract: { detectedLang: "en", words: [] } });
+    await bot.text("The tenant was reluctant to sign the lease agreement.");
+    expect(bot.lastText()).toBe(
+      "Похоже, это не грузинский, а английский. Нужен текст на языке, который ты учишь: грузинский.",
+    );
+    expect(bot.notes()).toHaveLength(0);
+  });
+
+  it("tells the user their own language is not what it needs", async () => {
+    const bot = textBot({ extract: { detectedLang: "ru", words: [] } });
+    await bot.text("Сегодня я ходил на рынок и купил фруктов.");
+    expect(bot.lastText()).toBe(
+      "Это твой родной язык (русский). Нужен текст на языке, который ты учишь: грузинский.",
+    );
+  });
+
+  it("strips links before sending the text anywhere", async () => {
+    const bot = textBot();
+    await bot.text(`https://example.com/news/1 ${TEXT} www.test.ge/page`);
+    expect(bot.extractions[0]?.text).toBe(TEXT);
+    expect(bot.extractions[0]?.text).not.toContain("http");
+  });
+
+  it("says nothing was found when a long message is only links", async () => {
+    const bot = textBot();
+    await bot.text("https://example.com/a/very/long/link/that/is/over/forty/characters");
+    expect(bot.extractions).toHaveLength(0);
+    expect(bot.lastText()).toBe("Незнакомых слов не нашёл.");
+  });
+
+  it("asks for a key instead of crashing when the LLM is off", async () => {
+    const bot = createFakeBot({ card: null });
+    await bot.text(TEXT);
+    expect(bot.lastText()).toBe("Чтобы находить слова в тексте, нужен подключённый ИИ.");
+    expect(bot.notes()).toHaveLength(0);
+    expect(bot.user().pendingInput).toBeNull();
+  });
+
+  it("stops at one text a day on the free plan", async () => {
+    const bot = textBot({ proEnabled: true, extractionsUsed: 1 });
+    await bot.text(TEXT);
+    expect(bot.extractions).toHaveLength(0);
+    expect(bot.lastText()).toContain("Разбор текста на сегодня закончился (1 в день)");
+  });
+
+  it("skips the words the daily AI budget no longer covers", async () => {
+    const bot = textBot({ proEnabled: true, generationsUsed: 9 });
+    await bot.text(TEXT);
+    await bot.tap("x:add:1");
+    expect(bot.generations).toHaveLength(1);
+    expect(bot.notes()).toHaveLength(1);
+    expect(bot.lastText()).toContain("✅ Добавил 1 слово");
+    expect(bot.lastText()).toContain("Ещё 1 слово не добавил: на сегодня закончился лимит ИИ.");
+  });
+
+  it("asks for a text on /extract and reads the answer", async () => {
+    const bot = textBot();
+    await bot.text("/extract");
+    expect(bot.lastText()).toBe("Пришли текст — найду в нём незнакомые слова.");
+    expect(bot.lastButtons()).toEqual(["x:cancel:1"]);
+    await bot.text(TEXT);
+    expect(bot.lastText()).toContain("📝 Нашёл 2 слова");
+    expect(bot.user().pendingInput).toBeNull();
+  });
+
+  it("ignores a checklist button once a newer draft exists", async () => {
+    const bot = textBot();
+    await bot.text(TEXT);
+    await bot.text("სახლი");
+    await bot.tap("x:add:1");
+    expect(bot.notes()).toHaveLength(0);
+    expect(bot.toasts()).toContain("Это старое сообщение, отправь слово ещё раз");
   });
 });

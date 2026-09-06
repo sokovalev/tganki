@@ -166,6 +166,7 @@ function service(fake: FakeAdd, proEnabled = false, llm: LlmSupport | null = nul
       countOwnDecks: async () => fake.ownDecks,
       countOwnNotes: async () => fake.ownNotes,
       countGenerationsSince: async () => fake.generations,
+      countExtractionsSince: async () => 0,
     },
     { proEnabled },
   );

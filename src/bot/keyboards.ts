@@ -17,21 +17,27 @@ export const NS = {
   leech: "lch",
   pro: "pro",
   admin: "adm",
-  noop: "x",
+  /** «Слова из текста» (SPEC §4.3): `x:t:<rev>:<i>`, `x:add:<rev>`, … */
+  extract: "x",
+  /** A button that does nothing, e.g. the page indicator in the deck list. */
+  noop: "nop",
 } as const;
 
 export const cb = encodeCallback;
 
-/** Main menu (SPEC §2). */
-export function menuKeyboard(t: Translate, total: number): InlineKeyboard {
-  return new InlineKeyboard()
+/**
+ * Main menu (SPEC §2). «📝 Слова из текста» only appears when generation is
+ * configured — without a key it would be a button that can only apologize.
+ */
+export function menuKeyboard(t: Translate, total: number, extract = false): InlineKeyboard {
+  const keyboard = new InlineKeyboard()
     .text(t("btn-learn", { n: total }), cb(NS.learn))
     .row()
     .text(t("btn-add"), cb(NS.add, "start"))
     .text(t("btn-decks"), cb(NS.decks))
-    .row()
-    .text(t("btn-stats"), cb(NS.stats))
-    .text(t("btn-settings"), cb(NS.settings));
+    .row();
+  if (extract) keyboard.text(t("btn-extract"), cb(NS.extract, "ask")).row();
+  return keyboard.text(t("btn-stats"), cb(NS.stats)).text(t("btn-settings"), cb(NS.settings));
 }
 
 export function menuButton(t: Translate): InlineKeyboard {

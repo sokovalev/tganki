@@ -7,6 +7,7 @@ import type { User } from "../db/schema.js";
 import type { Logger } from "../logger.js";
 import type { AddService } from "../services/addService.js";
 import type { EventRecorder } from "../services/events.js";
+import type { ExtractService } from "../services/extractService.js";
 import type { Limits } from "../services/limits.js";
 import type { SessionService } from "../services/sessionService.js";
 
@@ -31,6 +32,8 @@ export interface BotDeps {
   i18n: I18n<BotContext>;
   sessions: SessionService;
   add: AddService;
+  /** «Слова из текста» (SPEC §4.3). */
+  extract: ExtractService;
   limits: Limits;
   /** Injected for tests; defaults to `() => new Date()`. */
   now: () => Date;
