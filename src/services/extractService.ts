@@ -1,10 +1,18 @@
 /**
- * «Слова из текста» (SPEC §4.3): the model reads a text the user pasted, names
- * the words they probably do not know yet, we drop the ones they already have,
- * and the checklist they tick turns into real cards through the same cached
- * card generator as §4.1a.
+ * «Слова из текста» (SPEC §4.3): the model reads a text the user pasted and
+ * names the words they probably do not know yet. Each of those falls into one
+ * of three buckets (`classifyFronts`, §3.7):
+ *
+ * - **known** — a `known_words` row, a card they have already studied, or a
+ *   note of their own: dropped, counted, never offered;
+ * - **inDeck** — the word waits in a deck they subscribe to and have not
+ *   reached yet: offered with the deck named, and ticking it only starts that
+ *   card, due now, the way «Учить сейчас» does for a single word;
+ * - **fresh** — everything else: a full card through the same cached generator
+ *   as §4.1a, saved into the user's own deck.
  */
 
+import type { FrontClass } from "../db/repos/notes.js";
 import type { Deck, Note, User } from "../db/schema.js";
 import { normalizeFrontValue } from "../db/sql.js";
 import type { CachedCardGenerator } from "../llm/cache.js";
@@ -63,10 +71,23 @@ export function guessLevel(decks: readonly Deck[], langFrom: string): ExtractLev
 }
 
 export interface ExtractPort {
-  /** Normalized fronts the user already knows or is already learning (§3.7). */
-  findKnownFronts(input: { userId: number; langFrom: string; fronts: string[] }): Promise<string[]>;
+  /**
+   * Sorts the words into `known` / `inDeck`, keyed by the normalized front
+   * (§3.7); everything the map does not mention is fresh.
+   */
+  classifyFronts(input: {
+    userId: number;
+    langFrom: string;
+    fronts: string[];
+  }): Promise<Map<string, FrontClass>>;
   /** Every deck the user is subscribed to — the level guess reads their levels. */
   listSubscribedDecks(userId: number): Promise<Deck[]>;
+  /**
+   * Materializes the card of a note that already lies in a subscribed deck, due
+   * now — exactly what «Учить сейчас» does for a single word (SPEC §4.1). The
+   * card is created lazily elsewhere too, so this is an upsert.
+   */
+  startCard(input: { userId: number; noteId: number; due: Date }): Promise<number>;
 }
 
 /** The LLM half of the feature; absent when `OPENROUTER_API_KEY` is unset. */
@@ -89,7 +110,15 @@ export interface ExtractMeta {
 }
 
 export type ExtractResult =
-  | ({ kind: "extracted"; words: ExtractedWord[]; dropped: number } & ExtractMeta)
+  | ({
+      kind: "extracted";
+      /** Fresh words plus the ones waiting in a subscribed deck, in model order. */
+      words: ExtractedWord[];
+      /** How many words were dropped as already known. */
+      dropped: number;
+      /** The dropped words themselves — shown when nothing else is left. */
+      known: string[];
+    } & ExtractMeta)
   /** The text is in the user's own language: nothing to learn from it. */
   | ({ kind: "native" } & ExtractMeta)
   /** Neither langFrom nor langTo — a text in a third language, or junk. */
@@ -105,6 +134,15 @@ export interface AddedWord {
   note: Note;
 }
 
+/** A word that was already in a subscribed deck and got its card started. */
+export interface TakenWord {
+  front: string;
+  back: string;
+  noteId: number;
+  deckTitle: string;
+  cardId: number;
+}
+
 /** One call to the card generator, as `word_generated` wants to record it. */
 export interface GenerationMeta {
   cached: boolean;
@@ -114,6 +152,11 @@ export interface GenerationMeta {
 export interface AddWordsResult {
   deck: Deck;
   added: AddedWord[];
+  /**
+   * Words the user already had in a subscribed deck: no note, no generation —
+   * just the builtin card, due now (SPEC §4.3).
+   */
+  taken: TakenWord[];
   /** Words that turned out to be duplicates by the time we got to them. */
   skipped: number;
   /** Words left ungenerated because the daily AI budget ran out (§9.1). */
@@ -175,39 +218,76 @@ export function createExtractService(input: {
       if (detectedLang === langTo && langTo !== langFrom) return { kind: "native", ...meta };
       if (detectedLang !== langFrom) return { kind: "wrong_lang", ...meta };
 
-      const known = new Set(
-        await port.findKnownFronts({
-          userId: input.user.id,
-          langFrom,
-          fronts: words.map((word) => word.front),
-        }),
-      );
-      const fresh = words
-        .filter((word) => !known.has(normalizeFrontValue(word.front)))
-        .slice(0, MAX_EXTRACTED_WORDS);
+      // Three buckets (§4.3): what the user knows is dropped, what merely
+      // waits in a deck they subscribe to is offered with a marker, the rest
+      // is new and gets a generated card.
+      const classified = await port.classifyFronts({
+        userId: input.user.id,
+        langFrom,
+        fronts: words.map((word) => word.front),
+      });
+      const known: string[] = [];
+      const offered: ExtractedWord[] = [];
+      for (const word of words) {
+        const found = classified.get(normalizeFrontValue(word.front));
+        if (found?.kind === "known") {
+          known.push(word.front);
+          continue;
+        }
+        offered.push(
+          found?.kind === "inDeck"
+            ? { ...word, inDeck: { noteId: found.noteId, deckTitle: found.deckTitle } }
+            : word,
+        );
+      }
       return {
         kind: "extracted",
-        words: fresh,
-        dropped: words.length - fresh.length,
+        words: offered.slice(0, MAX_EXTRACTED_WORDS),
+        dropped: known.length,
+        known,
         ...meta,
       };
     },
 
     /**
-     * Turns the ticked words into cards. The user approved `front — back` on
-     * the checklist, so those two are saved as shown; the model only fills in
+     * Turns the ticked words into cards. A word that already waits in a
+     * subscribed deck only gets its card started — no generation, no second
+     * note (SPEC §4.3). Every other word is saved as the user approved it on
+     * the checklist: `front — back` exactly as shown, with the model filling in
      * the transcription and the example, and only when it answered about the
      * same word. Words the budget does not cover are skipped, not degraded.
      */
     async addWords(input: {
       user: User;
-      words: ReadonlyArray<{ front: string; back: string }>;
+      words: ReadonlyArray<{
+        front: string;
+        back: string;
+        /** Set by the checklist: this word lives in a deck already. */
+        inDeck?: { noteId: number; deckTitle: string };
+      }>;
       deckId?: number | null;
       personalTitle: string;
       now: Date;
     }): Promise<AddWordsResult> {
       const deck = await add.resolveDeck(input.user, input.deckId ?? null, input.personalTitle);
       const { langFrom, langTo } = pair(input.user);
+      // The target deck is about the user's own words: a word that already has
+      // a note elsewhere is taken from there whatever deck they picked.
+      const waiting = input.words.filter((word) => word.inDeck !== undefined);
+      const wanted = input.words.filter((word) => word.inDeck === undefined);
+      const taken: TakenWord[] = await Promise.all(
+        waiting.map(async (word) => ({
+          front: word.front,
+          back: word.back,
+          noteId: word.inDeck!.noteId,
+          deckTitle: word.inDeck!.deckTitle,
+          cardId: await port.startCard({
+            userId: input.user.id,
+            noteId: word.inDeck!.noteId,
+            due: input.now,
+          }),
+        })),
+      );
       const budget = await limits.canGenerate(input.user, input.now);
       // The daily budget is counted from events, which are written after the
       // fact, so the batch keeps its own tally and gives a cache hit back.
@@ -250,7 +330,7 @@ export function createExtractService(input: {
         | { kind: "limit"; check: LimitCheck };
 
       const results = await Promise.all(
-        input.words.map((word) =>
+        wanted.map((word) =>
           limit(async (): Promise<Outcome> => {
             const filled = await extras(word.front);
             if (filled === "budget") return { kind: "budget" };
@@ -277,6 +357,7 @@ export function createExtractService(input: {
       return {
         deck,
         added: results.flatMap((result) => (result.kind === "added" ? [result.word] : [])),
+        taken,
         skipped: results.filter((result) => result.kind === "skipped").length,
         budgetSkipped: results.filter((result) => result.kind === "budget").length,
         generations,

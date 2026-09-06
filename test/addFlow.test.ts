@@ -7,7 +7,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { ADD_BACK, ADD_WORD } from "../src/bot/add.js";
 import type { ExtractedWords, GeneratedCard } from "../src/llm/types.js";
-import { createFakeBot, duplicateNote, type FakeBot, makeDeck } from "./helpers/fakeBot.js";
+import { createFakeBot, duplicateNote, type FakeBot, makeDeck, NOW } from "./helpers/fakeBot.js";
 
 const CARD: GeneratedCard = {
   front: "კითხვა",
@@ -257,6 +257,8 @@ describe("draft revisions (SPEC §4.1)", () => {
 
 describe("words from a text (SPEC §4.3)", () => {
   const TEXT = "დღეს ბაზარში წავედი და ხილი ვიყიდე, გამყიდველი ძალიან თავაზიანი იყო.";
+  /** A builtin deck the user is subscribed to but has not reached yet. */
+  const TOP_500 = "Грузинский Top 500 · A1";
 
   const FOUND: ExtractedWords = {
     detectedLang: "ka",
@@ -355,19 +357,102 @@ describe("words from a text (SPEC §4.3)", () => {
       example: "მაგალითი.",
       exampleTr: "Пример.",
     });
-    expect(bot.lastText()).toContain("✅ Добавил 2 слова в «Мои слова · KA»");
+    expect(bot.lastText()).toContain("✅ Добавил 2 новых слова в «Мои слова · KA»");
     expect(bot.lastText()).toContain("<b>ბაზარი</b> — рынок, <b>ხილი</b> — фрукты");
     expect(bot.lastButtons()).toEqual(["x:learn:1", "m"]);
     expect(bot.events.filter((event) => event.name === "word_generated")).toHaveLength(2);
-    expect(bot.events.find((event) => event.name === "text_words_added")?.props).toEqual({ n: 2 });
+    expect(bot.events.find((event) => event.name === "text_words_added")?.props).toEqual({
+      n: 2,
+      taken: 0,
+    });
   });
 
   it("drops the words the user already knows and says how many", async () => {
     const bot = textBot({ knownFronts: ["ხილი"] });
     await bot.text(TEXT);
     expect(bot.lastText()).toContain("📝 Нашёл 1 слово");
-    expect(bot.lastText()).toContain("Ещё 1 слово ты уже знаешь.");
+    expect(bot.lastText()).toContain("Уже знаешь: 1");
     expect(bot.lastText()).not.toContain("ხილი");
+  });
+
+  it("names the words it dropped when every one of them is known", async () => {
+    const bot = textBot({ knownFronts: ["ბაზარი", "ხილი"] });
+    await bot.text(TEXT);
+    expect(bot.lastText()).toBe("Все 2 найденных слова ты уже знаешь: <b>ბაზარი</b>, <b>ხილი</b>");
+    expect(bot.lastButtons()).toEqual([]);
+    // The old «Ничего не добавил. Пропустил N (уже есть).» must never show up
+    // for a text: the user has to see what was found.
+    expect(bot.lastText()).not.toContain("Ничего не добавил");
+  });
+
+  it("marks a word that only waits in a deck the user is subscribed to", async () => {
+    const bot = textBot({ library: [{ front: "ხილი", noteId: 42, deckTitle: TOP_500 }] });
+    await bot.text(TEXT);
+    expect(bot.lastText()).toContain("📝 Нашёл 2 слова");
+    expect(bot.lastText()).not.toContain("Уже знаешь");
+    expect(bot.lastText()).toContain("1. <b>ბაზარი</b> — рынок\n");
+    expect(bot.lastText()).toContain(`2. <b>ხილი</b> — фрукты · в деке «${TOP_500}»`);
+    expect(bot.user().pendingPayload?.extract?.words[1]?.inDeck).toEqual({
+      noteId: 42,
+      deckTitle: TOP_500,
+    });
+    expect(bot.events.find((event) => event.name === "text_extracted")?.props).toMatchObject({
+      words: 2,
+      dropped: 0,
+      inDeck: 1,
+    });
+  });
+
+  it("takes a word out of its deck instead of generating a second card", async () => {
+    const bot = textBot({ library: [{ front: "ხილი", noteId: 42, deckTitle: TOP_500 }] });
+    await bot.text(TEXT);
+    await bot.tap("x:add:1");
+    // Only the new word costs a generation and a note.
+    expect(bot.generations.map((call) => call.text)).toEqual(["ბაზარი"]);
+    expect(bot.notes().map((note) => note.front)).toEqual(["ბაზარი"]);
+    // The deck word gets its card, due now, exactly like «Учить сейчас».
+    expect(bot.started).toEqual([{ noteId: 42, due: NOW }]);
+    expect(bot.lastText()).toContain(
+      `✅ Добавил 1 новое слово в «Мои слова · KA» и взял 1 из деки «${TOP_500}» в ближайшую сессию`,
+    );
+    expect(bot.lastText()).toContain("<b>ბაზარი</b> — рынок");
+    expect(bot.events.find((event) => event.name === "text_words_added")?.props).toEqual({
+      n: 1,
+      taken: 1,
+    });
+    // Both halves go into «▶️ Учить новые».
+    expect(bot.user().pendingPayload?.learn).toEqual([1, 42]);
+    expect(bot.lastButtons()).toEqual(["x:learn:1", "m"]);
+  });
+
+  it("adds nothing new when every ticked word already lies in a deck", async () => {
+    const bot = textBot({
+      library: [
+        { front: "ბაზარი", noteId: 11, deckTitle: TOP_500 },
+        // A card the queue built and the user never answered is not knowledge.
+        { front: "ხილი", noteId: 42, deckTitle: TOP_500, reps: 0 },
+      ],
+    });
+    await bot.text(TEXT);
+    await bot.tap("x:add:1");
+    expect(bot.generations).toHaveLength(0);
+    expect(bot.notes()).toHaveLength(0);
+    expect(bot.started.map((card) => card.noteId)).toEqual([11, 42]);
+    expect(bot.lastText()).toBe(`✅ Взял 2 слова из деки «${TOP_500}» в ближайшую сессию`);
+  });
+
+  it("keeps taking deck words when the target deck is changed", async () => {
+    const bot = textBot({
+      decks: [makeDeck(20, 1, "Мои слова · KA"), makeDeck(21, 1, "Кухня")],
+      library: [{ front: "ხილი", noteId: 42, deckTitle: TOP_500 }],
+    });
+    await bot.text(TEXT);
+    await bot.tap("x:deck:1:21");
+    expect(bot.lastText()).toContain("→ в деку «Кухня»");
+    await bot.tap("x:add:1");
+    expect(bot.notes()).toEqual([expect.objectContaining({ front: "ბაზარი", deckId: 21 })]);
+    expect(bot.started).toEqual([{ noteId: 42, due: NOW }]);
+    expect(bot.lastText()).toContain(`взял 1 из деки «${TOP_500}» в ближайшую сессию`);
   });
 
   it("says so when there is nothing new in the text", async () => {
@@ -429,7 +514,7 @@ describe("words from a text (SPEC §4.3)", () => {
     await bot.tap("x:add:1");
     expect(bot.generations).toHaveLength(1);
     expect(bot.notes()).toHaveLength(1);
-    expect(bot.lastText()).toContain("✅ Добавил 1 слово");
+    expect(bot.lastText()).toContain("✅ Добавил 1 новое слово");
     expect(bot.lastText()).toContain("Ещё 1 слово не добавил: на сегодня закончился лимит ИИ.");
   });
 

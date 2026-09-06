@@ -152,9 +152,11 @@ extract-found = 📝 Found { $n ->
         [one] { $n } word
        *[other] { $n } words
     }
-extract-dropped = { $n ->
-        [one] { $n } more word is one you already know.
-       *[other] { $n } more words are ones you already know.
+extract-dropped = Already known: { $n }
+extract-in-deck = in the "{ $deck }" deck
+extract-all-known = { $n ->
+        [one] The only word I found is one you already know: { $words }
+       *[other] All { $n } words I found are ones you already know: { $words }
     }
 extract-none = No unknown words in there.
 extract-truncated = That is a long text — I took the first { $n } characters.
@@ -167,11 +169,24 @@ extract-failed = I could not read that text. Try again.
 extract-adding = ⏳ Adding the words…
 extract-nothing-selected = Nothing selected
 extract-added = ✅ Added { $n ->
-        [one] { $n } word
-       *[other] { $n } words
-    } to "{ $deck }": { $words }
-extract-added-none = Nothing added.
-extract-skipped = Skipped { $n } (already there).
+        [one] { $n } new word
+       *[other] { $n } new words
+    } to "{ $deck }"
+extract-added-took = ✅ Added { $n ->
+        [one] { $n } new word
+       *[other] { $n } new words
+    } to "{ $deck }" and took { $m } { $from } into your next session
+extract-took = ✅ Took { $m ->
+        [one] { $m } word
+       *[other] { $m } words
+    } { $from } into your next session
+extract-from-deck = from the "{ $deck }" deck
+extract-from-decks = from your decks
+extract-added-none = Nothing new: you already have every word you picked.
+extract-skipped = { $n ->
+        [one] { $n } word was already yours — skipped it.
+       *[other] { $n } words were already yours — skipped them.
+    }
 extract-budget-skipped = { $n ->
         [one] { $n } more word
        *[other] { $n } more words

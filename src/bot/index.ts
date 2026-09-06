@@ -128,9 +128,11 @@ export function createBot(options: CreateBotOptions): BotHandle {
 
   const extract = createExtractService({
     port: {
-      findKnownFronts: (input) => repos.notes.findKnownFronts(input),
+      classifyFronts: (input) => repos.notes.classifyFronts(input),
       listSubscribedDecks: async (userId) =>
         (await repos.decks.listSubscribed(userId)).map((row) => row.deck),
+      startCard: ({ userId, noteId, due }) =>
+        repos.cards.createCard({ userId, noteId, mode: "recognition", due }),
     },
     limits,
     add,

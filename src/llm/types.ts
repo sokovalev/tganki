@@ -76,6 +76,12 @@ export interface ExtractedWord {
   back: string;
   /** The form as it appears in the text. */
   inText: string;
+  /**
+   * Filled in by `extractService`, never by the model: the word already waits
+   * in a deck the user is subscribed to and has not started yet (SPEC §4.3).
+   * Such a word is taken into the next session as is, not generated anew.
+   */
+  inDeck?: { noteId: number; deckTitle: string };
 }
 
 export interface ExtractedWords {

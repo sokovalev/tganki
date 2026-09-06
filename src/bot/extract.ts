@@ -22,6 +22,7 @@ import type { InlineKeyboardButton } from "grammy/types";
 import type { PendingExtractWord } from "../db/schema.js";
 import type { Translate } from "../i18n/index.js";
 import { getLanguage, languageName } from "../i18n/languages.js";
+import type { ExtractedWord } from "../llm/types.js";
 import { hasLetters, MAX_EXTRACT_CHARS, stripUrls } from "../services/extractService.js";
 import { FREE_LIMITS } from "../services/limits.js";
 import { argInt, parseCallback } from "./callbacks.js";
@@ -37,6 +38,9 @@ export const EXTRACT_TEXT = "extract_text";
 
 /** Checkboxes per row on the checklist. */
 const PER_ROW = 5;
+
+/** How many already-known words we name when nothing else is left (SPEC §4.3). */
+const MAX_LISTED_KNOWN = 10;
 
 function chunk<T>(items: readonly T[], size: number): T[][] {
   const rows: T[][] = [];
@@ -54,21 +58,28 @@ export function askTextScreen(t: Translate, rev: number): Screen {
 
 export interface ChecklistInput {
   words: readonly PendingExtractWord[];
-  /** How many of the words found are already known — shown, never listed. */
+  /** How many of the words found are already known — counted, never listed. */
   dropped: number;
   deckTitle: string;
   truncated?: boolean;
   rev: number;
 }
 
-/** The checklist: `1. слово — перевод` plus a checkbox per line (SPEC §4.3). */
+/**
+ * The checklist: `1. слово — перевод` plus a checkbox per line (SPEC §4.3).
+ * A word that already waits in a subscribed deck says so — it costs nothing to
+ * take and does not go into the personal deck.
+ */
 export function renderChecklist(t: Translate, input: ChecklistInput): Screen {
   const lines: string[] = [];
   if (input.truncated) lines.push(t("extract-truncated", { n: MAX_EXTRACT_CHARS }));
   lines.push(t("extract-found", { n: input.words.length }));
   if (input.dropped > 0) lines.push(t("extract-dropped", { n: input.dropped }));
   for (const [index, word] of input.words.entries()) {
-    lines.push(`${index + 1}. ${bold(esc(word.front))} — ${esc(word.back)}`);
+    const marker = word.inDeck
+      ? ` · ${t("extract-in-deck", { deck: esc(word.inDeck.deckTitle) })}`
+      : "";
+    lines.push(`${index + 1}. ${bold(esc(word.front))} — ${esc(word.back)}${marker}`);
   }
   lines.push(t("add-target-deck", { deck: esc(input.deckTitle) }));
 
@@ -98,6 +109,8 @@ export function renderChecklist(t: Translate, input: ChecklistInput): Screen {
 export interface SummaryInput {
   deckTitle: string;
   added: ReadonlyArray<{ front: string; back: string }>;
+  /** Words taken from a deck the user already subscribes to (SPEC §4.3). */
+  taken: ReadonlyArray<{ front: string; back: string; deckTitle: string }>;
   skipped: number;
   budgetSkipped: number;
   /** Set when the Free note budget cut the batch short (SPEC §9.1). */
@@ -105,23 +118,43 @@ export interface SummaryInput {
   rev: number;
 }
 
-/** «✅ Добавил 7 слов в «Мои слова · KA»: …» (SPEC §4.3). */
+/**
+ * «✅ Добавил 4 новых слова в «Мои слова · KA» и взял 6 из деки «…» в ближайшую
+ * сессию» (SPEC §4.3). New words and words taken out of a deck the user is
+ * already subscribed to are counted apart: only the first kind costs a note
+ * and a generation.
+ */
 export function renderExtractSummary(t: Translate, input: SummaryInput): Screen {
-  const words = input.added
-    .map((word) => `${bold(esc(word.front))} — ${esc(word.back)}`)
-    .join(", ");
-  const lines = [
-    input.added.length > 0
-      ? t("extract-added", { n: input.added.length, deck: esc(input.deckTitle), words })
-      : t("extract-added-none"),
-  ];
+  const decks = [...new Set(input.taken.map((word) => word.deckTitle))];
+  const from =
+    decks.length === 1
+      ? t("extract-from-deck", { deck: esc(decks[0] ?? "") })
+      : t("extract-from-decks");
+  const deck = esc(input.deckTitle);
+  const lines: string[] = [];
+  if (input.added.length > 0 && input.taken.length > 0) {
+    lines.push(
+      t("extract-added-took", { n: input.added.length, deck, m: input.taken.length, from }),
+    );
+  } else if (input.added.length > 0) {
+    lines.push(t("extract-added", { n: input.added.length, deck }));
+  } else if (input.taken.length > 0) {
+    lines.push(t("extract-took", { m: input.taken.length, from }));
+  } else {
+    lines.push(t("extract-added-none"));
+  }
+  if (input.added.length > 0) {
+    lines.push(
+      input.added.map((word) => `${bold(esc(word.front))} — ${esc(word.back)}`).join(", "),
+    );
+  }
   if (input.skipped > 0) lines.push(t("extract-skipped", { n: input.skipped }));
   if (input.budgetSkipped > 0) {
     lines.push(t("extract-budget-skipped", { n: input.budgetSkipped }));
   }
   if (input.noteLimit !== undefined) lines.push(t("add-limit-notes", { limit: input.noteLimit }));
   const keyboard = new InlineKeyboard();
-  if (input.added.length > 0) {
+  if (input.added.length + input.taken.length > 0) {
     keyboard.text(t("btn-learn-new"), cb(NS.extract, "learn", input.rev));
   }
   keyboard.text(t("btn-menu"), cb(NS.menu));
@@ -129,13 +162,12 @@ export function renderExtractSummary(t: Translate, input: SummaryInput): Screen 
 }
 
 /** The words found in a text, all ticked (SPEC §4.3 "All selected by default"). */
-function toPendingWords(
-  words: ReadonlyArray<{ front: string; back: string; inText: string }>,
-): PendingExtractWord[] {
+function toPendingWords(words: readonly ExtractedWord[]): PendingExtractWord[] {
   return words.map((word) => ({
     front: word.front,
     back: word.back,
     ...(word.inText ? { inText: word.inText } : {}),
+    ...(word.inDeck ? { inDeck: word.inDeck } : {}),
     on: true,
   }));
 }
@@ -190,6 +222,10 @@ export async function runExtraction(
   deps.events.record(ctx.user.id, "text_extracted", {
     words: result.kind === "extracted" ? result.words.length : 0,
     dropped: result.kind === "extracted" ? result.dropped : 0,
+    inDeck:
+      result.kind === "extracted"
+        ? result.words.filter((word) => word.inDeck !== undefined).length
+        : 0,
     model: deps.extract.llm.model,
     latencyMs: result.latencyMs,
     chars: result.chars,
@@ -219,9 +255,21 @@ export async function runExtraction(
   }
 
   if (result.words.length === 0) {
-    const lines = [t("extract-none")];
-    if (result.dropped > 0) lines.push(t("extract-dropped", { n: result.dropped }));
-    await editTracked(ctx, ref, { text: lines.join("\n") });
+    // Nothing to offer. When everything the model found turned out to be known,
+    // the words are named: otherwise the user cannot tell what was even looked
+    // at (SPEC §4.3).
+    await editTracked(ctx, ref, {
+      text:
+        result.dropped > 0
+          ? t("extract-all-known", {
+              n: result.dropped,
+              words: result.known
+                .slice(0, MAX_LISTED_KNOWN)
+                .map((word) => bold(esc(word)))
+                .join(", "),
+            })
+          : t("extract-none"),
+    });
     return;
   }
 
@@ -408,7 +456,11 @@ export function installExtract(bot: Bot<BotContext>, deps: BotDeps): void {
     await show(ctx, { text: t("extract-adding") });
     const result = await deps.extract.addWords({
       user: ctx.user,
-      words: chosen.map((word) => ({ front: word.front, back: word.back })),
+      words: chosen.map((word) => ({
+        front: word.front,
+        back: word.back,
+        ...(word.inDeck ? { inDeck: word.inDeck } : {}),
+      })),
       deckId: payload?.deckId ?? null,
       personalTitle: personalTitle(ctx),
       now: deps.now(),
@@ -423,16 +475,22 @@ export function installExtract(bot: Bot<BotContext>, deps: BotDeps): void {
         via: "extract",
       });
     }
-    deps.events.record(ctx.user.id, "text_words_added", { n: result.added.length });
+    deps.events.record(ctx.user.id, "text_words_added", {
+      n: result.added.length,
+      taken: result.taken.length,
+    });
+    // «▶️ Учить новые» covers both halves: the notes just written and the deck
+    // cards just started (their cards already exist, creating them is an upsert).
     await saveDraft(ctx, deps, rev, {
       deckId: result.deck.id,
-      learn: result.added.map((word) => word.note.id),
+      learn: [...result.added.map((word) => word.note.id), ...result.taken.map((w) => w.noteId)],
     });
     await show(
       ctx,
       renderExtractSummary(t, {
         deckTitle: result.deck.title,
         added: result.added,
+        taken: result.taken,
         skipped: result.skipped,
         budgetSkipped: result.budgetSkipped,
         ...(result.noteLimit ? { noteLimit: result.noteLimit.limit } : {}),

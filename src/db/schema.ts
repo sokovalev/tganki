@@ -49,6 +49,12 @@ export type PendingExtractWord = {
   back: string;
   /** The form the word had in the text; shown nowhere, kept for analytics. */
   inText?: string;
+  /**
+   * The word already lies in a deck the user is subscribed to and has not
+   * started: ticking it takes that card into the next session instead of
+   * generating a new one (SPEC §4.3).
+   */
+  inDeck?: { noteId: number; deckTitle: string };
   on: boolean;
 };
 

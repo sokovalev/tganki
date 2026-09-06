@@ -14,8 +14,9 @@ import { installOnboarding } from "../../src/bot/onboarding.js";
 import { installTextRouter } from "../../src/bot/router.js";
 import { installSettings } from "../../src/bot/settings.js";
 import { answer } from "../../src/bot/ui.js";
-import type { DuplicateNote } from "../../src/db/repos/notes.js";
+import type { DuplicateNote, FrontClass } from "../../src/db/repos/notes.js";
 import type { Deck, NewUser, Note, PendingPayload, User } from "../../src/db/schema.js";
+import { normalizeFrontValue } from "../../src/db/sql.js";
 import { createI18n } from "../../src/i18n/index.js";
 import type { CachedCardGenerator } from "../../src/llm/cache.js";
 import type {
@@ -73,6 +74,8 @@ export interface FakeBot {
   generations: GenerateCardInput[];
   /** Inputs the word extractor was called with (SPEC §4.3). */
   extractions: ExtractWordsInput[];
+  /** Cards materialized for words that already lay in a deck (SPEC §4.3). */
+  started: Array<{ noteId: number; due: Date }>;
   /** Analytics written during the run (SPEC §12). */
   events: RecordedEvent[];
   /** Sends a plain text message from the user. */
@@ -102,14 +105,78 @@ export interface FakeBotOptions {
   duplicates?: DuplicateNote[];
   /** What the word extractor answers; a function may throw to fail the call. */
   extract?: ExtractedWords | ((input: ExtractWordsInput) => ExtractedWords);
-  /** Words the user already has, as `findKnownFronts` would report them. */
+  /** Words with a `known_words` row: known however the decks look (§3.7). */
   knownFronts?: string[];
+  /** Notes the user can reach, with their card progress (SPEC §4.3). */
+  library?: LibraryNote[];
   /** Free-plan gating; off by default, as in the default deployment. */
   proEnabled?: boolean;
   /** `word_generated` events already recorded today (SPEC §9.1). */
   generationsUsed?: number;
   /** `text_extracted` events already recorded today (SPEC §9.1). */
   extractionsUsed?: number;
+}
+
+/**
+ * One note the user can reach, as `classifyFronts` sees it: a row of `notes`
+ * plus what the user has done with it. This is the fixture the classification
+ * rules of SPEC §4.3 are written against.
+ */
+export interface LibraryNote {
+  front: string;
+  noteId: number;
+  deckTitle: string;
+  deckId?: number;
+  /** The deck belongs to the user — a note of their own, i.e. a duplicate. */
+  owned?: boolean;
+  /** The user is subscribed to the deck. True unless said otherwise. */
+  subscribed?: boolean;
+  /**
+   * Ratings on the user's card for this note. `undefined` = no card at all,
+   * `0` = a card the queue materialized but the user never answered.
+   */
+  reps?: number;
+}
+
+/**
+ * JS twin of `notesRepo.classifyFronts` (SPEC §4.3), kept in one place so the
+ * fake bot and the classification tests agree on the rules:
+ *
+ * 1. **known** — a `known_words` row, a card with `reps > 0`, or a note in a
+ *    deck the user owns;
+ * 2. **inDeck** — a note in a subscribed deck the user does not own, with no
+ *    card or an untouched one;
+ * 3. **fresh** — anything the map does not mention.
+ */
+export function classifyFake(input: {
+  fronts: readonly string[];
+  known: ReadonlySet<string>;
+  library: readonly LibraryNote[];
+}): Map<string, FrontClass> {
+  const classified = new Map<string, FrontClass>();
+  for (const front of input.fronts) {
+    const norm = normalizeFrontValue(front);
+    if (norm === "" || classified.has(norm)) continue;
+    if (input.known.has(norm)) {
+      classified.set(norm, { kind: "known" });
+      continue;
+    }
+    const rows = input.library.filter((note) => normalizeFrontValue(note.front) === norm);
+    if (rows.some((note) => note.owned || (note.reps ?? 0) > 0)) {
+      classified.set(norm, { kind: "known" });
+      continue;
+    }
+    const waiting = rows.find((note) => !note.owned && note.subscribed !== false);
+    if (waiting) {
+      classified.set(norm, {
+        kind: "inDeck",
+        noteId: waiting.noteId,
+        deckId: waiting.deckId ?? 1,
+        deckTitle: waiting.deckTitle,
+      });
+    }
+  }
+  return classified;
 }
 
 export function makeDeck(id: number, ownerId: number | null, title: string): Deck {
@@ -152,9 +219,8 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   const generations: GenerateCardInput[] = [];
   const extractions: ExtractWordsInput[] = [];
   const recorded: RecordedEvent[] = [];
-  const knownFronts = new Set(
-    (options.knownFronts ?? []).map((front) => front.normalize("NFC").trim().toLowerCase()),
-  );
+  const knownFronts = new Set((options.knownFronts ?? []).map(normalizeFrontValue));
+  const started: Array<{ noteId: number; due: Date }> = [];
   let nextNoteId = 1;
   let nextDeckId = 10;
 
@@ -251,13 +317,15 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   }
   const extract = createExtractService({
     port: {
-      async findKnownFronts({ fronts }) {
-        return fronts
-          .map((front) => front.normalize("NFC").trim().toLowerCase())
-          .filter((front) => knownFronts.has(front));
+      async classifyFronts({ fronts }) {
+        return classifyFake({ fronts, known: knownFronts, library: options.library ?? [] });
       },
       async listSubscribedDecks() {
         return state.decks;
+      },
+      async startCard({ noteId, due }) {
+        started.push({ noteId, due });
+        return 900 + started.length;
       },
     },
     limits,
@@ -400,6 +468,7 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     duplicates,
     generations,
     extractions,
+    started,
     events: recorded,
     user: () => state.user,
     setUser: (patch) => {

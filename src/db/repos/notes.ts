@@ -15,6 +15,16 @@ export interface DuplicateNote {
   position: number;
 }
 
+/**
+ * What a word from a text turned out to be for this user (SPEC §4.3):
+ * `known` — nothing to offer; `inDeck` — it waits in a deck they are
+ * subscribed to and can be pulled into the next session as is. A word missing
+ * from the classification map is fresh.
+ */
+export type FrontClass =
+  | { kind: "known" }
+  | { kind: "inDeck"; noteId: number; deckId: number; deckTitle: string };
+
 const CHUNK = 500;
 
 /** `excluded.<column>` — the value the failed INSERT tried to write. */
@@ -194,23 +204,35 @@ export function createNotesRepo(db: Database) {
     },
 
     /**
-     * Which of these words the user already has (SPEC §3.7 + §4.1), returned as
-     * normalized fronts. A word counts as known when it carries a `known_words`
-     * row, when the user has a card for a note with the same normalized front,
-     * or when such a note sits in a deck they own or are subscribed to — the
-     * same three rules the queue builder uses, so «Слова из текста» never
-     * offers something the user is already learning.
+     * Sorts the words of a text into the three buckets of §4.3, keyed by the
+     * normalized front (§3.7). What is missing from the map is *fresh*: the
+     * user has never seen it and it gets a generated card of its own.
+     *
+     * - `known` — a `known_words` row, a card of this user with `reps > 0` for
+     *   a note with the same word (studied at least once; an untouched `new`
+     *   card does not count), or a note in a deck the user **owns**, which is a
+     *   real duplicate of their own word.
+     * - `inDeck` — the word sits in a deck the user is subscribed to but does
+     *   not own (a builtin deck), and they have not started it: the card is
+     *   simply not reached yet, so it is offered as «взять в сессию», not
+     *   dropped as knowledge.
+     *
+     * Two queries, both over the whole word list: `known_words`, and every note
+     * of the learning language the user can reach at all.
      */
-    async findKnownFronts(input: {
+    async classifyFronts(input: {
       userId: number;
       langFrom: string;
       fronts: string[];
-    }): Promise<string[]> {
+    }): Promise<Map<string, FrontClass>> {
+      const classified = new Map<string, FrontClass>();
       const wanted = [...new Set(input.fronts.map(normalizeFrontValue))].filter(
         (front) => front !== "",
       );
-      if (wanted.length === 0) return [];
-      const [known, owned] = await Promise.all([
+      if (wanted.length === 0) return classified;
+      const subscribed = sql`exists (select 1 from user_decks ud
+                                      where ud.deck_id = ${decks.id} and ud.user_id = ${input.userId})`;
+      const [known, reachable] = await Promise.all([
         db
           .select({ front: knownWords.frontNorm })
           .from(knownWords)
@@ -222,7 +244,20 @@ export function createNotesRepo(db: Database) {
             ),
           ),
         db
-          .selectDistinct({ front: frontNorm(sql`${notes.front}`) })
+          .select({
+            front: frontNorm(sql`${notes.front}`),
+            noteId: notes.id,
+            deckId: decks.id,
+            deckTitle: decks.title,
+            owned: sql<boolean>`coalesce(${decks.ownerId} = ${input.userId}, false)`,
+            subscribed: sql<boolean>`${subscribed}`,
+            // Started = rated at least once. A `new` card the queue built and
+            // the user never answered is not knowledge (SPEC §4.3).
+            started: sql<boolean>`exists (select 1 from cards c
+                                           where c.note_id = ${notes.id}
+                                             and c.user_id = ${input.userId}
+                                             and c.reps > 0)`,
+          })
           .from(notes)
           .innerJoin(decks, eq(decks.id, notes.deckId))
           .where(
@@ -231,15 +266,35 @@ export function createNotesRepo(db: Database) {
               inArray(frontNorm(sql`${notes.front}`), wanted),
               or(
                 eq(decks.ownerId, input.userId),
-                sql`exists (select 1 from user_decks ud
-                             where ud.deck_id = ${decks.id} and ud.user_id = ${input.userId})`,
+                subscribed,
                 sql`exists (select 1 from cards c
                              where c.note_id = ${notes.id} and c.user_id = ${input.userId})`,
               ),
             ),
-          ),
+          )
+          .orderBy(asc(notes.id)),
       ]);
-      return [...new Set([...known, ...owned].map((row) => String(row.front)))];
+
+      for (const row of known) classified.set(String(row.front), { kind: "known" });
+      for (const row of reachable) {
+        const front = String(row.front);
+        if (classified.get(front)?.kind === "known") continue;
+        if (row.owned || row.started) {
+          classified.set(front, { kind: "known" });
+          continue;
+        }
+        // The first subscribed deck holding the word wins; notes are ordered by
+        // id, so the same text always names the same deck.
+        if (row.subscribed && !classified.has(front)) {
+          classified.set(front, {
+            kind: "inDeck",
+            noteId: row.noteId,
+            deckId: row.deckId,
+            deckTitle: row.deckTitle,
+          });
+        }
+      }
+      return classified;
     },
 
     /** Removes notes of a deck whose front is no longer present in the source. */

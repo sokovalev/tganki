@@ -165,10 +165,12 @@ extract-found = 📝 Нашёл { $n ->
         [few] { $n } слова
        *[other] { $n } слов
     }
-extract-dropped = { $n ->
-        [one] Ещё { $n } слово ты уже знаешь.
-        [few] Ещё { $n } слова ты уже знаешь.
-       *[other] Ещё { $n } слов ты уже знаешь.
+extract-dropped = Уже знаешь: { $n }
+extract-in-deck = в деке «{ $deck }»
+extract-all-known = { $n ->
+        [one] Единственное найденное слово ты уже знаешь: { $words }
+        [few] Все { $n } найденных слова ты уже знаешь: { $words }
+       *[other] Все { $n } найденных слов ты уже знаешь: { $words }
     }
 extract-none = Незнакомых слов не нашёл.
 extract-truncated = Текст длинный — взял первые { $n } символов.
@@ -181,12 +183,28 @@ extract-failed = Не получилось разобрать текст. Поп
 extract-adding = ⏳ Добавляю слова…
 extract-nothing-selected = Ничего не выбрано
 extract-added = ✅ Добавил { $n ->
-        [one] { $n } слово
-        [few] { $n } слова
-       *[other] { $n } слов
-    } в «{ $deck }»: { $words }
-extract-added-none = Ничего не добавил.
-extract-skipped = Пропустил { $n } (уже есть).
+        [one] { $n } новое слово
+        [few] { $n } новых слова
+       *[other] { $n } новых слов
+    } в «{ $deck }»
+extract-added-took = ✅ Добавил { $n ->
+        [one] { $n } новое слово
+        [few] { $n } новых слова
+       *[other] { $n } новых слов
+    } в «{ $deck }» и взял { $m } { $from } в ближайшую сессию
+extract-took = ✅ Взял { $m ->
+        [one] { $m } слово
+        [few] { $m } слова
+       *[other] { $m } слов
+    } { $from } в ближайшую сессию
+extract-from-deck = из деки «{ $deck }»
+extract-from-decks = из твоих дек
+extract-added-none = Ничего нового: все выбранные слова у тебя уже есть.
+extract-skipped = { $n ->
+        [one] { $n } слово уже было у тебя — пропустил.
+        [few] { $n } слова уже были у тебя — пропустил.
+       *[other] { $n } слов уже были у тебя — пропустил.
+    }
 extract-budget-skipped = { $n ->
         [one] Ещё { $n } слово
         [few] Ещё { $n } слова
