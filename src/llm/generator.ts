@@ -12,7 +12,14 @@ import {
   OpenRouterClient,
   OpenRouterError,
 } from "./openrouter.js";
-import { buildUserMessage, CARD_JSON_SCHEMA, parseCard, SYSTEM_PROMPT } from "./prompt.js";
+import {
+  buildUserMessage,
+  CARD_JSON_SCHEMA,
+  isPhrase,
+  parseCard,
+  SYSTEM_PROMPT,
+  stripTrailingPunctuation,
+} from "./prompt.js";
 import {
   type CardGenerator,
   type GenerateCardInput,
@@ -148,6 +155,16 @@ export function createOpenRouterCardGenerator(
           "card generation returned nothing usable",
         );
         throw new GenerationError(`unusable card for "${input.text}"`, "invalid_output");
+      }
+
+      // A phrase typed in the language being learned stays the user's phrase:
+      // only single words are reduced to their dictionary form.
+      if (isPhrase(input.text) && card.detectedLang === input.langFrom) {
+        const typed = stripTrailingPunctuation(input.text);
+        if (typed !== "" && typed !== card.front) {
+          options.logger.debug({ typed, generated: card.front }, "keeping the typed phrase");
+          card = { ...card, front: typed };
+        }
       }
 
       options.logger.debug(

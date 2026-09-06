@@ -115,7 +115,8 @@ Return one JSON object with exactly these fields:
 
 Canonical form rules:
 - Fix typos silently and card the corrected word.
-- Reduce inflected forms to the dictionary form: plural to singular, conjugated verb to the citation form.
+- Reduce inflected forms to the dictionary form: plural to singular, conjugated verb to the citation form. This applies to SINGLE words only.
+- Multi-word input (a phrase, a collocation, a short sentence) is kept exactly as typed as "front" when it is already in langFrom: do not convert «სახლში ვარ» into «სახლში ყოფნა» or «I am home» into «be home». Translate the phrase as a whole, give its transcription, and use the phrase itself in the example.
 - English: verbs in the bare infinitive ("run"). Phrasal verbs keep the particle ("give up", "look forward to") and get pos "phrase".
 - German: every noun gets its definite article and a capital letter — "der Tisch", "das Haus", "die Blume". Verbs in the infinitive ("gehen"). Keep ß where standard German uses it.
 - Spanish: every noun gets its article — "la mesa", "el libro", "el agua" (feminine nouns starting with a stressed a- take "el"). Verbs in the infinitive, reflexives keep -se ("levantarse"). Keep accents.
@@ -191,8 +192,23 @@ export interface CardRequestInput {
 }
 
 /** The user turn. Deliberately terse: ~40 tokens. */
+/** Two or more whitespace-separated tokens: a phrase, kept verbatim as `front`. */
+export function isPhrase(text: string): boolean {
+  return collapseWhitespace(text).split(" ").length > 1;
+}
+
+/** Trailing sentence punctuation is not part of a headword. */
+export function stripTrailingPunctuation(text: string): string {
+  return collapseWhitespace(text)
+    .replace(/[.!?…]+$/u, "")
+    .trim();
+}
+
 export function buildUserMessage(input: CardRequestInput): string {
-  return `langFrom=${input.langFrom}\nlangTo=${input.langTo}\ninput: ${input.text}`;
+  const hint = isPhrase(input.text)
+    ? "\nnote: multi-word input — if it is in langFrom, keep it verbatim as front (no dictionary form)."
+    : "";
+  return `langFrom=${input.langFrom}\nlangTo=${input.langTo}\ninput: ${input.text}${hint}`;
 }
 
 /**

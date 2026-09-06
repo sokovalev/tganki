@@ -128,6 +128,26 @@ describe("createOpenRouterCardGenerator", () => {
     expect(messages[1]?.content).toContain("input: неохотный");
   });
 
+  it("keeps a phrase typed in the learned language verbatim", async () => {
+    const harness = fetching([
+      () => reply({ front: "be home", back: "быть дома", detectedLang: "en" }),
+    ]);
+    const card = await generator(harness).generate({ ...input, text: "I am  home." });
+    expect(card.front).toBe("I am home");
+    expect(card.back).toBe("быть дома");
+    const messages = harness.bodies[0]?.messages as { content: string }[];
+    expect(messages[1]?.content).toContain("multi-word input");
+  });
+
+  it("still normalizes a single word and a phrase typed in the native language", async () => {
+    const single = fetching([() => reply({ front: "run", detectedLang: "en" })]);
+    expect((await generator(single).generate({ ...input, text: "running" })).front).toBe("run");
+    const reverse = fetching([() => reply({ front: "be home", detectedLang: "ru" })]);
+    expect((await generator(reverse).generate({ ...input, text: "быть дома" })).front).toBe(
+      "be home",
+    );
+  });
+
   it("normalizes the card the way the eval does", async () => {
     const harness = fetching([
       () => reply({ transcription: "/rɪˈlʌktənt/", front: " reluctant " }),
