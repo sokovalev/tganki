@@ -236,7 +236,11 @@ async function main(): Promise<void> {
     }
 
     if (todo.length === 0) {
-      console.log(`${prefix} — nothing to do (${run.records.length} records on disk)`);
+      const failed = run.records.filter((record) => record.error !== null).length;
+      console.log(
+        `${prefix} — nothing to do (${run.records.length} records on disk, ${failed} failed)`,
+      );
+      for (const line of failureSummary(run.records)) console.log(`${prefix}   ${line}`);
       grandTotal += run.records.reduce((sum, record) => sum + record.usage.costUsd, 0);
       continue;
     }
