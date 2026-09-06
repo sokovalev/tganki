@@ -1,0 +1,17 @@
+# syntax=docker/dockerfile:1
+# Evaluation container: runs scripts/llm-eval (run → judge → report) once on
+# start and serves the report over HTTP. Needs dev dependencies (tsx).
+FROM node:22-alpine
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY tsconfig.json ./
+COPY src ./src
+COPY scripts ./scripts
+ENV NODE_ENV=production
+ENV PORT=3000
+EXPOSE 3000
+CMD ["pnpm", "exec", "tsx", "scripts/llm-eval/serve.ts"]

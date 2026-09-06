@@ -6,3 +6,8 @@ dist/
 .DS_Store
 coverage/
 .scratch/
+
+# eval results are local; REPORT.md files are committable
+scripts/llm-eval/results/**
+!scripts/llm-eval/results/**/
+!scripts/llm-eval/results/**/REPORT.md

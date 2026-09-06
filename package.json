@@ -17,7 +17,11 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "eval:run": "tsx scripts/llm-eval/run.ts",
+    "eval:judge": "tsx scripts/llm-eval/judge.ts",
+    "eval:report": "tsx scripts/llm-eval/report.ts",
+    "eval:serve": "tsx scripts/llm-eval/serve.ts"
   },
   "dependencies": {
     "@grammyjs/i18n": "^1.1.2",

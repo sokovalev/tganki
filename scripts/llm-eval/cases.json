@@ -1,0 +1,1535 @@
+[
+  {
+    "id": "en-plain-water",
+    "text": "water",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "en",
+      "front": "water",
+      "pos": "noun",
+      "backIncludesAny": ["вода"]
+    }
+  },
+  {
+    "id": "en-plain-beautiful",
+    "text": "beautiful",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "en",
+      "front": "beautiful",
+      "pos": "adjective",
+      "backIncludesAny": ["красив", "прекрасн"]
+    }
+  },
+  {
+    "id": "en-poly-bank",
+    "text": "bank",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "en",
+      "front": "bank",
+      "backIncludesAny": ["банк", "берег"]
+    },
+    "note": "Two unrelated senses; a good card names both."
+  },
+  {
+    "id": "en-poly-light",
+    "text": "light",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "en",
+      "front": "light",
+      "backIncludesAny": ["свет", "лёгк"]
+    }
+  },
+  {
+    "id": "en-poly-spring",
+    "text": "spring",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "en",
+      "front": "spring",
+      "backIncludesAny": ["весн", "пружин", "источник"]
+    }
+  },
+  {
+    "id": "en-phrasal-give-up",
+    "text": "give up",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "multiword",
+    "expect": {
+      "detectedLang": "en",
+      "front": "give up",
+      "backIncludesAny": ["сдав", "броса", "отказ"]
+    },
+    "note": "Particle must stay in front."
+  },
+  {
+    "id": "en-phrasal-look-forward",
+    "text": "look forward to",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "multiword",
+    "expect": {
+      "detectedLang": "en",
+      "front": "look forward to",
+      "backIncludesAny": ["ждать", "предвкуш", "нетерпен"]
+    }
+  },
+  {
+    "id": "en-phrasal-run-out",
+    "text": "run out of",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "multiword",
+    "expect": {
+      "detectedLang": "en",
+      "backIncludesAny": ["конч", "исчерп", "заканч"]
+    },
+    "note": "front may be 'run out of' or 'run out'; only the meaning is checked."
+  },
+  {
+    "id": "en-typo-recieve",
+    "text": "recieve",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "en",
+      "front": "receive",
+      "backIncludesAny": ["получ"]
+    }
+  },
+  {
+    "id": "en-typo-seperate",
+    "text": "seperate",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "en",
+      "front": "separate",
+      "backIncludesAny": ["отдельн", "раздел"]
+    }
+  },
+  {
+    "id": "en-inflected-running",
+    "text": "running",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "en",
+      "front": "run",
+      "backIncludesAny": ["бег"]
+    }
+  },
+  {
+    "id": "en-inflected-children",
+    "text": "children",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "en",
+      "front": "child",
+      "pos": "noun",
+      "backIncludesAny": ["ребён", "дет"]
+    }
+  },
+  {
+    "id": "en-inflected-went",
+    "text": "went",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "en",
+      "front": "go",
+      "pos": "verb",
+      "backIncludesAny": ["идти", "ход", "ехать"]
+    }
+  },
+  {
+    "id": "en-multiword-take-place",
+    "text": "take place",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "multiword",
+    "expect": {
+      "detectedLang": "en",
+      "front": "take place",
+      "backIncludesAny": ["происход", "состо"]
+    }
+  },
+  {
+    "id": "en-number-seventeen",
+    "text": "seventeen",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "en",
+      "front": "seventeen",
+      "pos": "numeral",
+      "backIncludesAny": ["семнадцат"]
+    }
+  },
+  {
+    "id": "en-reverse-reluctant",
+    "text": "неохотный",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "reluctant"
+    },
+    "note": "User typed Russian while learning English."
+  },
+  {
+    "id": "en-reverse-yesterday",
+    "text": "вчера",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "yesterday",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "en-reverse-book",
+    "text": "книга",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "book",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "en-junk-emoji",
+    "text": "🙂🙂🙂",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "junk",
+    "note": "Only schema validity is checked."
+  },
+  {
+    "id": "en-junk-sentence",
+    "text": "I would like to know how much this apartment costs per month",
+    "langFrom": "en",
+    "langTo": "ru",
+    "category": "junk",
+    "note": "Twelve words: not a card input."
+  },
+  {
+    "id": "de-article-tisch-caps",
+    "text": "Tisch",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "de",
+      "front": "der Tisch",
+      "pos": "noun",
+      "backIncludesAny": ["стол"]
+    },
+    "note": "Noun typed without an article."
+  },
+  {
+    "id": "de-article-tisch-lower",
+    "text": "tisch",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "de",
+      "front": "der Tisch",
+      "pos": "noun",
+      "backIncludesAny": ["стол"]
+    },
+    "note": "Wrong case and no article."
+  },
+  {
+    "id": "de-article-haus-lower",
+    "text": "haus",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "de",
+      "front": "das Haus",
+      "pos": "noun",
+      "backIncludesAny": ["дом"]
+    }
+  },
+  {
+    "id": "de-article-blume",
+    "text": "die Blume",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "de",
+      "front": "die Blume",
+      "pos": "noun",
+      "backIncludesAny": ["цвет"]
+    }
+  },
+  {
+    "id": "de-article-maedchen",
+    "text": "Mädchen",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "de",
+      "front": "das Mädchen",
+      "pos": "noun",
+      "backIncludesAny": ["девочк", "девушк"]
+    }
+  },
+  {
+    "id": "de-inflected-haeuser",
+    "text": "Häuser",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "de",
+      "front": "das Haus",
+      "pos": "noun",
+      "backIncludesAny": ["дом"]
+    }
+  },
+  {
+    "id": "de-inflected-gegangen",
+    "text": "gegangen",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "de",
+      "front": "gehen",
+      "pos": "verb",
+      "backIncludesAny": ["идти", "ход"]
+    }
+  },
+  {
+    "id": "de-inflected-spricht",
+    "text": "spricht",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "de",
+      "front": "sprechen",
+      "pos": "verb",
+      "backIncludesAny": ["говор"]
+    }
+  },
+  {
+    "id": "de-plain-arbeiten",
+    "text": "arbeiten",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "de",
+      "front": "arbeiten",
+      "pos": "verb",
+      "backIncludesAny": ["работ"]
+    }
+  },
+  {
+    "id": "de-plain-aufstehen",
+    "text": "aufstehen",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "de",
+      "front": "aufstehen",
+      "pos": "verb",
+      "backIncludesAny": ["встава", "подним"]
+    },
+    "note": "Separable verb; the example will split it."
+  },
+  {
+    "id": "de-plain-schnell",
+    "text": "schnell",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "de",
+      "front": "schnell",
+      "pos": "adjective",
+      "backIncludesAny": ["быстр"]
+    }
+  },
+  {
+    "id": "de-poly-schloss",
+    "text": "Schloss",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "de",
+      "front": "das Schloss",
+      "backIncludesAny": ["замок", "замк", "дворец"]
+    }
+  },
+  {
+    "id": "de-poly-bank",
+    "text": "Bank",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "de",
+      "front": "die Bank",
+      "backIncludesAny": ["скамей", "банк", "лавк"]
+    }
+  },
+  {
+    "id": "de-typo-strasse",
+    "text": "Strasse",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "de",
+      "front": "die Straße",
+      "pos": "noun",
+      "backIncludesAny": ["улиц"]
+    },
+    "note": "ss typed for ß."
+  },
+  {
+    "id": "de-typo-vielleich",
+    "text": "vielleich",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "de",
+      "front": "vielleicht",
+      "backIncludesAny": ["может быть", "возможно"]
+    }
+  },
+  {
+    "id": "de-phrase-es-gibt",
+    "text": "es gibt",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "de",
+      "front": "es gibt",
+      "backIncludesAny": ["есть", "имеется", "существ"]
+    }
+  },
+  {
+    "id": "de-number-sieben",
+    "text": "sieben",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "de",
+      "front": "sieben",
+      "pos": "numeral",
+      "backIncludesAny": ["сем"]
+    }
+  },
+  {
+    "id": "de-reverse-fenster",
+    "text": "окно",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "das Fenster",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "de-reverse-freundschaft",
+    "text": "дружба",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "die Freundschaft",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "de-junk-url",
+    "text": "https://www.duden.de/rechtschreibung/Tisch",
+    "langFrom": "de",
+    "langTo": "ru",
+    "category": "junk",
+    "note": "Only schema validity is checked."
+  },
+  {
+    "id": "es-article-la-mesa",
+    "text": "la mesa",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "es",
+      "front": "la mesa",
+      "pos": "noun",
+      "backIncludesAny": ["стол"]
+    }
+  },
+  {
+    "id": "es-article-casa",
+    "text": "casa",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "es",
+      "front": "la casa",
+      "pos": "noun",
+      "backIncludesAny": ["дом"]
+    },
+    "note": "Noun typed without an article."
+  },
+  {
+    "id": "es-article-libro",
+    "text": "libro",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el libro",
+      "pos": "noun",
+      "backIncludesAny": ["книг"]
+    }
+  },
+  {
+    "id": "es-article-agua",
+    "text": "agua",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "article",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el agua",
+      "pos": "noun",
+      "backIncludesAny": ["вод"]
+    },
+    "note": "Feminine noun that takes 'el' in the singular."
+  },
+  {
+    "id": "es-plain-comer",
+    "text": "comer",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "es",
+      "front": "comer",
+      "pos": "verb",
+      "backIncludesAny": ["есть", "куша"]
+    }
+  },
+  {
+    "id": "es-plain-estar",
+    "text": "estar",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "es",
+      "front": "estar",
+      "pos": "verb",
+      "backIncludesAny": ["быть", "наход"]
+    }
+  },
+  {
+    "id": "es-plain-rapido",
+    "text": "rápido",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "es",
+      "front": "rápido",
+      "pos": "adjective",
+      "backIncludesAny": ["быстр"]
+    }
+  },
+  {
+    "id": "es-plain-levantarse",
+    "text": "levantarse",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "es",
+      "front": "levantarse",
+      "pos": "verb",
+      "backIncludesAny": ["встава", "подним"]
+    }
+  },
+  {
+    "id": "es-inflected-hablo",
+    "text": "hablo",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "es",
+      "front": "hablar",
+      "pos": "verb",
+      "backIncludesAny": ["говор"]
+    }
+  },
+  {
+    "id": "es-inflected-tenemos",
+    "text": "tenemos",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "es",
+      "front": "tener",
+      "pos": "verb",
+      "backIncludesAny": ["име", "есть"]
+    }
+  },
+  {
+    "id": "es-inflected-ninos",
+    "text": "niños",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el niño",
+      "pos": "noun",
+      "backIncludesAny": ["ребён", "мальчик", "дет"]
+    }
+  },
+  {
+    "id": "es-poly-banco",
+    "text": "banco",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el banco",
+      "backIncludesAny": ["банк", "скамей", "лавк"]
+    }
+  },
+  {
+    "id": "es-poly-tiempo",
+    "text": "tiempo",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el tiempo",
+      "backIncludesAny": ["врем", "погод"]
+    }
+  },
+  {
+    "id": "es-typo-rapido",
+    "text": "rapido",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "es",
+      "front": "rápido",
+      "pos": "adjective",
+      "backIncludesAny": ["быстр"]
+    },
+    "note": "Missing accent."
+  },
+  {
+    "id": "es-typo-corazon",
+    "text": "corazon",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "es",
+      "front": "el corazón",
+      "pos": "noun",
+      "backIncludesAny": ["сердц"]
+    }
+  },
+  {
+    "id": "es-phrase-por-favor",
+    "text": "por favor",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "es",
+      "front": "por favor",
+      "backIncludesAny": ["пожалуйста"]
+    }
+  },
+  {
+    "id": "es-multiword-tener-ganas",
+    "text": "tener ganas de",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "multiword",
+    "expect": {
+      "detectedLang": "es",
+      "backIncludesAny": ["хотеть", "желани", "охот"]
+    }
+  },
+  {
+    "id": "es-number-veinte",
+    "text": "veinte",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "es",
+      "front": "veinte",
+      "pos": "numeral",
+      "backIncludesAny": ["двадцат"]
+    }
+  },
+  {
+    "id": "es-reverse-lluvia",
+    "text": "дождь",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "la lluvia",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "es-reverse-verde",
+    "text": "зелёный",
+    "langFrom": "es",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "verde",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "ka-noun-sakhli",
+    "text": "სახლი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "სახლი",
+      "pos": "noun",
+      "backIncludesAny": ["дом"]
+    }
+  },
+  {
+    "id": "ka-noun-magida",
+    "text": "მაგიდა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მაგიდა",
+      "pos": "noun",
+      "backIncludesAny": ["стол"]
+    }
+  },
+  {
+    "id": "ka-noun-kari",
+    "text": "კარი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "კარი",
+      "pos": "noun",
+      "backIncludesAny": ["двер"]
+    }
+  },
+  {
+    "id": "ka-noun-panjara",
+    "text": "ფანჯარა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ფანჯარა",
+      "pos": "noun",
+      "backIncludesAny": ["окн"]
+    }
+  },
+  {
+    "id": "ka-noun-mze",
+    "text": "მზე",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მზე",
+      "pos": "noun",
+      "backIncludesAny": ["солнц"]
+    }
+  },
+  {
+    "id": "ka-noun-bavshvi",
+    "text": "ბავშვი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ბავშვი",
+      "pos": "noun",
+      "backIncludesAny": ["ребён", "дет"]
+    }
+  },
+  {
+    "id": "ka-noun-dzagli",
+    "text": "ძაღლი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ძაღლი",
+      "pos": "noun",
+      "backIncludesAny": ["собак"]
+    }
+  },
+  {
+    "id": "ka-noun-megobari",
+    "text": "მეგობარი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მეგობარი",
+      "pos": "noun",
+      "backIncludesAny": ["друг", "подруг"]
+    }
+  },
+  {
+    "id": "ka-noun-ekimi",
+    "text": "ექიმი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ექიმი",
+      "pos": "noun",
+      "backIncludesAny": ["врач"]
+    }
+  },
+  {
+    "id": "ka-ejective-tsqali",
+    "text": "წყალი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "წყალი",
+      "pos": "noun",
+      "backIncludesAny": ["вод"]
+    },
+    "note": "Transcription must be t͡sʼqʼɑli: two ejectives in a row."
+  },
+  {
+    "id": "ka-ejective-qveli",
+    "text": "ყველი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ყველი",
+      "pos": "noun",
+      "backIncludesAny": ["сыр"]
+    },
+    "note": "ყ is qʼ, not q or k."
+  },
+  {
+    "id": "ka-ejective-chiqa",
+    "text": "ჭიქა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ჭიქა",
+      "pos": "noun",
+      "backIncludesAny": ["стакан", "бокал"]
+    },
+    "note": "ჭ is t͡ʃʼ and ქ is kʰ: t͡ʃʼikʰɑ."
+  },
+  {
+    "id": "ka-ejective-kbili",
+    "text": "კბილი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "კბილი",
+      "pos": "noun",
+      "backIncludesAny": ["зуб"]
+    },
+    "note": "კ is kʼ: kʼbili."
+  },
+  {
+    "id": "ka-ejective-mtsvadi",
+    "text": "მწვადი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მწვადი",
+      "pos": "noun",
+      "backIncludesAny": ["шашлык"]
+    },
+    "note": "წ is t͡sʼ."
+  },
+  {
+    "id": "ka-ejective-tsxeli",
+    "text": "ცხელი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ცხელი",
+      "pos": "adjective",
+      "backIncludesAny": ["горяч", "жарк"]
+    },
+    "note": "ც is aspirated t͡sʰ, not the ejective t͡sʼ."
+  },
+  {
+    "id": "ka-verb-tsera",
+    "text": "წერა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "წერა",
+      "pos": "verb",
+      "backIncludesAny": ["писа"]
+    }
+  },
+  {
+    "id": "ka-verb-chama",
+    "text": "ჭამა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ჭამა",
+      "pos": "verb",
+      "backIncludesAny": ["есть", "куша", "еда"]
+    }
+  },
+  {
+    "id": "ka-verb-sma",
+    "text": "სმა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "სმა",
+      "pos": "verb",
+      "backIncludesAny": ["пить", "пит"]
+    }
+  },
+  {
+    "id": "ka-verb-qidva",
+    "text": "ყიდვა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ყიდვა",
+      "pos": "verb",
+      "backIncludesAny": ["покуп"]
+    }
+  },
+  {
+    "id": "ka-verb-mushaoba",
+    "text": "მუშაობა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მუშაობა",
+      "pos": "verb",
+      "backIncludesAny": ["работ"]
+    }
+  },
+  {
+    "id": "ka-verb-stsavla",
+    "text": "სწავლა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "სწავლა",
+      "pos": "verb",
+      "backIncludesAny": ["уч", "изуч"]
+    }
+  },
+  {
+    "id": "ka-verb-daxmareba",
+    "text": "დახმარება",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "დახმარება",
+      "pos": "verb",
+      "backIncludesAny": ["помо"]
+    }
+  },
+  {
+    "id": "ka-verb-gageba",
+    "text": "გაგება",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გაგება",
+      "pos": "verb",
+      "backIncludesAny": ["поним", "поня"]
+    }
+  },
+  {
+    "id": "ka-verb-nakhva",
+    "text": "ნახვა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ნახვა",
+      "pos": "verb",
+      "backIncludesAny": ["увид", "смотр", "посмотр"]
+    }
+  },
+  {
+    "id": "ka-conj-vkitxulob",
+    "text": "ვკითხულობ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "კითხვა",
+      "pos": "verb",
+      "backIncludesAny": ["чита"]
+    },
+    "note": "1sg present of 'read'; masdar is კითხვა."
+  },
+  {
+    "id": "ka-conj-vtser",
+    "text": "ვწერ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "წერა",
+      "pos": "verb",
+      "backIncludesAny": ["писа"]
+    },
+    "note": "1sg present of 'write'; masdar is წერა."
+  },
+  {
+    "id": "ka-conj-vcham",
+    "text": "ვჭამ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ჭამა",
+      "pos": "verb",
+      "backIncludesAny": ["есть", "куша"]
+    },
+    "note": "1sg present of 'eat'; masdar is ჭამა."
+  },
+  {
+    "id": "ka-conj-vmushaob",
+    "text": "ვმუშაობ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მუშაობა",
+      "pos": "verb",
+      "backIncludesAny": ["работ"]
+    },
+    "note": "1sg present of 'work'; masdar is მუშაობა."
+  },
+  {
+    "id": "ka-conj-vstsavlob",
+    "text": "ვსწავლობ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "სწავლა",
+      "pos": "verb",
+      "backIncludesAny": ["уч", "изуч"]
+    },
+    "note": "1sg present of 'study'; masdar is სწავლა."
+  },
+  {
+    "id": "ka-conj-vqidulob",
+    "text": "ვყიდულობ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "inflected",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ყიდვა",
+      "pos": "verb",
+      "backIncludesAny": ["покуп"]
+    },
+    "note": "1sg present of 'buy'; masdar is ყიდვა."
+  },
+  {
+    "id": "ka-phrase-gamarjoba",
+    "text": "გამარჯობა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გამარჯობა",
+      "pos": "phrase",
+      "backIncludesAny": ["привет", "здравств"]
+    }
+  },
+  {
+    "id": "ka-phrase-naxvamdis",
+    "text": "ნახვამდის",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ნახვამდის",
+      "pos": "phrase",
+      "backIncludesAny": ["свидан", "пока"]
+    }
+  },
+  {
+    "id": "ka-phrase-gaumarjos",
+    "text": "გაუმარჯოს",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გაუმარჯოს",
+      "pos": "phrase",
+      "backIncludesAny": ["здравству", "тост", "ура"]
+    },
+    "note": "Toast formula 'long live ...', not a greeting."
+  },
+  {
+    "id": "ka-phrase-gmadlobt",
+    "text": "გმადლობთ",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გმადლობთ",
+      "pos": "phrase",
+      "backIncludesAny": ["спасибо", "благодар"]
+    }
+  },
+  {
+    "id": "ka-phrase-dila-mshvidobisa",
+    "text": "დილა მშვიდობისა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "დილა მშვიდობისა",
+      "pos": "phrase",
+      "backIncludesAny": ["утр"]
+    }
+  },
+  {
+    "id": "ka-phrase-bodishi",
+    "text": "ბოდიში",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ბოდიში",
+      "pos": "phrase",
+      "backIncludesAny": ["извин", "прост"]
+    }
+  },
+  {
+    "id": "ka-phrase-ra-ghirs",
+    "text": "რა ღირს",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "phrase",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "რა ღირს",
+      "pos": "phrase",
+      "backIncludesAny": ["стоит", "сколько"]
+    }
+  },
+  {
+    "id": "ka-post-shi",
+    "text": "-ში",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "postposition",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "-ში",
+      "pos": "postposition"
+    },
+    "note": "Bare postposition; our decks write it with a leading hyphen."
+  },
+  {
+    "id": "ka-post-tvis",
+    "text": "-თვის",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "postposition",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "-თვის",
+      "pos": "postposition",
+      "backIncludesAny": ["для"]
+    }
+  },
+  {
+    "id": "ka-post-magaziashi",
+    "text": "მაღაზიაში",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "postposition",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მაღაზია",
+      "pos": "noun",
+      "backIncludesAny": ["магазин"]
+    },
+    "note": "'in the shop': strip -ში, card the noun."
+  },
+  {
+    "id": "ka-post-tbilisshi",
+    "text": "თბილისში",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "postposition",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "თბილისი",
+      "pos": "noun",
+      "backIncludesAny": ["тбилиси"]
+    },
+    "note": "'in Tbilisi': strip -ში, card the proper noun."
+  },
+  {
+    "id": "ka-post-chemtvis",
+    "text": "ჩემთვის",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "postposition",
+    "expect": {
+      "detectedLang": "ka",
+      "backIncludesAny": ["для меня", "мне"]
+    },
+    "note": "Pronoun + postposition; front may be ჩემთვის or -თვის."
+  },
+  {
+    "id": "ka-translit-gamarjoba",
+    "text": "gamarjoba",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "translit",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გამარჯობა",
+      "backIncludesAny": ["привет", "здравств"]
+    },
+    "note": "Latin transliteration must be converted to Mkhedruli."
+  },
+  {
+    "id": "ka-translit-madloba",
+    "text": "madloba",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "translit",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მადლობა",
+      "backIncludesAny": ["спасибо", "благодар"]
+    }
+  },
+  {
+    "id": "ka-translit-rogor-xar",
+    "text": "rogor xar",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "translit",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "როგორ ხარ",
+      "backIncludesAny": ["как дела", "как ты"]
+    }
+  },
+  {
+    "id": "ka-number-erti",
+    "text": "ერთი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ერთი",
+      "pos": "numeral",
+      "backIncludesAny": ["один"]
+    }
+  },
+  {
+    "id": "ka-number-ati",
+    "text": "ათი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ათი",
+      "pos": "numeral",
+      "backIncludesAny": ["десят"]
+    }
+  },
+  {
+    "id": "ka-number-otsi",
+    "text": "ოცი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "number",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ოცი",
+      "pos": "numeral",
+      "backIncludesAny": ["двадцат"]
+    }
+  },
+  {
+    "id": "ka-reverse-tsigni",
+    "text": "книга",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "წიგნი",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "ka-reverse-puri",
+    "text": "хлеб",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "პური",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "ka-reverse-kitxva",
+    "text": "читать",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "reverse",
+    "expect": {
+      "detectedLang": "ru",
+      "front": "კითხვა",
+      "pos": "verb"
+    },
+    "note": "Russian infinitive maps to the Georgian masdar."
+  },
+  {
+    "id": "ka-poly-kitxva",
+    "text": "კითხვა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "კითხვა",
+      "pos": "verb",
+      "backIncludesAny": ["чита", "спраш", "вопрос"]
+    },
+    "note": "Means both 'read' and 'ask/question'."
+  },
+  {
+    "id": "ka-poly-kvira",
+    "text": "კვირა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "კვირა",
+      "pos": "noun",
+      "backIncludesAny": ["недел", "воскресен"]
+    }
+  },
+  {
+    "id": "ka-poly-da",
+    "text": "და",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "და",
+      "backIncludesAny": ["сестр"]
+    },
+    "note": "Both 'sister' and the conjunction 'and'."
+  },
+  {
+    "id": "ka-poly-bolo",
+    "text": "ბოლო",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "polysemous",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ბოლო",
+      "backIncludesAny": ["последн", "конец", "конц"]
+    }
+  },
+  {
+    "id": "ka-typo-gamarjba",
+    "text": "გამარჯბა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "გამარჯობა",
+      "backIncludesAny": ["привет", "здравств"]
+    },
+    "note": "Missing ო."
+  },
+  {
+    "id": "ka-typo-madlba",
+    "text": "მადლბა",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "typo",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "მადლობა",
+      "backIncludesAny": ["спасибо", "благодар"]
+    },
+    "note": "Missing ო."
+  },
+  {
+    "id": "ka-adj-lamazi",
+    "text": "ლამაზი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "ლამაზი",
+      "pos": "adjective",
+      "backIncludesAny": ["красив"]
+    }
+  },
+  {
+    "id": "ka-adj-didi",
+    "text": "დიდი",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "plain",
+    "expect": {
+      "detectedLang": "ka",
+      "front": "დიდი",
+      "pos": "adjective",
+      "backIncludesAny": ["больш"]
+    }
+  },
+  {
+    "id": "ka-junk-asdfgh",
+    "text": "asdfgh",
+    "langFrom": "ka",
+    "langTo": "ru",
+    "category": "junk",
+    "note": "Only schema validity is checked."
+  }
+]
