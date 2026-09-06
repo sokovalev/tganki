@@ -30,6 +30,11 @@ export interface OpenRouterOptions {
   sleep?: (ms: number) => Promise<void>;
   referer?: string;
   title?: string;
+  /**
+   * Max requests per minute started by this client (OpenRouter limits new
+   * accounts to 20 rpm per model). Unset = no pacing.
+   */
+  rpm?: number;
 }
 
 export interface ChatRequest {
@@ -40,6 +45,8 @@ export interface ChatRequest {
   schemaName?: string;
   temperature?: number;
   maxTokens?: number;
+  /** OpenRouter's unified reasoning control; needed so reasoning models leave tokens for the answer. */
+  reasoningEffort?: "low" | "medium" | "high";
   /** Force a mode instead of trying `json_schema` first. */
   mode?: ResponseMode;
 }
@@ -129,6 +136,8 @@ export class OpenRouterClient {
   private readonly sleep: (ms: number) => Promise<void>;
   private readonly referer: string | undefined;
   private readonly title: string | undefined;
+  private readonly minGapMs: number;
+  private nextSlot = 0;
 
   constructor(options: OpenRouterOptions) {
     this.apiKey = options.apiKey;
@@ -140,6 +149,16 @@ export class OpenRouterClient {
     this.sleep = options.sleep ?? defaultSleep;
     this.referer = options.referer;
     this.title = options.title;
+    this.minGapMs = options.rpm !== undefined && options.rpm > 0 ? 60_000 / options.rpm : 0;
+  }
+
+  /** Spaces request starts evenly so a burst never exceeds `rpm`. */
+  private async pace(): Promise<void> {
+    if (this.minGapMs === 0) return;
+    const now = Date.now();
+    const slot = Math.max(now, this.nextSlot);
+    this.nextSlot = slot + this.minGapMs;
+    if (slot > now) await this.sleep(slot - now);
   }
 
   private headers(): Record<string, string> {
@@ -161,7 +180,9 @@ export class OpenRouterClient {
     let lastError: unknown;
     for (let attempt = 1; attempt <= this.maxAttempts; attempt += 1) {
       state.attempts += 1;
+      let retryAfterMs = 0;
       try {
+        await this.pace();
         const response = await this.fetchImpl(`${this.baseUrl}${path}`, {
           ...init,
           headers: this.headers(),
@@ -175,13 +196,18 @@ export class OpenRouterClient {
           body,
         );
         if (!isRetryableStatus(response.status) || attempt === this.maxAttempts) throw error;
+        if (response.status === 429) {
+          // Rate limits are per minute: back off for the window, honouring Retry-After.
+          const header = Number(response.headers.get("retry-after") ?? "");
+          retryAfterMs = Number.isFinite(header) && header > 0 ? header * 1_000 : 20_000;
+        }
         lastError = error;
       } catch (caught) {
         if (caught instanceof OpenRouterError && !isRetryableStatus(caught.status)) throw caught;
         if (attempt === this.maxAttempts) throw caught;
         lastError = caught;
       }
-      await this.sleep(this.backoffMs * 2 ** (attempt - 1));
+      await this.sleep(Math.max(retryAfterMs, this.backoffMs * 2 ** (attempt - 1)));
     }
     throw lastError instanceof Error ? lastError : new Error("request failed");
   }
@@ -221,6 +247,7 @@ export class OpenRouterClient {
       response_format: responseFormat,
       temperature: request.temperature ?? 0,
       max_tokens: request.maxTokens ?? 600,
+      ...(request.reasoningEffort ? { reasoning: { effort: request.reasoningEffort } } : {}),
       usage: { include: true },
     });
   }

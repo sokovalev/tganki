@@ -59,7 +59,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   const judgeModel = stringArg(args, "judge", DEFAULT_JUDGE_MODEL);
-  const concurrency = intArg(args, "concurrency", 4);
+  const concurrency = intArg(args, "concurrency", 2);
   const cases = loadCases(stringArg(args, "cases", DEFAULT_CASES_PATH));
   const dir = runDir(resultsDir, runId);
   const runs = readAllModelRuns(dir);
@@ -84,6 +84,8 @@ async function main(): Promise<void> {
     baseUrl: baseUrlOverride(),
     referer: "https://github.com/tganki/tganki",
     title: "tganki card-generation eval (judge)",
+    rpm: intArg(args, "rpm", 18),
+    maxAttempts: 5,
   });
   const limit = createLimiter(concurrency);
 

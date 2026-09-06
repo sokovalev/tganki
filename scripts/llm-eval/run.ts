@@ -67,6 +67,11 @@ function message(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+/** Models that think before answering: cap the effort so the JSON card is not starved. */
+export function isReasoningModel(model: string): boolean {
+  return /^(openai\/(gpt-5|o\d)|deepseek\/.*(r1|reason)|x-ai\/grok-\d)/u.test(model);
+}
+
 /** One model × case × repeat call, never throwing: failures become records. */
 async function callOne(
   client: OpenRouterClient,
@@ -88,6 +93,9 @@ async function callOne(
       system: SYSTEM_PROMPT,
       user: buildUserMessage(evalCase),
       schema: CARD_JSON_SCHEMA,
+      // Reasoning models spend the budget on thinking first; leave room for the card.
+      maxTokens: 4_000,
+      ...(isReasoningModel(model) ? { reasoningEffort: "low" as const } : {}),
     });
     try {
       const card = parseCard(result.text);
@@ -166,7 +174,8 @@ async function main(): Promise<void> {
   const runId = stringArg(args, "run", newRunId());
   const repeats = intArg(args, "repeat", 1);
   const retryFailed = args["retry-failed"] === true || process.env.EVAL_RETRY_FAILED === "1";
-  const concurrency = intArg(args, "concurrency", 4);
+  const concurrency = intArg(args, "concurrency", 2);
+  const rpm = intArg(args, "rpm", 18);
   const requested = listArg(args, "models") ?? DEFAULT_MODELS;
 
   const cases = loadCases(casesPath);
@@ -179,6 +188,8 @@ async function main(): Promise<void> {
     baseUrl: baseUrlOverride(),
     referer: "https://github.com/tganki/tganki",
     title: "tganki card-generation eval",
+    rpm,
+    maxAttempts: 5,
   });
 
   let models = requested;
