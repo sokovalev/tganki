@@ -183,6 +183,7 @@ function view(card: Partial<SessionView["card"]> = {}): SessionView {
       transcription: null,
       example: null,
       exampleTr: null,
+      tag: null,
       ...card,
     },
     isNew: true,
@@ -193,6 +194,8 @@ function view(card: Partial<SessionView["card"]> = {}): SessionView {
     canUndo: false,
     snowball: false,
     transcriptionMode: "answer",
+    choices: null,
+    choiceMiss: false,
   };
 }
 

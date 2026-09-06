@@ -8,6 +8,8 @@ export const NS = {
   learn: "l",
   session: "s",
   rate: "r",
+  /** «Выбор из четырёх» option (SPEC §3.2): `ch:<pos>:<i>`. */
+  choice: "ch",
   card: "c",
   add: "a",
   decks: "d",

@@ -23,6 +23,8 @@ export const deckKind = pgEnum("deck_kind", ["builtin", "user", "shared"]);
 export const cardMode = pgEnum("card_mode", ["recognition", "recall"]);
 export const sessionStatus = pgEnum("session_status", ["active", "finished", "abandoned"]);
 export const transcriptionMode = pgEnum("transcription_mode", ["always", "answer", "never"]);
+/** How a new `recognition` card is asked: reveal the answer, or pick one of four (SPEC §3.2). */
+export const newCardStyle = pgEnum("new_card_style", ["reveal", "choice"]);
 
 const createdAt = timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
@@ -123,6 +125,11 @@ export const users = pgTable(
     showIntervals: boolean("show_intervals").notNull().default(true),
     /** Where to show the transcription: on both sides, only in the answer, or never. */
     transcriptionMode: transcriptionMode("transcription_mode").notNull().default("answer"),
+    /**
+     * «Выбор из четырёх» on the first exposures of a new card, or the plain
+     * «Показать ответ» flow (SPEC §3.2). Pro-gated when `PRO_ENABLED`.
+     */
+    newCardStyle: newCardStyle("new_card_style").notNull().default("choice"),
     /** The only FSRS knob exposed to users (Pro). */
     desiredRetention: real("desired_retention").notNull().default(0.9),
     /** What free-text input the bot is waiting for, e.g. "deck_title" or "tz_time". */
@@ -309,7 +316,9 @@ export const userDecks = pgTable(
  * `skipped` counts how many times the card was pushed back without a rating.
  * `notBefore` (epoch ms) is set on a re-queued learning card: it is due for its
  * next learning step at that time. `requeues` caps how often a card can come
- * back within one session.
+ * back within one session. `choice` holds the four «выбор из четырёх» options
+ * (SPEC §3.2) — the note ids in display order, written on the first render so a
+ * re-render (resume, 48 h fallback) asks exactly the same question.
  */
 export type QueueItem = {
   cardId: number;
@@ -317,6 +326,7 @@ export type QueueItem = {
   skipped?: number;
   notBefore?: number;
   requeues?: number;
+  choice?: { noteIds: number[] };
 };
 
 export type SessionStats = {
@@ -430,4 +440,5 @@ export type NoteReport = typeof noteReports.$inferSelect;
 export type Event = typeof events.$inferSelect;
 export type CardMode = (typeof cardMode.enumValues)[number];
 export type TranscriptionMode = (typeof transcriptionMode.enumValues)[number];
+export type NewCardStyle = (typeof newCardStyle.enumValues)[number];
 export type DeckKind = (typeof deckKind.enumValues)[number];

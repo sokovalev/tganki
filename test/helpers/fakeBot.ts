@@ -382,7 +382,7 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
 
   const i18n = createI18n();
   const deps = {
-    config: { PRO_ENABLED: false },
+    config: { PRO_ENABLED: options.proEnabled ?? false },
     db: {},
     repos,
     logger: { debug() {}, info() {}, warn() {}, error() {} },

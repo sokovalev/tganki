@@ -60,7 +60,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
   const i18n = createI18n();
   const events = createEventRecorder(repos.events, logger);
   const sessionPort = createSessionPort(db, repos);
-  const sessions = createSessionService(sessionPort);
+  const sessions = createSessionService(sessionPort, { proEnabled: config.PRO_ENABLED });
   const limits = createLimits(
     {
       countOwnDecks: (userId) => repos.decks.countOwnedBy(userId),

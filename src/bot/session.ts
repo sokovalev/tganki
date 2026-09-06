@@ -5,6 +5,9 @@ import { learningDayKey } from "../core/streak.js";
 import type { Session } from "../db/schema.js";
 import type { Translate } from "../i18n/index.js";
 import {
+  CHOICE_RIGHT,
+  CHOICE_WRONG,
+  type ChoiceOption,
   type EmptyQueue,
   EXTRA_NEW_BATCH,
   type SessionSummary,
@@ -12,7 +15,16 @@ import {
 } from "../services/sessionService.js";
 import { argInt, parseCallback } from "./callbacks.js";
 import type { BotContext, BotDeps } from "./context.js";
-import { bold, esc, formatInterval, italic, localTime, ratingLabel, SEPARATOR } from "./format.js";
+import {
+  bold,
+  esc,
+  formatInterval,
+  italic,
+  localTime,
+  ratingLabel,
+  SEPARATOR,
+  truncate,
+} from "./format.js";
 import { cb, NS } from "./keyboards.js";
 import {
   answer,
@@ -25,6 +37,8 @@ import {
 } from "./ui.js";
 
 const RATINGS: readonly ReviewRating[] = [1, 2, 3, 4];
+/** Longest option label on the «выбор из четырёх» screen (SPEC §3.2). */
+export const CHOICE_LABEL_MAX = 40;
 
 function transcription(view: SessionView, side: "question" | "answer"): string | null {
   if (!view.card.transcription) return null;
@@ -71,6 +85,7 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
   if (view.stage === "actions") return renderActions(t, view, options);
 
   if (view.stage === "question") {
+    if (view.choices) return renderChoice(t, view, view.choices);
     const text = [...header(t, view), SEPARATOR, ...questionLines(view)].join("\n");
     const keyboard = new InlineKeyboard()
       .text(t("btn-show-answer"), cb(NS.session, "show", pos))
@@ -93,6 +108,9 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
       )
     : [];
   const text = [
+    // A missed «выбор из четырёх» names the right answer above everything else
+    // (SPEC §3.2) — that line is the whole point of stopping here.
+    ...(view.choiceMiss ? [t("choice-wrong", { answer: esc(view.card.back) })] : []),
     ...header(t, view),
     SEPARATOR,
     ...questionLines(view),
@@ -102,6 +120,16 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
   ].join("\n");
 
   const keyboard = new InlineKeyboard();
+  if (view.choiceMiss) {
+    // The rating was applied by the tap, so there is nothing left to grade:
+    // one button moves on, «Отменить» takes the automatic «Снова» back. No
+    // ✏️ here — the queue has already moved on, so the card menu would act on
+    // the next card, not on the word that was just missed.
+    keyboard.text(t("btn-choice-next"), cb(NS.session, "next", pos)).row();
+    if (view.canUndo) keyboard.text(t("btn-undo"), cb(NS.session, "undo"));
+    keyboard.text(t("btn-finish"), cb(NS.session, "fin"));
+    return { text, keyboard };
+  }
   for (const rating of RATINGS) {
     keyboard.text(ratingLabel(t, rating), cb(NS.rate, String(pos), rating));
   }
@@ -112,6 +140,38 @@ export function renderCard(t: Translate, view: SessionView, options: CardMenuOpt
   if (view.canUndo) keyboard.text(t("btn-undo"), cb(NS.session, "undo"));
   keyboard.text(t("btn-card-menu"), cb(NS.card, "open", pos));
   keyboard.text(t("btn-finish"), cb(NS.session, "fin"));
+  return { text, keyboard };
+}
+
+/**
+ * «Выбор из четырёх» (SPEC §3.2, §3.3): the word plus four translations, one
+ * per row so a long option stays readable. The buttons carry the queue
+ * position, exactly like the rating buttons, so a double tap is ignored; the
+ * option index is checked against the note ids stored in the queue item.
+ */
+function renderChoice(t: Translate, view: SessionView, choices: ChoiceOption[]): Screen {
+  const pos = view.position;
+  const text = [
+    ...header(t, view),
+    SEPARATOR,
+    ...questionLines(view),
+    SEPARATOR,
+    t("choice-question"),
+  ].join("\n");
+
+  const keyboard = new InlineKeyboard();
+  choices.forEach((option, i) => {
+    keyboard
+      .text(`${i + 1} · ${truncate(option.back, CHOICE_LABEL_MAX)}`, cb(NS.choice, String(pos), i))
+      .row();
+  });
+  // The escape hatch back to the plain reveal flow.
+  keyboard.text(t("btn-show-answer"), cb(NS.session, "show", pos)).row();
+  if (view.isNew) keyboard.text(t("btn-known"), cb(NS.session, "know", pos)).row();
+  keyboard
+    .text(t("btn-card-menu"), cb(NS.card, "open", pos))
+    .text(t("btn-skip"), cb(NS.session, "skip", pos))
+    .text(t("btn-finish"), cb(NS.session, "fin"));
   return { text, keyboard };
 }
 
@@ -368,6 +428,60 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
 
     deps.events.record(ctx.user.id, "review", { rating });
     await answer(ctx, result.freezeUsed ? ctx.t("toast-freeze") : undefined);
+    if (result.kind === "summary") {
+      await finishAndRender(ctx, deps, result);
+      return;
+    }
+    await renderSession(ctx, deps, result.session, renderCard(ctx.t.bind(ctx), result));
+  });
+
+  /** «Выбор из четырёх» (SPEC §3.2): `ch:<pos>:<i>`, i = 0..3. */
+  bot.callbackQuery(/^ch:/u, async (ctx) => {
+    const parsed = parseCallback(ctx.callbackQuery.data);
+    const session = await active(ctx);
+    if (!parsed || !session) return answer(ctx, ctx.t("toast-session-gone"));
+    const position = Number(parsed.action);
+    const option = argInt(parsed, 0);
+    if (!Number.isSafeInteger(position) || option === null) return answer(ctx);
+
+    const result = await deps.sessions.choose({
+      user: ctx.user,
+      session,
+      position,
+      option,
+      now: deps.now(),
+    });
+    if (result.kind === "stale") return answer(ctx, ctx.t("toast-already-rated"));
+    if (result.kind === "gone") return answer(ctx, ctx.t("toast-session-gone"));
+
+    const rating = result.correct ? CHOICE_RIGHT : CHOICE_WRONG;
+    deps.events.record(ctx.user.id, "review", { rating, via: "choice" });
+    const toast = result.correct ? "toast-choice-right" : "toast-choice-wrong";
+    await answer(ctx, result.freezeUsed ? ctx.t("toast-freeze") : ctx.t(toast));
+    if (result.kind === "summary") {
+      await finishAndRender(ctx, deps, result);
+      return;
+    }
+    await renderSession(ctx, deps, result.session, renderCard(ctx.t.bind(ctx), result));
+  });
+
+  /** «Дальше ▶️» on the screen a missed choice stops at. */
+  bot.callbackQuery(/^s:next:/u, async (ctx) => {
+    const parsed = parseCallback(ctx.callbackQuery.data);
+    const session = await active(ctx);
+    if (!parsed || !session) return answer(ctx, ctx.t("toast-session-gone"));
+    const position = argInt(parsed, 0);
+    if (position === null) return answer(ctx);
+    const result = await deps.sessions.next({
+      user: ctx.user,
+      session,
+      position,
+      now: deps.now(),
+    });
+    if ("kind" in result && result.kind === "stale") {
+      return answer(ctx, ctx.t("toast-already-rated"));
+    }
+    await answer(ctx);
     if (result.kind === "summary") {
       await finishAndRender(ctx, deps, result);
       return;

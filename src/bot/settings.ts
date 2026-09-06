@@ -1,5 +1,5 @@
 import { type Bot, InlineKeyboard } from "grammy";
-import type { TranscriptionMode, User } from "../db/schema.js";
+import type { NewCardStyle, TranscriptionMode, User } from "../db/schema.js";
 import type { Translate } from "../i18n/index.js";
 import { isSupportedLocale } from "../i18n/index.js";
 import {
@@ -29,7 +29,17 @@ export const DELETE_INPUT = "delete_account";
 /** Typed confirmation for account deletion (SPEC §8). */
 export const DELETE_WORDS = ["УДАЛИТЬ", "DELETE"];
 
-export function renderSettings(t: Translate, user: User, localNow: string): Screen {
+/** Cycles «выбор из четырёх» ⇄ «показать ответ» (SPEC §3.2, §8). */
+export function nextNewCardStyle(style: NewCardStyle): NewCardStyle {
+  return style === "choice" ? "reveal" : "choice";
+}
+
+export function renderSettings(
+  t: Translate,
+  user: User,
+  localNow: string,
+  options: { proLocked?: boolean } = {},
+): Screen {
   const lines = [
     t("settings-title"),
     "",
@@ -43,6 +53,10 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
     t("settings-tz", { value: user.tz, time: localNow }),
     t("settings-intervals", { value: user.showIntervals ? t("btn-on") : t("btn-off") }),
     t("settings-transcription", { value: t(`tr-mode-${user.transcriptionMode}`) }),
+    // Choice is a Pro presentation (SPEC §9.1); with the gate on, a free user
+    // sees the row locked instead of it quietly doing nothing.
+    t("settings-new-style", { value: t(`new-style-${user.newCardStyle}`) }) +
+      (options.proLocked ? " 🔒" : ""),
     t("settings-retention", { value: user.desiredRetention.toFixed(2) }),
   ];
   const keyboard = new InlineKeyboard()
@@ -60,6 +74,8 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
     .text(t("btn-set-transcription"), cb(NS.settings, "tr"))
     .text(t("btn-set-retention"), cb(NS.settings, "ret"))
     .row()
+    .text(t("btn-set-new-style"), cb(NS.settings, "style"))
+    .row()
     .text(t("btn-delete-account"), cb(NS.settings, "del"))
     .row()
     .text(t("btn-menu"), cb(NS.menu));
@@ -74,8 +90,18 @@ export function nextTranscriptionMode(mode: TranscriptionMode): TranscriptionMod
   return TRANSCRIPTION_MODES[(i + 1) % TRANSCRIPTION_MODES.length] as TranscriptionMode;
 }
 
+/** True when the Free-plan gate is on and this user is not paying (SPEC §9.1). */
+function proLocked(ctx: BotContext, deps: BotDeps): boolean {
+  return deps.config.PRO_ENABLED && !isPro(ctx.user, deps.now());
+}
+
 async function showSettings(ctx: BotContext, deps: BotDeps): Promise<void> {
-  await show(ctx, renderSettings(ctx.t.bind(ctx), ctx.user, localTime(deps.now(), ctx.user.tz)));
+  await show(
+    ctx,
+    renderSettings(ctx.t.bind(ctx), ctx.user, localTime(deps.now(), ctx.user.tz), {
+      proLocked: proLocked(ctx, deps),
+    }),
+  );
 }
 
 /** Free-text answers the settings screens ask for. */
@@ -317,9 +343,28 @@ export function installSettings(bot: Bot<BotContext>, deps: BotDeps): void {
     await showSettings(ctx, deps);
   });
 
+  bot.callbackQuery("set:style", async (ctx) => {
+    await answer(ctx);
+    if (proLocked(ctx, deps)) {
+      await show(ctx, {
+        text: ctx.t("settings-new-style-pro"),
+        keyboard: new InlineKeyboard()
+          .text(ctx.t("btn-pro"), cb(NS.pro))
+          .text(ctx.t("btn-back"), cb(NS.settings)),
+      });
+      return;
+    }
+    ctx.setUser(
+      await deps.repos.users.update(ctx.user.id, {
+        newCardStyle: nextNewCardStyle(ctx.user.newCardStyle),
+      }),
+    );
+    await showSettings(ctx, deps);
+  });
+
   bot.callbackQuery("set:ret", async (ctx) => {
     await answer(ctx);
-    if (deps.config.PRO_ENABLED && !isPro(ctx.user, deps.now())) {
+    if (proLocked(ctx, deps)) {
       await show(ctx, {
         text: ctx.t("settings-retention-pro"),
         keyboard: new InlineKeyboard()

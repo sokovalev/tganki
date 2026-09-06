@@ -5,6 +5,7 @@ import { renderDeckCard } from "../src/bot/decks.js";
 import { formatInterval } from "../src/bot/format.js";
 import { renderMenu } from "../src/bot/menu.js";
 import {
+  CHOICE_LABEL_MAX,
   formatWhen,
   renderActions,
   renderCard,
@@ -54,6 +55,7 @@ function view(overrides: Partial<SessionView> = {}): SessionView {
       transcription: "rɪˈlʌktənt",
       example: "She was reluctant to go.",
       exampleTr: "Она не хотела идти.",
+      tag: "adjective",
     },
     isNew: true,
     position: 11,
@@ -63,6 +65,8 @@ function view(overrides: Partial<SessionView> = {}): SessionView {
     canUndo: false,
     snowball: false,
     transcriptionMode: "answer",
+    choices: null,
+    choiceMiss: false,
     ...overrides,
   };
 }
@@ -427,5 +431,121 @@ describe("user defaults", () => {
     const user = makeUser();
     expect(user.showIntervals).toBe(true);
     expect(user.desiredRetention).toBe(0.9);
+  });
+});
+
+describe("choice screen (SPEC §3.2)", () => {
+  const choices = [
+    { noteId: 11, back: "неохотный" },
+    { noteId: 21, back: "упрямый" },
+    { noteId: 22, back: "довольный" },
+    { noteId: 23, back: "усталый" },
+  ];
+  const asked = view({ choices });
+
+  it("asks the question and puts one translation per row", () => {
+    const screen = renderCard(ru, asked);
+    expect(screen.text).toContain("English Top 1000 · A2");
+    expect(screen.text).toContain("12 / 25");
+    expect(screen.text).toContain("🆕 новое");
+    expect(screen.text).toContain("<b>reluctant</b>");
+    expect(screen.text).toContain("Что это значит?");
+    // The options live on the buttons, never in the text.
+    expect(screen.text).not.toContain("неохотный");
+    const rows = asked.choices ? renderCard(ru, asked).keyboard?.inline_keyboard : [];
+    expect(rows?.slice(0, 4).map((row) => row.length)).toEqual([1, 1, 1, 1]);
+    expect(
+      buttons(screen.keyboard)
+        .slice(0, 4)
+        .map((b) => b.text),
+    ).toEqual(["1 · неохотный", "2 · упрямый", "3 · довольный", "4 · усталый"]);
+  });
+
+  it("keeps the escape hatch and the usual row of actions", () => {
+    const data = buttons(renderCard(ru, asked).keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).toEqual([
+      "ch:11:0",
+      "ch:11:1",
+      "ch:11:2",
+      "ch:11:3",
+      "s:show:11",
+      "s:know:11",
+      "c:open:11",
+      "s:skip:11",
+      "s:fin",
+    ]);
+    for (const item of data)
+      expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+    // A card that is not new loses "Знаю", nothing else.
+    const seen = buttons(renderCard(ru, view({ choices, isNew: false })).keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(seen).not.toContain("s:know:11");
+    expect(seen).toContain("ch:11:0");
+  });
+
+  it("asks the same way in English", () => {
+    const screen = renderCard(en, asked);
+    expect(screen.text).toContain("What does it mean?");
+    expect(screen.text).toContain("🆕 new");
+    expect(buttons(screen.keyboard).map((b) => b.text)).toContain("👁 Show answer");
+    expect(buttons(screen.keyboard)[0]?.text).toBe("1 · неохотный");
+  });
+
+  it("truncates a long option instead of letting Telegram cut it", () => {
+    const long = "неохотный, сопротивляющийся, делающий что-то через силу";
+    const screen = renderCard(ru, view({ choices: [{ noteId: 11, back: long }, ...choices] }));
+    const label = buttons(screen.keyboard)[0]?.text ?? "";
+    expect(label.startsWith("1 · неохотный")).toBe(true);
+    expect(label.endsWith("…")).toBe(true);
+    expect([...label].length).toBeLessThanOrEqual(CHOICE_LABEL_MAX + 4);
+  });
+
+  it("hides the interval preview line — there is nothing to rate yet", () => {
+    const screen = renderCard(
+      ru,
+      view({
+        choices,
+        previews: {
+          1: { unit: "minute", value: 1 },
+          2: { unit: "minute", value: 5 },
+          3: { unit: "minute", value: 10 },
+          4: { unit: "day", value: 4 },
+        },
+      }),
+    );
+    expect(screen.text).not.toContain("Хорошо 10м");
+  });
+});
+
+describe("answer screen after a wrong choice", () => {
+  const missed = view({ stage: "answer", choiceMiss: true, canUndo: true, position: 12 });
+
+  it("names the right translation above the card", () => {
+    const screen = renderCard(ru, missed);
+    expect(screen.text.split("\n")[0]).toBe("❌ Неверно. Правильно: неохотный, сопротивляющийся");
+    expect(screen.text).toContain("<b>reluctant</b>");
+    expect(screen.text).toContain("<i>She was reluctant to go.</i>");
+    expect(renderCard(en, missed).text.split("\n")[0]).toBe(
+      "❌ Wrong. The answer is: неохотный, сопротивляющийся",
+    );
+  });
+
+  it("replaces the four ratings with a single «Дальше»", () => {
+    const screen = renderCard(ru, missed);
+    const data = buttons(screen.keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).toEqual(["s:next:12", "s:undo", "s:fin"]);
+    for (const item of data)
+      expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+    expect(buttons(screen.keyboard).map((b) => b.text)).toEqual([
+      "▶️ Дальше",
+      "↩️ Отменить",
+      "⏸ Закончить",
+    ]);
+    expect(buttons(renderCard(en, missed).keyboard).map((b) => b.text)[0]).toBe("▶️ Next");
   });
 });

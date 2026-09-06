@@ -32,8 +32,14 @@ export function createSessionPort(db: Database, repos: Repos): SessionPort {
         transcription: row.note.transcription,
         example: row.note.example,
         exampleTr: row.note.exampleTr,
+        // Builtin decks tag every note with its part of speech; the first tag
+        // is what «выбор из четырёх» matches distractors on (SPEC §3.2).
+        tag: row.note.tags[0] ?? null,
       };
     },
+
+    listChoiceCandidates: (input) => repos.notes.listChoiceCandidates(input),
+    listNoteBacks: (noteIds) => repos.notes.listBacks(noteIds),
 
     async cardState(cardId) {
       const card = await repos.cards.findById(cardId);

@@ -26,6 +26,8 @@ import type {
   TranscriptionMode,
   User,
 } from "../db/schema.js";
+import { normalizeFrontValue } from "../db/sql.js";
+import { isPro } from "./limits.js";
 
 /** Reviews per session before the rest is pushed to a "Продолжить" tap (SPEC §3.1). */
 export const SESSION_REVIEW_CAP = 20;
@@ -41,6 +43,15 @@ export const SESSION_IDLE_MS = 12 * 60 * 60 * 1000;
 export const EXTRA_NEW_BATCH = 5;
 /** Length of the very first session (SPEC §1, step 6). */
 export const FIRST_SESSION_SIZE = 5;
+/** How many translations «выбор из четырёх» puts on the screen (SPEC §3.2). */
+export const CHOICE_OPTIONS = 4;
+/** Choice is offered while the card is this new: New, or the first two ratings. */
+export const CHOICE_MAX_REPS = 2;
+/** How many notes of the deck we look at when picking distractors. */
+export const CHOICE_POOL = 60;
+/** Grades «выбор из четырёх» applies for itself: right is Хорошо, wrong is Снова. */
+export const CHOICE_RIGHT: ReviewRating = 3;
+export const CHOICE_WRONG: ReviewRating = 1;
 
 export interface SessionCardView {
   cardId: number;
@@ -55,6 +66,22 @@ export interface SessionCardView {
   transcription: string | null;
   example: string | null;
   exampleTr: string | null;
+  /** First tag of the note — the part of speech, used to pick distractors. */
+  tag: string | null;
+}
+
+/** A note of the same deck offered as a wrong answer (SPEC §3.2). */
+export interface ChoiceCandidate {
+  noteId: number;
+  back: string;
+  /** First tag of the note; distractors of the same part of speech read better. */
+  tag: string | null;
+}
+
+/** One button of the «выбор из четырёх» question, in display order. */
+export interface ChoiceOption {
+  noteId: number;
+  back: string;
 }
 
 export interface SessionPort {
@@ -74,6 +101,15 @@ export interface SessionPort {
   ): Promise<void>;
   finishSession(id: number, status: "finished" | "abandoned"): Promise<void>;
   cardView(cardId: number): Promise<SessionCardView | null>;
+  /** Notes of the same deck that can serve as «выбор из четырёх» distractors. */
+  listChoiceCandidates(input: {
+    deckId: number;
+    excludeNoteId: number;
+    tag: string | null;
+    limit: number;
+  }): Promise<ChoiceCandidate[]>;
+  /** Backs of the stored options, so a re-render repeats the same question. */
+  listNoteBacks(noteIds: number[]): Promise<ChoiceOption[]>;
   cardState(cardId: number): Promise<CardState | null>;
   applyReview(cardId: number, userId: number, result: ApplyResult): Promise<void>;
   setSuspended(cardId: number, suspended: boolean, reason?: SuspendedReason | null): Promise<void>;
@@ -126,6 +162,10 @@ export interface SessionView {
   snowball: boolean;
   /** Where the transcription is shown (user setting). */
   transcriptionMode: TranscriptionMode;
+  /** The four «выбор из четырёх» options; null = the plain reveal flow. */
+  choices: ChoiceOption[] | null;
+  /** Answer screen shown right after a wrong option was tapped (SPEC §3.2). */
+  choiceMiss: boolean;
 }
 
 export interface SessionSummary {
@@ -153,8 +193,19 @@ export type RateResult =
   | { kind: "gone" }
   | ({ freezeUsed: boolean; streakExtended: boolean } & (SessionView | SessionSummary));
 
+/** Outcome of a «выбор из четырёх» tap; `correct` drives the toast (SPEC §3.2). */
+export type ChooseResult =
+  | { kind: "stale" }
+  | { kind: "gone" }
+  | ({ correct: boolean; freezeUsed: boolean; streakExtended: boolean } & (
+      | SessionView
+      | SessionSummary
+    ));
+
 interface ServiceOptions {
   reviewCap?: number;
+  /** Free-plan gating (SPEC §9.1): `choice` is a Pro presentation. */
+  proEnabled?: boolean;
 }
 
 /** Pure: what the queue looks like after the current card was skipped. */
@@ -178,6 +229,71 @@ export function rewindQueue(state: QueueState, cardId: number): QueueState {
   return { items, position };
 }
 
+/**
+ * Deterministic Fisher–Yates. The order of the four options has to survive a
+ * re-render — a resumed session, the 48 h "send a new message" fallback — so it
+ * comes from the seed rather than from `Math.random`.
+ */
+export function seededShuffle<T>(items: readonly T[], seed: number): T[] {
+  const out = [...items];
+  let state = seed >>> 0;
+  // mulberry32: tiny, fast and stable across Node versions.
+  const random = () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4_294_967_296;
+  };
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [out[i], out[j]] = [out[j] as T, out[i] as T];
+  }
+  return out;
+}
+
+/** One shuffle per (session, card): the same card asks the same way twice. */
+export function choiceSeed(sessionId: number, cardId: number): number {
+  return (Math.imul(sessionId, 0x9e3779b1) ^ Math.imul(cardId, 0x85ebca6b)) >>> 0;
+}
+
+/**
+ * Wrong answers for one card (SPEC §3.2): notes of the same deck, the same
+ * part of speech first, then the ones whose translation is closest in length —
+ * an obviously shorter or longer option gives the answer away. Backs that
+ * repeat each other or the right answer are dropped: two identical buttons
+ * would make the question unanswerable.
+ */
+export function pickDistractors(input: {
+  back: string;
+  tag: string | null;
+  candidates: readonly ChoiceCandidate[];
+  count: number;
+}): ChoiceCandidate[] {
+  const answer = normalizeFrontValue(input.back);
+  const length = input.back.length;
+  const sameTag = (candidate: ChoiceCandidate) =>
+    input.tag !== null && candidate.tag === input.tag ? 0 : 1;
+  const ranked = [...input.candidates].sort((a, b) => {
+    const byTag = sameTag(a) - sameTag(b);
+    if (byTag !== 0) return byTag;
+    const byLength = Math.abs(a.back.length - length) - Math.abs(b.back.length - length);
+    if (byLength !== 0) return byLength;
+    return a.noteId - b.noteId;
+  });
+
+  const picked: ChoiceCandidate[] = [];
+  const used = new Set([answer]);
+  for (const candidate of ranked) {
+    const normalized = normalizeFrontValue(candidate.back);
+    if (normalized === "" || used.has(normalized)) continue;
+    used.add(normalized);
+    picked.push(candidate);
+    if (picked.length === input.count) break;
+  }
+  return picked;
+}
+
 const STATS_KEYS = {
   1: "again",
   2: "hard",
@@ -197,6 +313,76 @@ export function accuracyOf(stats: SessionStats): number {
 
 export function createSessionService(port: SessionPort, options: ServiceOptions = {}) {
   const reviewCap = options.reviewCap ?? SESSION_REVIEW_CAP;
+  const proEnabled = options.proEnabled ?? false;
+
+  /** The setting is on and, with `PRO_ENABLED`, the user is actually Pro. */
+  function choiceEnabled(user: User, now: Date): boolean {
+    if (user.newCardStyle !== "choice") return false;
+    return !proEnabled || isPro(user, now);
+  }
+
+  /**
+   * The four options for this card, or null when the plain reveal flow applies
+   * (SPEC §3.2): `recognition` only, only while the card is new (`reps < 2`),
+   * only when the deck yields three usable distractors, and only when the
+   * setting is on. The chosen ids are frozen in the queue item, so a resumed
+   * session — or a re-render after the 48 h edit window — asks the same
+   * question in the same order.
+   */
+  async function choicesFor(
+    session: Session,
+    user: User,
+    card: SessionCardView,
+    item: QueueItem,
+    now: Date,
+  ): Promise<ChoiceOption[] | null> {
+    if (card.mode !== "recognition" || !choiceEnabled(user, now)) return null;
+    const state = await port.cardState(card.cardId);
+    if (!state || state.reps >= CHOICE_MAX_REPS) return null;
+
+    if (item.choice) {
+      const backs = new Map(
+        (await port.listNoteBacks(item.choice.noteIds)).map((option) => [
+          option.noteId,
+          option.back,
+        ]),
+      );
+      const stored = item.choice.noteIds.map((noteId) => ({
+        noteId,
+        back: backs.get(noteId) ?? null,
+      }));
+      // A note may have been deleted meanwhile; then the question is rebuilt.
+      if (stored.every((option) => option.back !== null)) {
+        return stored as ChoiceOption[];
+      }
+    }
+
+    const candidates = await port.listChoiceCandidates({
+      deckId: card.deckId,
+      excludeNoteId: card.noteId,
+      tag: card.tag,
+      limit: CHOICE_POOL,
+    });
+    const distractors = pickDistractors({
+      back: card.back,
+      tag: card.tag,
+      candidates,
+      count: CHOICE_OPTIONS - 1,
+    });
+    // A deck of fewer than four usable notes cannot ask this question.
+    if (distractors.length < CHOICE_OPTIONS - 1) return null;
+
+    const options = seededShuffle(
+      [
+        { noteId: card.noteId, back: card.back },
+        ...distractors.map((note) => ({ noteId: note.noteId, back: note.back })),
+      ],
+      choiceSeed(session.id, card.cardId),
+    );
+    item.choice = { noteIds: options.map((option) => option.noteId) };
+    await port.saveSession(session.id, { queue: session.queue });
+    return options;
+  }
 
   async function viewAt(
     session: Session,
@@ -209,6 +395,7 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
     if (!item) return null;
     const card = await port.cardView(item.cardId);
     if (!card) return null;
+    const choices = stage === "question" ? await choicesFor(session, user, card, item, now) : null;
     let previews: Record<ReviewRating, Interval> | null = null;
     if (stage === "answer" && user.showIntervals) {
       const state = await port.cardState(item.cardId);
@@ -236,6 +423,8 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       canUndo: extras.canUndo ?? session.stats.reviewed > 0,
       snowball: extras.snowball ?? false,
       transcriptionMode: user.transcriptionMode,
+      choices,
+      choiceMiss: false,
     };
   }
 
@@ -262,6 +451,89 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       remainingDue,
       leech: leech ? { cardId: leech.cardId, front: leech.front } : null,
     };
+  }
+
+  /**
+   * Everything one rating changes (SPEC §3.6): FSRS, the undo snapshot, the
+   * queue, the session counters and the streak — in that order. Shared by the
+   * rating buttons and by «выбор из четырёх», which grades itself. The session
+   * is deliberately *not* finished here: what to show when the queue drains
+   * depends on how the rating was given. Returns null when the card is gone.
+   */
+  async function applyRating(input: {
+    user: User;
+    session: Session;
+    item: QueueItem;
+    position: number;
+    rating: ReviewRating;
+    now: Date;
+  }): Promise<{
+    session: Session;
+    streak: number;
+    freezeUsed: boolean;
+    streakExtended: boolean;
+    finished: boolean;
+  } | null> {
+    const { user, session, item, position, rating, now } = input;
+    const state = await port.cardState(item.cardId);
+    if (!state) return null;
+
+    const scheduler = createScheduler(user.desiredRetention);
+    const result = scheduler.applyRating(state, rating, now);
+    await port.applyReview(item.cardId, user.id, result);
+
+    const stats: SessionStats = {
+      ...session.stats,
+      reviewed: session.stats.reviewed + 1,
+      newLearned: session.stats.newLearned + (item.isNew ? 1 : 0),
+    };
+    stats[statsKey(rating)] += 1;
+
+    const short = result.card.due.getTime() - now.getTime() < SHORT_INTERVAL_MS;
+    const next = settle(
+      short
+        ? requeueCurrent({ items: session.queue, position }, result.card.due.getTime())
+        : advance({ items: session.queue, position }),
+      now,
+    );
+
+    await port.saveSession(session.id, {
+      queue: next.items,
+      position: next.position,
+      stats,
+    });
+
+    const streakBefore = {
+      streak: user.streak,
+      lastDay: user.streakLastDay,
+      freezeDay: user.streakFreezeDay,
+    };
+    const streak = recordActivity(streakBefore, now, user.tz);
+    if (streak.lastDay !== streakBefore.lastDay || streak.streak !== streakBefore.streak) {
+      await port.saveStreak(user.id, streak);
+    }
+
+    return {
+      session: { ...session, queue: next.items, position: next.position, stats },
+      streak: streak.streak,
+      freezeUsed: streak.freezeUsed,
+      streakExtended: streak.extended,
+      finished: isFinished(next),
+    };
+  }
+
+  /** The screen a finished rating leads to: the next card, or the summary. */
+  async function afterRating(
+    applied: { session: Session; streak: number; finished: boolean },
+    user: User,
+    now: Date,
+  ): Promise<SessionView | SessionSummary> {
+    if (!applied.finished) {
+      const view = await viewAt(applied.session, user, now, "question");
+      if (view) return view;
+    }
+    await port.finishSession(applied.session.id, "finished");
+    return summarize(applied.session, now, applied.streak);
   }
 
   return {
@@ -377,62 +649,98 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       if (position !== session.position) return { kind: "stale" };
       const item = session.queue[position];
       if (!item) return { kind: "stale" };
-      const state = await port.cardState(item.cardId);
-      if (!state) return { kind: "gone" };
-
-      const scheduler = createScheduler(user.desiredRetention);
-      const result = scheduler.applyRating(state, rating, now);
-      await port.applyReview(item.cardId, user.id, result);
-
-      const stats: SessionStats = {
-        ...session.stats,
-        reviewed: session.stats.reviewed + 1,
-        newLearned: session.stats.newLearned + (item.isNew ? 1 : 0),
+      const applied = await applyRating({ user, session, item, position, rating, now });
+      if (!applied) return { kind: "gone" };
+      return {
+        ...(await afterRating(applied, user, now)),
+        freezeUsed: applied.freezeUsed,
+        streakExtended: applied.streakExtended,
       };
-      stats[statsKey(rating)] += 1;
+    },
 
-      const short = result.card.due.getTime() - now.getTime() < SHORT_INTERVAL_MS;
-      const next = settle(
-        short
-          ? requeueCurrent({ items: session.queue, position }, result.card.due.getTime())
-          : advance({ items: session.queue, position }),
+    /**
+     * «Выбор из четырёх» (SPEC §3.2): the tapped option grades itself — right
+     * is «Хорошо», wrong is «Снова» — and goes through the very same path as a
+     * rating button, undo included. A hit moves straight on to the next card; a
+     * miss stops on the answer screen, so the right translation is actually
+     * read before «Дальше».
+     */
+    async choose(input: {
+      user: User;
+      session: Session;
+      position: number;
+      option: number;
+      now: Date;
+    }): Promise<ChooseResult> {
+      const { user, session, position, option, now } = input;
+      if (position !== session.position) return { kind: "stale" };
+      const item = session.queue[position];
+      const noteId = item?.choice?.noteIds[option];
+      if (!item || noteId === undefined) return { kind: "stale" };
+      const card = await port.cardView(item.cardId);
+      if (!card) return { kind: "gone" };
+
+      const correct = noteId === card.noteId;
+      const isNew = item.isNew;
+      const applied = await applyRating({
+        user,
+        session,
+        item,
+        position,
+        rating: correct ? CHOICE_RIGHT : CHOICE_WRONG,
         now,
-      );
-
-      await port.saveSession(session.id, {
-        queue: next.items,
-        position: next.position,
-        stats,
       });
-
-      const streakBefore = {
-        streak: user.streak,
-        lastDay: user.streakLastDay,
-        freezeDay: user.streakFreezeDay,
+      if (!applied) return { kind: "gone" };
+      const meta = {
+        correct,
+        freezeUsed: applied.freezeUsed,
+        streakExtended: applied.streakExtended,
       };
-      const streak = recordActivity(streakBefore, now, user.tz);
-      if (streak.lastDay !== streakBefore.lastDay || streak.streak !== streakBefore.streak) {
-        await port.saveStreak(user.id, streak);
-      }
+      if (correct) return { ...(await afterRating(applied, user, now)), ...meta };
 
-      const updated: Session = {
-        ...session,
-        queue: next.items,
-        position: next.position,
-        stats,
+      // The rating is already saved and the card is already back in the queue
+      // for its learning step; this screen only names the right answer. The
+      // session is finished by «Дальше», not here, so the queue can drain
+      // without swallowing the correction.
+      return {
+        kind: "card",
+        session: applied.session,
+        stage: "answer",
+        card,
+        isNew,
+        position: applied.session.position,
+        index: position + 1,
+        total: applied.session.queue.length,
+        previews: null,
+        canUndo: true,
+        snowball: false,
+        transcriptionMode: user.transcriptionMode,
+        choices: null,
+        choiceMiss: true,
+        ...meta,
       };
-      const meta = { freezeUsed: streak.freezeUsed, streakExtended: streak.extended };
+    },
 
-      if (isFinished(next)) {
-        await port.finishSession(session.id, "finished");
-        return { ...(await summarize(updated, now, streak.streak)), ...meta };
+    /** «Дальше ▶️» after a miss: the rating is done, just move the session on. */
+    async next(input: {
+      user: User;
+      session: Session;
+      position: number;
+      now: Date;
+    }): Promise<SessionView | SessionSummary | { kind: "stale" }> {
+      const { user, session, position, now } = input;
+      if (position !== session.position) return { kind: "stale" };
+      const settled = settle({ items: session.queue, position: session.position }, now);
+      if (settled.items !== session.queue) {
+        await port.saveSession(session.id, { queue: settled.items, position: settled.position });
       }
-      const view = await viewAt({ ...updated, stats }, user, now, "question");
-      if (!view) {
-        await port.finishSession(session.id, "finished");
-        return { ...(await summarize(updated, now, streak.streak)), ...meta };
+      const updated: Session = { ...session, queue: settled.items, position: settled.position };
+      if (!isFinished(settled)) {
+        const view = await viewAt(updated, user, now, "question");
+        if (view) return view;
       }
-      return { ...view, ...meta };
+      await port.finishSession(session.id, "finished");
+      return summarize(updated, now, user.streak);
     },
 
     /** Pushes the card to the end of the queue; the second skip buries it. */

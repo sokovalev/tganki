@@ -23,6 +23,20 @@ export function italic(text: string): string {
   return `<i>${text}</i>`;
 }
 
+/**
+ * Shortens a button label to `max` characters. Telegram cuts long labels
+ * itself, wherever it likes; an explicit ellipsis at least stays readable.
+ */
+export function truncate(text: string, max: number): string {
+  const clean = text.replace(/\s+/gu, " ").trim();
+  const chars = [...clean];
+  if (chars.length <= max) return clean;
+  return `${chars
+    .slice(0, max - 1)
+    .join("")
+    .trimEnd()}…`;
+}
+
 /** Drops a trailing ".0" so 1.5 months stays "1.5" but 2.0 becomes "2". */
 function num(value: number): string {
   return Number.isInteger(value) ? String(value) : String(Math.round(value * 10) / 10);

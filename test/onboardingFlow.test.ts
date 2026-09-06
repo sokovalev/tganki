@@ -145,3 +145,43 @@ describe("the language pair a new personal deck gets", () => {
     expect(bot.decks()[0]?.title).toBe("Мои слова · KA");
   });
 });
+
+describe("«Новые карточки» in the settings (SPEC §3.2, §8)", () => {
+  it("names the current style and toggles it in place", async () => {
+    const bot = createFakeBot({ card: null });
+    await bot.tap("set");
+    expect(bot.lastText()).toContain("Новые карточки: выбор из четырёх");
+    expect(bot.lastButtons()).toContain("set:style");
+
+    await bot.tap("set:style");
+    expect(bot.user().newCardStyle).toBe("reveal");
+    expect(bot.lastText()).toContain("Новые карточки: показать ответ");
+
+    await bot.tap("set:style");
+    expect(bot.user().newCardStyle).toBe("choice");
+  });
+
+  it("locks the row behind Pro while PRO_ENABLED is on (SPEC §9.1)", async () => {
+    const bot = createFakeBot({ card: null, proEnabled: true });
+    await bot.tap("set");
+    expect(bot.lastText()).toContain("Новые карточки: выбор из четырёх 🔒");
+
+    await bot.tap("set:style");
+    expect(bot.lastText()).toContain("«Выбор из четырёх» доступен в Pro.");
+    expect(bot.lastButtons()).toEqual(["pro", "set"]);
+    // Nothing changed: the setting is not the way past the gate.
+    expect(bot.user().newCardStyle).toBe("choice");
+  });
+
+  it("keeps the row unlocked for a paying user", async () => {
+    const bot = createFakeBot({
+      card: null,
+      proEnabled: true,
+      user: { plan: "pro", planUntil: null },
+    });
+    await bot.tap("set");
+    expect(bot.lastText()).not.toContain("🔒");
+    await bot.tap("set:style");
+    expect(bot.user().newCardStyle).toBe("reveal");
+  });
+});

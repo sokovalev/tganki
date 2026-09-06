@@ -1,4 +1,4 @@
-import { and, asc, eq, inArray, notInArray, or, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, ne, notInArray, or, sql } from "drizzle-orm";
 import type { Database } from "../index.js";
 import { decks, knownWords, type NewNote, type Note, notes, userDecks } from "../schema.js";
 import { frontNorm, normalizeFrontValue } from "../sql.js";
@@ -21,6 +21,14 @@ export interface DuplicateNote {
  * subscribed to and can be pulled into the next session as is. A word missing
  * from the classification map is fresh.
  */
+/** One note offered as a «выбор из четырёх» option (SPEC §3.2). */
+export interface ChoiceNote {
+  noteId: number;
+  back: string;
+  /** First tag of the note — the part of speech in the builtin decks. */
+  tag: string | null;
+}
+
 export type FrontClass =
   | { kind: "known" }
   | { kind: "inDeck"; noteId: number; deckId: number; deckTitle: string };
@@ -295,6 +303,41 @@ export function createNotesRepo(db: Database) {
         }
       }
       return classified;
+    },
+
+    /**
+     * Notes of the same deck that can stand in as wrong answers (SPEC §3.2).
+     * Notes carrying the same first tag come first — a noun is a better
+     * distractor for a noun — and the rest of the pool is drawn at random so
+     * different cards do not keep meeting the same three words. The final
+     * ranking (length, duplicate backs) happens in the session service; the
+     * chosen ids are then frozen in the queue item.
+     */
+    listChoiceCandidates(input: {
+      deckId: number;
+      excludeNoteId: number;
+      tag: string | null;
+      limit: number;
+    }): Promise<ChoiceNote[]> {
+      const first = sql<string | null>`${notes.tags}[1]`;
+      // The cast is what lets the tag be null: an untyped parameter next to
+      // `is not distinct from` leaves Postgres unable to infer its type.
+      const sameTag = sql`(${first} is not distinct from ${input.tag}::text) desc, random()`;
+      return db
+        .select({ noteId: notes.id, back: notes.back, tag: first })
+        .from(notes)
+        .where(and(eq(notes.deckId, input.deckId), ne(notes.id, input.excludeNoteId)))
+        .orderBy(sameTag)
+        .limit(input.limit);
+    },
+
+    /** Backs of the stored options, so a re-render repeats the same question. */
+    async listBacks(noteIds: number[]): Promise<Array<{ noteId: number; back: string }>> {
+      if (noteIds.length === 0) return [];
+      return db
+        .select({ noteId: notes.id, back: notes.back })
+        .from(notes)
+        .where(inArray(notes.id, noteIds));
     },
 
     /** Removes notes of a deck whose front is no longer present in the source. */

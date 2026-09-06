@@ -24,6 +24,7 @@ export function makeUser(overrides: Partial<User> = {}): User {
     lastRemindedDay: null,
     showIntervals: true,
     transcriptionMode: "answer",
+    newCardStyle: "choice",
     desiredRetention: 0.9,
     pendingInput: null,
     pendingInputExpiresAt: null,
@@ -48,6 +49,8 @@ export interface FakeCard {
   transcription: string | null;
   example: string | null;
   exampleTr: string | null;
+  /** First tag of the note — what «выбор из четырёх» matches on (SPEC §3.2). */
+  tag: string | null;
   state: CardState;
   suspended: boolean;
   suspendedReason: SuspendedReason | null;
@@ -73,6 +76,7 @@ export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {
     transcription: null,
     example: null,
     exampleTr: null,
+    tag: null,
     state: {
       state: 0,
       stability: 0,
@@ -92,8 +96,22 @@ export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {
   };
 }
 
+/** A note of a deck that has no card of its own — a distractor fixture. */
+export interface FakeNote {
+  noteId: number;
+  deckId: number;
+  back: string;
+  tag: string | null;
+}
+
 export interface FakeState {
   cards: Map<number, FakeCard>;
+  /**
+   * Notes «выбор из четырёх» may draw distractors from (SPEC §3.2). Empty by
+   * default: a deck of fewer than four notes cannot ask that question, so
+   * every test that does not set this stays on the plain reveal flow.
+   */
+  deckNotes: FakeNote[];
   sessions: Session[];
   logs: ReviewLogSnapshot[];
   deletedNotes: number[];
@@ -133,6 +151,7 @@ function hasOtherCard(state: FakeState, candidate: FakeCard): boolean {
 export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = {}) {
   const state: FakeState = {
     cards: new Map(cards.map((card) => [card.id, card])),
+    deckNotes: [],
     sessions: [],
     logs: [],
     deletedNotes: [],
@@ -162,7 +181,19 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
     transcription: card.transcription,
     example: card.example,
     exampleTr: card.exampleTr,
+    tag: card.tag,
   });
+
+  /** Every note the fake knows: the deck fixtures plus each card's own note. */
+  const noteRows = (): FakeNote[] => [
+    ...state.deckNotes,
+    ...[...state.cards.values()].map((card) => ({
+      noteId: card.noteId,
+      deckId: card.deckId,
+      back: card.back,
+      tag: card.tag,
+    })),
+  ];
 
   const port: SessionPort = {
     queue: {
@@ -268,6 +299,23 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
     async cardView(cardId) {
       const card = state.cards.get(cardId);
       return card ? view(card) : null;
+    },
+
+    async listChoiceCandidates({ deckId, excludeNoteId, tag, limit }) {
+      // Mirrors the SQL: same deck, never the note itself, same first tag first.
+      return state.deckNotes
+        .filter((note) => note.deckId === deckId && note.noteId !== excludeNoteId)
+        .sort((a, b) => Number(b.tag === tag) - Number(a.tag === tag))
+        .slice(0, limit)
+        .map((note) => ({ noteId: note.noteId, back: note.back, tag: note.tag }));
+    },
+
+    async listNoteBacks(noteIds) {
+      const rows = noteRows();
+      return noteIds
+        .map((noteId) => rows.find((note) => note.noteId === noteId))
+        .filter((note): note is FakeNote => note !== undefined)
+        .map((note) => ({ noteId: note.noteId, back: note.back }));
     },
 
     async cardState(cardId) {

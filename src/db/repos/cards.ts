@@ -26,6 +26,7 @@ export interface ReviewCard {
     exampleTr: string | null;
     audioFileId: string | null;
     imageFileId: string | null;
+    tags: string[];
   };
   deck: {
     id: number;
@@ -86,6 +87,7 @@ export function createCardsRepo(db: Database) {
             exampleTr: notes.exampleTr,
             audioFileId: notes.audioFileId,
             imageFileId: notes.imageFileId,
+            tags: notes.tags,
           },
           deck: {
             id: decks.id,
