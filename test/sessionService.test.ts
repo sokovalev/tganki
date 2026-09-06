@@ -1,9 +1,12 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { MAX_REQUEUES } from "../src/core/queue.js";
 import type { User } from "../src/db/schema.js";
 import {
   createSessionService,
   EXTRA_NEW_BATCH,
+  INTRO_RETURN_MS,
   rewindQueue,
+  type SessionView,
   SNOWBALL_THRESHOLD,
   skipCurrent,
 } from "../src/services/sessionService.js";
@@ -485,62 +488,88 @@ describe("session service", () => {
   });
 });
 
+const DEFAULT_USER = makeUser();
+
+/** Distractor pool of the deck: five adjectives-and-a-noun, one deck apart. */
+const DECK_NOTES: FakeNote[] = [
+  { noteId: 201, deckId: 1, back: "упрямый", tag: "adjective" },
+  { noteId: 202, deckId: 1, back: "довольный", tag: "adjective" },
+  { noteId: 203, deckId: 1, back: "усталый", tag: "adjective" },
+  { noteId: 204, deckId: 1, back: "хлеб", tag: "noun" },
+  { noteId: 205, deckId: 1, back: "невероятно долгий и подробный перевод", tag: "adjective" },
+  { noteId: 206, deckId: 2, back: "из чужой деки", tag: "adjective" },
+];
+
+/** The card the question is about, plus a second one to move on to. */
+function cards(overrides: Partial<FakeCard> = {}): FakeCard[] {
+  return [
+    makeCard(1, NOW, {
+      noteId: 101,
+      front: "reluctant",
+      back: "неохотный",
+      tag: "adjective",
+      ...overrides,
+    }),
+    makeCard(2, NOW, { noteId: 102, front: "table", back: "стол", tag: "noun" }),
+  ];
+}
+
+function setup(
+  options: { cards?: FakeCard[]; deckNotes?: FakeNote[]; user?: User; proEnabled?: boolean } = {},
+) {
+  const fake = createFakePort(options.cards ?? cards(), {
+    deckNotes: options.deckNotes ?? DECK_NOTES,
+  });
+  const service = createSessionService(fake.port, { proEnabled: options.proEnabled ?? false });
+  return { fake, service, user: options.user ?? DEFAULT_USER };
+}
+
+async function open(setUp: ReturnType<typeof setup>, cardIds = [1, 2], now = NOW) {
+  const view = await setUp.service.startWith({
+    user: setUp.user,
+    chatId: CHAT,
+    deckId: 1,
+    cardIds,
+    now,
+  });
+  if (!view) throw new Error("expected a card");
+  return view;
+}
+
+/** Taps «▶️ Дальше» on the «знакомство» screen and returns the next card. */
+async function introduce(setUp: ReturnType<typeof setup>, view: SessionView, now = NOW) {
+  const result = await setUp.service.introduce({
+    user: setUp.user,
+    session: view.session,
+    position: view.position,
+    now,
+  });
+  if ("kind" in result) throw new Error("expected a view");
+  return result;
+}
+
 /**
- * «Выбор из четырёх» (SPEC §3.2): a presentation of a `recognition` card while
- * it is still new, not a card mode of its own.
+ * Opens a session and walks every «знакомство» screen, so the first card comes
+ * back for step two of the ladder — its first real test (SPEC §3.2).
+ */
+async function openTest(setUp: ReturnType<typeof setup>, cardIds = [1, 2], now = NOW) {
+  let view = await open(setUp, cardIds, now);
+  for (let guard = 0; view.stage === "intro" && guard <= cardIds.length; guard += 1) {
+    const result = await introduce(setUp, view, now);
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    view = result.view;
+  }
+  return view;
+}
+
+/**
+ * «Выбор из четырёх» (SPEC §3.2): step two of the ladder — the first real test
+ * of a `recognition` card, once it has been introduced.
  */
 describe("choice question", () => {
-  const user = makeUser();
-
-  /** Distractor pool of the deck: five adjectives-and-a-noun, one deck apart. */
-  const DECK_NOTES: FakeNote[] = [
-    { noteId: 201, deckId: 1, back: "упрямый", tag: "adjective" },
-    { noteId: 202, deckId: 1, back: "довольный", tag: "adjective" },
-    { noteId: 203, deckId: 1, back: "усталый", tag: "adjective" },
-    { noteId: 204, deckId: 1, back: "хлеб", tag: "noun" },
-    { noteId: 205, deckId: 1, back: "невероятно долгий и подробный перевод", tag: "adjective" },
-    { noteId: 206, deckId: 2, back: "из чужой деки", tag: "adjective" },
-  ];
-
-  /** The card the question is about, plus a second one to move on to. */
-  function cards(overrides: Partial<FakeCard> = {}): FakeCard[] {
-    return [
-      makeCard(1, NOW, {
-        noteId: 101,
-        front: "reluctant",
-        back: "неохотный",
-        tag: "adjective",
-        ...overrides,
-      }),
-      makeCard(2, NOW, { noteId: 102, front: "table", back: "стол", tag: "noun" }),
-    ];
-  }
-
-  function setup(
-    options: { cards?: FakeCard[]; deckNotes?: FakeNote[]; user?: User; proEnabled?: boolean } = {},
-  ) {
-    const fake = createFakePort(options.cards ?? cards(), {
-      deckNotes: options.deckNotes ?? DECK_NOTES,
-    });
-    const service = createSessionService(fake.port, { proEnabled: options.proEnabled ?? false });
-    return { fake, service, user: options.user ?? user };
-  }
-
-  async function open(setUp: ReturnType<typeof setup>, cardIds = [1, 2]) {
-    const view = await setUp.service.startWith({
-      user: setUp.user,
-      chatId: CHAT,
-      deckId: 1,
-      cardIds,
-      now: NOW,
-    });
-    if (!view) throw new Error("expected a card");
-    return view;
-  }
-
   it("offers four translations and prefers the part of speech and the length", async () => {
     const fixture = setup();
-    const view = await open(fixture);
+    const view = await openTest(fixture);
     const choices = view.choices;
     if (!choices) throw new Error("expected the choice question");
 
@@ -559,20 +588,20 @@ describe("choice question", () => {
     const fixture = setup({
       deckNotes: [{ noteId: 301, deckId: 1, back: " Неохотный ", tag: "adjective" }, ...DECK_NOTES],
     });
-    const view = await open(fixture);
+    const view = await openTest(fixture);
     expect(view.choices?.map((option) => option.noteId)).not.toContain(301);
     expect(view.choices).toHaveLength(4);
   });
 
   it("falls back to the reveal flow in a deck of fewer than four notes", async () => {
     const fixture = setup({ deckNotes: DECK_NOTES.slice(0, 2) });
-    expect((await open(fixture)).choices).toBeNull();
+    expect((await openTest(fixture)).choices).toBeNull();
   });
 
   it("freezes the options in the queue item, so a re-render asks the same", async () => {
     const fixture = setup();
-    const view = await open(fixture);
-    const stored = fixture.fake.state.sessions[0]?.queue[0]?.choice;
+    const view = await openTest(fixture);
+    const stored = fixture.fake.state.sessions[0]?.queue[view.position]?.choice;
     expect(stored?.noteIds).toEqual(view.choices?.map((option) => option.noteId));
 
     // Through the database and back: the order must survive the round trip.
@@ -586,14 +615,14 @@ describe("choice question", () => {
 
   it("rates the right option Хорошо and stops on the answer screen with «Верно»", async () => {
     const fixture = setup();
-    const view = await open(fixture);
+    const view = await openTest(fixture);
     const right = view.choices?.findIndex((option) => option.noteId === 101) ?? -1;
     expect(right).toBeGreaterThanOrEqual(0);
 
     const result = await fixture.service.choose({
       user: fixture.user,
       session: view.session,
-      position: 0,
+      position: view.position,
       option: right,
       now: NOW,
     });
@@ -605,28 +634,30 @@ describe("choice question", () => {
     expect(result.stage).toBe("answer");
     expect(result.card.cardId).toBe(1);
     expect(result.choiceResult).toBe("hit");
-    expect(result.session.position).toBe(1);
+    expect(result.session.position).toBe(view.position + 1);
 
     const next = await fixture.service.next({
       user: fixture.user,
       session: result.session,
-      position: 1,
+      position: result.session.position,
       now: NOW,
     });
     if (next.kind !== "card") throw new Error("expected the next card");
+    // The second card had its introduction while the first one waited, so it
+    // comes up as a question, not as a presentation.
     expect(next.card.cardId).toBe(2);
     expect(next.stage).toBe("question");
   });
 
   it("rates a wrong option Снова and stops on the answer with the right one", async () => {
     const fixture = setup();
-    const view = await open(fixture);
+    const view = await openTest(fixture);
     const wrong = view.choices?.findIndex((option) => option.noteId !== 101) ?? -1;
 
     const result = await fixture.service.choose({
       user: fixture.user,
       session: view.session,
-      position: 0,
+      position: view.position,
       option: wrong,
       now: NOW,
     });
@@ -639,9 +670,10 @@ describe("choice question", () => {
     expect(result.canUndo).toBe(true);
     expect(fixture.fake.state.logs.map((log) => log.rating)).toEqual([1]);
     expect(result.session.stats).toMatchObject({ reviewed: 1, again: 1 });
-    // The card is already back in the queue for its learning step, and the
-    // session waits for «Дальше» rather than ending under the correction.
-    expect(result.session.queue.map((item) => item.cardId)).toEqual([1, 2, 1]);
+    // Both cards were introduced, card 1 was tested and is back for its
+    // learning step; the session waits for «Дальше» rather than ending under
+    // the correction.
+    expect(result.session.queue.map((item) => item.cardId)).toEqual([1, 2, 1, 2, 1]);
     expect(fixture.fake.state.sessions[0]?.status).toBe("active");
 
     const next = await fixture.service.next({
@@ -657,12 +689,15 @@ describe("choice question", () => {
 
   it("ignores a tap on a position that was already answered", async () => {
     const fixture = setup();
-    const view = await open(fixture);
+    const view = await openTest(fixture);
+    // The handler always reloads the session, so a second tap sees the queue
+    // the first one moved on.
+    const live = () => fixture.fake.state.sessions[0]!;
     expect(
       await fixture.service.choose({
         user: fixture.user,
-        session: view.session,
-        position: 1,
+        session: live(),
+        position: view.position - 1,
         option: 0,
         now: NOW,
       }),
@@ -670,16 +705,16 @@ describe("choice question", () => {
 
     const first = await fixture.service.choose({
       user: fixture.user,
-      session: view.session,
-      position: 0,
+      session: live(),
+      position: view.position,
       option: 0,
       now: NOW,
     });
     expect(first.kind).not.toBe("stale");
     const second = await fixture.service.choose({
       user: fixture.user,
-      session: view.session,
-      position: 0,
+      session: live(),
+      position: view.position,
       option: 0,
       now: NOW,
     });
@@ -689,12 +724,12 @@ describe("choice question", () => {
 
   it("undoes the rating a tap applied by itself", async () => {
     const fixture = setup();
-    const view = await open(fixture);
+    const view = await openTest(fixture);
     const wrong = view.choices?.findIndex((option) => option.noteId !== 101) ?? -1;
     const missed = await fixture.service.choose({
       user: fixture.user,
       session: view.session,
-      position: 0,
+      position: view.position,
       option: wrong,
       now: NOW,
     });
@@ -707,83 +742,300 @@ describe("choice question", () => {
     });
     if ("kind" in undone && undone.kind === "nothing") throw new Error("expected a view");
     expect(fixture.fake.state.logs).toHaveLength(0);
-    expect(undone.position).toBe(0);
+    expect(undone.position).toBe(view.position);
     expect(undone.card.cardId).toBe(1);
     expect(undone.session.stats).toMatchObject({ reviewed: 0, again: 0 });
-    // The same question comes back, options and order included.
+    // The same question comes back, options and order included — and not the
+    // introduction, which this card has already had (SPEC §3.2).
+    expect(undone.stage).toBe("question");
     expect(undone.choices).toEqual(view.choices);
   });
 
   it("counts an automatic rating in the session summary", async () => {
-    // A card that is already in review: «Хорошо» schedules it days out, so it
-    // leaves the session; the tap stops on the answer and «Дальше» summarizes.
-    const reviewed = makeCard(1, NOW, {
-      noteId: 101,
-      front: "reluctant",
-      back: "неохотный",
-      tag: "adjective",
-    });
-    reviewed.state = {
-      ...reviewed.state,
-      state: 2,
-      stability: 12,
-      difficulty: 5,
-      reps: 1,
-      lastReview: new Date(NOW.getTime() - 3 * 24 * 60 * 60 * 1000),
-    };
-    const fixture = setup({ cards: [reviewed] });
-    const view = await open(fixture, [1]);
+    const fixture = setup();
+    // One card only: the introduction, the choice and the learning step that
+    // «Хорошо» schedules all happen inside this session.
+    const view = await openTest(fixture, [1]);
     const right = view.choices?.findIndex((option) => option.noteId === 101) ?? -1;
 
     const result = await fixture.service.choose({
       user: fixture.user,
       session: view.session,
-      position: 0,
+      position: view.position,
       option: right,
       now: NOW,
     });
     if (result.kind !== "card") throw new Error("expected the answer screen");
     expect(result.choiceResult).toBe("hit");
-    const summary = await fixture.service.next({
+
+    // «Дальше» brings the card back for its learning step — step three of the
+    // ladder, the plain reveal flow, because it has a rating behind it now.
+    const again = await fixture.service.next({
       user: fixture.user,
       session: result.session,
       position: result.session.position,
       now: NOW,
     });
+    if (again.kind !== "card") throw new Error("expected the learning step");
+    expect(again.stage).toBe("question");
+    expect(again.choices).toBeNull();
+
+    const summary = await fixture.service.rate({
+      user: fixture.user,
+      session: again.session,
+      position: again.position,
+      rating: 4,
+      now: NOW,
+    });
     if (summary.kind !== "summary") throw new Error("expected the summary");
-    expect(summary.stats).toMatchObject({ reviewed: 1, good: 1 });
+    expect(summary.stats).toMatchObject({ reviewed: 2, good: 1, easy: 1, newLearned: 1 });
     expect(fixture.fake.state.sessions[0]?.status).toBe("finished");
   });
 
   it("keeps the reveal flow when the setting is off", async () => {
     const fixture = setup({ user: makeUser({ newCardStyle: "reveal" }) });
-    expect((await open(fixture)).choices).toBeNull();
+    const view = await openTest(fixture);
+    expect(view.stage).toBe("question");
+    expect(view.choices).toBeNull();
   });
 
-  it("keeps the reveal flow once the card has two ratings behind it", async () => {
+  it("keeps the reveal flow once the card has a rating behind it", async () => {
     const seen = makeCard(1, NOW, {
       noteId: 101,
       front: "reluctant",
       back: "неохотный",
       tag: "adjective",
     });
-    seen.state = { ...seen.state, state: 2, stability: 12, difficulty: 5, reps: 2 };
-    expect((await open(setup({ cards: [seen] }), [1])).choices).toBeNull();
+    seen.state = { ...seen.state, state: 2, stability: 12, difficulty: 5, reps: 1 };
+    const view = await openTest(setup({ cards: [seen] }), [1]);
+    // A card that is no longer new is neither introduced nor asked by choice.
+    expect(view.stage).toBe("question");
+    expect(view.choices).toBeNull();
   });
 
   it("keeps the reveal flow for a reverse card", async () => {
     const fixture = setup({ cards: cards({ mode: "recall" }) });
-    expect((await open(fixture)).choices).toBeNull();
+    expect((await openTest(fixture)).choices).toBeNull();
   });
 
   it("is a Pro presentation while PRO_ENABLED is on (SPEC §9.1)", async () => {
     const free = setup({ proEnabled: true });
-    expect((await open(free)).choices).toBeNull();
+    expect((await openTest(free)).choices).toBeNull();
 
     const pro = setup({
       proEnabled: true,
       user: makeUser({ plan: "pro", planUntil: new Date(NOW.getTime() + 86_400_000) }),
     });
-    expect((await open(pro)).choices).toHaveLength(4);
+    expect((await openTest(pro)).choices).toHaveLength(4);
+  });
+});
+
+/**
+ * «Знакомство» (SPEC §3.2): step one of the ladder — a new card is presented
+ * before it is ever asked about, and the presentation is not a review.
+ */
+describe("introduction", () => {
+  it("opens a new card with the presentation, never with a question", async () => {
+    const fixture = setup();
+    const view = await open(fixture);
+    expect(view.stage).toBe("intro");
+    expect(view.isNew).toBe(true);
+    expect(view.choices).toBeNull();
+    expect(view.previews).toBeNull();
+    // Nothing was rated: no log, no counters, nothing to undo.
+    expect(fixture.fake.state.logs).toHaveLength(0);
+    expect(view.session.stats).toMatchObject({ reviewed: 0, newLearned: 0 });
+    expect(view.canUndo).toBe(false);
+
+    // A stale «Показать ответ» cannot skip the presentation.
+    const shown = await fixture.service.render(view.session, fixture.user, NOW, "answer");
+    expect(shown?.stage).toBe("intro");
+  });
+
+  it("presents new cards a session builds for itself as well", async () => {
+    const fake = createFakePort(cards(), { deckNotes: DECK_NOTES, newCandidateIds: [1, 2] });
+    const service = createSessionService(fake.port);
+    const started = await service.start({
+      user: DEFAULT_USER,
+      deckId: null,
+      chatId: CHAT,
+      now: NOW,
+    });
+    if (started.kind !== "card") throw new Error("expected a card");
+    expect(started.stage).toBe("intro");
+    expect(started.card.cardId).toBe(1);
+  });
+
+  it("«Дальше» re-queues the card a minute later without rating it", async () => {
+    const fixture = setup();
+    const view = await open(fixture, [1]);
+    const result = await introduce(fixture, view);
+
+    expect(result.cardId).toBe(1);
+    expect(fixture.fake.state.logs).toHaveLength(0);
+    const queue = fixture.fake.state.sessions[0]?.queue ?? [];
+    expect(queue.map((item) => item.cardId)).toEqual([1, 1]);
+    expect(queue[1]).toMatchObject({
+      cardId: 1,
+      isNew: true,
+      introduced: true,
+      notBefore: NOW.getTime() + INTRO_RETURN_MS,
+    });
+    // The introduction is not a return caused by a rating.
+    expect(queue[1]?.requeues).toBeUndefined();
+    expect(queue[0]?.introduced).toBe(true);
+
+    // Nothing else is left, so the card is shown early — as a question now.
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    expect(result.view.stage).toBe("question");
+    expect(result.view.card.cardId).toBe(1);
+    expect(result.view.session.stats).toMatchObject({ reviewed: 0, newLearned: 0 });
+  });
+
+  it("lets other cards in before the introduced one comes back", async () => {
+    const fixture = setup();
+    const view = await open(fixture);
+    const result = await introduce(fixture, view);
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    // Card 2 is due now, the introduced card 1 waits for its minute.
+    expect(result.view.card.cardId).toBe(2);
+    expect(result.view.stage).toBe("intro");
+  });
+
+  it("walks the ladder: introduction, then choice, then the reveal flow", async () => {
+    const fixture = setup();
+    const intro = await open(fixture, [1]);
+    expect(intro.stage).toBe("intro");
+
+    const asked = (await introduce(fixture, intro)).view;
+    if (asked.kind !== "card") throw new Error("expected a card");
+    expect(asked.stage).toBe("question");
+    expect(asked.choices).toHaveLength(4);
+    // The options are frozen on the queue item the introduction re-queued.
+    expect(fixture.fake.state.sessions[0]?.queue[asked.position]?.choice?.noteIds).toEqual(
+      asked.choices?.map((option) => option.noteId),
+    );
+
+    const right = asked.choices?.findIndex((option) => option.noteId === 101) ?? -1;
+    const answered = await fixture.service.choose({
+      user: fixture.user,
+      session: asked.session,
+      position: asked.position,
+      option: right,
+      now: NOW,
+    });
+    if (answered.kind !== "card") throw new Error("expected the answer screen");
+
+    const reveal = await fixture.service.next({
+      user: fixture.user,
+      session: answered.session,
+      position: answered.session.position,
+      now: NOW,
+    });
+    if (reveal.kind !== "card") throw new Error("expected the learning step");
+    // One rating behind it: no introduction, no choice, just «Показать ответ».
+    expect(reveal.stage).toBe("question");
+    expect(reveal.choices).toBeNull();
+    expect(fixture.fake.state.cards.get(1)?.state.reps).toBe(1);
+  });
+
+  it("introduces a card once per session, even after an undo", async () => {
+    const fixture = setup();
+    const asked = await openTest(fixture, [1]);
+    const wrong = asked.choices?.findIndex((option) => option.noteId !== 101) ?? -1;
+    const missed = await fixture.service.choose({
+      user: fixture.user,
+      session: asked.session,
+      position: asked.position,
+      option: wrong,
+      now: NOW,
+    });
+    if (missed.kind !== "card") throw new Error("expected a card");
+
+    const undone = await fixture.service.undo({
+      user: fixture.user,
+      session: missed.session,
+      now: NOW,
+    });
+    if ("kind" in undone && undone.kind === "nothing") throw new Error("expected a view");
+    // The rating is gone, the presentation does not come back with it.
+    expect(fixture.fake.state.logs).toHaveLength(0);
+    expect(undone.stage).toBe("question");
+    expect(undone.choices).toEqual(asked.choices);
+    expect(undone.session.queue.map((item) => item.cardId)).toEqual([1, 1]);
+  });
+
+  it("presents the card before the reveal flow too", async () => {
+    const fixture = setup({ user: makeUser({ newCardStyle: "reveal" }) });
+    const intro = await open(fixture, [1]);
+    expect(intro.stage).toBe("intro");
+    const asked = (await introduce(fixture, intro)).view;
+    if (asked.kind !== "card") throw new Error("expected a card");
+    expect(asked.stage).toBe("question");
+    expect(asked.choices).toBeNull();
+  });
+
+  it("switches the word off from the presentation screen", async () => {
+    const fixture = setup();
+    const view = await open(fixture);
+    const result = await fixture.service.markKnown({
+      user: fixture.user,
+      session: view.session,
+      position: view.position,
+      now: NOW,
+    });
+    if ("kind" in result) throw new Error("expected a view");
+    expect(result.word).toBe("reluctant");
+    expect(fixture.fake.state.cards.get(1)?.suspended).toBe(true);
+    expect(fixture.fake.state.logs).toHaveLength(0);
+    if (result.view.kind !== "card") throw new Error("expected a card");
+    // The session moves on to the next card, which gets its own presentation.
+    expect(result.view.card.cardId).toBe(2);
+    expect(result.view.stage).toBe("intro");
+    expect(result.view.session.stats).toMatchObject({ reviewed: 0, newLearned: 0 });
+  });
+
+  it("leaves the session summary untouched", async () => {
+    const fixture = setup();
+    const first = await open(fixture);
+    const second = (await introduce(fixture, first)).view;
+    if (second.kind !== "card") throw new Error("expected a card");
+    await introduce(fixture, second);
+
+    const live = fixture.fake.state.sessions[0]!;
+    const summary = await fixture.service.finish({ user: fixture.user, session: live, now: NOW });
+    expect(summary.stats).toMatchObject({
+      reviewed: 0,
+      again: 0,
+      good: 0,
+      newLearned: 0,
+    });
+    expect(summary.accuracy).toBe(0);
+  });
+
+  it("does not spend one of the card's returns", async () => {
+    const fixture = setup({ user: makeUser({ newCardStyle: "reveal" }) });
+    let view = await openTest(fixture, [1]);
+    // "Снова" keeps the card in the session for `MAX_REQUEUES` more rounds —
+    // the introduction must not have eaten one of them.
+    let ratings = 0;
+    for (let guard = 0; guard <= MAX_REQUEUES + 2; guard += 1) {
+      const result = await fixture.service.rate({
+        user: fixture.user,
+        session: view.session,
+        position: view.position,
+        rating: 1,
+        now: NOW,
+      });
+      if (result.kind !== "card") {
+        ratings += 1;
+        expect(result.kind).toBe("summary");
+        break;
+      }
+      ratings += 1;
+      view = result;
+    }
+    expect(ratings).toBe(MAX_REQUEUES + 1);
+    expect(fixture.fake.state.logs).toHaveLength(MAX_REQUEUES + 1);
   });
 });

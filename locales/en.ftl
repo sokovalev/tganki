@@ -42,6 +42,8 @@ menu-no-decks = No decks yet. Open the catalog or add your own word.
 ## Session
 
 session-new = 🆕 new
+# Introduction — the first showing of a new card (§3.2)
+session-intro-new = 🆕 new word
 session-snowball = Let us clear the backlog first — no new cards today.
 card-actions-title = What should I do with "{ $word }"?
 
@@ -355,6 +357,7 @@ btn-finish = ⏸ Finish
 btn-card-menu = ✏️
 btn-undo = ↩️ Undo
 btn-choice-next = ▶️ Next
+btn-intro-next = ▶️ Next
 btn-continue = ▶️ Continue ({ $n })
 btn-extra-new = ➕ { $n } more new
 btn-known = ✅ I know it

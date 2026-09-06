@@ -319,6 +319,8 @@ export const userDecks = pgTable(
  * back within one session. `choice` holds the four «выбор из четырёх» options
  * (SPEC §3.2) — the note ids in display order, written on the first render so a
  * re-render (resume, 48 h fallback) asks exactly the same question.
+ * `introduced` marks a new card that already had its «знакомство» screen in
+ * this session (SPEC §3.2), so it is presented once and then tested.
  */
 export type QueueItem = {
   cardId: number;
@@ -326,6 +328,7 @@ export type QueueItem = {
   skipped?: number;
   notBefore?: number;
   requeues?: number;
+  introduced?: boolean;
   choice?: { noteIds: number[] };
 };
 

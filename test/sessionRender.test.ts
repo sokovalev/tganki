@@ -560,3 +560,71 @@ describe("answer screen after a wrong choice", () => {
     expect(buttons(renderCard(en, missed).keyboard).map((b) => b.text)[0]).toBe("▶️ Next");
   });
 });
+
+describe("introduction screen (SPEC §3.2)", () => {
+  const intro = view({ stage: "intro" });
+
+  it("shows the whole card and asks nothing", () => {
+    const screen = renderCard(ru, intro);
+    expect(screen.text).toContain("English Top 1000 · A2");
+    expect(screen.text).toContain("12 / 25");
+    expect(screen.text).toContain("🆕 новое слово");
+    expect(screen.text).not.toContain("🆕 новое\n");
+    expect(screen.text).toContain("<b>reluctant</b>");
+    expect(screen.text).toContain("неохотный, сопротивляющийся");
+    expect(screen.text).toContain("<i>She was reluctant to go.</i>");
+    expect(screen.text).toContain("Она не хотела идти.");
+    expect(screen.text).not.toContain("Что это значит?");
+  });
+
+  it("shows the transcription unless it is switched off entirely", () => {
+    // This screen is the answer side, so "only in the answer" shows it here.
+    expect(renderCard(ru, intro).text).toContain("<i>/rɪˈlʌktənt/</i>");
+    expect(renderCard(ru, view({ stage: "intro", transcriptionMode: "always" })).text).toContain(
+      "<i>/rɪˈlʌktənt/</i>",
+    );
+    expect(renderCard(ru, view({ stage: "intro", transcriptionMode: "never" })).text).not.toContain(
+      "rɪˈlʌktənt",
+    );
+  });
+
+  it("offers «Дальше», «Знаю» and the usual tail — no answer and no ratings", () => {
+    const screen = renderCard(ru, intro);
+    expect(buttons(screen.keyboard).map((b) => b.text)).toEqual([
+      "▶️ Дальше",
+      "✅ Знаю",
+      "✏️",
+      "⏸ Закончить",
+    ]);
+    const data = buttons(screen.keyboard).map((button) =>
+      "callback_data" in button ? button.callback_data : "",
+    );
+    expect(data).toEqual(["s:intro:11", "s:know:11", "c:open:11", "s:fin"]);
+    expect(data.some((item) => item.startsWith("r:") || item.startsWith("s:show"))).toBe(false);
+    for (const item of data)
+      expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+  });
+
+  it("presents the card the same way in English", () => {
+    const screen = renderCard(en, intro);
+    expect(screen.text).toContain("🆕 new word");
+    expect(screen.text).toContain("<b>reluctant</b>");
+    expect(buttons(screen.keyboard).map((b) => b.text)).toEqual([
+      "▶️ Next",
+      "✅ I know it",
+      "✏️",
+      "⏸ Finish",
+    ]);
+  });
+
+  it("keeps every callback inside the byte budget in every locale", () => {
+    for (const locale of SUPPORTED_LOCALES) {
+      const screen = renderCard(translator(i18n, locale), view({ stage: "intro", position: 999 }));
+      for (const button of buttons(screen.keyboard)) {
+        if ("callback_data" in button) {
+          expect(callbackByteLength(button.callback_data)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);
+        }
+      }
+    }
+  });
+});

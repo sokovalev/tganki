@@ -45,8 +45,19 @@ export const EXTRA_NEW_BATCH = 5;
 export const FIRST_SESSION_SIZE = 5;
 /** How many translations «выбор из четырёх» puts on the screen (SPEC §3.2). */
 export const CHOICE_OPTIONS = 4;
-/** Choice is offered while the card is this new: New, or the first two ratings. */
-export const CHOICE_MAX_REPS = 2;
+/**
+ * Choice is the *recognition* step of the ladder (SPEC §3.2): exactly one
+ * exposure, the first real test, right after «знакомство» — so only while the
+ * card has no ratings at all (`reps < 1`). From the first rating on the card
+ * goes through the plain reveal flow.
+ */
+export const CHOICE_MAX_REPS = 1;
+/**
+ * How long «знакомство» pushes the card away before it is tested (SPEC §3.4).
+ * Short enough to stay in the same session, long enough that a couple of other
+ * cards come in between; with nothing else left `settle` shows it early.
+ */
+export const INTRO_RETURN_MS = 60_000;
 /** How many notes of the deck we look at when picking distractors. */
 export const CHOICE_POOL = 60;
 /** Grades «выбор из четырёх» applies for itself: right is Хорошо, wrong is Снова. */
@@ -143,7 +154,11 @@ export interface SessionPort {
   ): Promise<void>;
 }
 
-export type SessionStage = "question" | "answer" | "actions";
+/**
+ * `intro` is the «знакомство» screen a new card opens with (SPEC §3.2): the
+ * word with its translation and example, no question and no rating.
+ */
+export type SessionStage = "intro" | "question" | "answer" | "actions";
 
 export interface SessionView {
   kind: "card";
@@ -219,6 +234,16 @@ export function skipCurrent(state: QueueState): { state: QueueState; buried: boo
   const items = state.items.slice();
   items.push({ ...current, skipped: skipped + 1 });
   return { state: { items, position: state.position + 1 }, buried: false };
+}
+
+/**
+ * Pure: step one of the ladder (SPEC §3.2) — a new card that has not been
+ * presented in this session yet owes the user a «знакомство» screen. The queue
+ * item carries half of the answer; the card state (New, never rated) decides
+ * the rest, see `viewAt`.
+ */
+export function awaitsIntro(item: QueueItem): boolean {
+  return item.isNew && !item.introduced;
 }
 
 /** Pure: undo puts the card back and removes the copy the re-queue inserted. */
@@ -324,21 +349,22 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
 
   /**
    * The four options for this card, or null when the plain reveal flow applies
-   * (SPEC §3.2): `recognition` only, only while the card is new (`reps < 2`),
-   * only when the deck yields three usable distractors, and only when the
-   * setting is on. The chosen ids are frozen in the queue item, so a resumed
-   * session — or a re-render after the 48 h edit window — asks the same
-   * question in the same order.
+   * (SPEC §3.2): `recognition` only, only for the one recognition step of the
+   * ladder (`reps === 0`, i.e. the card was introduced but never rated), only
+   * when the deck yields three usable distractors, and only when the setting is
+   * on. The chosen ids are frozen in the queue item, so a resumed session — or
+   * a re-render after the 48 h edit window — asks the same question in the same
+   * order.
    */
   async function choicesFor(
     session: Session,
     user: User,
     card: SessionCardView,
     item: QueueItem,
+    state: CardState | null,
     now: Date,
   ): Promise<ChoiceOption[] | null> {
     if (card.mode !== "recognition" || !choiceEnabled(user, now)) return null;
-    const state = await port.cardState(card.cardId);
     if (!state || state.reps >= CHOICE_MAX_REPS) return null;
 
     if (item.choice) {
@@ -396,10 +422,31 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
     if (!item) return null;
     const card = await port.cardView(item.cardId);
     if (!card) return null;
-    const choices = stage === "question" ? await choicesFor(session, user, card, item, now) : null;
+
+    // One read of the card state serves the ladder, the choice options and the
+    // interval previews.
+    let cached: CardState | null | undefined;
+    const cardState = async (): Promise<CardState | null> => {
+      if (cached === undefined) cached = await port.cardState(item.cardId);
+      return cached;
+    };
+
+    // Step one of the ladder (SPEC §3.2): a card that was never rated opens
+    // with «знакомство», never with a question. A stale «Показать ответ» for
+    // such an item lands here too and simply re-renders the intro screen.
+    if ((stage === "question" || stage === "answer") && awaitsIntro(item)) {
+      // The queue item says "new"; the card row has the last word.
+      const state = await cardState();
+      if (state?.state === 0 && state.reps === 0) stage = "intro";
+    }
+
+    const choices =
+      stage === "question"
+        ? await choicesFor(session, user, card, item, await cardState(), now)
+        : null;
     let previews: Record<ReviewRating, Interval> | null = null;
     if (stage === "answer" && user.showIntervals) {
-      const state = await port.cardState(item.cardId);
+      const state = await cardState();
       if (state) {
         const scheduler = createScheduler(user.desiredRetention);
         const preview = scheduler.previewIntervals(state, now);
@@ -636,6 +683,48 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
         return viewAt({ ...session, queue: settled.items }, user, now, stage);
       }
       return viewAt(session, user, now, stage);
+    },
+
+    /**
+     * «▶️ Дальше» on the «знакомство» screen (SPEC §3.2, §3.4). This is not a
+     * rating: no FSRS, no `review_logs`, no session counters. The card is
+     * marked as introduced and put back into the session a minute later for
+     * its first real test; with nothing else left `settle` shows it early.
+     * `cardId` is null when the tap came from an outdated screen — then the
+     * current screen is simply re-rendered.
+     */
+    async introduce(input: {
+      user: User;
+      session: Session;
+      position: number;
+      now: Date;
+    }): Promise<{ view: SessionView | SessionSummary; cardId: number | null } | { kind: "stale" }> {
+      const { user, session, position, now } = input;
+      if (position !== session.position) return { kind: "stale" };
+      const item = session.queue[position];
+      if (!item) return { kind: "stale" };
+      if (!awaitsIntro(item)) {
+        const stale = await viewAt(session, user, now, "question");
+        return stale ? { view: stale, cardId: null } : { kind: "stale" };
+      }
+
+      // The copy carries `introduced`, and so does the item left behind: a
+      // rewind (`/undo`) must never bring the presentation screen back.
+      item.introduced = true;
+      const next = settle(
+        requeueCurrent({ items: session.queue, position }, now.getTime() + INTRO_RETURN_MS, {
+          intro: true,
+        }),
+        now,
+      );
+      await port.saveSession(session.id, { queue: next.items, position: next.position });
+      const updated: Session = { ...session, queue: next.items, position: next.position };
+      if (!isFinished(next)) {
+        const view = await viewAt(updated, user, now, "question");
+        if (view) return { view, cardId: item.cardId };
+      }
+      await port.finishSession(session.id, "finished");
+      return { view: await summarize(updated, now, user.streak), cardId: item.cardId };
     },
 
     /** Records a rating. `position` comes from the button and guards double taps. */

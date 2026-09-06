@@ -47,6 +47,8 @@ menu-no-decks = Пока ни одной деки. Загляни в катал�
 ## Сессия
 
 session-new = 🆕 новое
+# Знакомство — первый показ новой карточки (§3.2)
+session-intro-new = 🆕 новое слово
 session-snowball = Сначала разгребём повторения — новые сегодня не добавляю.
 card-actions-title = Что сделать с «{ $word }»?
 
@@ -381,6 +383,7 @@ btn-finish = ⏸ Закончить
 btn-card-menu = ✏️
 btn-undo = ↩️ Отменить
 btn-choice-next = ▶️ Дальше
+btn-intro-next = ▶️ Дальше
 btn-continue = ▶️ Продолжить ({ $n })
 btn-extra-new = ➕ Ещё { $n } новых
 btn-known = ✅ Знаю

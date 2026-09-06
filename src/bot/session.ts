@@ -68,9 +68,43 @@ function answerLines(view: SessionView): string[] {
 
 function header(t: Translate, view: SessionView): string[] {
   const lines = [`${bold(esc(view.card.deckTitle))}   ${view.index} / ${view.total}`];
-  if (view.isNew) lines.push(t("session-new"));
+  // The presentation screen says it in words — this word is brand new.
+  if (view.stage === "intro") lines.push(t("session-intro-new"));
+  else if (view.isNew) lines.push(t("session-new"));
   if (view.snowball) lines.push(t("session-snowball"));
   return lines;
+}
+
+/**
+ * «Знакомство» (SPEC §3.2, §3.3): the whole card at once, nothing to answer.
+ * The transcription belongs to the answer side and this screen *is* the answer
+ * side, so the "only in the answer" setting shows it here; "never" still hides
+ * it.
+ */
+function renderIntro(t: Translate, view: SessionView): Screen {
+  const pos = view.position;
+  const { card } = view;
+  const text = [
+    ...header(t, view),
+    SEPARATOR,
+    bold(esc(card.front)),
+    transcription(view, "answer"),
+    SEPARATOR,
+    esc(card.back),
+    card.example ? italic(esc(card.example)) : null,
+    card.exampleTr ? esc(card.exampleTr) : null,
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n");
+
+  const keyboard = new InlineKeyboard()
+    .text(t("btn-intro-next"), cb(NS.session, "intro", pos))
+    .row()
+    .text(t("btn-known"), cb(NS.session, "know", pos))
+    .row()
+    .text(t("btn-card-menu"), cb(NS.card, "open", pos))
+    .text(t("btn-finish"), cb(NS.session, "fin"));
+  return { text, keyboard };
 }
 
 /** What the ✏️ menu may offer beyond the fixed items. */
@@ -83,6 +117,7 @@ export interface CardMenuOptions {
 export function renderCard(t: Translate, view: SessionView, options: CardMenuOptions = {}): Screen {
   const pos = view.position;
   if (view.stage === "actions") return renderActions(t, view, options);
+  if (view.stage === "intro") return renderIntro(t, view);
 
   if (view.stage === "question") {
     if (view.choices) return renderChoice(t, view, view.choices);
@@ -398,6 +433,32 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
     await answer(ctx);
     const view = await deps.sessions.render(session, ctx.user, deps.now(), "answer");
     if (view) await renderSession(ctx, deps, session, renderCard(ctx.t.bind(ctx), view));
+  });
+
+  /** «▶️ Дальше» on the «знакомство» screen (SPEC §3.2): `s:intro:<pos>`. */
+  bot.callbackQuery(/^s:intro:/u, async (ctx) => {
+    const parsed = parseCallback(ctx.callbackQuery.data);
+    const session = await active(ctx);
+    if (!parsed || !session) return answer(ctx, ctx.t("toast-session-gone"));
+    const position = argInt(parsed, 0);
+    if (position === null) return answer(ctx);
+    const result = await deps.sessions.introduce({
+      user: ctx.user,
+      session,
+      position,
+      now: deps.now(),
+    });
+    if ("kind" in result) return answer(ctx, ctx.t("toast-already-rated"));
+    // Not a rating: the event is the only trace an introduction leaves.
+    if (result.cardId !== null) {
+      deps.events.record(ctx.user.id, "card_introduced", { cardId: result.cardId });
+    }
+    await answer(ctx);
+    if (result.view.kind === "summary") {
+      await finishAndRender(ctx, deps, result.view);
+      return;
+    }
+    await renderSession(ctx, deps, result.view.session, renderCard(ctx.t.bind(ctx), result.view));
   });
 
   bot.callbackQuery(/^s:back:/u, async (ctx) => {

@@ -7,6 +7,7 @@ export type EventName =
   | "start"
   | "onboarding_done"
   | "session_start"
+  | "card_introduced"
   | "review"
   | "session_end"
   | "word_added"

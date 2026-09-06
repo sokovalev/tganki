@@ -125,12 +125,24 @@ export function advance(state: QueueState): QueueState {
  * learning step at `notBefore`, and moves on. Used when a rating yields a
  * short (learning-step) interval. A card comes back at most `MAX_REQUEUES`
  * times per session; after that it waits for the next session.
+ *
+ * `intro` marks the return that «знакомство» schedules (SPEC §3.2): no rating
+ * was given, so the copy stays new, is marked as introduced and does not spend
+ * one of the card's `MAX_REQUEUES` returns.
  */
-export function requeueCurrent(state: QueueState, notBefore: number): QueueState {
+export function requeueCurrent(
+  state: QueueState,
+  notBefore: number,
+  options: { intro?: boolean } = {},
+): QueueState {
   const current = currentItem(state);
   if (!current) return state;
-  const requeues = (current.requeues ?? 0) + 1;
   const items = state.items.slice();
+  if (options.intro) {
+    items.push({ ...current, notBefore, introduced: true });
+    return { items, position: state.position + 1 };
+  }
+  const requeues = (current.requeues ?? 0) + 1;
   // The card is no longer new once it has been answered once.
   if (requeues <= MAX_REQUEUES)
     items.push({ cardId: current.cardId, isNew: false, notBefore, requeues });
