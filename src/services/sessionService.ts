@@ -95,6 +95,15 @@ export interface ChoiceOption {
   back: string;
 }
 
+/**
+ * `cards` row as the session service sees it: the FSRS state the scheduler
+ * needs, plus `introducedAt` — the durable half of the ladder (SPEC §3.2).
+ */
+export interface SessionCardState extends CardState {
+  /** When «знакомство» was shown for this card, ever; null = never. */
+  introducedAt: Date | null;
+}
+
 export interface SessionPort {
   queue: QueueRepo;
   undo: UndoRepo;
@@ -121,7 +130,12 @@ export interface SessionPort {
   }): Promise<ChoiceCandidate[]>;
   /** Backs of the stored options, so a re-render repeats the same question. */
   listNoteBacks(noteIds: number[]): Promise<ChoiceOption[]>;
-  cardState(cardId: number): Promise<CardState | null>;
+  cardState(cardId: number): Promise<SessionCardState | null>;
+  /**
+   * Stamps «знакомство» on the card row (SPEC §3.2). Only the first
+   * presentation is recorded: the mark says the screen happened, ever.
+   */
+  markIntroduced(cardId: number, at: Date): Promise<void>;
   applyReview(cardId: number, userId: number, result: ApplyResult): Promise<void>;
   setSuspended(cardId: number, suspended: boolean, reason?: SuspendedReason | null): Promise<void>;
   /**
@@ -237,13 +251,25 @@ export function skipCurrent(state: QueueState): { state: QueueState; buried: boo
 }
 
 /**
- * Pure: step one of the ladder (SPEC §3.2) — a new card that has not been
- * presented in this session yet owes the user a «знакомство» screen. The queue
- * item carries half of the answer; the card state (New, never rated) decides
- * the rest, see `viewAt`.
+ * Pure: the in-session half of step one of the ladder (SPEC §3.2) — this queue
+ * item has not been presented since the session started. The copy a return
+ * inserts carries the flag too, so one item never shows the presentation
+ * twice. The card row decides the rest, see `needsIntro`.
  */
 export function awaitsIntro(item: QueueItem): boolean {
   return item.isNew && !item.introduced;
+}
+
+/**
+ * Pure: does this card still owe the user a «знакомство» screen (SPEC §3.2)?
+ * Both halves have to agree — the queue item (not presented in this session)
+ * and the card row, which has the last word: a card is introduced **once
+ * ever**, so `introduced_at` being set sends it straight to the recognition
+ * step even in a brand-new session, however the previous one ended.
+ */
+export function needsIntro(item: QueueItem, state: SessionCardState | null): boolean {
+  if (!awaitsIntro(item)) return false;
+  return state !== null && state.state === 0 && state.reps === 0 && state.introducedAt === null;
 }
 
 /** Pure: undo puts the card back and removes the copy the re-queue inserted. */
@@ -425,19 +451,20 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
 
     // One read of the card state serves the ladder, the choice options and the
     // interval previews.
-    let cached: CardState | null | undefined;
-    const cardState = async (): Promise<CardState | null> => {
+    let cached: SessionCardState | null | undefined;
+    const cardState = async (): Promise<SessionCardState | null> => {
       if (cached === undefined) cached = await port.cardState(item.cardId);
       return cached;
     };
 
-    // Step one of the ladder (SPEC §3.2): a card that was never rated opens
-    // with «знакомство», never with a question. A stale «Показать ответ» for
-    // such an item lands here too and simply re-renders the intro screen.
+    // Step one of the ladder (SPEC §3.2): a card that was never presented and
+    // never rated opens with «знакомство», never with a question. A stale
+    // «Показать ответ» for such an item lands here too and simply re-renders
+    // the intro screen. A card whose `introduced_at` is already set skips
+    // straight to step two — the recognition step, i.e. «выбор из четырёх»
+    // while the style and the deck allow it, otherwise the plain reveal.
     if ((stage === "question" || stage === "answer") && awaitsIntro(item)) {
-      // The queue item says "new"; the card row has the last word.
-      const state = await cardState();
-      if (state?.state === 0 && state.reps === 0) stage = "intro";
+      if (needsIntro(item, await cardState())) stage = "intro";
     }
 
     const choices =
@@ -703,11 +730,16 @@ export function createSessionService(port: SessionPort, options: ServiceOptions 
       if (position !== session.position) return { kind: "stale" };
       const item = session.queue[position];
       if (!item) return { kind: "stale" };
-      if (!awaitsIntro(item)) {
+      if (!needsIntro(item, await port.cardState(item.cardId))) {
         const stale = await viewAt(session, user, now, "question");
         return stale ? { view: stale, cardId: null } : { kind: "stale" };
       }
 
+      // Persisted on the card, not only on the session: the presentation
+      // happens once ever (SPEC §3.2), so a session that ends before the first
+      // rating — «Закончить», an abandoned session, a returned copy nobody got
+      // to — does not offer it again tomorrow.
+      await port.markIntroduced(item.cardId, now);
       // The copy carries `introduced`, and so does the item left behind: a
       // rewind (`/undo`) must never bring the presentation screen back.
       item.introduced = true;

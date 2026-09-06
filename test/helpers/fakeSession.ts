@@ -1,7 +1,10 @@
-import type { CardState } from "../../src/core/scheduler.js";
 import type { ReviewLogSnapshot } from "../../src/core/undo.js";
 import type { CardMode, Session, SuspendedReason, User } from "../../src/db/schema.js";
-import type { SessionCardView, SessionPort } from "../../src/services/sessionService.js";
+import type {
+  SessionCardState,
+  SessionCardView,
+  SessionPort,
+} from "../../src/services/sessionService.js";
 
 export function makeUser(overrides: Partial<User> = {}): User {
   return {
@@ -51,7 +54,8 @@ export interface FakeCard {
   exampleTr: string | null;
   /** First tag of the note — what «выбор из четырёх» matches on (SPEC §3.2). */
   tag: string | null;
-  state: CardState;
+  /** FSRS state plus `introduced_at` — the `cards` row the service reads. */
+  state: SessionCardState;
   suspended: boolean;
   suspendedReason: SuspendedReason | null;
   buriedUntil: Date | null;
@@ -88,6 +92,7 @@ export function makeCard(id: number, now: Date, overrides: Partial<FakeCard> = {
       elapsedDays: 0,
       scheduledDays: 0,
       learningSteps: 0,
+      introducedAt: null,
     },
     suspended: false,
     suspendedReason: null,
@@ -247,7 +252,9 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
       },
       async revert(log, card) {
         const row = state.cards.get(log.cardId);
-        if (row) row.state = card;
+        // Like `reviewLogs.revert`, only the FSRS columns are restored:
+        // undoing the first rating must not un-introduce the card (SPEC §3.2).
+        if (row) row.state = { ...card, introducedAt: row.state.introducedAt };
         state.logs = state.logs.filter((entry) => entry.id !== log.id);
       },
     },
@@ -327,7 +334,14 @@ export function createFakePort(cards: FakeCard[], options: Partial<FakeState> = 
       const card = state.cards.get(cardId);
       if (!card) return;
       state.logs.push({ id: state.nextLogId++, cardId, userId, ...result.log });
-      card.state = result.card;
+      // The real repo writes the FSRS columns only; `introduced_at` stays.
+      card.state = { ...result.card, introducedAt: card.state.introducedAt };
+    },
+
+    /** Idempotent, like the `where introduced_at is null` in the real repo. */
+    async markIntroduced(cardId, at) {
+      const card = state.cards.get(cardId);
+      if (card && card.state.introducedAt === null) card.state.introducedAt = at;
     },
 
     async setSuspended(cardId, suspended, reason = null) {

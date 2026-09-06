@@ -243,6 +243,21 @@ export function createCardsRepo(db: Database) {
       }));
     },
 
+    /**
+     * How much of today's new-card allowance is already spent (SPEC §3.1).
+     *
+     * The unit counted is the **first rating** of a card — a `review_logs` row
+     * whose `state_before` is New — not the card row and not `introduced_at`.
+     * That is what makes an introduced-but-unrated card behave: it wrote no
+     * log, so it never spent the allowance, neither on the day it was
+     * introduced nor on any later one. `listNewCandidates` still returns it
+     * (the row is New and not suspended), so the next session picks it up
+     * again, walks it straight to the recognition step (its `introduced_at` is
+     * set) and charges the allowance only once — on the day it is finally
+     * rated. Counting `introduced_at` here instead would be worse: a session
+     * abandoned right after ten presentations would burn the whole day's
+     * allowance and then hand out no new cards at all.
+     */
     async countNewIntroducedSince(input: { userId: number; since: Date }): Promise<number> {
       const [row] = await db
         .select({ count: sql<number>`count(*)::int` })
@@ -277,6 +292,19 @@ export function createCardsRepo(db: Database) {
         })
         .returning({ id: cards.id });
       return row!.id;
+    },
+
+    /**
+     * Stamps the «знакомство» screen on the card (SPEC §3.2). `where
+     * introduced_at is null` makes it idempotent: the mark records that the
+     * presentation happened at all, so a stale tap cannot move it, and no later
+     * write — a rating, an `/undo` — ever clears it again.
+     */
+    async markIntroduced(cardId: number, at: Date): Promise<void> {
+      await db
+        .update(cards)
+        .set({ introducedAt: at })
+        .where(and(eq(cards.id, cardId), isNull(cards.introducedAt)));
     },
 
     /** Persists a rating: updates the card and appends its undo snapshot. */

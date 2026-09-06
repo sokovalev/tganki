@@ -890,6 +890,102 @@ describe("introduction", () => {
     expect(result.view.stage).toBe("question");
     expect(result.view.card.cardId).toBe(1);
     expect(result.view.session.stats).toMatchObject({ reviewed: 0, newLearned: 0 });
+    // The presentation is persisted on the card, not only on the queue item.
+    expect(fixture.fake.state.cards.get(1)?.state.introducedAt).toEqual(NOW);
+  });
+
+  it("never presents the card a second time, in any later session", async () => {
+    const fixture = setup();
+    const intro = await open(fixture, [1]);
+    expect(intro.stage).toBe("intro");
+    await introduce(fixture, intro);
+    expect(fixture.fake.state.cards.get(1)?.state.introducedAt).toEqual(NOW);
+
+    // «Закончить»: the session ends before the card was ever rated.
+    await fixture.service.finish({
+      user: fixture.user,
+      session: fixture.fake.state.sessions[0]!,
+      now: NOW,
+    });
+
+    // Tomorrow's session finds a card that is still New and still unrated —
+    // and opens it at step two, the recognition step, not at the presentation.
+    const tomorrow = new Date(NOW.getTime() + 24 * 60 * 60 * 1000);
+    const again = await open(fixture, [1], tomorrow);
+    expect(again.session.id).not.toBe(intro.session.id);
+    expect(again.stage).toBe("question");
+    expect(again.choices).toHaveLength(4);
+    expect(fixture.fake.state.cards.get(1)?.state.reps).toBe(0);
+  });
+
+  it("opens an already introduced card with «Показать ответ» in the reveal style", async () => {
+    const fixture = setup({ user: makeUser({ newCardStyle: "reveal" }) });
+    await introduce(fixture, await open(fixture, [1]));
+    await fixture.service.finish({
+      user: fixture.user,
+      session: fixture.fake.state.sessions[0]!,
+      now: NOW,
+    });
+
+    const again = await open(fixture, [1], new Date(NOW.getTime() + 24 * 60 * 60 * 1000));
+    expect(again.stage).toBe("question");
+    expect(again.choices).toBeNull();
+  });
+
+  it("keeps the mark when the first rating is undone", async () => {
+    const fixture = setup({ user: makeUser({ newCardStyle: "reveal" }) });
+    const asked = await openTest(fixture, [1]);
+    expect(fixture.fake.state.cards.get(1)?.state.introducedAt).toEqual(NOW);
+
+    const rated = await fixture.service.rate({
+      user: fixture.user,
+      session: asked.session,
+      position: asked.position,
+      rating: 3,
+      now: NOW,
+    });
+    if (rated.kind !== "card") throw new Error("expected the learning step");
+
+    const undone = await fixture.service.undo({
+      user: fixture.user,
+      session: rated.session,
+      now: NOW,
+    });
+    if ("kind" in undone && undone.kind === "nothing") throw new Error("expected a view");
+    // The rating is rolled back, the presentation is not: it really happened.
+    expect(fixture.fake.state.logs).toHaveLength(0);
+    expect(fixture.fake.state.cards.get(1)?.state.reps).toBe(0);
+    expect(fixture.fake.state.cards.get(1)?.state.introducedAt).toEqual(NOW);
+    expect(undone.stage).toBe("question");
+  });
+
+  it("re-offers a card introduced yesterday and never rated, at the recognition step", async () => {
+    const yesterday = new Date(NOW.getTime() - 24 * 60 * 60 * 1000);
+    const carried = makeCard(1, yesterday, {
+      noteId: 101,
+      front: "reluctant",
+      back: "неохотный",
+      tag: "adjective",
+    });
+    // Yesterday's session presented it and ended before the first rating.
+    carried.state = { ...carried.state, introducedAt: yesterday };
+    const fake = createFakePort([carried], { deckNotes: DECK_NOTES, newCandidateIds: [1] });
+    const service = createSessionService(fake.port);
+
+    const started = await service.start({
+      user: DEFAULT_USER,
+      deckId: null,
+      chatId: CHAT,
+      now: NOW,
+    });
+    if (started.kind !== "card") throw new Error("expected a card");
+    // Nothing was rated yesterday, so the card is still New: today's queue
+    // takes it back, and today's allowance — which counts first ratings, not
+    // presentations (SPEC §3.1) — is untouched by yesterday's introduction.
+    expect(started.card.cardId).toBe(1);
+    expect(started.isNew).toBe(true);
+    expect(started.stage).toBe("question");
+    expect(started.choices).toHaveLength(4);
   });
 
   it("lets other cards in before the introduced one comes back", async () => {

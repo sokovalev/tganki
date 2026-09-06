@@ -36,6 +36,13 @@
       "when": 1788700428272,
       "tag": "0004_new_card_style",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788713148024,
+      "tag": "0005_card_introduced_at",
+      "breakpoints": true
     }
   ]
 }

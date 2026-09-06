@@ -1,0 +1,1 @@
+ALTER TABLE "cards" ADD COLUMN "introduced_at" timestamp with time zone;

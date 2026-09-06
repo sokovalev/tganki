@@ -43,8 +43,12 @@ export function createSessionPort(db: Database, repos: Repos): SessionPort {
 
     async cardState(cardId) {
       const card = await repos.cards.findById(cardId);
-      return card ? toCardState(card) : null;
+      // `introduced_at` rides along with the FSRS state: the ladder (SPEC §3.2)
+      // needs both to decide whether the card still owes a «знакомство» screen.
+      return card ? { ...toCardState(card), introducedAt: card.introducedAt } : null;
     },
+
+    markIntroduced: (cardId, at) => repos.cards.markIntroduced(cardId, at),
 
     applyReview: (cardId, userId, result) => repos.cards.applyReview(cardId, userId, result),
     setSuspended: (cardId, suspended, reason = null) =>

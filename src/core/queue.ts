@@ -39,7 +39,11 @@ export interface QueueRepo {
     deckId: number | null;
     limit: number;
   }): Promise<NewCandidate[]>;
-  /** New cards already introduced since the start of the user's learning day. */
+  /**
+   * New cards already started since the start of the user's learning day —
+   * counted by their first rating, so a card that only got its «знакомство»
+   * screen has not spent the allowance yet (SPEC §3.1, §3.2).
+   */
   countNewIntroducedSince(input: { userId: number; since: Date }): Promise<number>;
   /** Creates the lazily-materialized card row and returns its id. */
   createCard(input: { userId: number; noteId: number; mode: CardMode; due: Date }): Promise<number>;
@@ -78,6 +82,10 @@ export async function buildQueue(repo: QueueRepo, options: BuildQueueOptions): P
   const introduced = await repo.countNewIntroducedSince({ userId, since: dayStart });
   const allowance = Math.max(0, dailyNewLimit - introduced);
 
+  // A card that was presented («знакомство») but never rated — the session
+  // ended in between — is still a New card: it costs nothing here, and
+  // `listNewCandidates` hands it back, so it returns in the next session and
+  // goes straight to its recognition step (SPEC §3.2).
   let newCount = 0;
   if (allowance > 0) {
     const candidates = await repo.listNewCandidates({ userId, deckId, limit: allowance });

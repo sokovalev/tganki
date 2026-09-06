@@ -228,6 +228,13 @@ export const cards = pgTable(
     scheduledDays: integer("scheduled_days").notNull().default(0),
     /** Index into the FSRS (re)learning steps. */
     learningSteps: integer("learning_steps").notNull().default(0),
+    /**
+     * When the «знакомство» screen was shown for this card (SPEC §3.2). Set
+     * once and never cleared — not by a rating, not by `/undo` — so a session
+     * that ended before the first rating does not present the card again.
+     * null = the presentation is still owed.
+     */
+    introducedAt: timestamp("introduced_at", { withTimezone: true }),
     suspended: boolean("suspended").notNull().default(false),
     /** Why the card was switched off; only meaningful while `suspended` is true. */
     suspendedReason: text("suspended_reason").$type<SuspendedReason>(),
