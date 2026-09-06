@@ -615,8 +615,8 @@ describe("introduction screen (SPEC §3.2)", () => {
     expect(screen.text).toContain("🆕 new word");
     expect(screen.text).toContain("<b>reluctant</b>");
     expect(buttons(screen.keyboard).map((b) => b.text)).toEqual([
-      "▶️ Next",
       "✅ I know it",
+      "📖 Don't know",
       "✏️",
       "⏸ Finish",
     ]);
