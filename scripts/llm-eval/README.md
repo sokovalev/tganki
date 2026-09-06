@@ -228,4 +228,6 @@ extrapolated from that — trust the report, not this table.
 - Переменные: `OPENROUTER_API_KEY` (обязательно), `EVAL_OUT` (папка результатов, на Railway — волюм `/data/results`),
   `EVAL_RUN_ID` (по умолчанию `railway`), `EVAL_MODELS`, `EVAL_JUDGE` (необязательно).
 - Все стадии возобновляемые: повторный деплой продолжает прерванный прогон, а не платит заново.
+  `EVAL_RETRY_FAILED=1` (или `pnpm eval:run --retry-failed`) заново вызывает только неудачные записи.
+  После каждой модели в лог печатается сводка самых частых ошибок.
   Чтобы начать с нуля, задайте новый `EVAL_RUN_ID`.

@@ -129,6 +129,23 @@ async function callOne(
   }
 }
 
+/** Top distinct error messages with counts, so a systematic failure shows up in the logs. */
+export function failureSummary(records: readonly CallRecord[], top = 5): string[] {
+  const counts = new Map<string, { n: number; cases: string[] }>();
+  for (const record of records) {
+    if (record.error === null) continue;
+    const key = record.error.replace(/\s+/gu, " ").slice(0, 160);
+    const entry = counts.get(key) ?? { n: 0, cases: [] };
+    entry.n += 1;
+    if (entry.cases.length < 3) entry.cases.push(record.caseId);
+    counts.set(key, entry);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1].n - a[1].n)
+    .slice(0, top)
+    .map(([error, { n, cases }]) => `✗ ${n}× ${error} (e.g. ${cases.join(", ")})`);
+}
+
 /** Keeps the file in case order so a human can diff two runs. */
 function sortRecords(records: CallRecord[], order: ReadonlyMap<string, number>): CallRecord[] {
   return records
@@ -148,6 +165,7 @@ async function main(): Promise<void> {
   const resultsDir = stringArg(args, "out", DEFAULT_RESULTS_DIR);
   const runId = stringArg(args, "run", newRunId());
   const repeats = intArg(args, "repeat", 1);
+  const retryFailed = args["retry-failed"] === true || process.env.EVAL_RETRY_FAILED === "1";
   const concurrency = intArg(args, "concurrency", 4);
   const requested = listArg(args, "models") ?? DEFAULT_MODELS;
 
@@ -202,6 +220,13 @@ async function main(): Promise<void> {
       createdAt: new Date().toISOString(),
       records: [],
     };
+    const prefix = `[${index + 1}/${models.length}] ${model}`;
+    if (retryFailed) {
+      const before = run.records.length;
+      run.records = run.records.filter((record) => record.error === null);
+      const dropped = before - run.records.length;
+      if (dropped > 0) console.log(`${prefix} — retrying ${dropped} failed records`);
+    }
     const done = new Set(run.records.map((record) => `${record.caseId}#${record.repeat}`));
     const todo: { evalCase: EvalCase; repeat: number }[] = [];
     for (let repeat = 0; repeat < repeats; repeat += 1) {
@@ -210,7 +235,6 @@ async function main(): Promise<void> {
       }
     }
 
-    const prefix = `[${index + 1}/${models.length}] ${model}`;
     if (todo.length === 0) {
       console.log(`${prefix} — nothing to do (${run.records.length} records on disk)`);
       grandTotal += run.records.reduce((sum, record) => sum + record.usage.costUsd, 0);
@@ -238,6 +262,7 @@ async function main(): Promise<void> {
     const errors = run.records.filter((record) => record.error !== null).length;
     const cost = run.records.reduce((sum, record) => sum + record.usage.costUsd, 0);
     grandTotal += cost;
+    for (const line of failureSummary(run.records)) console.log(`${prefix}   ${line}`);
     const fallbacks = run.records.filter((record) => record.mode === "json_object").length;
     console.log(
       `${prefix} — done: ${run.records.length} records, ${errors} failed, ${usd(cost)}` +

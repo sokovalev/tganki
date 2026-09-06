@@ -7,7 +7,8 @@
  * Env: OPENROUTER_API_KEY (required to run), EVAL_OUT (results dir,
  * default ./scripts/llm-eval/results), EVAL_RUN_ID (default "railway"),
  * EVAL_MODELS (comma-separated OpenRouter ids, optional), EVAL_JUDGE
- * (optional judge model id), PORT (default 3000).
+ * (optional judge model id), EVAL_RETRY_FAILED=1 (drop failed records and
+ * call them again on the next start), PORT (default 3000).
  */
 import { spawn } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
