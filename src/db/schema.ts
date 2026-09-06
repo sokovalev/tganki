@@ -121,6 +121,12 @@ export const users = pgTable(
     blockedAt: timestamp("blocked_at", { withTimezone: true }),
     /** Learning day of the last reminder we sent, "YYYY-MM-DD". */
     lastRemindedDay: date("last_reminded_day"),
+    /** «Стрик в опасности» at 21:00 local (SPEC §6.2); rides on `reminder_time`. */
+    streakNudge: boolean("streak_nudge").notNull().default(true),
+    /** Learning day of the last streak nudge, "YYYY-MM-DD". */
+    lastStreakNudgeDay: date("last_streak_nudge_day"),
+    /** ISO week of the last weekly report, e.g. "2026-W36" (SPEC §6.3). */
+    lastWeeklyReportWeek: text("last_weekly_report_week"),
     /** Render FSRS interval hints under the rating buttons. */
     showIntervals: boolean("show_intervals").notNull().default(true),
     /** Where to show the transcription: on both sides, only in the answer, or never. */

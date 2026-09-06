@@ -287,6 +287,7 @@ settings-learn = Учу: { $value }
 settings-target = Переводить на: { $value }
 settings-new-limit = Новых карточек в день: { $value }
 settings-reminder = Напоминание: { $value }
+settings-streak-nudge = Напоминать о стрике: { $value }
 settings-tz = Часовой пояс: { $value } (сейчас { $time })
 settings-intervals = Показывать интервалы: { $value }
 settings-transcription = Транскрипция: { $value }
@@ -353,6 +354,38 @@ reminder-streak = 🔥 Стрик { $n ->
         [few] { $n } дня
        *[other] { $n } дней
     } — не потеряй.
+streak-nudge-text = 🔥 Стрик { $n ->
+        [one] { $n } день
+        [few] { $n } дня
+       *[other] { $n } дней
+    } сгорит через { $hours ->
+        [one] { $hours } час
+        [few] { $hours } часа
+       *[other] { $hours } часов
+    }. Сегодня ещё ни одной карточки. Хватит и пяти минут.
+streak-nudge-freeze = Заморозка спасёт стрик один раз, но лучше не тратить.
+
+## Недельный отчёт
+
+weekly-title = 📈 Неделя { $from } – { $to }
+weekly-reviews = Повторений: { $reviews } · Точность: { $accuracy } %
+weekly-new = Новых слов: { $new } · Выучено (стабильность ≥ { $mature } д): { $learned }
+weekly-days = Дней с занятиями: { $days } из { $total } · 🔥 Стрик: { $streak }
+weekly-hardest = Самые трудные: { $words }
+weekly-forecast = Ближайшая неделя: ~{ $reviews ->
+        [one] { $reviews } повторение
+        [few] { $reviews } повторения
+       *[other] { $reviews } повторений
+    }
+weekly-idle =
+    На этой неделе не было занятий. { $n ->
+        [0] Начнём заново — хватит и пяти минут.
+       *[other] 🔥 Стрик: { $n ->
+            [one] { $n } день
+            [few] { $n } дня
+           *[other] { $n } дней
+        } — вернись, пока он держится.
+    }
 
 ## Кнопки
 
@@ -426,6 +459,7 @@ btn-set-learn-lang = Язык обучения
 btn-set-target-lang = 🌐 Язык перевода
 btn-set-new-limit = Новых в день
 btn-set-reminder = Напоминание
+btn-set-streak-nudge = 🔥 Про стрик
 btn-set-tz = Часовой пояс
 btn-set-intervals = Интервалы
 btn-set-transcription = Транскрипция

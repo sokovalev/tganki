@@ -264,6 +264,7 @@ settings-learn = Learning: { $value }
 settings-target = Translate into: { $value }
 settings-new-limit = New cards per day: { $value }
 settings-reminder = Reminder: { $value }
+settings-streak-nudge = Streak warnings: { $value }
 settings-tz = Timezone: { $value } (now { $time })
 settings-intervals = Show intervals: { $value }
 settings-transcription = Transcription: { $value }
@@ -327,6 +328,31 @@ reminder-streak = 🔥 A { $n ->
         [one] { $n } day
        *[other] { $n } days
     } streak — do not lose it.
+streak-nudge-text = 🔥 Your { $n }-day streak burns out in { $hours ->
+        [one] { $hours } hour
+       *[other] { $hours } hours
+    }. Not a single card today. Five minutes is enough.
+streak-nudge-freeze = A freeze would save it once, but better not to spend it.
+
+## Weekly report
+
+weekly-title = 📈 Week of { $from } – { $to }
+weekly-reviews = Reviews: { $reviews } · Accuracy: { $accuracy } %
+weekly-new = New words: { $new } · Learned (stability ≥ { $mature } d): { $learned }
+weekly-days = Days studied: { $days } of { $total } · 🔥 Streak: { $streak }
+weekly-hardest = Hardest: { $words }
+weekly-forecast = Coming week: ~{ $reviews ->
+        [one] { $reviews } review
+       *[other] { $reviews } reviews
+    }
+weekly-idle =
+    No study this week. { $n ->
+        [0] Let us start over — five minutes is enough.
+       *[other] 🔥 Streak: { $n ->
+            [one] { $n } day
+           *[other] { $n } days
+        } — come back while it holds.
+    }
 
 ## Buttons
 
@@ -400,6 +426,7 @@ btn-set-learn-lang = Learning language
 btn-set-target-lang = 🌐 Translation language
 btn-set-new-limit = New per day
 btn-set-reminder = Reminder
+btn-set-streak-nudge = 🔥 Streak warnings
 btn-set-tz = Timezone
 btn-set-intervals = Intervals
 btn-set-transcription = Transcription

@@ -43,6 +43,13 @@
       "when": 1788713148024,
       "tag": "0005_card_introduced_at",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788716326794,
+      "tag": "0006_streak_nudge",
+      "breakpoints": true
     }
   ]
 }

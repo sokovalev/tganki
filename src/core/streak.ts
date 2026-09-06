@@ -56,7 +56,8 @@ export interface StreakUpdate extends StreakState {
   reset: boolean;
 }
 
-function freezeAvailable(state: StreakState, today: DayKey): boolean {
+/** Is the weekly freeze still unspent on `today`? (Shown in the streak nudge, §6.2.) */
+export function freezeAvailable(state: StreakState, today: DayKey): boolean {
   return state.freezeDay === null || daysBetween(state.freezeDay, today) >= FREEZE_WINDOW_DAYS;
 }
 

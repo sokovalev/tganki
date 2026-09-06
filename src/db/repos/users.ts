@@ -1,4 +1,4 @@
-import { and, eq, gte, inArray, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull, isNull, notInArray, or, sql } from "drizzle-orm";
 import type { StreakUpdate } from "../../core/streak.js";
 import type { Database } from "../index.js";
 import {
@@ -88,6 +88,14 @@ export function createUsersRepo(db: Database) {
       await db.update(users).set({ lastRemindedDay: day }).where(eq(users.id, id));
     },
 
+    async markStreakNudged(id: number, day: string): Promise<void> {
+      await db.update(users).set({ lastStreakNudgeDay: day }).where(eq(users.id, id));
+    },
+
+    async markWeeklyReported(id: number, week: string): Promise<void> {
+      await db.update(users).set({ lastWeeklyReportWeek: week }).where(eq(users.id, id));
+    },
+
     /**
      * Users whose local reminder time could be firing right now. The exact
      * timezone comparison happens in `services/reminderService.ts`; this only
@@ -104,6 +112,55 @@ export function createUsersRepo(db: Database) {
             isNull(users.blockedAt),
             isNull(users.onboardingStep),
             inArray(users.reminderTime, localTimes),
+          ),
+        );
+    },
+
+    /**
+     * Candidates for «стрик в опасности» (SPEC §6.2). The 21:00 comparison
+     * needs the timezone and happens in `services/reminderService.ts`; here we
+     * drop everyone who can never qualify — reminders off, blocked, too short a
+     * streak, the toggle off — plus everyone who already studied or was already
+     * nudged on any learning day that is "today" somewhere on the planet.
+     */
+    listStreakNudgeCandidates(input: { days: string[]; minStreak: number }): Promise<User[]> {
+      if (input.days.length === 0) return Promise.resolve([]);
+      return db
+        .select()
+        .from(users)
+        .where(
+          and(
+            isNotNull(users.reminderTime),
+            eq(users.streakNudge, true),
+            isNull(users.blockedAt),
+            isNull(users.onboardingStep),
+            gte(users.streak, input.minStreak),
+            or(isNull(users.lastStreakNudgeDay), notInArray(users.lastStreakNudgeDay, input.days)),
+            or(isNull(users.streakLastDay), notInArray(users.streakLastDay, input.days)),
+          ),
+        );
+    },
+
+    /**
+     * Candidates for the Monday report (SPEC §6.3): reminders on, not blocked,
+     * a review in the last 14 days (`streak_last_day` is written by every
+     * session) and no report yet for the ISO week they are currently in.
+     */
+    listWeeklyReportCandidates(input: { weeks: string[]; activeSince: string }): Promise<User[]> {
+      if (input.weeks.length === 0) return Promise.resolve([]);
+      return db
+        .select()
+        .from(users)
+        .where(
+          and(
+            isNotNull(users.reminderTime),
+            isNull(users.blockedAt),
+            isNull(users.onboardingStep),
+            gte(users.streakLastDay, input.activeSince),
+            or(
+              isNull(users.lastWeeklyReportWeek),
+              notInArray(users.lastWeeklyReportWeek, input.weeks),
+            ),
           ),
         );
     },
@@ -131,6 +188,7 @@ export function createUsersRepo(db: Database) {
             streakLastDay: null,
             streakFreezeDay: null,
             lastRemindedDay: null,
+            lastStreakNudgeDay: null,
             updatedAt: new Date(),
           })
           .where(eq(users.id, id));

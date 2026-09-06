@@ -191,12 +191,18 @@ export function createBot(options: CreateBotOptions): BotHandle {
   const reminders = createReminderService(
     {
       listCandidates: (times) => repos.users.listReminderCandidates(times),
+      listStreakNudgeCandidates: (input) => repos.users.listStreakNudgeCandidates(input),
+      listWeeklyReportCandidates: (input) => repos.users.listWeeklyReportCandidates(input),
       counters: (input) => repos.stats.menuCounters(input),
+      weekly: (input) => repos.stats.weeklyReport(input),
       markReminded: (userId, day) => repos.users.markReminded(userId, day),
+      markStreakNudged: (userId, day) => repos.users.markStreakNudged(userId, day),
+      markWeeklyReported: (userId, week) => repos.users.markWeeklyReported(userId, week),
       markBlocked: async (userId, at) => {
         await repos.users.markBlocked(userId, at);
         events.record(userId, "blocked", {});
       },
+      record: (userId, name, props) => events.record(userId, name, props),
     },
     createReminderSender(bot, i18n, logger),
     { logger },

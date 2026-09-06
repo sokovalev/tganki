@@ -21,6 +21,8 @@ export type EventName =
   | "deck_deleted"
   | "reminder_sent"
   | "reminder_clicked"
+  | "streak_nudge_sent"
+  | "weekly_report_sent"
   | "pro_screen"
   | "payment"
   | "note_reported"

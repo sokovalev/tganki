@@ -34,6 +34,24 @@ export interface Forecast {
   week: number;
 }
 
+/** Everything the Monday report needs (SPEC §6.3), for one user. */
+export interface WeeklyReport {
+  reviews: number;
+  correct: number;
+  /** Cards met for the first time this week. */
+  newCards: number;
+  /** Cards that crossed the 21-day stability line this week and are still above it. */
+  learned: number;
+  /** Learning days with at least one review, 0..7. */
+  daysStudied: number;
+  /** Reviews in the week before this one: tells a quiet week from a brand-new user. */
+  prevReviews: number;
+  /** Cards falling due within the next 7 learning days. */
+  forecast: number;
+  /** Up to three words with the most «Снова» this week, hardest first. */
+  hardest: string[];
+}
+
 export interface AdminSummary {
   usersTotal: number;
   usersToday: number;
@@ -171,6 +189,76 @@ export function createStatsRepo(db: Database) {
       `)) as unknown as Array<Record<string, number>>;
       const row = rows[0] ?? {};
       return { tomorrow: Number(row.tomorrow ?? 0), week: Number(row.week ?? 0) };
+    },
+
+    /**
+     * The Monday report over one closed week: `[weekStart, weekEnd)` are the
+     * learning-day boundaries of the week that just ended, `prevStart` the one
+     * before it, `forecastEnd` the end of the coming week.
+     *
+     * «Выучено» counts cards that were still under the mature threshold at some
+     * review this week and stand above it now — the week they graduated.
+     * «Дней с занятиями» buckets reviews into 24-hour slices from `weekStart`,
+     * which is exactly a learning day for the fixed offsets we store (SPEC §1).
+     */
+    async weeklyReport(input: {
+      userId: number;
+      weekStart: Date;
+      weekEnd: Date;
+      prevStart: Date;
+      forecastEnd: Date;
+    }): Promise<WeeklyReport> {
+      const day = sql`floor(extract(epoch from (rl.reviewed_at - ${ts(input.weekStart)})) / 86400)`;
+      const rows = (await db.execute(sql`
+        select
+          count(*) filter (where rl.reviewed_at >= ${ts(input.weekStart)})::int as reviews,
+          count(*) filter (where rl.reviewed_at >= ${ts(input.weekStart)} and rl.rating > 1)::int
+            as correct,
+          count(*) filter (where rl.reviewed_at >= ${ts(input.weekStart)}
+                             and rl.state_before = 0)::int as new_cards,
+          count(*) filter (where rl.reviewed_at < ${ts(input.weekStart)})::int as prev_reviews,
+          count(distinct ${day}) filter (where rl.reviewed_at >= ${ts(input.weekStart)})::int
+            as days_studied,
+          (select count(distinct c.id) from cards c
+             join review_logs r2 on r2.card_id = c.id
+            where c.user_id = ${input.userId}
+              and c.stability >= ${MATURE_STABILITY_DAYS}
+              and r2.stability_before < ${MATURE_STABILITY_DAYS}
+              and r2.reviewed_at >= ${ts(input.weekStart)}
+              and r2.reviewed_at < ${ts(input.weekEnd)})::int as learned,
+          (select count(*) from cards c
+             join notes n on n.id = c.note_id
+             join user_decks ud on ud.deck_id = n.deck_id and ud.user_id = c.user_id
+            where c.user_id = ${input.userId} and c.suspended = false and c.state <> 0
+              and c.due <= ${ts(input.forecastEnd)})::int as forecast
+        from review_logs rl
+        where rl.user_id = ${input.userId}
+          and rl.reviewed_at >= ${ts(input.prevStart)}
+          and rl.reviewed_at < ${ts(input.weekEnd)}
+      `)) as unknown as Array<Record<string, number>>;
+      const row = rows[0] ?? {};
+      const hard = (await db.execute(sql`
+        select n.front as front, count(*)::int as again
+        from review_logs rl
+        join cards c on c.id = rl.card_id
+        join notes n on n.id = c.note_id
+        where rl.user_id = ${input.userId} and rl.rating = 1
+          and rl.reviewed_at >= ${ts(input.weekStart)}
+          and rl.reviewed_at < ${ts(input.weekEnd)}
+        group by n.front
+        order by again desc, n.front asc
+        limit 3
+      `)) as unknown as Array<{ front: string }>;
+      return {
+        reviews: Number(row.reviews ?? 0),
+        correct: Number(row.correct ?? 0),
+        newCards: Number(row.new_cards ?? 0),
+        learned: Number(row.learned ?? 0),
+        daysStudied: Number(row.days_studied ?? 0),
+        prevReviews: Number(row.prev_reviews ?? 0),
+        forecast: Number(row.forecast ?? 0),
+        hardest: hard.map((r) => r.front),
+      };
     },
 
     async adminSummary(since: Date): Promise<AdminSummary> {

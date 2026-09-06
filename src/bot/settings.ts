@@ -50,6 +50,11 @@ export function renderSettings(
     t("settings-target", { value: languageName(user.langTo ?? user.uiLang, user.uiLang) }),
     t("settings-new-limit", { value: user.dailyNewLimit }),
     t("settings-reminder", { value: user.reminderTime ?? t("settings-off") }),
+    // Rides on the reminder switch: with reminders off there is nothing to
+    // toggle, and the weekly report follows the same switch (SPEC §6.2, §6.3).
+    t("settings-streak-nudge", {
+      value: user.reminderTime && user.streakNudge ? t("btn-on") : t("btn-off"),
+    }),
     t("settings-tz", { value: user.tz, time: localNow }),
     t("settings-intervals", { value: user.showIntervals ? t("btn-on") : t("btn-off") }),
     t("settings-transcription", { value: t(`tr-mode-${user.transcriptionMode}`) }),
@@ -67,6 +72,8 @@ export function renderSettings(
     .row()
     .text(t("btn-set-new-limit"), cb(NS.settings, "new"))
     .text(t("btn-set-reminder"), cb(NS.settings, "rem"))
+    .row()
+    .text(t("btn-set-streak-nudge"), cb(NS.settings, "sn"))
     .row()
     .text(t("btn-set-tz"), cb(NS.settings, "tz"))
     .text(t("btn-set-intervals"), cb(NS.settings, "iv"))
@@ -316,6 +323,12 @@ export function installSettings(bot: Bot<BotContext>, deps: BotDeps): void {
         reminderTime: value === "off" ? null : normalizeReminderTime(value),
       }),
     );
+    await showSettings(ctx, deps);
+  });
+
+  bot.callbackQuery("set:sn", async (ctx) => {
+    await answer(ctx);
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { streakNudge: !ctx.user.streakNudge }));
     await showSettings(ctx, deps);
   });
 
