@@ -588,18 +588,23 @@ describe("introduction screen (SPEC §3.2)", () => {
     );
   });
 
-  it("offers «Дальше», «Знаю» and the usual tail — no answer and no ratings", () => {
+  it("asks «Знаю» / «Не знаю» and keeps the usual tail — no answer and no ratings", () => {
     const screen = renderCard(ru, intro);
     expect(buttons(screen.keyboard).map((b) => b.text)).toEqual([
-      "▶️ Дальше",
       "✅ Знаю",
+      "📖 Не знаю",
       "✏️",
       "⏸ Закончить",
     ]);
+    expect(
+      buttons(renderCard(en, intro).keyboard)
+        .map((b) => b.text)
+        .slice(0, 2),
+    ).toEqual(["✅ I know it", "📖 Don't know"]);
     const data = buttons(screen.keyboard).map((button) =>
       "callback_data" in button ? button.callback_data : "",
     );
-    expect(data).toEqual(["s:intro:11", "s:know:11", "c:open:11", "s:fin"]);
+    expect(data).toEqual(["s:know:11", "s:intro:11", "c:open:11", "s:fin"]);
     expect(data.some((item) => item.startsWith("r:") || item.startsWith("s:show"))).toBe(false);
     for (const item of data)
       expect(callbackByteLength(item)).toBeLessThanOrEqual(MAX_CALLBACK_BYTES);

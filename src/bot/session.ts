@@ -97,10 +97,11 @@ function renderIntro(t: Translate, view: SessionView): Screen {
     .filter((line): line is string => line !== null)
     .join("\n");
 
+  // A first meeting is a yes/no question, not a "next": «Знаю» switches the
+  // word off everywhere, «Не знаю» starts learning it (SPEC §3.2).
   const keyboard = new InlineKeyboard()
-    .text(t("btn-intro-next"), cb(NS.session, "intro", pos))
-    .row()
     .text(t("btn-known"), cb(NS.session, "know", pos))
+    .text(t("btn-intro-next"), cb(NS.session, "intro", pos))
     .row()
     .text(t("btn-card-menu"), cb(NS.card, "open", pos))
     .text(t("btn-finish"), cb(NS.session, "fin"));
