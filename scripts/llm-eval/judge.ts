@@ -89,6 +89,24 @@ async function main(): Promise<void> {
   });
   const limit = createLimiter(concurrency);
 
+  // A case judged while some models still had failed records compares fewer
+  // labels than are available now: drop it so every model is scored on the
+  // same cases. Errors from earlier attempts are not carried over either.
+  judge.errors = [];
+  let stale = 0;
+  for (const evalCase of cases) {
+    const assignment = judge.assignments[evalCase.id];
+    if (assignment === undefined) continue;
+    const available = runs.filter((run) =>
+      run.records.some((r) => r.caseId === evalCase.id && r.repeat === 0 && r.card !== null),
+    ).length;
+    if (Object.keys(assignment).length < available) {
+      delete judge.assignments[evalCase.id];
+      judge.scores = judge.scores.filter((score) => score.caseId !== evalCase.id);
+      stale += 1;
+    }
+  }
+  if (stale > 0) console.log(`re-judging ${stale} cases that were scored with fewer models`);
   const pending = cases.filter((evalCase) => judge.assignments[evalCase.id] === undefined);
   console.log(
     `judging run ${runId} with ${judgeModel}: ${pending.length} cases (${cases.length - pending.length} already done), ${runs.length} models`,
