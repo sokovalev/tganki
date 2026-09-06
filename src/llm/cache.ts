@@ -9,11 +9,12 @@ import { eq } from "drizzle-orm";
 import type { Database } from "../db/index.js";
 import { generatedCache } from "../db/schema.js";
 import type { Logger } from "../logger.js";
+import { keepTypedPhrase } from "./generator.js";
 import { generatedCardSchema } from "./prompt.js";
 import type { CardGenerator, GenerateCardInput, GeneratedCard } from "./types.js";
 
 /** Bump when a prompt change makes the stored cards stale. */
-export const CACHE_VERSION = "v1";
+export const CACHE_VERSION = "v2";
 
 export interface CacheStore {
   /** The stored payload, or null when nothing is cached under `key`. */
@@ -37,7 +38,7 @@ export function normalizeCacheText(text: string): string {
   return text.normalize("NFC").replace(/\s+/gu, " ").trim().toLowerCase();
 }
 
-/** `card:v1:en:ru:reluctant` — one row per word and language pair. */
+/** `card:v2:en:ru:reluctant` — one row per word and language pair. v2: prompt v2 + phrase rule. */
 export function cacheKey(input: GenerateCardInput): string {
   return `card:${CACHE_VERSION}:${input.langFrom}:${input.langTo}:${normalizeCacheText(input.text)}`;
 }
@@ -82,7 +83,7 @@ export function withCache(
   const generateWithMeta = async (input: GenerateCardInput): Promise<GeneratedWithMeta> => {
     const key = cacheKey(input);
     const hit = await read(key);
-    if (hit) return { card: hit, cached: true };
+    if (hit) return { card: keepTypedPhrase(input, hit), cached: true };
 
     const card = await generator.generate(input);
     await write(key, card);

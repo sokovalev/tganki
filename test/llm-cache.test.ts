@@ -43,8 +43,8 @@ describe("cache keys", () => {
   });
 
   it("carries the version and the language pair", () => {
-    expect(cacheKey(input("  Reluctant "))).toBe("card:v1:en:ru:reluctant");
-    expect(cacheKey({ text: "тест", langFrom: "ka", langTo: "ru" })).toBe("card:v1:ka:ru:тест");
+    expect(cacheKey(input("  Reluctant "))).toBe("card:v2:en:ru:reluctant");
+    expect(cacheKey({ text: "тест", langFrom: "ka", langTo: "ru" })).toBe("card:v2:ka:ru:тест");
   });
 });
 
@@ -77,7 +77,7 @@ describe("withCache", () => {
     // Reverse direction: the user typed Russian, the card is about "reluctant".
     await cached.generateWithMeta(input("Неохотный"));
     expect(store.size()).toBe(2);
-    expect(await store.get("card:v1:en:ru:неохотный")).toEqual(CARD);
+    expect(await store.get("card:v2:en:ru:неохотный")).toEqual(CARD);
 
     const direct = await cached.generateWithMeta(input("reluctant"));
     expect(direct.cached).toBe(true);
@@ -90,9 +90,26 @@ describe("withCache", () => {
     expect(store.size()).toBe(1);
   });
 
+  it("applies the phrase rule to cache hits from before the rule existed", async () => {
+    const phraseInput: GenerateCardInput = { text: "სახლში ვარ.", langFrom: "ka", langTo: "ru" };
+    const store = createMemoryCacheStore({
+      [cacheKey(phraseInput)]: {
+        ...CARD,
+        front: "სახლში ყოფნა",
+        back: "быть дома",
+        detectedLang: "ka",
+      },
+    });
+    const { generator, calls } = counting(CARD);
+    const result = await withCache(generator, store).generateWithMeta(phraseInput);
+    expect(result.cached).toBe(true);
+    expect(result.card.front).toBe("სახლში ვარ");
+    expect(calls).toHaveLength(0);
+  });
+
   it("treats a payload that no longer validates as a miss", async () => {
     const store = createMemoryCacheStore({
-      "card:v1:en:ru:reluctant": { front: "reluctant", back: 42 },
+      "card:v2:en:ru:reluctant": { front: "reluctant", back: 42 },
     });
     const { generator, calls } = counting(CARD);
     const result = await withCache(generator, store).generateWithMeta(input("reluctant"));

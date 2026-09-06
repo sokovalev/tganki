@@ -77,6 +77,17 @@ export function toTransportError(error: unknown): GenerationError {
   return new GenerationError(message(error), "unavailable");
 }
 
+/**
+ * A phrase typed in the language being learned stays the user's phrase: only
+ * single words are reduced to their dictionary form. Pure, so the cache layer
+ * can apply it to hits as well (older cached cards were normalized).
+ */
+export function keepTypedPhrase(input: GenerateCardInput, card: GeneratedCard): GeneratedCard {
+  if (!isPhrase(input.text) || card.detectedLang !== input.langFrom) return card;
+  const typed = stripTrailingPunctuation(input.text);
+  return typed === "" || typed === card.front ? card : { ...card, front: typed };
+}
+
 export function createOpenRouterCardGenerator(
   options: OpenRouterGeneratorOptions,
 ): CardGenerator & { model: string } {
@@ -157,15 +168,7 @@ export function createOpenRouterCardGenerator(
         throw new GenerationError(`unusable card for "${input.text}"`, "invalid_output");
       }
 
-      // A phrase typed in the language being learned stays the user's phrase:
-      // only single words are reduced to their dictionary form.
-      if (isPhrase(input.text) && card.detectedLang === input.langFrom) {
-        const typed = stripTrailingPunctuation(input.text);
-        if (typed !== "" && typed !== card.front) {
-          options.logger.debug({ typed, generated: card.front }, "keeping the typed phrase");
-          card = { ...card, front: typed };
-        }
-      }
+      card = keepTypedPhrase(input, card);
 
       options.logger.debug(
         { model: options.model, latencyMs: Date.now() - started, front: card.front },
