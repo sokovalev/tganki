@@ -109,6 +109,7 @@ toast-undone = Откатил
 toast-nothing-to-undo = Нечего отменять
 toast-freeze = 🧊 Заморозка спасла стрик
 toast-cancelled = Отменил
+toast-enriching = ✨ Дополняю карточку…
 toast-unsubscribed = Отписался
 
 ## Добавление слов
@@ -131,6 +132,27 @@ add-too-long = Пока умею добавлять только коротки�
 add-cancelled = Ок, ничего не добавляю.
 add-expired = Слово потерялось, напиши его ещё раз.
 add-choose-deck = В какую деку добавить?
+add-generating = ⏳ Подбираю перевод…
+add-generate-failed = Не удалось подобрать перевод автоматически.
+add-generate-limit = Автоподбор на сегодня закончился ({ $limit } в день). Напиши перевод сам.
+add-example-line = { $example } — { $exampleTr }
+pos-label = { $pos ->
+        [noun] сущ.
+        [verb] глаг.
+        [adjective] прил.
+        [adverb] нареч.
+        [pronoun] мест.
+        [numeral] числ.
+        [preposition] предл.
+        [postposition] послелог
+        [conjunction] союз
+        [particle] частица
+        [interjection] межд.
+        [determiner] опред.
+        [phrase] фраза
+        [letter] буква
+       *[other] { "" }
+    }
 add-limit-notes = На бесплатном плане { $limit ->
         [one] { $limit } слово
         [few] { $limit } слова
@@ -268,6 +290,10 @@ btn-learn-now = ▶️ Учить сейчас
 btn-add = ➕ Добавить слово
 btn-add-more = ➕ Ещё слово
 btn-add-anyway = ➕ Добавить всё равно
+btn-add-generated = ➕ Добавить
+btn-own-translation = ✏️ Свой перевод
+btn-close = ✖
+btn-enrich = ✨ Дополнить
 btn-decks = 📖 Деки
 btn-stats = 📊 Статистика
 btn-stats-decks = По декам

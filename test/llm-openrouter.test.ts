@@ -7,8 +7,8 @@ import {
   parseContent,
   parseUsage,
   suggestModels,
-} from "../scripts/llm-eval/openrouter.js";
-import { CARD_JSON_SCHEMA } from "../scripts/llm-eval/prompt.js";
+} from "../src/llm/openrouter.js";
+import { CARD_JSON_SCHEMA } from "../src/llm/prompt.js";
 
 const CARD = {
   front: "der Tisch",

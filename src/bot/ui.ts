@@ -67,6 +67,48 @@ export async function show(ctx: BotContext, screen: Screen): Promise<void> {
   await ctx.reply(screen.text, options);
 }
 
+/** Where a message we may want to edit later ended up. */
+export interface MessageRef {
+  chatId: number;
+  messageId: number;
+}
+
+/**
+ * Sends a screen and remembers where it landed. Used by the «⏳ Подбираю
+ * перевод…» placeholder, which is edited into the card preview a second later.
+ */
+export async function sendTracked(ctx: BotContext, screen: Screen): Promise<MessageRef | null> {
+  try {
+    const message = await ctx.reply(screen.text, {
+      ...HTML,
+      ...(screen.keyboard ? { reply_markup: screen.keyboard } : {}),
+    });
+    return { chatId: message.chat.id, messageId: message.message_id };
+  } catch (error) {
+    if (isBlockedError(error)) return null;
+    throw error;
+  }
+}
+
+/** Edits a message sent earlier in this update; sends a new one if that fails. */
+export async function editTracked(
+  ctx: BotContext,
+  ref: MessageRef | null,
+  screen: Screen,
+): Promise<void> {
+  const options = { ...HTML, ...(screen.keyboard ? { reply_markup: screen.keyboard } : {}) };
+  if (ref) {
+    try {
+      await ctx.api.editMessageText(ref.chatId, ref.messageId, screen.text, options);
+      return;
+    } catch (error) {
+      if (isNotModified(error)) return;
+      if (!isEditImpossible(error)) throw error;
+    }
+  }
+  await send(ctx, screen);
+}
+
 /** Always a new message (confirmations that should not eat the previous screen). */
 export async function send(ctx: BotContext, screen: Screen): Promise<void> {
   await ctx.reply(screen.text, {

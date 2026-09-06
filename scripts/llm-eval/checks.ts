@@ -6,8 +6,8 @@
  * not returned, so the pass rate is always "passed / applicable".
  */
 
+import { ALLOWED_POS, KA_IPA_CHARS } from "../../src/llm/prompt.js";
 import type { GeneratedCard } from "../../src/llm/types.js";
-import { ALLOWED_POS, KA_IPA_CHARS } from "./prompt.js";
 import type { CheckResult, EvalCase } from "./types.js";
 
 const GEORGIAN_LETTER = /[ა-ჺ]/u;

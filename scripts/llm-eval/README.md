@@ -109,7 +109,7 @@ apply to a case is not counted):
 | `example_uses_front` | the example contains the word or a form sharing its first three letters |
 | `example_tr_cyrillic` | `exampleTr` is written in Cyrillic |
 
-The Georgian letter table lives in `prompt.ts` (`KA_LETTER_TABLE`) and is the
+The Georgian letter table lives in `src/llm/prompt.ts` (`KA_LETTER_TABLE`) and is the
 same one `data/decks/ka-ru-*.json` uses: aspirates marked `ʰ`, ejectives marked
 `ʼ`, affricates with the tie bar, `ɑ ɛ ɔ` for `ა ე ო`. The prompt teaches the
 table and the check enforces it, so a model that writes `kitxva` instead of
@@ -117,7 +117,9 @@ table and the check enforces it, so a model that writes `kitxva` instead of
 
 Four cases are junk (an emoji, a twelve-word sentence, `asdfgh`, a URL). For
 them only `schema` is checked: we care that the model returns a valid object
-instead of crashing the flow.
+instead of crashing the flow. Since the v2 prompt they should answer
+`detectedLang: "und"` with empty fields — production reads that as "not a card"
+and falls back to asking the user for a translation.
 
 ## 4. Adding models
 
@@ -161,7 +163,7 @@ cases, and every Georgian `expect.front` written in Mkhedruli.
 
 ## 6. What a run costs
 
-Token profile per card, measured against the prompt in `prompt.ts`:
+Token profile per card, measured against the prompt in `src/llm/prompt.ts`:
 
 - input ≈ **740** tokens (≈ 700 system, including the Georgian letter table and
   four few-shot examples, plus ≈ 40 for the user turn),
@@ -208,11 +210,16 @@ extrapolated from that — trust the report, not this table.
 
 ## 8. Files
 
+The prompt and the OpenRouter client are **not** copies: they live in `src/llm/`
+and the bot imports the very same modules (see `docs/DEV.md`, "Слой LLM"), so a
+run here measures exactly what production sends. Changing the prompt therefore
+changes the bot; re-run the eval when it does.
+
 | file | what it is |
 | --- | --- |
 | `cases.json` | the 120 evaluation inputs |
-| `prompt.ts` | production-candidate system prompt, JSON schema, zod validation, post-processing |
-| `openrouter.ts` | `fetch` client: structured output, fallback, retries, limiter, `listModels()` |
+| `../../src/llm/prompt.ts` | the production system prompt, JSON schema, zod validation, post-processing |
+| `../../src/llm/openrouter.ts` | the production `fetch` client: structured output, fallback, retries, limiter, `listModels()` |
 | `checks.ts` | the automatic checks (pure) |
 | `judgePrompt.ts` | judge prompt, reply schema, blinding shuffle (pure) |
 | `aggregate.ts` | aggregation, decision rule, Markdown rendering (pure) |

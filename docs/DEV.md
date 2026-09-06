@@ -33,6 +33,11 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `WEBHOOK_SECRET` | нет | — | секрет в пути вебхука и в заголовке `X-Telegram-Bot-Api-Secret-Token` |
 | `ADMIN_TG_IDS` | нет | — | Telegram-id через запятую, кому доступна `/admin` |
 | `PRO_ENABLED` | нет | `false` | включает лимиты бесплатного плана (`true`/`1`/`yes`/`on`) |
+| `OPENROUTER_API_KEY` | нет | — | ключ OpenRouter. Задан → работает AI-заполнение карточек (§4.1a спеки), пуст → только ручной ввод |
+| `LLM_MODEL` | нет | `google/gemini-3.7-flash` | id модели в OpenRouter |
+| `LLM_REASONING_EFFORT` | нет | — | `low`/`medium`/`high`; отправляется только если задан (нужно моделям с рассуждением) |
+| `LLM_TIMEOUT_MS` | нет | `15000` | таймаут одной попытки генерации |
+| `LLM_BASE_URL` | нет | — | замена базового URL OpenRouter (прокси или мок) |
 | `NODE_ENV` | нет | `development` | `development` включает pretty-логи |
 | `LOG_LEVEL` | нет | `info` | уровень pino |
 
@@ -49,6 +54,7 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm lint` / `pnpm format` | Biome: проверка / автоисправление |
 | `pnpm test` | vitest |
+| `pnpm eval:run` / `eval:judge` / `eval:report` | офлайн-оценка моделей генерации, см. `scripts/llm-eval/README.md` |
 
 ## Запуск бота локально
 
@@ -84,7 +90,36 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 в бандл, что наборы ключей в ru и en совпадают и что все ключи из кода существуют.
 
 Список языков обучения — статическая таблица `src/i18n/languages.ts` (код, флаг, эндоним,
-названия ru/en, синонимы). LLM для этого не нужен.
+названия ru/en, синонимы). LLM для этого не нужен: `createStaticLanguageResolver()`
+(`src/llm/generator.ts`) закрывает контракт `LanguageResolver` этой же таблицей.
+
+## Слой LLM
+
+```
+src/llm/
+  types.ts       контракт с ботом: GenerateCardInput, GeneratedCard, GenerationError, CardGenerator
+  prompt.ts      системный промпт, JSON Schema, zod-схема, постобработка, таблица IPA грузинского
+  openrouter.ts  клиент: json_schema + fallback на json_object, ретраи, Retry-After, таймаут, лимитер
+  generator.ts   createOpenRouterCardGenerator(): промпт + клиент → CardGenerator
+  cache.ts       withCache(): чтение-сквозь-кэш поверх generated_cache, generateWithMeta → { card, cached }
+```
+
+`prompt.ts` и `openrouter.ts` живут в `src/`, но их же импортирует харнесс оценки
+(`scripts/llm-eval/*`) — так прогон меряет ровно то, что уходит в проде. В рантайм-образ
+`scripts/` не попадает: `tsconfig.build.json` компилирует только `src/`.
+
+Собирается всё в `createBot()` (`src/bot/index.ts`): при наличии `OPENROUTER_API_KEY`
+создаётся `createOpenRouterCardGenerator(...)`, оборачивается в `withCache(..., createDbCacheStore(db))`
+и передаётся в `createAddService(port, limits, llm)`. Без ключа `llm === null`, и бот работает
+по ручному пути §4.1 — ни один экран не меняется.
+
+**Как поменять модель.** Обычно достаточно `LLM_MODEL=<id>` (список — `GET /models` OpenRouter);
+для моделей с рассуждением добавьте `LLM_REASONING_EFFORT=low`, иначе они тратят все токены на
+размышления и возвращают пустой ответ. Прежде чем менять модель всерьёз, прогоните оценку:
+`OPENROUTER_API_KEY=... pnpm eval:run --models a,b` → `pnpm eval:judge` → `pnpm eval:report`.
+Правка промпта — только в `src/llm/prompt.ts`; она инвалидирует кэш промпта у провайдера
+и делает прогоны разных дней несравнимыми, а если меняются сами карточки — поднимите
+`CACHE_VERSION` в `src/llm/cache.ts`, чтобы `generated_cache` не отдавал старые ответы.
 
 ## Структура
 
@@ -96,6 +131,7 @@ src/
   main.ts            точка входа
   bot/               слой Telegram (см. ниже)
   i18n/              Fluent-обёртка и таблица языков
+  llm/               генерация карточек: контракт, промпт, клиент OpenRouter, кэш
   services/          оркестрация поверх репозиториев (сессия, /add, лимиты, напоминания)
   reminders/         крон напоминаний и отправка
   core/
@@ -180,6 +216,9 @@ git add drizzle src/db/schema.ts
 (оценка → возврат в очередь → итог → продолжение, отмена, двойной пропуск = «до завтра»,
 двойной тап игнорируется, «✅ Знаю» и отсев известных/дублирующихся слов — §3.7 спеки),
 `/add` (обычный путь, дубликаты, пакетная вставка, лимиты),
+генерацию карточек (кэш: попадание/промах/нормализация ключа/битый payload, маппинг ошибок
+генератора на `GenerationError` через фейковый `fetch`, превью → сохранение, обратное направление,
+дубликаты до и после генерации, откат на ручной ввод, дневной лимит и рендер превью),
 выбор пользователей для напоминаний и крон с фейковыми таймерами.
 
 Доступ к БД спрятан за интерфейсами (`QueueRepo`, `UndoRepo`, `SessionPort`, `AddPort`,

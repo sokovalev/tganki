@@ -123,6 +123,28 @@ export function createNotesRepo(db: Database) {
       return inserted.length;
     },
 
+    /**
+     * Fills in what the note is missing (SPEC §4.1a "✨ Дополнить"): a column
+     * that already holds text is never overwritten, so a user's own wording
+     * always wins over a generated one.
+     */
+    async fillEmpty(
+      id: number,
+      values: { transcription?: string; example?: string; exampleTr?: string },
+    ): Promise<Note | null> {
+      const patch: Record<string, unknown> = {};
+      if (values.transcription) {
+        patch.transcription = sql`coalesce(nullif(${notes.transcription}, ''), ${values.transcription})`;
+      }
+      if (values.example) {
+        patch.example = sql`coalesce(nullif(${notes.example}, ''), ${values.example})`;
+        patch.exampleTr = sql`case when nullif(${notes.example}, '') is null then ${values.exampleTr ?? null} else ${notes.exampleTr} end`;
+      }
+      if (Object.keys(patch).length === 0) return this.findById(id);
+      const [row] = await db.update(notes).set(patch).where(eq(notes.id, id)).returning();
+      return row ?? null;
+    },
+
     async deleteById(id: number): Promise<void> {
       await db.delete(notes).where(eq(notes.id, id));
     },

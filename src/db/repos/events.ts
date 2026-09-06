@@ -10,6 +10,8 @@ export type EventName =
   | "review"
   | "session_end"
   | "word_added"
+  | "word_generated"
+  | "word_generation_failed"
   | "deck_subscribed"
   | "deck_unsubscribed"
   | "deck_created"
@@ -38,6 +40,25 @@ export function createEventsRepo(db: Database) {
         props: input.props ?? null,
         ...(input.at ? { at: input.at } : {}),
       });
+    },
+
+    /**
+     * How many cards this user actually had generated today (SPEC §9.1). Cache
+     * hits carry `cached: true` and do not count — they cost nothing.
+     */
+    async countGenerationsSince(userId: number, since: Date): Promise<number> {
+      const [row] = await db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(events)
+        .where(
+          and(
+            eq(events.userId, userId),
+            eq(events.name, "word_generated"),
+            gte(events.at, since),
+            sql`coalesce(${events.props} ->> 'cached', 'false') = 'false'`,
+          ),
+        );
+      return row?.count ?? 0;
     },
 
     async countSince(name: EventName, since: Date): Promise<number> {

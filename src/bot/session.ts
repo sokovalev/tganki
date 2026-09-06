@@ -59,10 +59,16 @@ function header(t: Translate, view: SessionView): string[] {
   return lines;
 }
 
+/** What the ✏️ menu may offer beyond the fixed items. */
+export interface CardMenuOptions {
+  /** «✨ Дополнить» — only for own notes, and only when generation is on. */
+  canEnrich?: boolean;
+}
+
 /** Question or answer screen — one message, edited in place (SPEC §3.3). */
-export function renderCard(t: Translate, view: SessionView): Screen {
+export function renderCard(t: Translate, view: SessionView, options: CardMenuOptions = {}): Screen {
   const pos = view.position;
-  if (view.stage === "actions") return renderActions(t, view);
+  if (view.stage === "actions") return renderActions(t, view, options);
 
   if (view.stage === "question") {
     const text = [...header(t, view), SEPARATOR, ...questionLines(view)].join("\n");
@@ -109,8 +115,17 @@ export function renderCard(t: Translate, view: SessionView): Screen {
   return { text, keyboard };
 }
 
+/** True when the LLM could still add something to this note (SPEC §4.1a). */
+export function canEnrichCard(view: SessionView): boolean {
+  return view.card.deckOwnerId !== null && (!view.card.transcription || !view.card.example);
+}
+
 /** ✏️ menu over the current card (SPEC §3.5). */
-export function renderActions(t: Translate, view: SessionView): Screen {
+export function renderActions(
+  t: Translate,
+  view: SessionView,
+  options: CardMenuOptions = {},
+): Screen {
   const pos = view.position;
   const own = view.card.deckOwnerId !== null;
   const keyboard = new InlineKeyboard()
@@ -120,6 +135,9 @@ export function renderActions(t: Translate, view: SessionView): Screen {
     .row()
     .text(t("btn-bury"), cb(NS.card, "bury", pos))
     .row();
+  if (options.canEnrich && canEnrichCard(view)) {
+    keyboard.text(t("btn-enrich"), cb(NS.card, "enr", pos)).row();
+  }
   if (!own) keyboard.text(t("btn-report"), cb(NS.card, "rep", pos)).row();
   if (own) keyboard.text(t("btn-delete-note"), cb(NS.card, "del", pos)).row();
   keyboard.text(t("btn-back"), cb(NS.session, "back", pos));
@@ -466,11 +484,40 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
     if (position === null) return answer(ctx);
     const t = ctx.t.bind(ctx);
 
+    const menu: CardMenuOptions = { canEnrich: deps.add.llm !== null };
+
     if (parsed.action === "open") {
       if (position !== session.position) return answer(ctx, ctx.t("toast-already-rated"));
       await answer(ctx);
       const view = await deps.sessions.render(session, ctx.user, deps.now(), "actions");
-      if (view) await renderSession(ctx, deps, session, renderCard(t, view));
+      if (view) await renderSession(ctx, deps, session, renderCard(t, view, menu));
+      return;
+    }
+
+    /** «✨ Дополнить»: fill in whatever the note is missing, keep the rest. */
+    if (parsed.action === "enr") {
+      if (position !== session.position) return answer(ctx, ctx.t("toast-already-rated"));
+      await answer(ctx, ctx.t("toast-enriching"));
+      const view = await deps.sessions.render(session, ctx.user, deps.now(), "question");
+      if (!view || !canEnrichCard(view)) return;
+      const filled = await deps.add.enrich({
+        user: ctx.user,
+        noteId: view.card.noteId,
+        front: view.card.front,
+        now: deps.now(),
+      });
+      if (filled) {
+        deps.events.record(ctx.user.id, "word_generated", {
+          cached: filled.cached,
+          latencyMs: filled.latencyMs,
+          model: deps.add.llm?.model ?? null,
+          langFrom: ctx.user.langFrom ?? "en",
+          langTo: ctx.user.langTo ?? ctx.user.uiLang,
+          via: "enrich",
+        });
+      }
+      const fresh = await deps.sessions.render(session, ctx.user, deps.now(), "question");
+      if (fresh) await renderSession(ctx, deps, session, renderCard(t, fresh, menu));
       return;
     }
 
@@ -505,7 +552,7 @@ export function installSession(bot: Bot<BotContext>, deps: BotDeps): void {
       await finishAndRender(ctx, deps, result);
       return;
     }
-    await renderSession(ctx, deps, result.session, renderCard(t, result));
+    await renderSession(ctx, deps, result.session, renderCard(t, result, menu));
   });
 
   bot.callbackQuery(/^lch:/u, async (ctx) => {

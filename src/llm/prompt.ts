@@ -1,14 +1,16 @@
 /**
- * Production-candidate prompt for §4.1a "AI card generation".
+ * Prompt for §4.1a "AI card generation".
  *
  * Everything a model needs in order to produce a `GeneratedCard` lives here:
  * the system prompt (stable, so providers can cache it), the JSON schema sent
  * as `response_format`, a zod schema for validating what comes back and the
- * post-processing that production would apply before showing the card.
+ * post-processing applied before the card is shown. The bot
+ * (`src/llm/generator.ts`) and the offline eval (`scripts/llm-eval/`) share it,
+ * so a run of the harness measures exactly what production sends.
  */
 
 import { z } from "zod";
-import type { GeneratedCard } from "../../src/llm/types.js";
+import type { GeneratedCard } from "./types.js";
 
 /** Part-of-speech vocabulary. Mirrors the `tags` used by the builtin decks. */
 export const ALLOWED_POS = [
@@ -90,7 +92,13 @@ const KA_TABLE_LINE = KA_LETTER_TABLE.map((entry) => `${entry.letter}=${entry.ip
 
 /**
  * System prompt. Keep it stable: changing it invalidates prompt caches and
- * makes runs from different days incomparable.
+ * makes runs from different days incomparable, and a wording change that alters
+ * the cards themselves should bump `CACHE_VERSION` in `cache.ts` as well.
+ *
+ * v2 (2026-09-06) folds in what the judge flagged in run `railway-1`: no
+ * parentheses or transliterations in `back`, Georgian masdars are verbs with a
+ * verb gloss, natural verb-final Georgian examples, an idiomatic example for
+ * postpositions and `detectedLang: "und"` for junk instead of an invented card.
  */
 export const SYSTEM_PROMPT = `You build one flashcard for a language-learning bot from a single word or short phrase typed by a user.
 
@@ -98,12 +106,12 @@ You are given langFrom (the language the user is learning), langTo (the user's n
 
 Return one JSON object with exactly these fields:
 - front: the canonical dictionary form IN langFrom. Never in langTo. If the user typed langTo, translate first and put the langFrom word here.
-- back: 1-3 most common meanings in langTo, comma-separated, lowercase. Add a short clarification in parentheses only when the meanings would otherwise be confusable.
+- back: 1-3 most common meanings in langTo, comma-separated, lowercase. Meanings only — no parentheses, no usage or register comments, no transliteration of front into langTo letters ("шашлык", never "шашлык, мцвади"). Two meanings are usually better than three. When front is a verb (a Georgian masdar counts as a verb), the first meaning is the langTo verb in the infinitive: "писать", not "письмо (процесс)".
 - transcription: IPA for front, without slashes or brackets. Empty string when the writing system already tells the reader how to pronounce it.
 - example: ONE short natural sentence in langFrom (3-8 words, A1-A2 vocabulary) that actually uses the word from front. End it with a full stop, question or exclamation mark.
 - exampleTr: a natural translation of example into langTo.
 - pos: part of speech in English, one of: ${ALLOWED_POS.join(", ")}.
-- detectedLang: ISO 639-1 code of the language the user actually typed in, not the language you answer in.
+- detectedLang: ISO 639-1 code of the language the user actually typed in, not the language you answer in. When the user typed langTo — their own language, expecting the langFrom card — detectedLang is langTo and front is still the langFrom word. Use "und" when the input is not a word or phrase at all.
 
 Canonical form rules:
 - Fix typos silently and card the corrected word.
@@ -111,12 +119,17 @@ Canonical form rules:
 - English: verbs in the bare infinitive ("run"). Phrasal verbs keep the particle ("give up", "look forward to") and get pos "phrase".
 - German: every noun gets its definite article and a capital letter — "der Tisch", "das Haus", "die Blume". Verbs in the infinitive ("gehen"). Keep ß where standard German uses it.
 - Spanish: every noun gets its article — "la mesa", "el libro", "el agua" (feminine nouns starting with a stressed a- take "el"). Verbs in the infinitive, reflexives keep -se ("levantarse"). Keep accents.
-- Georgian: verbs ALWAYS as the masdar (verbal noun): "კითხვა", "წერა", "მუშაობა" — never a conjugated form like "ვკითხულობ". Nouns in the nominative with the -ი ending where it belongs ("სახლი"). Postpositions are written with a leading hyphen: "-ში", "-თვის", "-ზე". Latin transliteration input is converted to Mkhedruli: "gamarjoba" -> "გამარჯობა". front for langFrom=ka must contain Mkhedruli letters only.
+- Georgian: verbs ALWAYS as the masdar (verbal noun): "კითხვა", "წერა", "მუშაობა" — never a conjugated form like "ვკითხულობ". A masdar headword gets pos "verb" and a verbal back ("писать"), not a noun gloss. Nouns in the nominative with the -ი ending where it belongs ("სახლი"). Postpositions are written with a leading hyphen: "-ში", "-თვის", "-ზე", and their example is an everyday phrase that really uses them ("სახლში ვარ." for "-ში", not a made-up sentence). Latin transliteration input is converted to Mkhedruli: "gamarjoba" -> "გამარჯობა". front for langFrom=ka must contain Mkhedruli letters only.
 
 Georgian transcription must use exactly this letter table (aspirates marked ʰ, ejectives marked ʼ, affricates with the tie bar):
 ${KA_TABLE_LINE}
 
-If the input is not a word or phrase at all (an emoji, random letters, a URL, a whole sentence), still return a valid object: put the trimmed input in front, an empty back, pos "other", empty transcription, example and exampleTr, and your best guess for detectedLang.
+Example rules:
+- The sentence must be something a native speaker would actually say, with natural word order — not a word-for-word calque of langTo.
+- Georgian is verb-final: the verb goes last and a time word goes first — "დღეს მზე ანათებს.", not "მზე დღეს ანათებს.".
+- For a Georgian masdar the sentence naturally uses a conjugated form of that same verb; keep it short and idiomatic.
+
+If the input is not a word or a short phrase at all (an emoji, random letters, a URL, a whole sentence), do not invent anything: return the trimmed input as front, empty back, transcription, example and exampleTr, pos "other" and detectedLang "und".
 
 Examples.
 
@@ -130,7 +143,16 @@ langFrom=de langTo=ru, input "tisch":
 {"front":"der Tisch","back":"стол","transcription":"deːɐ̯ tɪʃ","example":"Das Buch liegt auf dem Tisch.","exampleTr":"Книга лежит на столе.","pos":"noun","detectedLang":"de"}
 
 langFrom=ka langTo=ru, input "ვკითხულობ":
-{"front":"კითხვა","back":"читать; спрашивать; вопрос","transcription":"kʼitʰxvɑ","example":"წიგნს ვკითხულობ.","exampleTr":"Я читаю книгу.","pos":"verb","detectedLang":"ka"}`;
+{"front":"კითხვა","back":"читать, спрашивать","transcription":"kʼitʰxvɑ","example":"წიგნს ვკითხულობ.","exampleTr":"Я читаю книгу.","pos":"verb","detectedLang":"ka"}
+
+langFrom=ka langTo=ru, input "წერა":
+{"front":"წერა","back":"писать","transcription":"t͡sʼɛrɑ","example":"დედას წერილს ვწერ.","exampleTr":"Я пишу письмо маме.","pos":"verb","detectedLang":"ka"}
+
+langFrom=ka langTo=ru, input "-ში":
+{"front":"-ში","back":"в, внутри","transcription":"ʃi","example":"სახლში ვარ.","exampleTr":"Я дома.","pos":"postposition","detectedLang":"ka"}
+
+langFrom=en langTo=ru, input "🙂🙂🙂":
+{"front":"🙂🙂🙂","back":"","transcription":"","example":"","exampleTr":"","pos":"other","detectedLang":"und"}`;
 
 /** JSON Schema shape sent as `response_format`. Structural, not stylistic. */
 export type JsonSchema = Record<string, unknown>;

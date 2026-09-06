@@ -3,9 +3,11 @@ import type { Config } from "../config.js";
 import type { Database } from "../db/index.js";
 import { createRepos } from "../db/repos/index.js";
 import { createI18n } from "../i18n/index.js";
+import { createDbCacheStore, withCache } from "../llm/cache.js";
+import { createOpenRouterCardGenerator } from "../llm/generator.js";
 import type { Logger } from "../logger.js";
 import { createReminderSender } from "../reminders/sender.js";
-import { createAddService } from "../services/addService.js";
+import { createAddService, type LlmSupport } from "../services/addService.js";
 import { createEventRecorder } from "../services/events.js";
 import { createLimits } from "../services/limits.js";
 import { createReminderService, type ReminderRunStats } from "../services/reminderService.js";
@@ -60,13 +62,36 @@ export function createBot(options: CreateBotOptions): BotHandle {
     {
       countOwnDecks: (userId) => repos.decks.countOwnedBy(userId),
       countOwnNotes: (userId) => repos.notes.countOwnedBy(userId),
+      countGenerationsSince: (userId, since) => repos.events.countGenerationsSince(userId, since),
     },
     { proEnabled: config.PRO_ENABLED },
   );
+  // AI card generation (SPEC §4.1a) switches itself on with the key; without
+  // one the bot stays on the manual flow of §4.1.
+  const llm: LlmSupport | null = config.OPENROUTER_API_KEY
+    ? {
+        model: config.LLM_MODEL,
+        generator: withCache(
+          createOpenRouterCardGenerator({
+            apiKey: config.OPENROUTER_API_KEY,
+            model: config.LLM_MODEL,
+            timeoutMs: config.LLM_TIMEOUT_MS,
+            ...(config.LLM_BASE_URL ? { baseUrl: config.LLM_BASE_URL } : {}),
+            ...(config.LLM_REASONING_EFFORT
+              ? { reasoningEffort: config.LLM_REASONING_EFFORT }
+              : {}),
+            logger,
+          }),
+          createDbCacheStore(db, logger),
+          { logger },
+        ),
+      }
+    : null;
   const add = createAddService(
     {
       findDuplicates: (input) => repos.notes.findDuplicates(input),
       createNote: (input) => repos.notes.create(input),
+      fillNote: (noteId, values) => repos.notes.fillEmpty(noteId, values),
       createNotes: (deckId, pairs) => repos.notes.createMany(deckId, pairs),
       findPersonalDeck: (ownerId, langFrom) => repos.decks.findPersonalDeck(ownerId, langFrom),
       createUserDeck: (input) => repos.decks.createUserDeck(input),
@@ -75,6 +100,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
       listOwnDecks: (ownerId) => repos.decks.listOwnedBy(ownerId),
     },
     limits,
+    llm,
   );
 
   let username = "";

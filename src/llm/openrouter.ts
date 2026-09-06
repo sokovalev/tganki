@@ -3,12 +3,28 @@
  * `json_object` fallback for providers that reject `json_schema`, bounded
  * retries, a timeout and a concurrency limiter. `fetch` is injectable so the
  * tests never touch the network.
+ *
+ * Shared by the bot (`src/llm/generator.ts`) and the offline evaluation
+ * harness (`scripts/llm-eval/`), which is why it lives in `src/`.
  */
 
 import { CARD_SCHEMA_NAME, type JsonSchema, systemPromptWithSchema } from "./prompt.js";
-import type { ResponseMode, UsageRecord } from "./types.js";
 
 export const DEFAULT_BASE_URL = "https://openrouter.ai/api/v1";
+
+/** How the JSON answer was requested; providers that reject schemas fall back. */
+export type ResponseMode = "json_schema" | "json_object";
+
+export interface UsageRecord {
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  /** USD, as reported by OpenRouter (`usage.cost`). */
+  costUsd: number;
+}
+
+/** Per-attempt timeout in production: the user is staring at «⏳ Подбираю перевод…». */
+export const DEFAULT_TIMEOUT_MS = 15_000;
 
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
 
@@ -21,7 +37,7 @@ export interface OpenRouterOptions {
   apiKey: string;
   baseUrl?: string;
   fetchImpl?: FetchLike;
-  /** Per-attempt timeout. */
+  /** Per-attempt timeout. Defaults to 15 s — a bot user is waiting. */
   timeoutMs?: number;
   /** Total attempts per request, including the first one. */
   maxAttempts?: number;
@@ -143,7 +159,7 @@ export class OpenRouterClient {
     this.apiKey = options.apiKey;
     this.baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
     this.fetchImpl = options.fetchImpl ?? ((input, init) => fetch(input, init));
-    this.timeoutMs = options.timeoutMs ?? 60_000;
+    this.timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
     this.maxAttempts = options.maxAttempts ?? 3;
     this.backoffMs = options.backoffMs ?? 1_000;
     this.sleep = options.sleep ?? defaultSleep;

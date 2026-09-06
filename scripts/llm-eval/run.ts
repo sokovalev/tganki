@@ -10,6 +10,13 @@
  * already on disk are skipped.
  */
 
+import { createLimiter, OpenRouterClient, suggestModels } from "../../src/llm/openrouter.js";
+import {
+  buildUserMessage,
+  CARD_JSON_SCHEMA,
+  parseCard,
+  SYSTEM_PROMPT,
+} from "../../src/llm/prompt.js";
 import { runChecks } from "./checks.js";
 import {
   baseUrlOverride,
@@ -20,8 +27,6 @@ import {
   stringArg,
   usd,
 } from "./cli.js";
-import { createLimiter, OpenRouterClient, suggestModels } from "./openrouter.js";
-import { buildUserMessage, CARD_JSON_SCHEMA, parseCard, SYSTEM_PROMPT } from "./prompt.js";
 import {
   DEFAULT_CASES_PATH,
   DEFAULT_RESULTS_DIR,
@@ -190,6 +195,9 @@ async function main(): Promise<void> {
     title: "tganki card-generation eval",
     rpm,
     maxAttempts: 5,
+    // Offline batch job: slow reasoning models get a much longer leash than
+    // the 15 s the bot allows.
+    timeoutMs: 60_000,
   });
 
   let models = requested;

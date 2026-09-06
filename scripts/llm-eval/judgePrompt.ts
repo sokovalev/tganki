@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import type { JsonSchema } from "./prompt.js";
+import type { JsonSchema } from "../../src/llm/prompt.js";
 import type { CallRecord, EvalCase } from "./types.js";
 
 export const JUDGE_SYSTEM_PROMPT = `You grade flashcards produced by different systems for a Russian-speaking learner. You are given one input word and several candidate cards labelled A, B, C… You do not know which system produced which card, and you must not guess or mention it.

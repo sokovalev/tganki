@@ -9,6 +9,7 @@ import {
   runChecks,
   transcriptionIssue,
 } from "../scripts/llm-eval/checks.js";
+import type { EvalCase } from "../scripts/llm-eval/types.js";
 import {
   collapseWhitespace,
   extractJson,
@@ -16,8 +17,7 @@ import {
   normalizeTranscription,
   parseCard,
   postProcess,
-} from "../scripts/llm-eval/prompt.js";
-import type { EvalCase } from "../scripts/llm-eval/types.js";
+} from "../src/llm/prompt.js";
 import type { GeneratedCard } from "../src/llm/types.js";
 
 const kaCase: EvalCase = {

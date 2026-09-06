@@ -26,10 +26,26 @@ export const transcriptionMode = pgEnum("transcription_mode", ["always", "answer
 
 const createdAt = timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
+/**
+ * A card the LLM produced, parked in `pending_payload` between the preview and
+ * the user's «Добавить» tap (SPEC §4.1a). Mirrors `GeneratedCard` minus the
+ * fields the preview does not need; `pos` is shown but never stored on a note.
+ */
+export type PendingCard = {
+  front: string;
+  back: string;
+  transcription: string;
+  example: string;
+  exampleTr: string;
+  pos: string;
+};
+
 /** Free-form draft attached to `users.pending_input` (and to `/start deck_x` deep links). */
 export type PendingPayload = {
   /** Draft note waiting for its translation. */
   front?: string;
+  /** Generated card waiting for confirmation. */
+  card?: PendingCard;
   /** Deck the draft goes into; null = the user's default personal deck. */
   deckId?: number | null;
   /** Deck slug/public id from a `/start deck_<x>` link, subscribed once onboarding ends. */

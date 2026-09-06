@@ -2,7 +2,11 @@
 
 import { readFileSync } from "node:fs";
 import { z } from "zod";
+import type { ResponseMode, UsageRecord } from "../../src/llm/openrouter.js";
 import type { GeneratedCard } from "../../src/llm/types.js";
+
+/** Owned by the shared client in `src/llm/openrouter.ts`. */
+export type { ResponseMode, UsageRecord };
 
 export const CASE_CATEGORIES = [
   "plain",
@@ -61,16 +65,6 @@ export interface CheckResult {
   pass: boolean;
   detail?: string;
 }
-
-export interface UsageRecord {
-  promptTokens: number;
-  completionTokens: number;
-  totalTokens: number;
-  /** USD, as reported by OpenRouter (`usage.cost`). */
-  costUsd: number;
-}
-
-export type ResponseMode = "json_schema" | "json_object";
 
 /** One model × case × repeat call. */
 export interface CallRecord {

@@ -1,9 +1,12 @@
+import { startOfLearningDay } from "../core/streak.js";
 import type { User } from "../db/schema.js";
 
 /** Free-plan budgets (SPEC §9.1, decision 7). Enforced only when PRO_ENABLED. */
 export const FREE_LIMITS = {
   ownDecks: 3,
   ownNotes: 300,
+  /** AI card generations per learning day; cache hits are free (§4.1a). */
+  generationsPerDay: 10,
 } as const;
 
 export interface LimitCheck {
@@ -16,6 +19,8 @@ export interface LimitCheck {
 export interface LimitsPort {
   countOwnDecks(userId: number): Promise<number>;
   countOwnNotes(userId: number): Promise<number>;
+  /** `word_generated` events with `cached: false` since the given instant. */
+  countGenerationsSince(userId: number, since: Date): Promise<number>;
 }
 
 /** A paying user: any non-free plan whose `planUntil` has not passed. */
@@ -33,6 +38,8 @@ const unlimited = (used = 0): LimitCheck => ({
 export interface Limits {
   canCreateDeck(user: User, now: Date): Promise<LimitCheck>;
   canAddNotes(user: User, count: number, now: Date): Promise<LimitCheck>;
+  /** AI generations left in the current learning day (04:00 boundary, §9.1). */
+  canGenerate(user: User, now: Date): Promise<LimitCheck>;
 }
 
 /**
@@ -51,6 +58,17 @@ export function createLimits(port: LimitsPort, options: { proEnabled: boolean })
       if (!options.proEnabled || isPro(user, now)) return unlimited();
       const used = await port.countOwnNotes(user.id);
       return { allowed: used + count <= FREE_LIMITS.ownNotes, limit: FREE_LIMITS.ownNotes, used };
+    },
+
+    async canGenerate(user, now) {
+      if (!options.proEnabled || isPro(user, now)) return unlimited();
+      const since = startOfLearningDay(now, user.tz);
+      const used = await port.countGenerationsSince(user.id, since);
+      return {
+        allowed: used < FREE_LIMITS.generationsPerDay,
+        limit: FREE_LIMITS.generationsPerDay,
+        used,
+      };
     },
   };
 }

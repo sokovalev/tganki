@@ -11,6 +11,8 @@
  * `judge.json` are skipped.
  */
 
+import { createLimiter, OpenRouterClient } from "../../src/llm/openrouter.js";
+import { extractJson } from "../../src/llm/prompt.js";
 import {
   baseUrlOverride,
   intArg,
@@ -30,8 +32,6 @@ import {
   labelFor,
   shuffleDeterministic,
 } from "./judgePrompt.js";
-import { createLimiter, OpenRouterClient } from "./openrouter.js";
-import { extractJson } from "./prompt.js";
 import {
   DEFAULT_CASES_PATH,
   DEFAULT_RESULTS_DIR,
@@ -86,6 +86,8 @@ async function main(): Promise<void> {
     title: "tganki card-generation eval (judge)",
     rpm: intArg(args, "rpm", 18),
     maxAttempts: 5,
+    // Offline batch job: a judge call may think for a while.
+    timeoutMs: 60_000,
   });
   const limit = createLimiter(concurrency);
 

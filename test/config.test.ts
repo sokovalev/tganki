@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadConfig } from "../src/config.js";
+import { isLlmEnabled, loadConfig } from "../src/config.js";
 
 const base = { DATABASE_URL: "postgres://localhost/tganki", BOT_TOKEN: "123:abc" };
 
@@ -8,7 +8,7 @@ describe("loadConfig", () => {
     const config = loadConfig(base);
     expect(config).toMatchObject({ PORT: 3000, NODE_ENV: "development", LOG_LEVEL: "info" });
     expect(config.PUBLIC_URL).toBeUndefined();
-    expect(config.ANTHROPIC_API_KEY).toBeUndefined();
+    expect(config.OPENROUTER_API_KEY).toBeUndefined();
   });
 
   it("coerces PORT and keeps optional values", () => {
@@ -22,9 +22,9 @@ describe("loadConfig", () => {
   });
 
   it("treats empty optional variables as unset", () => {
-    const config = loadConfig({ ...base, PUBLIC_URL: "", ANTHROPIC_API_KEY: "" });
+    const config = loadConfig({ ...base, PUBLIC_URL: "", OPENROUTER_API_KEY: "" });
     expect(config.PUBLIC_URL).toBeUndefined();
-    expect(config.ANTHROPIC_API_KEY).toBeUndefined();
+    expect(config.OPENROUTER_API_KEY).toBeUndefined();
   });
 
   it("defaults the new bot switches", () => {
@@ -47,6 +47,29 @@ describe("loadConfig", () => {
     expect(loadConfig({ ...base, ADMIN_TG_IDS: "123, 456 ,,abc," }).ADMIN_TG_IDS).toEqual([
       123, 456,
     ]);
+  });
+
+  it("defaults the LLM layer to off, with the model the eval picked", () => {
+    const config = loadConfig(base);
+    expect(isLlmEnabled(config)).toBe(false);
+    expect(config.LLM_MODEL).toBe("google/gemini-3.7-flash");
+    expect(config.LLM_TIMEOUT_MS).toBe(15_000);
+    expect(config.LLM_REASONING_EFFORT).toBeUndefined();
+    expect(config.LLM_BASE_URL).toBeUndefined();
+  });
+
+  it("turns generation on as soon as the OpenRouter key is set", () => {
+    const config = loadConfig({
+      ...base,
+      OPENROUTER_API_KEY: "sk-or-test",
+      LLM_MODEL: "openai/gpt-5.6-luna",
+      LLM_REASONING_EFFORT: "low",
+      LLM_TIMEOUT_MS: "9000",
+    });
+    expect(isLlmEnabled(config)).toBe(true);
+    expect(config.LLM_MODEL).toBe("openai/gpt-5.6-luna");
+    expect(config.LLM_REASONING_EFFORT).toBe("low");
+    expect(config.LLM_TIMEOUT_MS).toBe(9000);
   });
 
   it("reports every missing or invalid variable", () => {

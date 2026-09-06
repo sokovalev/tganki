@@ -99,6 +99,7 @@ toast-undone = Undone
 toast-nothing-to-undo = Nothing to undo
 toast-freeze = 🧊 A freeze saved your streak
 toast-cancelled = Cancelled
+toast-enriching = ✨ Filling the card in…
 toast-unsubscribed = Unsubscribed
 
 ## Adding words
@@ -120,6 +121,27 @@ add-too-long = For now I only add short words and phrases — up to 40 character
 add-cancelled = Fine, nothing added.
 add-expired = The word got lost, send it again.
 add-choose-deck = Which deck should it go to?
+add-generating = ⏳ Looking up a translation…
+add-generate-failed = I could not fill the card in automatically.
+add-generate-limit = No auto-fill left for today ({ $limit } a day). Send the translation yourself.
+add-example-line = { $example } — { $exampleTr }
+pos-label = { $pos ->
+        [noun] noun
+        [verb] verb
+        [adjective] adj.
+        [adverb] adv.
+        [pronoun] pron.
+        [numeral] num.
+        [preposition] prep.
+        [postposition] postp.
+        [conjunction] conj.
+        [particle] particle
+        [interjection] interj.
+        [determiner] det.
+        [phrase] phrase
+        [letter] letter
+       *[other] { "" }
+    }
 add-limit-notes = The free plan holds { $limit ->
         [one] { $limit } word
        *[other] { $limit } words
@@ -250,6 +272,10 @@ btn-learn-now = ▶️ Study now
 btn-add = ➕ Add a word
 btn-add-more = ➕ One more
 btn-add-anyway = ➕ Add anyway
+btn-add-generated = ➕ Add
+btn-own-translation = ✏️ My own translation
+btn-close = ✖
+btn-enrich = ✨ Fill in
 btn-decks = 📖 Decks
 btn-stats = 📊 Stats
 btn-stats-decks = By deck
