@@ -59,6 +59,26 @@ describe("generated card preview (SPEC §4.1a)", () => {
     expect(screen.text).toContain('→ into "My words · EN"');
   });
 
+  it("localizes the part of speech the prompt returns in English", () => {
+    // The model answers `noun` / `verb`; the preview must not.
+    const cases: [string, string, string][] = [
+      ["noun", "сущ.", "noun"],
+      ["verb", "глаг.", "verb"],
+      ["adjective", "прил.", "adj."],
+      ["adverb", "нареч.", "adv."],
+      ["phrase", "фраза", "phrase"],
+    ];
+    for (const [pos, ru_, en_] of cases) {
+      const card = { ...PENDING, pos, transcription: "" };
+      expect(renderGenerated(ru, { card, deckTitle: "d" }).text.split("\n")[0]).toBe(
+        `<b>reluctant</b>  ${ru_}`,
+      );
+      expect(renderGenerated(en, { card, deckTitle: "d" }).text.split("\n")[0]).toBe(
+        `<b>reluctant</b>  ${en_}`,
+      );
+    }
+  });
+
   it("drops the part of speech it has no label for", () => {
     const screen = renderGenerated(ru, {
       card: { ...PENDING, pos: "gerundive" },

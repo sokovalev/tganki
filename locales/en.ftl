@@ -6,6 +6,9 @@ onb-hello =
     Hi! I will help you learn words with flashcards.
     Interface language: { $lang }
 onb-learn = Which language are we learning?
+onb-target =
+    Translate into?
+    Your interface is in { $lang } — most people translate into that.
 onb-lang-ask = Type the language name — for example "French" or the code fr.
 onb-lang-unknown = I do not know that language. Try another name or a code, for example fr.
 onb-level = What is your level?
@@ -109,8 +112,7 @@ add-ask-hint = Or send a pair right away: word - translation
 add-ask-translation = Translation for "{ $word }"?
 add-target-deck = → into "{ $deck }"
 add-duplicate-own = Already in "{ $deck }": { $word } — { $translation }.
-add-duplicate-builtin =
-    Found in "{ $deck }", position { $position }: { $word } — { $translation }.
+add-duplicate-builtin = Found in "{ $deck }": { $word } — { $translation }.
 add-done = ✅ Added to "{ $deck }": { $word } — { $translation }
 add-bulk-done = ✅ Added { $added ->
         [one] { $added } word
@@ -203,7 +205,8 @@ stats-deck-row = learned { $learned } of { $total }, due today { $due }
 settings-title = ⚙️ Settings
 settings-off = off
 settings-ui-lang = Interface language: { $value }
-settings-pair = Learning: { $from } → { $to }
+settings-learn = Learning: { $value }
+settings-target = Translate into: { $value }
 settings-new-limit = New cards per day: { $value }
 settings-reminder = Reminder: { $value }
 settings-tz = Timezone: { $value } (now { $time })
@@ -215,6 +218,7 @@ tr-mode-never = hidden
 settings-retention = Desired retention: { $value }
 settings-ask-ui-lang = Which language should I speak?
 settings-ask-learn-lang = Which language are we learning?
+settings-ask-target-lang = Which language should I translate into?
 settings-ask-new-limit = How many new cards per day?
 settings-ask-new-limit-custom = Send a number between 0 and 999.
 settings-ask-reminder = When should I remind you?
@@ -326,6 +330,7 @@ btn-delete-deck = 🗑 Delete deck
 btn-delete-confirm = 🗑 Delete
 btn-set-ui-lang = Interface language
 btn-set-learn-lang = Learning language
+btn-set-target-lang = 🌐 Translation language
 btn-set-new-limit = New per day
 btn-set-reminder = Reminder
 btn-set-tz = Timezone

@@ -7,6 +7,7 @@ import {
   languageButton,
   languageName,
   languageTag,
+  TARGET_LANGUAGES,
 } from "../i18n/languages.js";
 import { FIRST_SESSION_SIZE } from "../services/sessionService.js";
 import { argStr, parseCallback } from "./callbacks.js";
@@ -18,7 +19,14 @@ import { openSession } from "./session.js";
 import { normalizeReminderTime, offsetFromLocalTime } from "./time.js";
 import { answer, type Screen, show } from "./ui.js";
 
-export const ONBOARDING_STEPS = ["ui_lang", "learn_lang", "level", "tz", "reminder"] as const;
+export const ONBOARDING_STEPS = [
+  "ui_lang",
+  "learn_lang",
+  "target_lang",
+  "level",
+  "tz",
+  "reminder",
+] as const;
 export type OnboardingStep = (typeof ONBOARDING_STEPS)[number];
 
 /** Reminder presets offered during onboarding and in the settings (SPEC §1, §8). */
@@ -47,6 +55,25 @@ function learnLangScreen(ctx: BotContext): Screen {
   });
   keyboard.row().text(t("btn-other-lang"), cb(NS.onboarding, "lang", "other"));
   return { text: t("onb-learn"), keyboard };
+}
+
+/**
+ * Step 3: the language the translations are written in. It used to follow the
+ * interface language silently, which gave a Russian speaker with an English
+ * Telegram English translations of Georgian words.
+ */
+function targetLangScreen(ctx: BotContext): Screen {
+  const t = ctx.t.bind(ctx);
+  const keyboard = new InlineKeyboard();
+  TARGET_LANGUAGES.forEach((code, i) => {
+    keyboard.text(languageButton(code), cb(NS.onboarding, "to", code));
+    if (i % 2 === 1) keyboard.row();
+  });
+  keyboard.row().text(t("btn-other-lang"), cb(NS.onboarding, "to", "other"));
+  return {
+    text: t("onb-target", { lang: languageName(ctx.user.uiLang, ctx.user.uiLang) }),
+    keyboard,
+  };
 }
 
 async function levelScreen(ctx: BotContext, deps: BotDeps): Promise<Screen | null> {
@@ -112,6 +139,9 @@ export async function showStep(ctx: BotContext, deps: BotDeps, step: string): Pr
       return;
     case "learn_lang":
       await show(ctx, learnLangScreen(ctx));
+      return;
+    case "target_lang":
+      await show(ctx, targetLangScreen(ctx));
       return;
     case "level": {
       const screen = await levelScreen(ctx, deps);
@@ -186,6 +216,23 @@ export async function handleOnboardingInput(
         pendingInputExpiresAt: null,
       }),
     );
+    await advance(ctx, deps, "target_lang");
+    return true;
+  }
+
+  if (pending === "onb_to") {
+    const language = findLanguage(text);
+    if (!language) {
+      await ctx.reply(ctx.t("onb-lang-unknown"));
+      return true;
+    }
+    ctx.setUser(
+      await deps.repos.users.update(ctx.user.id, {
+        langTo: language.code,
+        pendingInput: null,
+        pendingInputExpiresAt: null,
+      }),
+    );
     await advance(ctx, deps, "level");
     return true;
   }
@@ -245,7 +292,9 @@ export function installOnboarding(bot: Bot<BotContext>, deps: BotDeps): void {
     await answer(ctx);
     const code = argStr(parseCallback(ctx.callbackQuery.data)!, 0) ?? "ru";
     const locale = isSupportedLocale(code) ? code : "ru";
-    ctx.setUser(await deps.repos.users.update(ctx.user.id, { uiLang: locale, langTo: locale }));
+    // `lang_to` is a separate question (step 3): the interface language is a
+    // suggestion there, never a silent decision.
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { uiLang: locale }));
     ctx.i18n.useLocale(locale);
     await advance(ctx, deps, "learn_lang");
   });
@@ -259,6 +308,18 @@ export function installOnboarding(bot: Bot<BotContext>, deps: BotDeps): void {
       return;
     }
     ctx.setUser(await deps.repos.users.update(ctx.user.id, { langFrom: code }));
+    await advance(ctx, deps, "target_lang");
+  });
+
+  bot.callbackQuery(/^o:to:/u, async (ctx) => {
+    await answer(ctx);
+    const code = argStr(parseCallback(ctx.callbackQuery.data)!, 0) ?? ctx.user.uiLang;
+    if (code === "other") {
+      ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, "onb_to"));
+      await show(ctx, { text: ctx.t("onb-lang-ask") });
+      return;
+    }
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { langTo: code }));
     await advance(ctx, deps, "level");
   });
 

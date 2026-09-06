@@ -90,6 +90,27 @@ export async function sendTracked(ctx: BotContext, screen: Screen): Promise<Mess
   }
 }
 
+/**
+ * `show`, but it reports where the screen landed so the caller can edit it
+ * again later — the «⏳ Подбираю перевод…» placeholder becomes the card
+ * preview in place, whether it started as a reply or as an edited screen.
+ */
+export async function showTracked(ctx: BotContext, screen: Screen): Promise<MessageRef | null> {
+  const message = ctx.callbackQuery?.message;
+  if (message) {
+    const ref = { chatId: message.chat.id, messageId: message.message_id };
+    const options = { ...HTML, ...(screen.keyboard ? { reply_markup: screen.keyboard } : {}) };
+    try {
+      await ctx.editMessageText(screen.text, options);
+      return ref;
+    } catch (error) {
+      if (isNotModified(error)) return ref;
+      if (!isEditImpossible(error)) throw error;
+    }
+  }
+  return sendTracked(ctx, screen);
+}
+
 /** Edits a message sent earlier in this update; sends a new one if that fails. */
 export async function editTracked(
   ctx: BotContext,

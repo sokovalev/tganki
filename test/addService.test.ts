@@ -559,7 +559,32 @@ describe("AI card generation (SPEC §4.1a)", () => {
     if (result.kind !== "duplicate") return;
     expect(result.own).toBe(false);
     expect(result.front).toBe("reluctant");
+    // The card comes with it: «Добавить всё равно» shows it instead of asking
+    // for a translation the model has already produced.
+    expect(result.card.back).toBe(CARD.back);
     expect(llm.calls).toHaveLength(1);
+  });
+
+  it("saves past the duplicate check once the user forced it", async () => {
+    fake.duplicates.push({
+      noteId: 9,
+      deckId: 1,
+      deckTitle: "English Top 1000 · A2",
+      deckOwnerId: null,
+      front: "reluctant",
+      back: "неохотный",
+      position: 214,
+    });
+    const result = await service(fake).save({
+      user,
+      front: "reluctant",
+      back: "мой перевод",
+      personalTitle: PERSONAL,
+      now: NOW,
+      force: true,
+    });
+    expect(result.kind).toBe("added");
+    expect(fake.notes).toHaveLength(1);
   });
 
   it("does not re-check duplicates when the headword is what the user typed", async () => {

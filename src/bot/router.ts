@@ -16,8 +16,12 @@ export function pendingInput(user: User, now: Date): string | null {
 }
 
 /**
- * Plain text. A pending question always wins over "add this word" (SPEC §11);
- * during onboarding anything unexpected re-shows the current step.
+ * Plain text. A pending question wins over "add this word" (SPEC §11), but only
+ * when some feature still owns that question: a state nobody claims is stale —
+ * left by an older build, or by a screen that has since been replaced — and it
+ * must never swallow the message or answer it with «Ок, ничего не добавляю».
+ * We drop it silently and treat the text as a new word. During onboarding
+ * anything unexpected re-shows the current step.
  */
 export function installTextRouter(bot: Bot<BotContext>, deps: BotDeps): void {
   bot.on("message:text", async (ctx) => {
@@ -33,6 +37,11 @@ export function installTextRouter(bot: Bot<BotContext>, deps: BotDeps): void {
       if (await handleSettingsInput(ctx, deps, pending, text)) return;
       if (await handleDeckInput(ctx, deps, pending, text)) return;
       if (await handleAddInput(ctx, deps, pending, text)) return;
+      // Unclaimed state: forget it instead of leaving it to intercept the next
+      // message too, and let the text fall through as a new word.
+      if (ctx.user.pendingInput !== null) {
+        ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+      }
     }
 
     if (isOnboarding(ctx.user)) {

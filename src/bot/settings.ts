@@ -7,6 +7,7 @@ import {
   findLanguage,
   languageButton,
   languageName,
+  TARGET_LANGUAGES,
 } from "../i18n/languages.js";
 import { isPro } from "../services/limits.js";
 import { argStr, parseCallback } from "./callbacks.js";
@@ -21,6 +22,8 @@ export const NEW_PER_DAY_OPTIONS = [5, 10, 20, 30] as const;
 export const RETENTION_OPTIONS = [0.8, 0.85, 0.9, 0.95] as const;
 export const TZ_INPUT = "tz_time";
 export const LANG_INPUT = "set_lang";
+/** «🌐 Язык перевода» → «Другой…». */
+export const TARGET_INPUT = "set_target";
 export const NEW_LIMIT_INPUT = "set_new_limit";
 export const DELETE_INPUT = "delete_account";
 /** Typed confirmation for account deletion (SPEC §8). */
@@ -31,10 +34,10 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
     t("settings-title"),
     "",
     t("settings-ui-lang", { value: languageName(user.uiLang, user.uiLang) }),
-    t("settings-pair", {
-      from: languageName(user.langFrom ?? "en", user.uiLang),
-      to: languageName(user.langTo ?? user.uiLang, user.uiLang),
-    }),
+    t("settings-learn", { value: languageName(user.langFrom ?? "en", user.uiLang) }),
+    // Independent of the interface language: a Russian speaker on an English
+    // Telegram still wants Russian translations (SPEC §1 step 3, §8).
+    t("settings-target", { value: languageName(user.langTo ?? user.uiLang, user.uiLang) }),
     t("settings-new-limit", { value: user.dailyNewLimit }),
     t("settings-reminder", { value: user.reminderTime ?? t("settings-off") }),
     t("settings-tz", { value: user.tz, time: localNow }),
@@ -45,6 +48,8 @@ export function renderSettings(t: Translate, user: User, localNow: string): Scre
   const keyboard = new InlineKeyboard()
     .text(t("btn-set-ui-lang"), cb(NS.settings, "lang"))
     .text(t("btn-set-learn-lang"), cb(NS.settings, "learn"))
+    .row()
+    .text(t("btn-set-target-lang"), cb(NS.settings, "to"))
     .row()
     .text(t("btn-set-new-limit"), cb(NS.settings, "new"))
     .text(t("btn-set-reminder"), cb(NS.settings, "rem"))
@@ -104,6 +109,18 @@ export async function handleSettingsInput(
     return true;
   }
 
+  if (pending === TARGET_INPUT) {
+    const language = findLanguage(text);
+    if (!language) {
+      await ctx.reply(ctx.t("onb-lang-unknown"));
+      return true;
+    }
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { langTo: language.code }));
+    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await showSettings(ctx, deps);
+    return true;
+  }
+
   if (pending === NEW_LIMIT_INPUT) {
     const value = Number(text.trim());
     if (!Number.isSafeInteger(value) || value < 0 || value > 999) {
@@ -158,7 +175,9 @@ export function installSettings(bot: Bot<BotContext>, deps: BotDeps): void {
     const code = argStr(parseCallback(ctx.callbackQuery.data)!, 0) ?? "ru";
     const locale = isSupportedLocale(code) ? code : "ru";
     ctx.i18n.useLocale(locale);
-    ctx.setUser(await deps.repos.users.update(ctx.user.id, { uiLang: locale, langTo: locale }));
+    // The translation language has its own button; changing the interface
+    // must not silently re-translate everything the user adds next.
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { uiLang: locale }));
     await showSettings(ctx, deps);
   });
 
@@ -188,6 +207,35 @@ export function installSettings(bot: Bot<BotContext>, deps: BotDeps): void {
       return;
     }
     ctx.setUser(await deps.repos.users.update(ctx.user.id, { langFrom: code }));
+    await showSettings(ctx, deps);
+  });
+
+  bot.callbackQuery("set:to", async (ctx) => {
+    await answer(ctx);
+    const keyboard = new InlineKeyboard();
+    TARGET_LANGUAGES.forEach((code, i) => {
+      keyboard.text(languageButton(code), cb(NS.settings, "to", code));
+      if (i % 2 === 1) keyboard.row();
+    });
+    keyboard
+      .row()
+      .text(ctx.t("btn-other-lang"), cb(NS.settings, "to", "other"))
+      .row()
+      .text(ctx.t("btn-back"), cb(NS.settings));
+    await show(ctx, { text: ctx.t("settings-ask-target-lang"), keyboard });
+  });
+
+  bot.callbackQuery(/^set:to:/u, async (ctx) => {
+    await answer(ctx);
+    const code = argStr(parseCallback(ctx.callbackQuery.data)!, 0) ?? ctx.user.uiLang;
+    if (code === "other") {
+      ctx.setUser(
+        await deps.repos.users.setPendingInput(ctx.user.id, TARGET_INPUT, { now: deps.now() }),
+      );
+      await show(ctx, { text: ctx.t("onb-lang-ask") });
+      return;
+    }
+    ctx.setUser(await deps.repos.users.update(ctx.user.id, { langTo: code }));
     await showSettings(ctx, deps);
   });
 

@@ -128,8 +128,17 @@ export type GenerateResult =
       /** The user typed langTo, so `card.front` is the foreign word (SPEC §4.1a). */
       reverse: boolean;
     }
-  /** The generated headword turned out to be a word the user already has. */
-  | { kind: "duplicate"; duplicate: DuplicateNote; own: boolean; front: string }
+  /**
+   * The generated headword turned out to be a word the user already has. The
+   * card comes along: «Добавить всё равно» shows it instead of asking again.
+   */
+  | {
+      kind: "duplicate";
+      duplicate: DuplicateNote;
+      own: boolean;
+      front: string;
+      card: GeneratedCard;
+    }
   | { kind: "failed"; reason: GenerationError["reason"] };
 
 export interface EnrichResult {
@@ -248,6 +257,7 @@ export function createAddService(port: AddPort, limits: Limits, llm: LlmSupport 
             duplicate,
             own: duplicate.deckOwnerId === input.user.id,
             front: card.front,
+            card,
           };
         }
       }
@@ -313,10 +323,12 @@ export function createAddService(port: AddPort, limits: Limits, llm: LlmSupport 
       transcription?: string;
       example?: string;
       exampleTr?: string;
+      /** «➕ Добавить всё равно»: the user has seen the duplicate and wants it. */
+      force?: boolean;
     }): Promise<SaveResult> {
       const front = normalizeFront(input.front);
       const back = normalizeFront(input.back);
-      const duplicate = await duplicateOf(input.user, front);
+      const duplicate = input.force ? undefined : await duplicateOf(input.user, front);
       if (duplicate) return { kind: "duplicate", duplicate };
       const check = await limits.canAddNotes(input.user, 1, input.now);
       if (!check.allowed) return { kind: "limit", check };

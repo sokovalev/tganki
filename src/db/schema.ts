@@ -48,6 +48,8 @@ export type PendingPayload = {
   card?: PendingCard;
   /** Deck the draft goes into; null = the user's default personal deck. */
   deckId?: number | null;
+  /** «➕ Добавить всё равно» was tapped: save this draft past the duplicate check. */
+  force?: boolean;
   /** Deck slug/public id from a `/start deck_<x>` link, subscribed once onboarding ends. */
   deckRef?: string;
   /** Deck whose new-per-day is being typed. */

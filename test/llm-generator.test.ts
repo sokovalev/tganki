@@ -20,9 +20,12 @@ const CARD: GeneratedCard = {
 
 const logger = createLogger({ level: "silent", pretty: false });
 
-function reply(card: Partial<GeneratedCard> | string): Response {
+function reply(card: Partial<GeneratedCard> | string, finishReason = "stop"): Response {
   const content = typeof card === "string" ? card : JSON.stringify({ ...CARD, ...card });
-  return new Response(JSON.stringify({ choices: [{ message: { content } }] }), { status: 200 });
+  return new Response(
+    JSON.stringify({ choices: [{ message: { content }, finish_reason: finishReason }] }),
+    { status: 200 },
+  );
 }
 
 interface Harness {
@@ -76,6 +79,38 @@ describe("createOpenRouterCardGenerator", () => {
     expect(messages[0]?.content).toContain("You build one flashcard");
     expect(messages[1]?.content).toBe("langFrom=en\nlangTo=ru\ninput: reluctant");
     expect(body.reasoning).toBeUndefined();
+  });
+
+  it("leaves a reasoning model room to answer", async () => {
+    // The client default (600) truncates the JSON of a thinking model.
+    const harness = fetching([() => reply({})]);
+    await generator(harness).generate(input);
+    expect(harness.bodies[0]?.max_tokens).toBe(4_000);
+  });
+
+  it("says so when the answer was cut off by the token budget", async () => {
+    const truncated = '{"front":"უნდომელი","back":"reluctant';
+    const harness = fetching([() => reply(truncated, "length")]);
+    try {
+      await generator(harness).generate(input);
+      throw new Error("expected a GenerationError");
+    } catch (error) {
+      expect(error).toBeInstanceOf(GenerationError);
+      expect((error as GenerationError).reason).toBe("invalid_output");
+      expect((error as GenerationError).message).toContain("finish_reason=length");
+    }
+  });
+
+  it("does not blame the budget for a reply that is simply wrong", async () => {
+    const harness = fetching([() => reply("sorry, I cannot do that")]);
+    const error = await generator(harness)
+      .generate(input)
+      .then(
+        () => null,
+        (caught: unknown) => caught,
+      );
+    expect(error).toBeInstanceOf(GenerationError);
+    expect((error as GenerationError).message).not.toContain("finish_reason");
   });
 
   it("passes the reasoning effort only when configured", async () => {

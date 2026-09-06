@@ -12,11 +12,31 @@ import type { BotContext, BotDeps } from "./context.js";
 import { bold, esc, italic } from "./format.js";
 import { cb, NS } from "./keyboards.js";
 import { openSession, renderCard, renderSession } from "./session.js";
-import { answer, editTracked, type Screen, send, sendTracked, show } from "./ui.js";
+import { answer, editTracked, type Screen, send, show, showTracked } from "./ui.js";
 
 /** Pending-input tokens owned by this feature. */
 export const ADD_WORD = "add_word";
 export const ADD_BACK = "add_back";
+
+/**
+ * State machine of the add flow (SPEC §4.1, §4.1a, §11). `pending_input` says
+ * what a *text* message means; `pending_payload` carries the draft the buttons
+ * currently on screen act on. The two are deliberately independent: a screen
+ * with buttons is not a question.
+ *
+ * | pending_input | payload                   | a text message means                              | buttons |
+ * |---------------|---------------------------|---------------------------------------------------|---------|
+ * | null          | the draft, if any         | a new word, or `слово - перевод` pairs             | ➕ Добавить / ✏️ Свой перевод / 📚 Другая дека / ➕ Добавить всё равно / ▶️ Учить сейчас — all act on the payload |
+ * | add_word      | { deckId? }               | the word to add (pairs still win)                  | ✖ Отмена, 📚 Другая дека |
+ * | add_back      | { front, deckId?, card? } | the translation for `front` — unless it parses as `слово - перевод`, which wins | ✖ Отмена, 📚 Другая дека |
+ * | anything else | —                         | not ours: the router drops the state and the text becomes a new word | — |
+ *
+ * Two rules keep screens and state in sync:
+ * - every screen that parks a draft (the generated preview, the duplicate
+ *   screen) goes through `rememberDraft`, which clears `pending_input`: the
+ *   next message is a new word, never an answer to a question nobody asked;
+ * - free text is never routed into a state that is not in the table above.
+ */
 
 function personalTitle(ctx: BotContext): string {
   return ctx.t("deck-personal", { lang: languageTag(ctx.user.langFrom ?? "en") });
@@ -32,6 +52,11 @@ export function toPendingCard(card: GeneratedCard): PendingCard {
     exampleTr: card.exampleTr,
     pos: card.pos,
   };
+}
+
+/** A typed pair, in the shape the preview and «Добавить всё равно» expect. */
+function manualCard(front: string, back: string): PendingCard {
+  return { front, back, transcription: "", example: "", exampleTr: "", pos: "" };
 }
 
 export function askScreen(
@@ -110,7 +135,6 @@ function duplicateScreen(t: Translate, duplicate: DuplicateNote, own: boolean): 
   return {
     text: t("add-duplicate-builtin", {
       deck: esc(duplicate.deckTitle),
-      position: duplicate.position,
       word: esc(duplicate.front),
       translation: esc(duplicate.back),
     }),
@@ -176,7 +200,7 @@ function recordGenerated(
 async function rememberDraft(
   ctx: BotContext,
   deps: BotDeps,
-  payload: { front: string; deckId?: number | null; card?: PendingCard },
+  payload: { front: string; deckId?: number | null; card?: PendingCard; force?: boolean },
 ): Promise<void> {
   ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
   ctx.setUser(await deps.repos.users.update(ctx.user.id, { pendingPayload: payload }));
@@ -191,24 +215,33 @@ async function generateAndShow(
   deps: BotDeps,
   front: string,
   deck: Deck,
+  options: { force?: boolean } = {},
 ): Promise<void> {
   const t = ctx.t.bind(ctx);
-  const ref = await sendTracked(ctx, { text: t("add-generating") });
+  const force = options.force ?? false;
+  const ref = await showTracked(ctx, { text: t("add-generating") });
   const result = await deps.add.generate({ user: ctx.user, text: front, now: deps.now() });
 
-  if (result.kind === "generated") {
-    recordGenerated(ctx, deps, result);
+  if (result.kind === "generated" || result.kind === "duplicate") {
+    if (result.kind === "generated") recordGenerated(ctx, deps, result);
     const card = toPendingCard(result.card);
-    await rememberDraft(ctx, deps, { front: card.front, deckId: deck.id, card });
-    await editTracked(ctx, ref, renderGenerated(t, { card, deckTitle: deck.title }));
-    return;
-  }
-
-  if (result.kind === "duplicate") {
-    // The canonical form is already in a deck — «неохотный» resolved to a
-    // "reluctant" the user has. Offer the same choices as a typed duplicate.
-    await rememberDraft(ctx, deps, { front: result.front, deckId: deck.id });
-    await editTracked(ctx, ref, duplicateScreen(t, result.duplicate, result.own));
+    // The canonical form may already be in a deck — «неохотный» resolved to a
+    // "reluctant" the user has. The card is parked either way, so «Добавить
+    // всё равно» shows it instead of falling back to the manual question.
+    const duplicate = result.kind === "duplicate" && !force;
+    await rememberDraft(ctx, deps, {
+      front: card.front,
+      deckId: deck.id,
+      card,
+      ...(force ? { force: true } : {}),
+    });
+    await editTracked(
+      ctx,
+      ref,
+      duplicate
+        ? duplicateScreen(t, result.duplicate, result.own)
+        : renderGenerated(t, { card, deckTitle: deck.title }),
+    );
     return;
   }
 
@@ -216,7 +249,7 @@ async function generateAndShow(
   ctx.setUser(
     await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
       now: deps.now(),
-      payload: { front, deckId: deck.id },
+      payload: { front, deckId: deck.id, ...(force ? { force: true } : {}) },
     }),
   );
   await editTracked(ctx, ref, askScreen(t, { front, deckTitle: deck.title, reason: "failed" }));
@@ -227,6 +260,7 @@ async function renderPreview(
   deps: BotDeps,
   preview: AddPreview,
   front: string,
+  deckId: number | null,
 ): Promise<void> {
   const t = ctx.t.bind(ctx);
   if (preview.kind === "limit") {
@@ -234,7 +268,9 @@ async function renderPreview(
     return;
   }
   if (preview.kind === "duplicate") {
-    await rememberDraft(ctx, deps, { front });
+    // No card yet: the word the user typed is already known, so the model has
+    // not run. «Добавить всё равно» picks the flow back up from here.
+    await rememberDraft(ctx, deps, { front, deckId });
     await show(ctx, duplicateScreen(t, preview.duplicate, preview.own));
     return;
   }
@@ -276,10 +312,14 @@ function enrichLater(ctx: BotContext, deps: BotDeps, note: Note): void {
 }
 
 /** `word - перевод` (one line or many) — no extra question needed. */
-async function saveDirect(ctx: BotContext, deps: BotDeps, text: string): Promise<boolean> {
+async function saveDirect(
+  ctx: BotContext,
+  deps: BotDeps,
+  text: string,
+  deckId: number | null,
+): Promise<boolean> {
   const parsed = parsePairs(text);
   if (parsed.pairs.length === 0) return false;
-  const deckId = ctx.user.pendingPayload?.deckId ?? null;
   const t = ctx.t.bind(ctx);
 
   if (parsed.pairs.length === 1) {
@@ -298,6 +338,12 @@ async function saveDirect(ctx: BotContext, deps: BotDeps, text: string): Promise
       return true;
     }
     if (result.kind === "duplicate") {
+      // The pair is kept as a draft so «Добавить всё равно» can still save it.
+      await rememberDraft(ctx, deps, {
+        front: pair.front,
+        deckId,
+        card: manualCard(pair.front, pair.back),
+      });
       await send(ctx, duplicateScreen(t, result.duplicate, result.duplicate.deckOwnerId !== null));
       return true;
     }
@@ -330,8 +376,14 @@ async function saveDirect(ctx: BotContext, deps: BotDeps, text: string): Promise
  * away, a short bare word gets an AI-filled preview (or, without a key, the
  * manual question), anything longer gets a hint.
  */
-export async function handleFreeText(ctx: BotContext, deps: BotDeps, text: string): Promise<void> {
-  if (await saveDirect(ctx, deps, text)) return;
+export async function handleFreeText(
+  ctx: BotContext,
+  deps: BotDeps,
+  text: string,
+  /** Only set while a deck is actually pending («📚 Другая дека» → «Какое слово?»). */
+  deckId: number | null = null,
+): Promise<void> {
+  if (await saveDirect(ctx, deps, text, deckId)) return;
   if (!isAddCandidate(text)) {
     await send(ctx, { text: ctx.t("add-too-long") });
     return;
@@ -339,12 +391,12 @@ export async function handleFreeText(ctx: BotContext, deps: BotDeps, text: strin
   const preview = await deps.add.preview({
     user: ctx.user,
     text,
-    deckId: ctx.user.pendingPayload?.deckId ?? null,
+    deckId,
     personalTitle: personalTitle(ctx),
     now: deps.now(),
     generate: true,
   });
-  await renderPreview(ctx, deps, preview, text.trim());
+  await renderPreview(ctx, deps, preview, text.trim(), deckId);
 }
 
 /** Text that answers a question this feature asked. Returns true when consumed. */
@@ -355,7 +407,7 @@ export async function handleAddInput(
   text: string,
 ): Promise<boolean> {
   if (pending === ADD_WORD) {
-    await handleFreeText(ctx, deps, text);
+    await handleFreeText(ctx, deps, text, ctx.user.pendingPayload?.deckId ?? null);
     return true;
   }
   if (pending !== ADD_BACK) return false;
@@ -367,6 +419,13 @@ export async function handleAddInput(
     ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
     return false;
   }
+  // The question itself says «можно сразу парой: слово - перевод», so a pair
+  // is a new word, not the translation of the word we asked about.
+  if (parsePairs(text).pairs.length > 0) {
+    ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
+    await handleFreeText(ctx, deps, text, deckId);
+    return true;
+  }
   // «Свой перевод»: the user's wording wins, the generated transcription and
   // example are kept — they belong to the same word.
   const card = payload?.card?.front === front ? payload.card : undefined;
@@ -377,6 +436,7 @@ export async function handleAddInput(
     deckId,
     personalTitle: personalTitle(ctx),
     now: deps.now(),
+    ...(payload?.force ? { force: true } : {}),
     ...(card
       ? {
           transcription: card.transcription,
@@ -391,6 +451,11 @@ export async function handleAddInput(
     return true;
   }
   if (result.kind === "duplicate") {
+    await rememberDraft(ctx, deps, {
+      front,
+      deckId,
+      card: card ? { ...card, back: text.trim() } : manualCard(front, text.trim()),
+    });
     await send(
       ctx,
       duplicateScreen(ctx.t.bind(ctx), result.duplicate, result.duplicate.deckOwnerId !== null),
@@ -441,18 +506,35 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
     await show(ctx, { text: ctx.t("add-cancelled") });
   });
 
+  /** «➕ Добавить всё равно» under a duplicate screen. */
   bot.callbackQuery("a:force", async (ctx) => {
     await answer(ctx);
-    const front = ctx.user.pendingPayload?.front;
+    const payload = ctx.user.pendingPayload;
+    const front = payload?.front;
     if (!front) return show(ctx, { text: ctx.t("add-expired") });
-    const deck = await deps.add.resolveDeck(ctx.user, null, personalTitle(ctx));
+    const t = ctx.t.bind(ctx);
+    const deck = await deps.add.resolveDeck(ctx.user, payload?.deckId ?? null, personalTitle(ctx));
+    const card = payload?.card;
+    // The card is already there (generated, or typed as `слово - перевод`):
+    // show it, so the user sees what «➕ Добавить» is about to save.
+    if (card) {
+      await rememberDraft(ctx, deps, { front: card.front, deckId: deck.id, card, force: true });
+      await show(ctx, renderGenerated(t, { card, deckTitle: deck.title }));
+      return;
+    }
+    // The duplicate was found on the typed word, before the model ran. The
+    // user wants the word anyway, so continue into §4.1a instead of asking.
+    if (deps.add.llm) {
+      await generateAndShow(ctx, deps, front, deck, { force: true });
+      return;
+    }
     ctx.setUser(
       await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
         now: deps.now(),
-        payload: { front, deckId: deck.id },
+        payload: { front, deckId: deck.id, force: true },
       }),
     );
-    await show(ctx, askScreen(ctx.t.bind(ctx), { front, deckTitle: deck.title }));
+    await show(ctx, askScreen(t, { front, deckTitle: deck.title }));
   });
 
   /** «➕ Добавить» under a generated preview. */
@@ -471,6 +553,8 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
       deckId: payload?.deckId ?? null,
       personalTitle: personalTitle(ctx),
       now: deps.now(),
+      // Already past the duplicate screen — asking again would be a dead end.
+      ...(payload.force ? { force: true } : {}),
     });
     ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
     if (result.kind === "limit") return show(ctx, limitScreen(ctx, result.check.limit));
@@ -494,7 +578,12 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
     ctx.setUser(
       await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
         now: deps.now(),
-        payload: { front: card.front, deckId: deck.id, card },
+        payload: {
+          front: card.front,
+          deckId: deck.id,
+          card,
+          ...(payload.force ? { force: true } : {}),
+        },
       }),
     );
     await show(ctx, askScreen(ctx.t.bind(ctx), { front: card.front, deckTitle: deck.title }));
@@ -545,15 +634,16 @@ export function installAdd(bot: Bot<BotContext>, deps: BotDeps): void {
       // A card in the payload means a preview is on screen — unless the user
       // already asked for «Свой перевод», in which case we are back to the
       // question and only the target deck is changing.
+      const force = payload?.force ?? false;
       if (card && ctx.user.pendingInput !== ADD_BACK) {
-        await rememberDraft(ctx, deps, { front, deckId, card });
+        await rememberDraft(ctx, deps, { front, deckId, card, ...(force ? { force } : {}) });
         await show(ctx, renderGenerated(t, { card, deckTitle: deck?.title ?? "" }));
         return;
       }
       ctx.setUser(
         await deps.repos.users.setPendingInput(ctx.user.id, ADD_BACK, {
           now: deps.now(),
-          payload: { front, deckId, ...(card ? { card } : {}) },
+          payload: { front, deckId, ...(card ? { card } : {}), ...(force ? { force } : {}) },
         }),
       );
       await show(ctx, askScreen(t, { front, deckTitle: deck?.title ?? "" }));

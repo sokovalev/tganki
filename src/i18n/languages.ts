@@ -123,3 +123,9 @@ export function languageTag(code: string): string {
 
 /** Languages that ship with builtin decks; also the onboarding shortcuts. */
 export const FEATURED_LANGUAGES = ["en", "de", "es", "ka"] as const;
+
+/**
+ * Shortcuts on the «На какой язык переводить?» picker (SPEC §1 step 3, §8).
+ * Anything else is reachable through «Другой…» and the table above.
+ */
+export const TARGET_LANGUAGES = ["ru", "en", "uk"] as const;

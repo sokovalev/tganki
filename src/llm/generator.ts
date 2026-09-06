@@ -24,6 +24,13 @@ import {
 /** ISO 639-3 "undetermined": what the prompt returns for junk input. */
 export const UNDETERMINED = "und";
 
+/**
+ * Answer budget for one card. The client default (600) is not enough for a
+ * reasoning model: the thinking tokens eat it and the JSON arrives cut in half
+ * («{"front":"უნდომელი","back":"reluctant»). Same value as the eval harness.
+ */
+export const CARD_MAX_TOKENS = 4_000;
+
 export interface OpenRouterGeneratorOptions {
   apiKey: string;
   /** OpenRouter model id, e.g. "google/gemini-3.7-flash". */
@@ -83,15 +90,19 @@ export function createOpenRouterCardGenerator(
     async generate(input: GenerateCardInput): Promise<GeneratedCard> {
       const started = Date.now();
       let text: string;
+      /** "length" = the model ran out of tokens mid-answer. */
+      let finishReason: string | null = null;
       try {
         const reply = await client.chat({
           model: options.model,
           system: SYSTEM_PROMPT,
           user: buildUserMessage(input),
           schema: CARD_JSON_SCHEMA,
+          maxTokens: CARD_MAX_TOKENS,
           ...(options.reasoningEffort ? { reasoningEffort: options.reasoningEffort } : {}),
         });
         text = reply.text;
+        finishReason = reply.finishReason;
       } catch (error) {
         const failure = toTransportError(error);
         options.logger.warn(
@@ -105,11 +116,27 @@ export function createOpenRouterCardGenerator(
       try {
         card = parseCard(text);
       } catch (error) {
+        // A truncated answer looks exactly like an invalid one, so say which it
+        // was: `finish_reason: "length"` means the budget was too small.
+        const truncated = finishReason === "length";
         options.logger.warn(
-          { err: error, model: options.model, reply: text.slice(0, 400) },
-          "card generation returned unparseable output",
+          {
+            err: error,
+            model: options.model,
+            finishReason,
+            maxTokens: CARD_MAX_TOKENS,
+            reply: text.slice(0, 400),
+          },
+          truncated
+            ? "card generation was cut off before the JSON ended"
+            : "card generation returned unparseable output",
         );
-        throw new GenerationError(message(error), "invalid_output");
+        throw new GenerationError(
+          truncated
+            ? `${message(error)} (truncated: finish_reason=length, max_tokens=${CARD_MAX_TOKENS})`
+            : message(error),
+          "invalid_output",
+        );
       }
 
       // Junk input comes back as `und` with empty fields, and a card without a

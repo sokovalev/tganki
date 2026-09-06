@@ -71,6 +71,8 @@ export interface ChatResult {
   text: string;
   usage: UsageRecord;
   mode: ResponseMode;
+  /** `choices[0].finish_reason`; "length" means the answer was cut off. */
+  finishReason: string | null;
   latencyMs: number;
   attempts: number;
 }
@@ -115,6 +117,18 @@ export function parseUsage(payload: unknown): UsageRecord {
   };
 }
 
+/**
+ * Why the model stopped: "stop" is a complete answer, "length" means it ran
+ * out of `max_tokens` — the usual cause of a half-written JSON object.
+ */
+export function parseFinishReason(payload: unknown): string | null {
+  if (typeof payload !== "object" || payload === null) return null;
+  const choices = (payload as { choices?: unknown }).choices;
+  if (!Array.isArray(choices) || choices.length === 0) return null;
+  const reason = (choices[0] as { finish_reason?: unknown }).finish_reason;
+  return typeof reason === "string" && reason !== "" ? reason : null;
+}
+
 /** Pulls the assistant text out of a chat-completions payload. */
 export function parseContent(payload: unknown): string {
   const choices = (payload as { choices?: unknown }).choices;
@@ -134,7 +148,12 @@ export function parseContent(payload: unknown): string {
       .join("");
     if (text !== "") return text;
   }
-  throw new OpenRouterError("empty content in response", 200, JSON.stringify(payload));
+  const finishReason = parseFinishReason(payload);
+  throw new OpenRouterError(
+    `empty content in response${finishReason ? ` (finish_reason=${finishReason})` : ""}`,
+    200,
+    JSON.stringify(payload),
+  );
 }
 
 const defaultSleep = (ms: number): Promise<void> =>
@@ -287,6 +306,7 @@ export class OpenRouterClient {
         text: parseContent(payload),
         usage: parseUsage(payload),
         mode,
+        finishReason: parseFinishReason(payload),
         latencyMs: Date.now() - started,
         attempts: state.attempts,
       };

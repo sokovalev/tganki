@@ -7,6 +7,9 @@ onb-hello =
     Привет! Помогу выучить слова по карточкам.
     Язык интерфейса: { $lang }
 onb-learn = Какой язык учим?
+onb-target =
+    На какой язык переводить?
+    Интерфейс у тебя на { $lang } — обычно переводят на него.
 onb-lang-ask = Напиши название языка — например «французский» или код fr.
 onb-lang-unknown = Не знаю такого языка. Напиши по-другому или введи код, например fr.
 onb-level = Какой у тебя уровень?
@@ -119,8 +122,7 @@ add-ask-hint = Можно сразу парой: слово - перевод
 add-ask-translation = Перевод для «{ $word }»?
 add-target-deck = → в деку «{ $deck }»
 add-duplicate-own = Уже есть в «{ $deck }»: { $word } — { $translation }.
-add-duplicate-builtin =
-    Есть в «{ $deck }», позиция { $position }: { $word } — { $translation }.
+add-duplicate-builtin = Есть в «{ $deck }»: { $word } — { $translation }.
 add-done = ✅ Добавил в «{ $deck }»: { $word } — { $translation }
 add-bulk-done = ✅ Добавил { $added ->
         [one] { $added } слово
@@ -218,7 +220,8 @@ stats-deck-row = выучено { $learned } из { $total }, на сегодн�
 settings-title = ⚙️ Настройки
 settings-off = выключено
 settings-ui-lang = Язык интерфейса: { $value }
-settings-pair = Учу: { $from } → { $to }
+settings-learn = Учу: { $value }
+settings-target = Переводить на: { $value }
 settings-new-limit = Новых карточек в день: { $value }
 settings-reminder = Напоминание: { $value }
 settings-tz = Часовой пояс: { $value } (сейчас { $time })
@@ -230,6 +233,7 @@ tr-mode-never = не показывать
 settings-retention = Желаемая запоминаемость: { $value }
 settings-ask-ui-lang = На каком языке говорить?
 settings-ask-learn-lang = Какой язык учим?
+settings-ask-target-lang = На какой язык переводить?
 settings-ask-new-limit = Сколько новых карточек в день?
 settings-ask-new-limit-custom = Напиши число от 0 до 999.
 settings-ask-reminder = Когда напоминать?
@@ -344,6 +348,7 @@ btn-delete-deck = 🗑 Удалить деку
 btn-delete-confirm = 🗑 Удалить
 btn-set-ui-lang = Язык интерфейса
 btn-set-learn-lang = Язык обучения
+btn-set-target-lang = 🌐 Язык перевода
 btn-set-new-limit = Новых в день
 btn-set-reminder = Напоминание
 btn-set-tz = Часовой пояс
