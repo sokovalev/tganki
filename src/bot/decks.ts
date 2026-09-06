@@ -176,7 +176,10 @@ export async function handleDeckInput(
   const check = await deps.limits.canCreateDeck(ctx.user, deps.now());
   ctx.setUser(await deps.repos.users.setPendingInput(ctx.user.id, null, { now: deps.now() }));
   if (!check.allowed) {
-    await ctx.reply(ctx.t("deck-limit", { limit: check.limit }));
+    await send(ctx, {
+      text: ctx.t("deck-limit", { limit: check.limit }),
+      keyboard: new InlineKeyboard().text(ctx.t("btn-pro"), cb(NS.pro)),
+    });
     return true;
   }
   const langFrom = ctx.user.langFrom ?? "en";
@@ -222,7 +225,9 @@ export function installDecks(bot: Bot<BotContext>, deps: BotDeps): void {
     if (!check.allowed) {
       await show(ctx, {
         text: ctx.t("deck-limit", { limit: check.limit }),
-        keyboard: new InlineKeyboard().text(ctx.t("btn-back"), cb(NS.decks)),
+        keyboard: new InlineKeyboard()
+          .text(ctx.t("btn-pro"), cb(NS.pro))
+          .text(ctx.t("btn-back"), cb(NS.decks)),
       });
       return;
     }

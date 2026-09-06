@@ -176,6 +176,55 @@ function service(fake: FakeReminders, sleep?: (ms: number) => Promise<void>) {
   });
 }
 
+describe("the hourly Pro expiry step (SPEC §9.2)", () => {
+  /** Ticks the cron with an `expirePro` hook that only counts its calls. */
+  function hourly(fake: FakeReminders) {
+    const calls: Date[] = [];
+    const runner = createReminderService(fake.port, fake.sender, {
+      logger: silentLogger,
+      sleep: async () => {},
+      expirePro: async (at) => {
+        calls.push(at);
+        return 2;
+      },
+    });
+    return { runner, calls };
+  }
+
+  it("runs on the first tick and then once per wall-clock hour", async () => {
+    const { runner, calls } = hourly(fakeReminders([]));
+    const first = await runner.run(NOW);
+    expect(calls).toHaveLength(1);
+    expect(first.expired).toBe(2);
+    // Same hour, next minute: nothing to do.
+    const again = await runner.run(new Date("2026-01-10T12:30:00.000Z"));
+    expect(calls).toHaveLength(1);
+    expect(again.expired).toBe(0);
+    // The hour rolls over.
+    await runner.run(new Date("2026-01-10T13:00:00.000Z"));
+    expect(calls).toHaveLength(2);
+  });
+
+  it("still sends the reminders when the sweep throws", async () => {
+    const fake = fakeReminders([makeUser({ id: 1, reminderTime: "15:00", tz: "Europe/Moscow" })]);
+    const runner = createReminderService(fake.port, fake.sender, {
+      logger: silentLogger,
+      sleep: async () => {},
+      expirePro: async () => {
+        throw new Error("database is down");
+      },
+    });
+    const stats = await runner.run(NOW);
+    expect(stats.expired).toBe(0);
+    expect(sentIds(fake)).toEqual([1]);
+  });
+
+  it("does nothing at all when no hook is wired in", async () => {
+    const fake = fakeReminders([]);
+    expect((await service(fake).run(NOW)).expired).toBe(0);
+  });
+});
+
 describe("reminder service", () => {
   it("sends only to the users whose minute it is", async () => {
     const fake = fakeReminders([
@@ -582,6 +631,7 @@ describe("reminder cron", () => {
     blocked: 0,
     skipped: 0,
     failed: 0,
+    expired: 0,
   };
 
   it("ticks once a minute", async () => {

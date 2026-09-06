@@ -80,12 +80,12 @@ export function askScreen(
     t("add-ask-hint"),
     t("add-target-deck", { deck: esc(input.deckTitle) }),
   );
-  return {
-    text: lines.join("\n"),
-    keyboard: new InlineKeyboard()
-      .text(t("btn-cancel"), cb(NS.add, "cancel", input.rev))
-      .text(t("btn-other-deck"), cb(NS.add, "decks", input.rev)),
-  };
+  const keyboard = new InlineKeyboard()
+    .text(t("btn-cancel"), cb(NS.add, "cancel", input.rev))
+    .text(t("btn-other-deck"), cb(NS.add, "decks", input.rev));
+  // Every 🔒 has to lead somewhere (SPEC §9.1): a spent daily budget is one.
+  if (input.reason === "limit") keyboard.row().text(t("btn-pro"), cb(NS.pro));
+  return { text: lines.join("\n"), keyboard };
 }
 
 /** "прил." / "adj." — empty for a part of speech we have no short label for. */

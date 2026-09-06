@@ -1,7 +1,7 @@
-import type { Bot } from "grammy";
+import { type Bot, GrammyError } from "grammy";
 import { startOfLearningDay } from "../core/streak.js";
 import type { BotContext, BotDeps } from "./context.js";
-import { esc } from "./format.js";
+import { esc, localDate } from "./format.js";
 import { htmlOptions } from "./ui.js";
 
 const REPORTS_SHOWN = 10;
@@ -11,7 +11,7 @@ export function isAdmin(deps: BotDeps, tgId: number): boolean {
   return deps.config.ADMIN_TG_IDS.includes(tgId);
 }
 
-/** `/admin`, `/admin pro <tgId> [days]` and `/admin reset <tgId>` (SPEC §13). */
+/** `/admin`, `/admin pro <tgId> [days]`, `/admin reset <tgId>` and `/admin refund <chargeId>` (SPEC §13). */
 export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
   bot.command("admin", async (ctx) => {
     if (!isAdmin(deps, ctx.user.tgId)) return;
@@ -28,6 +28,44 @@ export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
       const until = new Date(deps.now().getTime() + days * 24 * 60 * 60 * 1000);
       await deps.repos.users.update(target.id, { plan: "pro", planUntil: until });
       await ctx.reply(ctx.t("admin-granted", { tgId, until: until.toISOString().slice(0, 10) }));
+      return;
+    }
+
+    // `/admin refund <charge_id>` — the Stars refund of SPEC §9.2. Telegram is
+    // asked first; only a refund it accepted may shorten the plan.
+    if (args[0] === "refund") {
+      const chargeId = args[1] ?? "";
+      const found = chargeId ? await deps.payments.lookup(chargeId) : null;
+      if (!found) {
+        await ctx.reply(ctx.t("admin-refund-usage"));
+        return;
+      }
+      try {
+        await ctx.api.refundStarPayment(found.user.tgId, chargeId);
+      } catch (error) {
+        const reason = error instanceof GrammyError ? error.description : String(error);
+        await ctx.reply(ctx.t("admin-refund-failed", { reason: esc(reason) }), htmlOptions);
+        return;
+      }
+      const grant = await deps.payments.revoke({
+        payment: found.payment,
+        user: found.user,
+        now: deps.now(),
+      });
+      const plan =
+        grant === null
+          ? ctx.t("admin-refund-plan-kept")
+          : ctx.t("admin-refund-plan", {
+              plan: grant.plan,
+              until: grant.planUntil ? localDate(grant.planUntil, found.user.tz) : "—",
+            });
+      await ctx.reply(
+        `${ctx.t("admin-refunded", {
+          tgId: found.user.tgId,
+          stars: found.payment.stars,
+          product: found.payment.product,
+        })}\n${plan}`,
+      );
       return;
     }
 

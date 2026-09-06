@@ -25,6 +25,8 @@ export type EventName =
   | "weekly_report_sent"
   | "pro_screen"
   | "payment"
+  | "refund"
+  | "pro_expired"
   | "note_reported"
   | "word_known"
   | "deck_restored"

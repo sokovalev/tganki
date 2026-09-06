@@ -454,6 +454,7 @@ export type Session = typeof sessions.$inferSelect;
 export type Payment = typeof payments.$inferSelect;
 export type NoteReport = typeof noteReports.$inferSelect;
 export type Event = typeof events.$inferSelect;
+export type UserPlan = (typeof userPlan.enumValues)[number];
 export type CardMode = (typeof cardMode.enumValues)[number];
 export type TranscriptionMode = (typeof transcriptionMode.enumValues)[number];
 export type NewCardStyle = (typeof newCardStyle.enumValues)[number];

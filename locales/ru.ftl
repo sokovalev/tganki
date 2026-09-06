@@ -319,12 +319,35 @@ settings-deleted = Аккаунт и все данные удалены. Нап�
 pro-soon =
     Pro скоро появится: безлимитные деки и слова, все встроенные деки, тонкая настройка повторений.
     Пока всё бесплатно и без ограничений.
+pro-title = ⭐ <b>tganki Pro</b>
 pro-text =
-    Pro снимает лимиты бесплатного плана: { $decks } своих деки и { $notes } слов.
-    Оплата — звёздами Telegram.
+    Что даёт Pro:
+    • свои деки и слова без ограничений (на Free — { $decks } деки и { $notes } слов)
+    • AI-карточки без дневного лимита
+    • «Слова из текста» без лимита
+    • «Выбор из четырёх» на новых карточках
+    • своя желаемая запоминаемость в настройках
+pro-plan-free = Сейчас у тебя: Free.
+pro-plan-pro = Сейчас у тебя: Pro до { $until }.
+pro-plan-lifetime = Сейчас у тебя: Pro навсегда.
+pro-admin-note = Лимиты выключены (PRO_ENABLED=false); товары видны только админам — для проверки оплаты.
+pro-item-month = tganki Pro — месяц
+pro-item-month-desc = Подписка на месяц: свои деки и слова без ограничений, AI-карточки и разбор текстов без дневного лимита. Продлевается автоматически, отменить можно в Telegram.
+pro-item-year = tganki Pro — год
+pro-item-year-desc = 365 дней Pro одним платежом, без автопродления.
+pro-item-lifetime = tganki Pro — навсегда
+pro-item-lifetime-desc = Pro навсегда, один платёж.
+pro-item-test = tganki Pro — тест
+pro-item-test-desc = Тестовая покупка: 1 день Pro за 1 звезду. Только для админов.
+pay-subscribe = Подписка Pro — { $stars } ⭐ в месяц. Нажми кнопку, чтобы оплатить в Telegram.
+pay-thanks = ⭐ Спасибо! Pro включён.
+pay-renewed = ⭐ Подписка продлена.
+pay-unknown = Платёж прошёл, но я не узнал товар. Напиши /paysupport — разберёмся и вернём деньги.
+pay-rejected = Не могу принять этот платёж. Открой /pro и начни заново.
 paysupport-text =
-    Вопросы по оплате — напиши сюда же, разберёмся.
-    Возврат за покупку звёздами возможен в течение 14 дней по запросу.
+    Вопросы по оплате — напиши прямо сюда: что покупал, когда и на какую сумму.
+    Возврат за покупку звёздами возможен в течение 14 дней после оплаты — просто попроси, вернём звёзды.
+    Подписку можно отменить в Telegram: профиль бота → «Управление подпиской».
 help-text =
     Как это работает: бот показывает карточку, ты вспоминаешь перевод и честно оцениваешь себя.
     Дальше алгоритм FSRS сам решает, когда показать слово снова.
@@ -468,6 +491,10 @@ btn-set-new-style = 🆕 Новые карточки
 btn-delete-account = 🗑 Удалить аккаунт
 btn-custom-number = Своё число
 btn-pro = ⭐ Pro
+btn-buy-month = ⭐ { $stars } / мес
+btn-buy-year = ⭐ { $stars } / год
+btn-buy-lifetime = ⭐ { $stars } навсегда
+btn-buy-test = ⭐ { $stars } — тест на день
 btn-start-learning = ▶️ Начать
 
 ## Админка
@@ -480,6 +507,11 @@ admin-grant-usage = Использование: /admin pro <tg_id> [дней]
 admin-granted = Выдал Pro для { $tgId } до { $until }.
 admin-reset-usage = Использование: /admin reset <tg_id>. Удаляет карточки, историю повторений, сессии, известные слова и стрик; настройки, деки и свои слова остаются.
 admin-reset-done = Сбросил прогресс для { $tgId }.
+admin-refund-usage = Использование: /admin refund <charge_id>. Нужен telegram_payment_charge_id из таблицы payments.
+admin-refund-failed = Telegram отказал в возврате: { $reason }
+admin-refunded = Вернул { $stars } ⭐ пользователю { $tgId } за { $product }.
+admin-refund-plan = План теперь: { $plan }, до { $until }.
+admin-refund-plan-kept = План не трогал: это не последняя покупка.
 
 ## Команды Telegram
 

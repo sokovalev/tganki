@@ -8,14 +8,16 @@
 import { Bot } from "grammy";
 import type { Update, UserFromGetMe } from "grammy/types";
 import { installAdd } from "../../src/bot/add.js";
+import { installAdmin } from "../../src/bot/admin.js";
 import type { BotContext, BotDeps } from "../../src/bot/context.js";
 import { installExtract } from "../../src/bot/extract.js";
 import { installOnboarding } from "../../src/bot/onboarding.js";
+import { installPro } from "../../src/bot/pro.js";
 import { installTextRouter } from "../../src/bot/router.js";
 import { installSettings } from "../../src/bot/settings.js";
 import { answer } from "../../src/bot/ui.js";
 import type { DuplicateNote, FrontClass } from "../../src/db/repos/notes.js";
-import type { Deck, NewUser, Note, PendingPayload, User } from "../../src/db/schema.js";
+import type { Deck, NewUser, Note, Payment, PendingPayload, User } from "../../src/db/schema.js";
 import { normalizeFrontValue } from "../../src/db/sql.js";
 import { createI18n } from "../../src/i18n/index.js";
 import type { CachedCardGenerator } from "../../src/llm/cache.js";
@@ -28,7 +30,9 @@ import type {
 import { type AddPort, createAddService, type LlmSupport } from "../../src/services/addService.js";
 import type { EventName, EventRecorder } from "../../src/services/events.js";
 import { createExtractService, type ExtractLlm } from "../../src/services/extractService.js";
-import { createLimits } from "../../src/services/limits.js";
+import { createLimits, isPro } from "../../src/services/limits.js";
+import { createPaymentService, type PaymentPort } from "../../src/services/paymentService.js";
+import { createProducts, type Product } from "../../src/services/products.js";
 import { makeUser } from "./fakeSession.js";
 
 export const NOW = new Date("2026-01-10T12:00:00.000Z");
@@ -84,6 +88,21 @@ export interface FakeBot {
   forward(text: string): Promise<void>;
   /** Taps an inline button. */
   tap(data: string): Promise<void>;
+  /** Answers a `pre_checkout_query` for this invoice payload (SPEC §9.2). */
+  preCheckout(payload: string, amount?: number): Promise<void>;
+  /** Delivers a `successful_payment` message. */
+  pay(payment: {
+    payload: string;
+    chargeId?: string;
+    stars?: number;
+    recurring?: boolean;
+    firstRecurring?: boolean;
+    expiresAt?: Date;
+  }): Promise<void>;
+  /** Charges stored by the payment service, oldest first. */
+  charges(): Payment[];
+  /** What `/pro` sells in this fake. */
+  products(): readonly Product[];
   /** Texts the bot sent or edited, oldest first. */
   texts(): string[];
   lastText(): string;
@@ -115,6 +134,12 @@ export interface FakeBotOptions {
   generationsUsed?: number;
   /** `text_extracted` events already recorded today (SPEC §9.1). */
   extractionsUsed?: number;
+  /** Telegram ids that may run `/admin`; the fake user's id is 555. */
+  adminTgIds?: number[];
+  /** Charges already stored, so a duplicate `successful_payment` has something to hit. */
+  payments?: Payment[];
+  /** Bot API methods that must fail, mapped to the description Telegram returns. */
+  apiFailures?: Record<string, string>;
 }
 
 /**
@@ -364,6 +389,48 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     },
   };
 
+  // Telegram Stars (SPEC §9.2): the real service on an in-memory charge table.
+  const charges: Payment[] = [...(options.payments ?? [])];
+  let nextChargeId = charges.length + 1;
+  const paymentPort: PaymentPort = {
+    async insert(input) {
+      if (charges.some((row) => row.tgChargeId === input.tgChargeId)) return null;
+      const row: Payment = {
+        id: nextChargeId++,
+        userId: input.userId,
+        tgChargeId: input.tgChargeId,
+        stars: input.stars,
+        product: input.product,
+        subscriptionExpiresAt: input.subscriptionExpiresAt,
+        createdAt: NOW,
+      };
+      charges.push(row);
+      return row;
+    },
+    async findByChargeId(chargeId) {
+      return charges.find((row) => row.tgChargeId === chargeId) ?? null;
+    },
+    async latestFor(userId) {
+      return [...charges].reverse().find((row) => row.userId === userId) ?? null;
+    },
+    async findUser(id) {
+      return state.user.id === id ? state.user : null;
+    },
+    updatePlan: (id, grant) => users.update(id, grant),
+    async listExpired(now) {
+      return state.user.plan !== "free" && !isPro(state.user, now) ? [state.user] : [];
+    },
+    record(_userId, name, props) {
+      recorded.push({ name, props });
+    },
+  };
+  const products = createProducts({
+    PRO_PRICE_MONTH: 199,
+    PRO_PRICE_YEAR: 1499,
+    PRO_PRICE_LIFETIME: 2999,
+  });
+  const payments = createPaymentService(paymentPort, { products });
+
   const repos = {
     users,
     decks: {
@@ -382,7 +449,10 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
 
   const i18n = createI18n();
   const deps = {
-    config: { PRO_ENABLED: options.proEnabled ?? false },
+    config: {
+      PRO_ENABLED: options.proEnabled ?? false,
+      ADMIN_TG_IDS: options.adminTgIds ?? [],
+    },
     db: {},
     repos,
     logger: { debug() {}, info() {}, warn() {}, error() {} },
@@ -392,6 +462,7 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
     add,
     extract,
     limits,
+    payments,
     now: () => NOW,
     botUsername: () => "tganki_bot",
   } as unknown as BotDeps;
@@ -401,6 +472,13 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   let nextMessageId = 100;
   bot.api.config.use(async (_prev, method, payload) => {
     calls.push({ method, payload: payload as Record<string, unknown> });
+    const failure = options.apiFailures?.[method];
+    if (failure !== undefined) {
+      return { ok: false, error_code: 400, description: failure } as never;
+    }
+    if (method === "createInvoiceLink") {
+      return { ok: true, result: "https://t.me/$invoice" } as never;
+    }
     if (method === "sendMessage") {
       const sent = payload as { chat_id: number; text: string };
       return {
@@ -432,6 +510,8 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
   installAdd(bot, deps);
   installExtract(bot, deps);
   installSettings(bot, deps);
+  installPro(bot, deps);
+  installAdmin(bot, deps);
   installTextRouter(bot, deps);
   bot.on("callback_query", (ctx) => answer(ctx));
 
@@ -524,6 +604,48 @@ export function createFakeBot(options: FakeBotOptions = {}): FakeBot {
       } as Update;
       await bot.handleUpdate(update);
     },
+
+    async preCheckout(payload: string, amount = 199) {
+      const update = {
+        update_id: updateId++,
+        pre_checkout_query: {
+          id: String(updateId),
+          from,
+          currency: "XTR",
+          total_amount: amount,
+          invoice_payload: payload,
+        },
+      } as Update;
+      await bot.handleUpdate(update);
+    },
+
+    async pay(payment) {
+      const update = {
+        update_id: updateId++,
+        message: {
+          message_id: updateId + 500,
+          date: 0,
+          chat,
+          from,
+          successful_payment: {
+            currency: "XTR",
+            total_amount: payment.stars ?? 199,
+            invoice_payload: payment.payload,
+            telegram_payment_charge_id: payment.chargeId ?? "charge_1",
+            provider_payment_charge_id: "provider_1",
+            ...(payment.recurring ? { is_recurring: true as const } : {}),
+            ...(payment.firstRecurring ? { is_first_recurring: true as const } : {}),
+            ...(payment.expiresAt
+              ? { subscription_expiration_date: Math.floor(payment.expiresAt.getTime() / 1000) }
+              : {}),
+          },
+        },
+      } as Update;
+      await bot.handleUpdate(update);
+    },
+
+    charges: () => charges,
+    products: () => products,
 
     texts: () => messages().map((call) => String(call.payload.text ?? "")),
     lastText: () => {

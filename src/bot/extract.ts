@@ -157,6 +157,10 @@ export function renderExtractSummary(t: Translate, input: SummaryInput): Screen 
   if (input.added.length + input.taken.length > 0) {
     keyboard.text(t("btn-learn-new"), cb(NS.extract, "learn", input.rev));
   }
+  // A budget the free plan ran into always offers the way out (SPEC §9.1).
+  if (input.noteLimit !== undefined || input.budgetSkipped > 0) {
+    keyboard.text(t("btn-pro"), cb(NS.pro));
+  }
   keyboard.text(t("btn-menu"), cb(NS.menu));
   return { text: lines.join("\n"), keyboard };
 }
@@ -205,6 +209,7 @@ export async function runExtraction(
   if (result.kind === "limit") {
     await editTracked(ctx, ref, {
       text: t("extract-limit", { limit: FREE_LIMITS.textsPerDay }),
+      keyboard: new InlineKeyboard().text(t("btn-pro"), cb(NS.pro)),
     });
     return;
   }

@@ -9,6 +9,7 @@ import type { AddService } from "../services/addService.js";
 import type { EventRecorder } from "../services/events.js";
 import type { ExtractService } from "../services/extractService.js";
 import type { Limits } from "../services/limits.js";
+import type { PaymentService } from "../services/paymentService.js";
 import type { SessionService } from "../services/sessionService.js";
 
 /** Attached by `middleware/user.ts` before any handler runs. */
@@ -35,6 +36,8 @@ export interface BotDeps {
   /** «Слова из текста» (SPEC §4.3). */
   extract: ExtractService;
   limits: Limits;
+  /** Telegram Stars: products, invoices, grants and expiry (SPEC §9.2). */
+  payments: PaymentService;
   /** Injected for tests; defaults to `() => new Date()`. */
   now: () => Date;
   /** Bot username, resolved on start; used to build share links. */

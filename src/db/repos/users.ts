@@ -1,4 +1,4 @@
-import { and, eq, gte, inArray, isNotNull, isNull, notInArray, or, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull, isNull, lt, notInArray, or, sql } from "drizzle-orm";
 import type { StreakUpdate } from "../../core/streak.js";
 import type { Database } from "../index.js";
 import {
@@ -163,6 +163,19 @@ export function createUsersRepo(db: Database) {
             ),
           ),
         );
+    },
+
+    /**
+     * Paid plans whose time is up (SPEC §9.2). `lifetime` has no `plan_until`
+     * and never shows up here; a cancelled Stars subscription simply stops
+     * renewing, so an expired date is all we ever get to see.
+     */
+    listExpiredPlans(now: Date, limit: number): Promise<User[]> {
+      return db
+        .select()
+        .from(users)
+        .where(and(eq(users.plan, "pro"), isNotNull(users.planUntil), lt(users.planUntil, now)))
+        .limit(limit);
     },
 
     async deleteById(id: number): Promise<void> {

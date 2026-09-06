@@ -281,12 +281,21 @@ export interface ReminderRunStats {
   /** Of `sent`: streak nudges and weekly reports. */
   nudged: number;
   reported: number;
+  /** Pro plans the hourly step downgraded to free (SPEC §9.2). */
+  expired: number;
 }
 
 export interface ReminderServiceOptions {
   logger: Logger;
   perSecond?: number;
   sleep?: (ms: number) => Promise<void>;
+  /**
+   * The hourly step: downgrades Pro plans whose `plan_until` has passed and
+   * returns how many (SPEC §9.2). It rides on this cron instead of a second
+   * timer, and runs on the first tick of every wall-clock hour — so a restart
+   * catches up immediately instead of waiting for the next full hour.
+   */
+  expirePro?: (now: Date) => Promise<number>;
 }
 
 const defaultSleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -305,6 +314,8 @@ export function createReminderService(
   const perSecond = options.perSecond ?? REMINDERS_PER_SECOND;
   const gap = Math.ceil(1000 / perSecond);
   const sleep = options.sleep ?? defaultSleep;
+  /** Epoch hour of the last expiry sweep; null = it has not run yet. */
+  let sweptHour: number | null = null;
 
   return {
     /** One cron tick. Returns counters so the caller can log a single line. */
@@ -318,7 +329,21 @@ export function createReminderService(
         failed: 0,
         nudged: 0,
         reported: 0,
+        expired: 0,
       };
+
+      // 0. Once an hour: Pro plans that ran out (SPEC §9.2). Failing here must
+      // not cost anyone their reminder, so it is caught and logged.
+      const hour = Math.floor(now.getTime() / 3_600_000);
+      if (options.expirePro && sweptHour !== hour) {
+        sweptHour = hour;
+        try {
+          stats.expired = await options.expirePro(now);
+          if (stats.expired > 0) options.logger.info({ n: stats.expired }, "pro plans expired");
+        } catch (error) {
+          options.logger.error({ err: error }, "pro expiry sweep failed");
+        }
+      }
 
       let anySent = false;
       /** Paces, sends, and reports whether the message actually landed. */

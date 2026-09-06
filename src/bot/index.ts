@@ -12,6 +12,8 @@ import { createAddService, type LlmSupport } from "../services/addService.js";
 import { createEventRecorder } from "../services/events.js";
 import { createExtractService, type ExtractLlm } from "../services/extractService.js";
 import { createLimits } from "../services/limits.js";
+import { createPaymentService } from "../services/paymentService.js";
+import { createProducts } from "../services/products.js";
 import { createReminderService, type ReminderRunStats } from "../services/reminderService.js";
 import { createSessionPort } from "../services/sessionPort.js";
 import { createSessionService } from "../services/sessionService.js";
@@ -25,6 +27,7 @@ import { installMenu } from "./menu.js";
 import { userMiddleware } from "./middleware/user.js";
 import { installMisc } from "./misc.js";
 import { installOnboarding } from "./onboarding.js";
+import { installPro } from "./pro.js";
 import { installTextRouter } from "./router.js";
 import { installSession } from "./session.js";
 import { installSettings } from "./settings.js";
@@ -110,6 +113,22 @@ export function createBot(options: CreateBotOptions): BotHandle {
           }),
         }
       : null;
+  // Telegram Stars (SPEC §9.2). The catalog is built once from the config;
+  // `payments` owns the grant maths, the charge table and the hourly expiry.
+  const payments = createPaymentService(
+    {
+      insert: (input) => repos.payments.insert(input),
+      findByChargeId: (chargeId) => repos.payments.findByChargeId(chargeId),
+      latestFor: (userId) => repos.payments.latestFor(userId),
+      findUser: (userId) => repos.users.findById(userId),
+      updatePlan: (userId, grant) =>
+        repos.users.update(userId, { plan: grant.plan, planUntil: grant.planUntil }),
+      listExpired: (now, limit) => repos.users.listExpiredPlans(now, limit),
+      record: (userId, name, props) => events.record(userId, name, props),
+    },
+    { products: createProducts(config) },
+  );
+
   const add = createAddService(
     {
       findDuplicates: (input) => repos.notes.findDuplicates(input),
@@ -151,6 +170,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
     add,
     extract,
     limits,
+    payments,
     now,
     botUsername: () => username,
   };
@@ -166,6 +186,7 @@ export function createBot(options: CreateBotOptions): BotHandle {
   installDecks(bot, deps);
   installStats(bot, deps);
   installSettings(bot, deps);
+  installPro(bot, deps);
   installMisc(bot, deps);
   installAdmin(bot, deps);
   installTextRouter(bot, deps);
@@ -205,7 +226,8 @@ export function createBot(options: CreateBotOptions): BotHandle {
       record: (userId, name, props) => events.record(userId, name, props),
     },
     createReminderSender(bot, i18n, logger),
-    { logger },
+    // The hourly step of the same cron: expired Pro plans drop to free (§9.2).
+    { logger, expirePro: (at) => payments.expire(at) },
   );
 
   const webhookPath = config.PUBLIC_URL ? `/telegram/${config.WEBHOOK_SECRET ?? "updates"}` : null;

@@ -43,6 +43,26 @@ describe("loadConfig", () => {
     }
   });
 
+  it("prices the Pro products, in Stars, with the catalog defaults", () => {
+    const config = loadConfig(base);
+    expect(config.PRO_PRICE_MONTH).toBe(199);
+    expect(config.PRO_PRICE_YEAR).toBe(1499);
+    expect(config.PRO_PRICE_LIFETIME).toBe(2999);
+    const custom = loadConfig({
+      ...base,
+      PRO_PRICE_MONTH: "249",
+      PRO_PRICE_YEAR: "",
+      PRO_PRICE_LIFETIME: " 3999 ",
+    });
+    expect(custom.PRO_PRICE_MONTH).toBe(249);
+    // A blank variable is not a price of zero: it falls back to the default.
+    expect(custom.PRO_PRICE_YEAR).toBe(1499);
+    expect(custom.PRO_PRICE_LIFETIME).toBe(3999);
+    expect(() => loadConfig({ ...base, PRO_PRICE_MONTH: "0" })).toThrow(/Stars/);
+    expect(() => loadConfig({ ...base, PRO_PRICE_MONTH: "1.5" })).toThrow(/Stars/);
+    expect(() => loadConfig({ ...base, PRO_PRICE_MONTH: "free" })).toThrow(/Stars/);
+  });
+
   it("parses the admin id list and drops blanks", () => {
     expect(loadConfig({ ...base, ADMIN_TG_IDS: "123, 456 ,,abc," }).ADMIN_TG_IDS).toEqual([
       123, 456,

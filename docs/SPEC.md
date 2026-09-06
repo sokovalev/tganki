@@ -716,12 +716,66 @@ English Top 1000 · A2
 Разбор текста (§4.3) считается так же — по событиям `text_extracted` за учебный день; карточки,
 которые пользователь потом добавляет из чек-листа, тратят обычный лимит генераций.
 
-### 9.2. Оплата через Telegram Stars [M2]
-- Товары: `pro_month` (подписка, `subscription_period = 30 дней`), `pro_year` (разовый платёж на 365 дней), `pro_lifetime`, `deck_<slug>` (разовый).
-- Поток: `/pro` → экран с тарифами → `sendInvoice(currency="XTR")` → `pre_checkout_query` (проверяем, что товар существует; отвечаем `ok` за < 10 с) → `successful_payment` → запись в `payments`, `users.plan`, `plan_until`.
-- Подписка: продления приходят как новые `successful_payment` с `is_recurring = true` — продлеваем `plan_until`. Отмена происходит на стороне Telegram; мы просто видим, что `plan_until` прошёл → крон раз в час переводит в `free`.
-- `/paysupport` — обязательная команда: контакт для вопросов по платежам и политика возврата (возврат через `refundStarPayment` в течение 14 дней по запросу).
-- Подарок Pro другу [M3], партнёрская программа Telegram [M3].
+### 9.2. Оплата через Telegram Stars [M1, за рубильником `PRO_ENABLED`]
+
+Единственный платёжный рельс — Stars (`currency: "XTR"`): по правилам Telegram цифровые товары
+в ботах иначе не продаются. Каталог собирается в `src/services/products.ts` из конфига, вся
+арифметика планов — в `src/services/paymentService.ts`, экран и хендлеры — в `src/bot/pro.ts`.
+
+**Товары.**
+
+| id | Что это | Цена (по умолчанию) | Что даёт |
+|---|---|---|---|
+| `pro_month` | подписка, `subscription_period = 2592000` (30 дней) | `PRO_PRICE_MONTH`, 199 ⭐ | 30 дней Pro, продлевается сама |
+| `pro_year` | разовый платёж | `PRO_PRICE_YEAR`, 1499 ⭐ | 365 дней Pro |
+| `pro_lifetime` | разовый платёж | `PRO_PRICE_LIFETIME`, 2999 ⭐ | `plan = lifetime`, `plan_until = null` |
+| `pro_test` | разовый платёж, виден только `ADMIN_TG_IDS` | 1 ⭐ | 1 день Pro — чтобы прогнать живую оплату и возврат |
+
+Подарок Pro другу и партнёрская программа Telegram — по-прежнему [M3]. Платные деки
+(`deck_<slug>`) — [M2].
+
+**Поток.**
+
+1. `/pro` (или кнопка `pro` с любого экрана с 🔒) → экран: что даёт Pro, текущий план и до какого
+   числа, по кнопке на каждый доступный товар. При `PRO_ENABLED=false` обычный пользователь видит
+   прежний текст «скоро», **админ видит товары** — иначе живую оплату не проверить.
+2. Тап по товару → счёт:
+   - разовые товары — `sendInvoice(chat_id, title, description, payload, "XTR", [{label, amount}],
+     { provider_token: "" })`;
+   - подписка — `createInvoiceLink(..., { subscription_period })` и сообщение с URL-кнопкой:
+     параметра `subscription_period` у `sendInvoice` нет (Bot API 9.x), поэтому подписка идёт
+     только ссылкой.
+   - `payload` = `<product>:<userId>:<nonce>`, где `userId` — внутренний `users.id`, а `nonce` —
+     8 случайных символов (≤ 128 байт, как требует Bot API).
+3. `pre_checkout_query` → `answerPreCheckoutQuery` за секунды: `ok: true`, если payload разбирается,
+   товар существует и `userId` совпадает с плательщиком; иначе `ok: false` с локализованным текстом.
+   Сумму специально **не** сверяем: продление подписки списывается по цене исходного счёта, а она
+   может уже не совпадать с конфигом.
+4. `successful_payment` → строка в `payments` (`tg_charge_id` уникален) и затем новый план.
+   Уникальный индекс и есть точка идемпотентности: повторно доставленный апдейт возвращает
+   «дубликат», второй раз ничего не начисляется и пользователю ничего не пишется.
+   Событие `payment { product, stars, recurring }` (§12), ответ — благодарность и новая дата.
+
+**Как считается `plan_until`.**
+
+- `lifetime` абсолютен: его не продлевают и не укорачивают, покупка чего угодно поверх ничего
+  не меняет.
+- Разовый товар прибавляет свои дни к `max(now, plan_until)` — купленное заранее не сгорает.
+- Подписка берёт `subscription_expiration_date` из платежа, если он пришёл, иначе +30 дней;
+  более длинный уже оплаченный план назад не двигается.
+- Продление приходит обычным `successful_payment` с `is_recurring = true` и идёт тем же путём.
+  Отмена происходит на стороне Telegram: подписка просто перестаёт продлеваться.
+
+**Истечение.** Раз в час (шаг того же крона, что и напоминания §6) пользователи с `plan = 'pro'`
+и `plan_until < now` переводятся в `free`, событие `pro_expired`. `lifetime` не трогаем никогда.
+Шаг идемпотентен и запускается на первом тике каждого часа, так что рестарт догоняет пропущенное
+сразу.
+
+**Возврат.** `/paysupport` — обязательная команда: куда писать и что возврат звёзд возможен в
+течение 14 дней после оплаты по запросу. Возврат делает владелец: `/admin refund <charge_id>` →
+`refundStarPayment(user_id, charge_id)`. Только если Telegram возврат принял, план укорачивается
+на длину возвращённого товара (`lifetime` → `free`), и только когда это последняя покупка
+пользователя: более раннюю покупку уже перекрыла следующая. Событие `refund`.
 
 ---
 
@@ -762,7 +816,9 @@ English Top 1000 · A2
 ## 12. Аналитика [M1]
 
 Таблица `events(user_id, name, props jsonb, at)`. События: `start`, `onboarding_done`, `session_start`, `card_introduced`, `review`, `session_end`, `word_added`, `word_generated`, `word_generation_failed`, `text_extracted`, `text_words_added`, `word_known`, `deck_subscribed`, `deck_created`, `deck_restored`, `reminder_sent`, `reminder_clicked`, `streak_nudge_sent` (`{ streak }`, §6.2),
-`weekly_report_sent` (`{ reviews, newCards }`, §6.3), `pro_screen`, `payment`, `blocked`.
+`weekly_report_sent` (`{ reviews, newCards }`, §6.3), `pro_screen`,
+`payment` (`{ product, stars, recurring }`, §9.2), `refund` (`{ product, stars, chargeId }`),
+`pro_expired` (`{ until }`), `blocked`.
 `word_generated` несёт `{ cached, latencyMs, model, langFrom, langTo }` — из него же считается дневной
 лимит §9.1, поэтому отдельной колонки-счётчика нет. `text_extracted`
 (`{ words, dropped, model, latencyMs, chars, detectedLang }`) считает дневной лимит §4.3 и заодно
@@ -773,7 +829,7 @@ English Top 1000 · A2
 
 ## 13. Администрирование [M1 минимум]
 
-`/admin` доступен только `ADMIN_TG_IDS`: сводка (пользователи всего/сегодня, сессий сегодня, оценок сегодня), список жалоб на карточки (`note_reports`), выдать Pro вручную (`/admin pro <tg_id> [дней]`), сбросить прогресс пользователя (`/admin reset <tg_id>`: карточки, история, сессии, известные слова (§3.7), стрик; настройки, подписки и свои слова остаются). Рассылка [M2].
+`/admin` доступен только `ADMIN_TG_IDS`: сводка (пользователи всего/сегодня, сессий сегодня, оценок сегодня), список жалоб на карточки (`note_reports`), выдать Pro вручную (`/admin pro <tg_id> [дней]`), вернуть платёж (`/admin refund <charge_id>` — `refundStarPayment` и, если это последняя покупка пользователя, укорачивание `plan_until`, §9.2), сбросить прогресс пользователя (`/admin reset <tg_id>`: карточки, история, сессии, известные слова (§3.7), стрик; настройки, подписки и свои слова остаются). Рассылка [M2].
 
 ---
 

@@ -296,12 +296,35 @@ settings-deleted = Your account and all data are gone. Send /start to begin agai
 pro-soon =
     Pro is coming: unlimited decks and words, every builtin deck, finer control over reviews.
     Everything is free and unlimited for now.
+pro-title = ⭐ <b>tganki Pro</b>
 pro-text =
-    Pro lifts the free-plan limits: { $decks } own decks and { $notes } words.
-    Paid with Telegram Stars.
+    What Pro gives you:
+    • unlimited own decks and words (Free: { $decks } decks and { $notes } words)
+    • AI cards with no daily cap
+    • "Words from a text" with no daily cap
+    • "Pick one of four" on new cards
+    • your own desired retention in settings
+pro-plan-free = Your plan: Free.
+pro-plan-pro = Your plan: Pro until { $until }.
+pro-plan-lifetime = Your plan: Pro forever.
+pro-admin-note = Limits are off (PRO_ENABLED=false); products are shown to admins only, to test payments.
+pro-item-month = tganki Pro — month
+pro-item-month-desc = A monthly subscription: unlimited own decks and words, AI cards and text mining with no daily cap. Renews automatically, cancel it in Telegram.
+pro-item-year = tganki Pro — year
+pro-item-year-desc = 365 days of Pro in one payment, no auto-renewal.
+pro-item-lifetime = tganki Pro — forever
+pro-item-lifetime-desc = Pro forever, one payment.
+pro-item-test = tganki Pro — test
+pro-item-test-desc = Test purchase: one day of Pro for one Star. Admins only.
+pay-subscribe = Pro subscription — { $stars } ⭐ a month. Tap the button to pay in Telegram.
+pay-thanks = ⭐ Thank you! Pro is on.
+pay-renewed = ⭐ Subscription renewed.
+pay-unknown = The payment went through but I did not recognise the product. Send /paysupport — we will sort it out and refund you.
+pay-rejected = I cannot accept this payment. Open /pro and start again.
 paysupport-text =
-    Questions about a payment — write here and we will sort it out.
-    Star purchases can be refunded within 14 days on request.
+    Questions about a payment — write right here: what you bought, when and for how much.
+    A Star purchase can be refunded within 14 days of the payment — just ask and the Stars go back.
+    A subscription can be cancelled in Telegram: the bot's profile → "Manage subscription".
 help-text =
     How it works: the bot shows a card, you recall the translation and rate yourself honestly.
     The FSRS algorithm then decides when to show the word again.
@@ -435,6 +458,10 @@ btn-set-new-style = 🆕 New cards
 btn-delete-account = 🗑 Delete account
 btn-custom-number = Custom number
 btn-pro = ⭐ Pro
+btn-buy-month = ⭐ { $stars } / month
+btn-buy-year = ⭐ { $stars } / year
+btn-buy-lifetime = ⭐ { $stars } forever
+btn-buy-test = ⭐ { $stars } — one-day test
 btn-start-learning = ▶️ Start
 
 ## Admin
@@ -447,6 +474,11 @@ admin-grant-usage = Usage: /admin pro <tg_id> [days]
 admin-granted = Granted Pro to { $tgId } until { $until }.
 admin-reset-usage = Usage: /admin reset <tg_id>. Deletes cards, review history, sessions, known words and the streak; settings, decks and own words stay.
 admin-reset-done = Reset progress for { $tgId }.
+admin-refund-usage = Usage: /admin refund <charge_id>. It takes the telegram_payment_charge_id from the payments table.
+admin-refund-failed = Telegram refused the refund: { $reason }
+admin-refunded = Refunded { $stars } ⭐ to { $tgId } for { $product }.
+admin-refund-plan = The plan is now: { $plan }, until { $until }.
+admin-refund-plan-kept = Left the plan alone: this is not the latest purchase.
 
 ## Telegram commands
 

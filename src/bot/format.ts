@@ -78,6 +78,12 @@ export function localTime(now: Date, tz: string): string {
   return (dt.isValid ? dt : DateTime.fromJSDate(now, { zone: "UTC" })).toFormat("HH:mm");
 }
 
+/** Local calendar date, "YYYY-MM-DD" — the Pro expiry on the `/pro` screen. */
+export function localDate(date: Date, tz: string): string {
+  const dt = DateTime.fromJSDate(date, { zone: tz });
+  return (dt.isValid ? dt : DateTime.fromJSDate(date, { zone: "UTC" })).toFormat("yyyy-MM-dd");
+}
+
 /** Local "YYYY-MM-DD HH:MM" is never shown; this is the short "завтра в 08:00" part. */
 export function localTimeOf(date: Date, tz: string): string {
   return localTime(date, tz);

@@ -30,6 +30,18 @@ const tgIdList = z
       .filter((id) => Number.isSafeInteger(id) && id !== 0),
   );
 
+/** A price in Telegram Stars; blank falls back to the catalog default (SPEC §9.2). */
+const starPrice = (fallback: number) =>
+  z
+    .string()
+    .trim()
+    .optional()
+    .transform((value) => (value === undefined || value === "" ? fallback : Number(value)))
+    .refine(
+      (value) => Number.isSafeInteger(value) && value >= 1 && value <= 100_000,
+      "must be a whole number of Stars between 1 and 100000",
+    );
+
 export const configSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
@@ -55,6 +67,10 @@ export const configSchema = z.object({
   ADMIN_TG_IDS: tgIdList,
   /** Master switch for Free-plan gating; false = everything is allowed. */
   PRO_ENABLED: boolFlag(false),
+  /** `/pro` prices in Stars (SPEC §9.2). Admins always also see the 1-Star test product. */
+  PRO_PRICE_MONTH: starPrice(199),
+  PRO_PRICE_YEAR: starPrice(1499),
+  PRO_PRICE_LIFETIME: starPrice(2999),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
 });
 

@@ -33,6 +33,9 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 | `WEBHOOK_SECRET` | нет | — | секрет в пути вебхука и в заголовке `X-Telegram-Bot-Api-Secret-Token` |
 | `ADMIN_TG_IDS` | нет | — | Telegram-id через запятую, кому доступна `/admin` |
 | `PRO_ENABLED` | нет | `false` | включает лимиты бесплатного плана (`true`/`1`/`yes`/`on`) |
+| `PRO_PRICE_MONTH` | нет | `199` | цена подписки Pro на месяц, в звёздах (§9.2 спеки) |
+| `PRO_PRICE_YEAR` | нет | `1499` | цена Pro на год, в звёздах |
+| `PRO_PRICE_LIFETIME` | нет | `2999` | цена Pro навсегда, в звёздах |
 | `OPENROUTER_API_KEY` | нет | — | ключ OpenRouter. Задан → работают AI-заполнение карточек (§4.1a спеки) и «слова из текста» (§4.3), пуст → только ручной ввод |
 | `LLM_MODEL` | нет | `google/gemini-3.7-flash` | id модели в OpenRouter |
 | `LLM_REASONING_EFFORT` | нет | — | `low`/`medium`/`high`; отправляется только если задан (нужно моделям с рассуждением) |
@@ -64,6 +67,29 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 3. `pnpm migrate && pnpm seed`, затем `pnpm dev` — и пишите боту в личку `/start`.
 4. Свой Telegram-id (узнать можно у @userinfobot) добавьте в `ADMIN_TG_IDS`, чтобы работала `/admin`.
 
+### Как проверить оплату звёздами вживую
+
+Тестовой среды у Stars нет: оплата всегда настоящая. Поэтому в каталоге есть товар `pro_test` —
+**1 звезда за 1 день Pro**, и он показывается только тем, чей id есть в `ADMIN_TG_IDS`.
+
+1. Добавьте свой Telegram-id в `ADMIN_TG_IDS`. `PRO_ENABLED` можно оставить `false`: гейтинг
+   останется выключенным, но админу `/pro` покажет товары (обычный пользователь увидит «скоро»).
+2. `/pro` → «⭐ 1 — тест на день». Разовые товары уходят через `sendInvoice`, подписка
+   `pro_month` — через `createInvoiceLink` с `subscription_period` и URL-кнопку (у `sendInvoice`
+   такого параметра нет).
+3. Оплатите. Придёт `pre_checkout_query` (отвечаем `ok` за секунды) и `successful_payment`:
+   строка в `payments`, `users.plan = 'pro'`, `plan_until = now + 1 день`, событие `payment`.
+4. Возврат: `/admin refund <charge_id>`, где `charge_id` — `telegram_payment_charge_id` из
+   `payments` (`select tg_charge_id from payments order by id desc limit 1`). Бот вызывает
+   `refundStarPayment` и, если это последняя покупка пользователя, укорачивает `plan_until`
+   на длину товара — за 1-дневный тест план возвращается в `free`. Звёзды приходят обратно
+   на счёт покупателя; чужой (не последний) платёж возвращается без изменения плана.
+5. Подписку `pro_month` отменяет сам пользователь в Telegram; мы просто перестаём получать
+   продления, а через час после `plan_until` крон переводит план в `free` (событие `pro_expired`).
+
+Живьём это работает только у бота с включёнными платежами: в @BotFather для Stars ничего
+подключать не нужно, `provider_token` для `XTR` — пустая строка.
+
 ### Вебхук против long polling
 
 | | Когда | Что происходит на старте |
@@ -80,7 +106,10 @@ export DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 §6 спеки: дневное напоминание, «стрик в опасности» (21:00 местного) и недельный отчёт
 (понедельник 10:00 местного). У них общий троттлинг (≤ 25 сообщений/с) и общая обработка 403;
 идемпотентность после перезапуска дают отметки в `users`: `last_reminded_day`,
-`last_streak_nudge_day`, `last_weekly_report_week`.
+`last_streak_nudge_day`, `last_weekly_report_week`. На том же тике живёт часовой шаг §9.2:
+`expirePro` переводит `plan = 'pro'` с истёкшим `plan_until` в `free`. Он запускается на первом
+тике каждого часа (по стенным часам), поэтому рестарт догоняет пропущенное сразу, а падение
+шага логируется и не мешает рассылке.
 
 ## Локализация
 
@@ -142,7 +171,8 @@ src/
   bot/               слой Telegram (см. ниже)
   i18n/              Fluent-обёртка и таблица языков
   llm/               генерация карточек и разбор текста: контракт, промпты, клиент OpenRouter, кэш
-  services/          оркестрация поверх репозиториев (сессия, /add, лимиты, напоминания)
+  services/          оркестрация поверх репозиториев (сессия, /add, лимиты, напоминания,
+                     products.ts — каталог Pro, paymentService.ts — payload, гранты, возвраты)
   reminders/         крон (cron.ts), рендер сообщений (render.ts) и отправка (sender.ts)
   core/
     scheduler.ts     обёртка над ts-fsrs: превью интервалов, применение оценки
@@ -176,6 +206,7 @@ bot/
   draft.ts           ревизии черновиков: `pending_payload` один на пользователя, поэтому каждая
                      кнопка везёт ревизию и тап по старому экрану отбивается тостом (§4.1, §11)
   extract.ts         «Слова из текста» (§4.3): чек-лист, переключатели, итог
+  pro.ts             `/pro`, счета в звёздах, `pre_checkout_query`, `successful_payment` (§9.2)
   onboarding.ts menu.ts session.ts add.ts decks.ts stats.ts settings.ts admin.ts misc.ts
   router.ts          обычный текст: ожидаемый ввод важнее «добавить слово»
 ```
@@ -261,6 +292,11 @@ git add drizzle src/db/schema.ts
 «слова из текста» (§4.3: промпт и схема через фейковый `fetch`, постобработка и письменность,
 длинный текст → чек-лист, переключатели, добавление выбранного с фейковым генератором, отсев
 известных слов, чужой язык, вырезание ссылок, дневной лимит, поведение без ключа),
+оплату звёздами (§9.2: разбор и проверка payload, арифметика грантов для месяца/года/навсегда,
+продление активного плана и повторный платёж подписки, идемпотентность по `charge_id`,
+укорачивание плана при возврате, часовой шаг истечения, `pre_checkout_query` да/нет,
+`successful_payment` через `fakeBot`, `/admin refund`, экран `/pro` с `PRO_ENABLED` и без —
+для админа и для обычного пользователя),
 выбор пользователей для напоминаний и крон с фейковыми таймерами,
 «стрик в опасности» и недельный отчёт (§6.2, §6.3: срабатывание в 21:00 и в понедельник 10:00
 местного — и в IANA-зоне, и в фиксированном смещении, один раз в день / в ISO-неделю, отсев по
@@ -269,7 +305,7 @@ git add drizzle src/db/schema.ts
 на ru и en).
 
 Доступ к БД спрятан за интерфейсами (`QueueRepo`, `UndoRepo`, `SessionPort`, `AddPort`,
-`ExtractPort`, `ReminderPort`), в тестах используются in-memory фейки — Postgres для `pnpm test` не нужен.
+`ExtractPort`, `ReminderPort`, `PaymentPort`), в тестах используются in-memory фейки — Postgres для `pnpm test` не нужен.
 
 ## Деплой
 
