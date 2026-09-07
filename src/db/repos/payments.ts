@@ -1,6 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import type { Database } from "../index.js";
-import { type Payment, payments } from "../schema.js";
+import { type Payment, payments, users } from "../schema.js";
 
 export function createPaymentsRepo(db: Database) {
   return {
@@ -37,6 +37,18 @@ export function createPaymentsRepo(db: Database) {
         .where(eq(payments.tgChargeId, chargeId))
         .limit(1);
       return row ?? null;
+    },
+
+    /** Newest charges first, with the payer's Telegram id — for `/admin payments`. */
+    async listRecent(limit = 10, tgId?: number): Promise<(Payment & { tgId: number })[]> {
+      const rows = await db
+        .select({ payment: payments, tgId: users.tgId })
+        .from(payments)
+        .innerJoin(users, eq(users.id, payments.userId))
+        .where(tgId === undefined ? undefined : eq(users.tgId, tgId))
+        .orderBy(desc(payments.id))
+        .limit(limit);
+      return rows.map((row) => ({ ...row.payment, tgId: row.tgId }));
     },
 
     /** The user's most recent charge — the only one that can still hold up their plan. */

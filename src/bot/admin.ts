@@ -11,7 +11,7 @@ export function isAdmin(deps: BotDeps, tgId: number): boolean {
   return deps.config.ADMIN_TG_IDS.includes(tgId);
 }
 
-/** `/admin`, `/admin pro <tgId> [days]`, `/admin reset <tgId>` and `/admin refund <chargeId>` (SPEC §13). */
+/** `/admin`, `/admin pro <tgId> [days]`, `/admin reset <tgId>`, `/admin payments [tgId]` and `/admin refund <chargeId>` (SPEC §13). */
 export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
   bot.command("admin", async (ctx) => {
     if (!isAdmin(deps, ctx.user.tgId)) return;
@@ -28,6 +28,26 @@ export function installAdmin(bot: Bot<BotContext>, deps: BotDeps): void {
       const until = new Date(deps.now().getTime() + days * 24 * 60 * 60 * 1000);
       await deps.repos.users.update(target.id, { plan: "pro", planUntil: until });
       await ctx.reply(ctx.t("admin-granted", { tgId, until: until.toISOString().slice(0, 10) }));
+      return;
+    }
+
+    // `/admin payments [tg_id]` — the last charges with their ids, so a refund
+    // can be issued without opening the database.
+    if (args[0] === "payments") {
+      const tgId = args[1] === undefined ? undefined : Number(args[1]);
+      const rows = await deps.repos.payments.listRecent(
+        10,
+        tgId !== undefined && Number.isSafeInteger(tgId) ? tgId : undefined,
+      );
+      if (rows.length === 0) {
+        await ctx.reply(ctx.t("admin-payments-empty"));
+        return;
+      }
+      const lines = rows.map(
+        (row) =>
+          `${row.createdAt.toISOString().slice(0, 16).replace("T", " ")} · ${row.tgId} · ${esc(row.product)} · ${row.stars} ⭐\n<code>${esc(row.tgChargeId)}</code>`,
+      );
+      await ctx.reply([ctx.t("admin-payments-title"), ...lines].join("\n"), htmlOptions);
       return;
     }
 
