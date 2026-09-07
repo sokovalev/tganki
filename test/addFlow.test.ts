@@ -7,6 +7,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { ADD_BACK, ADD_WORD } from "../src/bot/add.js";
 import type { ExtractedWords, GeneratedCard } from "../src/llm/types.js";
+import { FREE_LIMITS } from "../src/services/limits.js";
 import { createFakeBot, duplicateNote, type FakeBot, makeDeck, NOW } from "./helpers/fakeBot.js";
 
 const CARD: GeneratedCard = {
@@ -509,7 +510,7 @@ describe("words from a text (SPEC §4.3)", () => {
   });
 
   it("skips the words the daily AI budget no longer covers", async () => {
-    const bot = textBot({ proEnabled: true, generationsUsed: 9 });
+    const bot = textBot({ proEnabled: true, generationsUsed: FREE_LIMITS.generationsPerDay - 1 });
     await bot.text(TEXT);
     await bot.tap("x:add:1");
     expect(bot.generations).toHaveLength(1);

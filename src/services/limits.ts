@@ -6,7 +6,7 @@ export const FREE_LIMITS = {
   ownDecks: 3,
   ownNotes: 300,
   /** AI card generations per learning day; cache hits are free (§4.1a). */
-  generationsPerDay: 10,
+  generationsPerDay: 5,
   /** Texts run through «Слова из текста» per learning day (§4.3, §9.1). */
   textsPerDay: 1,
 } as const;

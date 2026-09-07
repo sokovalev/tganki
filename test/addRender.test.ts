@@ -6,6 +6,7 @@ import { renderActions } from "../src/bot/session.js";
 import type { PendingCard } from "../src/db/schema.js";
 import { createI18n, SUPPORTED_LOCALES, translator } from "../src/i18n/index.js";
 import type { GeneratedCard } from "../src/llm/types.js";
+import { FREE_LIMITS } from "../src/services/limits.js";
 import type { SessionView } from "../src/services/sessionService.js";
 
 const i18n = createI18n();
@@ -147,7 +148,7 @@ describe("manual question", () => {
 
   it("explains a spent daily budget", () => {
     const screen = askScreen(ru, { front: "x", deckTitle: "d", rev: 1, reason: "limit" });
-    expect(screen.text.split("\n")[0]).toContain("10");
+    expect(screen.text.split("\n")[0]).toContain(String(FREE_LIMITS.generationsPerDay));
   });
 });
 
